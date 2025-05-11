@@ -1,0 +1,50 @@
+{
+  "version": "0.1.9",
+  "name": "vuesp-components",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vuesp-components.umd.js",
+  "module": "./dist/vuesp-components.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vuesp-components.es.js",
+      "require": "./dist/vuesp-components.umd.js"
+    },
+    "./dist/vuesp-components.css": {
+      "import": "./dist/vuesp-components.css",
+      "require": "./dist/vuesp-components.css"
+    }
+  },
+  "types": "./dist/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bondrogeen/vuesp-components"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build ",
+    "preserve": "vite build",
+    "serve": "vite preview --port 5050",
+    "typecheck": "vue-tsc --noEmit",
+    "preview": "vite preview",
+    "test": "exit 0"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.6",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "tailwindcss": "^4.1.6",
+    "vite-plugin-dts": "^4.5.3",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "@vue/tsconfig": "^0.7.0",
+    "prettier": "^3.5.3",
+    "typescript": "~5.7.2",
+    "vite": "^6.3.1",
+    "vue-tsc": "^2.2.8"
+  }
+}
