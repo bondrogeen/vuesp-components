@@ -1,7 +1,6 @@
 import IconBurger from '@/components/icons/IconBurger.vue';
 import IconChevron from '@/components/icons/IconChevron.vue';
 import IconClose from '@/components/icons/IconClose.vue';
-import IconDark from '@/components/icons/IconDark.vue';
 import IconDashboard from '@/components/icons/IconDashboard.vue';
 import IconDevice from '@/components/icons/IconDevice.vue';
 import IconDots from '@/components/icons/IconDots.vue';
@@ -9,7 +8,7 @@ import IconEyeClose from '@/components/icons/IconEyeClose.vue';
 import IconEyeOpen from '@/components/icons/IconEyeOpen.vue';
 import IconFile from '@/components/icons/IconFile.vue';
 import IconFolder from '@/components/icons/IconFolder.vue';
-import IconLight from '@/components/icons/IconLight.vue';
+import IconTheme from '@/components/icons/IconTheme.vue';
 import IconLogo from '@/components/icons/IconLogo.vue';
 import IconLogoMini from '@/components/icons/IconLogoMini.vue';
 import IconLogout from '@/components/icons/IconLogout.vue';
@@ -24,7 +23,7 @@ export {
   IconBurger,
   IconChevron,
   IconClose,
-  IconDark,
+  IconTheme,
   IconDashboard,
   IconDevice,
   IconDots,
@@ -32,7 +31,6 @@ export {
   IconEyeOpen,
   IconFile,
   IconFolder,
-  IconLight,
   IconLogo,
   IconLogoMini,
   IconLogout,
