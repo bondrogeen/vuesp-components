@@ -34,7 +34,7 @@ const colors: { [index: string]: string } = { green, red, gray, blue };
 
 const types: { [index: string]: string } = {
   button: 'px-4',
-  icon: 'h-10 w-10 rounded-full border border-gray-200',
+  icon: 'h-10 w-10 rounded-full border border-gray-200 dark:border-gray-800',
 };
 
 const sizes: { [index: string]: string } = { normal: 'h-10', small: 'h-8' };
@@ -43,7 +43,7 @@ const getSize = (size: string): any => sizes?.[size] || '';
 
 const getType = (type: string): any => types?.[type] || '';
 
-const getColor = (color: string): any => `${outline ? 'dark:text-white' : 'text-white'} ${colors?.[color] || ''}`;
+const getColor = (color: string): any => (type === 'icon' ? '' : `${outline ? 'dark:text-white' : 'text-white'} ${colors?.[color] || ''}`);
 
 const getClass = computed(() => [gefClass, getColor(color), getType(type), getSize(size), { 'w-full': block }]);
 </script>
