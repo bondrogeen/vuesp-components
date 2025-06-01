@@ -179,7 +179,6 @@ import {
 } from '@/components/icons/index.ts';
 
 import { VCardGray } from '@/components/cards/index.ts';
-import { table } from 'console';
 
 const input = ref('');
 const select = ref('item1');
