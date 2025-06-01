@@ -1,6 +1,6 @@
 <template>
   <div v-outside="outside" class="relative">
-    <div class="flex items-center cursor-pointer translate-0.5">
+    <div class="flex items-center cursor-pointer">
       <slot name="activator" :on="{ click: onClick }" :show="isShown"></slot>
     </div>
 
