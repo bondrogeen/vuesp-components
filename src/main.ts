@@ -1,6 +1,11 @@
-import { createApp } from "vue";
-import App from "./App.vue";
+import { createApp } from 'vue';
+import App from './App.vue';
+import directives from '@/utils/directives/index.ts';
 
-import "@/assets/tailwind.css";
+import '@/assets/tailwind.css';
 
-createApp(App).mount("#app");
+const app = createApp(App);
+
+directives.forEach(({ name, directive }) => app.directive(name, directive));
+
+app.mount('#app');

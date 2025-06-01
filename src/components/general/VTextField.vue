@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full relative dark:bg-gray-800">
-    <label class="relative w-full h-[40px] border flex items-center rounded transition" :class="getClassSlot">
-      <span class="absolute left-4 transition-all rounded duration-300 -translate-y-1/2 text-gray-600 dark:text-gray-400" :class="getClassLabel">
+  <div class="w-full relative">
+    <label class="relative w-full h-[40px] border border-gray-300 dark:border-gray-700 flex items-center rounded transition dark:bg-gray-800" :class="getClassSlot">
+      <span class="absolute left-4 transition-all rounded -translate-y-1/2 text-gray-600 dark:text-gray-400" :class="getClassLabel">
         {{ label }}
       </span>
 
@@ -10,7 +10,7 @@
         :value="modelValue"
         :disabled="disabled"
         :type="type"
-        class="w-full px-4 outline-none overflow-ellipsis flex-auto overflow-hidden w-[calc(100% - 20px)] bg-transparent"
+        class="w-full h-full px-4 outline-none overflow-ellipsis flex-auto overflow-hidden w-[calc(100% - 20px)] bg-transparent"
         @focus="onFocus"
         @blur="onBlur"
         @input="onInput"
@@ -22,14 +22,14 @@
         v-if="$slots.icon"
         :disabled="disabled"
         style="flex: 0 0 50px"
-        class="h-full flex items-center justify-center text-gray-400 border-l border-gray-300 dark:border-gray-600"
+        class="h-full flex items-center justify-center text-gray-400 border-l border-gray-300 dark:border-gray-700/50"
         @click="onIcon"
       >
         <slot name="icon"></slot>
       </button>
     </label>
 
-    <div v-if="!hideMessage && message" class="text-red-500 h-[24px] px-2 text-xs">
+    <div v-if="!hideMessage" class="text-red-500 h-[24px] px-2 text-xs">
       <slot name="message">
         {{ message }}
       </slot>
@@ -56,8 +56,8 @@ const emit = defineEmits(['update:modelValue', 'click', 'on-icon', 'enter', 'blu
 const isFocus = ref(false);
 
 const getClassSlot = computed(() => [
-  props.message ? 'border-red-500 hover:border-red-400' : '',
-  props.disabled ? 'border-gray-400 opacity-50 hover:border-gray-400' : 'border-gray-300 dark:border-gray-600 hover:border-secondary',
+  props.message ? 'border-red-500 hover:border-red-400 dark:border-red-700 hover:dark:border-red-800' : '',
+  props.disabled ? 'border-gray-400 opacity-40' : 'border-gray-300 hover:border-gray-400 dark:border-gray-700/50 hover:dark:border-gray-600/50',
 ]);
 
 const isValue = (value) => value || value === 0;

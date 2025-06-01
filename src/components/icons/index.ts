@@ -12,7 +12,6 @@ import IconTheme from '@/components/icons/IconTheme.vue';
 import IconLogo from '@/components/icons/IconLogo.vue';
 import IconLogoMini from '@/components/icons/IconLogoMini.vue';
 import IconLogout from '@/components/icons/IconLogout.vue';
-import IconNext from '@/components/icons/IconNext.vue';
 import IconNoti from '@/components/icons/IconNoti.vue';
 import IconSave from '@/components/icons/IconSave.vue';
 import IconSearch from '@/components/icons/IconSearch.vue';
@@ -34,7 +33,6 @@ export {
   IconLogo,
   IconLogoMini,
   IconLogout,
-  IconNext,
   IconNoti,
   IconSave,
   IconSearch,

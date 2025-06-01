@@ -1,28 +1,31 @@
 <template>
   <nav>
     <ol class="flex items-center gap-1.5">
-      <li>
-        <a class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" href="index.html">
-          Home
-          <svg class="stroke-current" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6.0765 12.667L10.2432 8.50033L6.0765 4.33366" stroke="" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </a>
+      <li v-for="(item, i) of items" :key="i" class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" :class="item.path ? '' : 'text-gray-800 dark:text-white/90'">
+        <slot :item="item">
+          <component :is="item.path ? 'a' : 'span'" :href="item.path">
+            {{ item.name }}
+          </component>
+        </slot>
+        <IconChevron v-if="item.path" class="rotate-270"></IconChevron>
       </li>
-      <li class="text-sm text-gray-800 dark:text-white/90" x-text="pageName">Basic Tables</li>
     </ol>
   </nav>
 </template>
 
 <script setup lang="ts">
-interface Props {
-  block?: boolean;
-  color?: string;
-  size?: string;
-  type?: string;
+import IconChevron from '@/components/icons/IconChevron.vue';
+
+interface TypeItem {
+  name: string;
+  path?: string;
 }
 
-const { color = '', block, size = 'normal', type = 'button' } = defineProps<Props>();
+interface Props {
+  items?: TypeItem[];
+}
+
+const { items = [] } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'click', value: Event): void;

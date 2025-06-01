@@ -1,10 +1,16 @@
 <template>
   <button :class="getClass" @click="onClick">
-    <slot></slot>
+    <span :class="loading ? 'opacity-0' : ''">
+      <slot></slot>
+    </span>
+
+    <VLoader v-if="loading" class="absolute left-1/2 -translate-x-1/2" />
   </button>
 </template>
 
 <script setup lang="ts">
+import { VLoader } from '@/components/general/index.ts';
+
 import { defineProps, defineEmits, computed } from 'vue';
 
 interface Props {
@@ -13,9 +19,10 @@ interface Props {
   color?: string;
   size?: string;
   type?: string;
+  loading?: boolean;
 }
 
-const { color = 'gray', block, size = 'normal', type = 'button', outline = false } = defineProps<Props>();
+const { color = 'gray', block, size = 'normal', type = 'button', outline = false, loading = false } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'click', value: Event): void;

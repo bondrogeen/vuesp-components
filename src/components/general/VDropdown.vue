@@ -1,10 +1,17 @@
 <template>
   <div v-outside="outside" class="relative">
-    <div class="flex items-center cursor-pointer">
+    <div class="flex items-center cursor-pointer translate-0.5">
       <slot name="activator" :on="{ click: onClick }" :show="isShown"></slot>
     </div>
-    
-    <transition name="slide">
+
+    <transition
+      enter-active-class="duration-300 ease-out"
+      enter-from-class="transform opacity-0 -translate-y-2"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="duration-200 ease-in"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="transform opacity-0 -translate-y-2"
+    >
       <div v-if="isShown" class="z-10 min-w-full absolute overflow-auto shadow-lg" :style="getStyle" @click="onClick">
         <slot :show="onShow" :hide="hide" :is-shown="isShown"></slot>
       </div>
@@ -36,11 +43,11 @@ const onClick = () => {
   else if (props.hideOnClick) hide();
   emit('click', isShown.value);
 };
-const onShow = e => {
+const onShow = (e) => {
   isShown.value = true;
   emit('show', e);
 };
-const hide = e => {
+const hide = (e) => {
   isShown.value = false;
   emit('close', e);
 };

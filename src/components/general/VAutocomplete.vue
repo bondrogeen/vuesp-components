@@ -1,11 +1,9 @@
 <template>
-  <VDropdown v-bind="$attrs">
+  <VDropdown v-bind="$attrs" top="50px">
     <template #activator="{ show, on }">
-      <VTextField :value="show ? search : currentUser" :placeholder="show ? 'Поиск' : placeholder" @click="on.click" @input="onInput" @focus="search = ''">
+      <VTextField :value="show ? search : currentUser" :placeholder="show ? 'Search' : placeholder" @click="on.click" @input="onInput" @on-icon="on.click" @focus="search = ''">
         <template #icon>
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
-            <path d="M1 1L5 5L9 1" stroke="#ABB5BE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
+          <IconChevron class="transition" :class="getClass(show)"></IconChevron>
         </template>
       </VTextField>
     </template>
@@ -26,6 +24,7 @@ import { ref, computed, defineProps, defineEmits } from 'vue';
 import VTextField from '@/components/general/VTextField.vue';
 import VDropdown from '@/components/general/VDropdown.vue';
 import VList from '@/components/general/VList.vue';
+import IconChevron from '@/components/icons/IconChevron.vue';
 
 const props = defineProps({
   value: { type: String, default: '' },
@@ -38,12 +37,17 @@ defineEmits(['change']);
 const search = ref('');
 
 const currentUser = computed(() => props.value);
+
 const getList = computed(() => {
   const list = props?.list || [];
   return list.filter((i) => (search.value ? i[props.valueName].toLowerCase().includes(search.value.toLowerCase()) : true));
 });
+
 const placeholder = computed(() => props.placeholder);
+
 const isEmpty = computed(() => Boolean(!getList?.value?.length));
 
 const onInput = (e) => (search.value = e.target.value);
+
+const getClass = (show) => ({ 'rotate-x-180': show });
 </script>
