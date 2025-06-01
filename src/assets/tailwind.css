@@ -1,3 +1,38 @@
 @import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  html {
+    font-family: 'Roboto', sans-serif;
+
+    @apply min-h-screen leading-[140%] text-base md:overflow-y-scroll;
+  }
+  body {
+    @apply min-h-screen min-w-[320px] text-gray-900 bg-gray-50 dark:bg-gray-900 dark:text-white transition;
+  }
+  input {
+    outline: none;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 9999s ease-in-out 0s;
+  }
+  .dark {
+    input::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+    }
+  }
+  input {
+    background: transparent;
+  }
+}

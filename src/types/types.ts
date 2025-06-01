@@ -1,7 +1,9 @@
+import type { Component } from "vue"
+
 export interface TypeVList {
   id?: number;
   name: string;
-  icon?: string;
+  icon?: Component;
   event?: string;
 }
 
