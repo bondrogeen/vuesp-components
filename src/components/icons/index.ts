@@ -17,6 +17,9 @@ import IconSave from '@/components/icons/IconSave.vue';
 import IconSearch from '@/components/icons/IconSearch.vue';
 import IconUpdate from '@/components/icons/IconUpdate.vue';
 import IconVideo from '@/components/icons/IconVideo.vue';
+import IconGpio from '@/components/icons/IconGpio.vue';
+import IconStore from '@/components/icons/IconStore.vue';
+import IconSetting from '@/components/icons/IconSetting.vue';
 
 export {
   IconBurger,
@@ -38,4 +41,7 @@ export {
   IconSearch,
   IconUpdate,
   IconVideo,
+  IconGpio,
+  IconStore,
+  IconSetting,
 };
