@@ -62,7 +62,7 @@ const getClassSlot = computed(() => [
 
 const isValue = (value) => value || value === 0;
 
-const after = 'after:absolute after:h-1 after:w-full after:left-0 after:translate-y-[6px] after:-z-10 dark:after:bg-gray-800 after:bg-white';
+const after = 'after:absolute after:h-1 after:w-full after:left-0 after:translate-y-[6px] after:-z-10 dark:after:bg-gray-800 after:bg-white after:transition-all';
 
 const getClassLabel = computed(() => [after, isFocus.value || isValue(props.modelValue) || props.active ? 'top-0 left-3 text-xs' : 'top-1/2']);
 
