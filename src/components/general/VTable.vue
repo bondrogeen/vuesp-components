@@ -4,7 +4,7 @@
       <tr class="bg-gray-50 dark:bg-gray-800">
         <th v-for="(item, i) of headers" :key="i" class="py-2 whitespace-nowrap text-gray-500 dark:text-gray-400 font-normal px-4" :class="getClass(item)">
           <slot name="header" :item="item">
-            <div class="flex items-center px-2">
+            <div class="flex items-center">
               {{ item.name }}
             </div>
           </slot>
