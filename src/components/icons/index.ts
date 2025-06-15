@@ -21,6 +21,22 @@ import IconGpio from '@/components/icons/IconGpio.vue';
 import IconStore from '@/components/icons/IconStore.vue';
 import IconSetting from '@/components/icons/IconSetting.vue';
 
+import IconVent from '@/components/icons/IconVent.vue';
+import IconTv from '@/components/icons/IconTv.vue';
+import IconTherm from '@/components/icons/IconTherm.vue';
+import IconTemp from '@/components/icons/IconTemp.vue';
+import IconSocket from '@/components/icons/IconSocket.vue';
+import IconPower from '@/components/icons/IconPower.vue';
+import IconLock from '@/components/icons/IconLock.vue';
+import IconLight from '@/components/icons/IconLight.vue';
+import IconHeater from '@/components/icons/IconHeater.vue';
+import IconGarage from '@/components/icons/IconGarage.vue';
+import IconDrop from '@/components/icons/IconDrop.vue';
+import IconCold from '@/components/icons/IconCold.vue';
+import IconCamera from '@/components/icons/IconCamera.vue';
+import IconBulb from '@/components/icons/IconBulb.vue';
+import IconAir from '@/components/icons/IconAir.vue';
+
 export {
   IconBurger,
   IconChevron,
@@ -44,4 +60,19 @@ export {
   IconGpio,
   IconStore,
   IconSetting,
+  IconVent,
+  IconTv,
+  IconTherm,
+  IconTemp,
+  IconSocket,
+  IconPower,
+  IconLock,
+  IconLight,
+  IconHeater,
+  IconGarage,
+  IconDrop,
+  IconCold,
+  IconCamera,
+  IconBulb,
+  IconAir,
 };
