@@ -24,7 +24,6 @@ import IconSetting from '@/components/icons/IconSetting.vue';
 import IconVent from '@/components/icons/IconVent.vue';
 import IconTv from '@/components/icons/IconTv.vue';
 import IconTherm from '@/components/icons/IconTherm.vue';
-import IconTemp from '@/components/icons/IconTemp.vue';
 import IconSocket from '@/components/icons/IconSocket.vue';
 import IconPower from '@/components/icons/IconPower.vue';
 import IconLock from '@/components/icons/IconLock.vue';
@@ -63,7 +62,6 @@ export {
   IconVent,
   IconTv,
   IconTherm,
-  IconTemp,
   IconSocket,
   IconPower,
   IconLock,
