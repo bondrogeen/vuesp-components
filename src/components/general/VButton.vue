@@ -1,5 +1,5 @@
 <template>
-  <button :class="getClass" @click="onClick">
+  <button :class="getClass" :disabled="disabled" @click="onClick">
     <span :class="loading ? 'opacity-0' : ''">
       <slot></slot>
     </span>
@@ -20,9 +20,10 @@ interface Props {
   size?: string;
   type?: string;
   loading?: boolean;
+  disabled?: boolean;
 }
 
-const { color = 'gray', block, size = 'normal', type = 'button', outline = false, loading = false } = defineProps<Props>();
+const { color = 'gray', block, size = 'normal', type = 'button', outline = false, loading = false, disabled = false } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'click', value: Event): void;

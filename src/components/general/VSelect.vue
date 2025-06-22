@@ -1,7 +1,7 @@
 <template>
   <VDropdown class="relative w-full" v-bind="$attrs" top="50px">
     <template #activator="{ on, show }">
-      <VTextField :model-value="value" readonly active :label="label" @click="on.click" @on-icon="on.click">
+      <VTextField :model-value="getValue" readonly :disabled="disabled" active :label="label" @click="on.click" @on-icon="on.click">
         <template #icon>
           <IconChevron class="transition" :class="getClass(show)"></IconChevron>
         </template>
@@ -14,24 +14,32 @@
   </VDropdown>
 </template>
 
-<script setup>
-import { defineProps, defineEmits } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
 
 import IconChevron from '@/components/icons/IconChevron.vue';
 import VTextField from '@/components/general/VTextField.vue';
 import VDropdown from '@/components/general/VDropdown.vue';
 import VList from '@/components/general/VList.vue';
 
-defineProps({
-  value: { type: String, default: '' },
-  valueName: { type: String, default: 'name' },
-  label: { type: String, default: '' },
-  list: { type: Array, default: () => [] },
-});
+interface Props {
+  value?: number | string;
+  valueName?: string;
+  label: string;
+  disabled?: boolean;
+  list?: any[];
+}
 
-const emit = defineEmits(['change']);
+const { valueName = 'name', value = '', list = [], disabled = false } = defineProps<Props>();
 
-const onChange = (e) => emit('change', e);
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: Event): void;
+  (e: 'change', item: any): void;
+}>();
 
-const getClass = (show) => ({ 'rotate-x-180': show });
+const getValue = computed(() => list.find((i) => i.value === value)?.[valueName] || '');
+
+const getClass = (show: boolean) => ({ 'rotate-x-180': show });
+
+const onChange = (item: any) => emit('change', item);
 </script>
