@@ -2,14 +2,14 @@
   <CardBase v-bind="props" @click="onClick">
     <template #header>
       <div class="flex justify-end">
-        <v-button type="icon" size="sm" class=" text-gray-500" @click.stop="setState">
+        <v-button type="icon" size="sm" class="text-gray-500" @click.stop="setState">
           <icon-power class="size-10" />
         </v-button>
       </div>
     </template>
     <template #dialog>
       <div class="flex justify-center py-4">
-        <v-button type="icon" size="sm" class="h-18 w-18" :class="props.value ? 'text-blue-600 dark:text-blue-400' : 'text-amber-500'" @click.stop="setState">
+        <v-button type="icon" size="sm" class="h-18 w-18" :class="props.value ? 'text-amber-500' : 'text-blue-600 dark:text-blue-400'" @click.stop="setState">
           <icon-power class="size-16" />
         </v-button>
       </div>
