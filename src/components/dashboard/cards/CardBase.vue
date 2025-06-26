@@ -53,8 +53,9 @@ const emit = defineEmits<{
 const { name, value, icon, min, type, max, modifyValue } = defineProps<TypeProperty>();
 
 const getIcon = computed(() => (icon ? `icon-${icon}` : 'icon-therm'));
+
 const getColorValue = computed(() => {
-  if (['button', 'switch'].includes(type || '')) return !value ? 'text-amber-500' : 'text-gray-400';
+  if (['button', 'switch'].includes(type || '')) return value ? 'text-amber-500' : 'text-gray-400';
   return 'text-gray-400';
 });
 

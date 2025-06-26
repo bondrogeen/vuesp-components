@@ -5,7 +5,7 @@
     </template>
     <template #dialog>
       <div class="flex justify-center py-4">
-        <v-button type="icon" size="sm" class="h-18 w-18" @click.stop="setState" :class="props.value ? 'text-blue-600 dark:text-blue-400' : 'text-amber-500'">
+        <v-button type="icon" size="sm" class="h-18 w-18" @click.stop="setState" :class="props.value ? 'text-amber-500' : 'text-blue-600 dark:text-blue-400'">
           <icon-power class="size-16" />
         </v-button>
       </div>
