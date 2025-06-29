@@ -3,7 +3,7 @@
     <ol class="flex items-center gap-1.5">
       <li v-for="(item, i) of items" :key="i" class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" :class="item.path ? '' : 'text-gray-800 dark:text-white/90'">
         <slot :item="item">
-          <component :is="item.path ? 'a' : 'span'" :href="item.path">
+          <component :is="item.path ? 'a' : 'span'" :href="item.path" @click="emit('click', $event)">
             {{ item.name }}
           </component>
         </slot>

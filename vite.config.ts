@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import path from 'path';
+import { fileURLToPath, URL } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import typescript2 from 'rollup-plugin-typescript2';
 import dts from 'vite-plugin-dts';
+
+const path = fileURLToPath(new URL('./src', import.meta.url));
 
 export default defineConfig({
   plugins: [
@@ -30,22 +32,25 @@ export default defineConfig({
     }),
   ],
   resolve: {
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     alias: {
-      '@/': new URL('./src/', import.meta.url).pathname,
+      '@': path,
     },
   },
 
   build: {
     target: 'esnext',
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
+      entry: `${path}/index.ts`,
       name: 'VuespComponents',
       fileName: (format) => `vuesp-components.${format}.js`,
     },
-
+    // filenameHashing: false,
+    cssCodeSplit: false,
     rollupOptions: {
       external: ['vue'],
       output: {
+        inlineDynamicImports: true,
         globals: {
           vue: 'Vue',
         },

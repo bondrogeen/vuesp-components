@@ -1,4 +1,4 @@
-import type { Component } from "vue"
+import type { Component } from 'vue';
 
 export interface TypeVList {
   id?: number;
@@ -143,4 +143,40 @@ export interface TypeStateApp {
   dialog: TypeDialog;
   notifications: TypeNotificationItem[];
   struct: {};
+}
+
+export interface TypeSelectList {
+  name: string;
+  value: string | number;
+}
+
+export interface TypePropertyString {
+  id: string;
+  name: string;
+  keyValue: string;
+  icon?: string;
+  type?: string;
+  min?: number;
+  max?: number;
+  list?: TypeSelectList[];
+  get?: string;
+  set?: string;
+  modifyValue?: string;
+}
+
+export interface TypeProperty {
+  id: string;
+  name: string;
+  keyValue: string;
+  type?: string;
+  icon?: string;
+  value?: any;
+  min?: number;
+  max?: number;
+  list?: TypeSelectList[];
+  get?: (output: any) => any;
+  set?: (output: any, value: any) => any;
+  modifyValue?: (value: any) => any;
+  getItem?: (output: any) => any;
+  setItem?: (output: any, value: any) => any;
 }

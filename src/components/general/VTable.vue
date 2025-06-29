@@ -37,9 +37,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue';
-import { onMounted, ref } from 'vue';
-
 interface Props {
   headers: any[];
   items: any[];

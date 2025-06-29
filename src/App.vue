@@ -133,28 +133,10 @@
 </template>
 
 <script setup lang="ts">
-import type { ComputedRef } from 'vue';
-
 import { ref } from 'vue';
 import type { TypeVList } from '@/types/types.ts';
 
-import {
-  VAutocomplete,
-  VBreadcrumb,
-  VButton,
-  VLoader,
-  VCheckbox,
-  VDropdown,
-  VExpansion,
-  VList,
-  VNotification,
-  VSelect,
-  VTextarea,
-  VTextField,
-  VTextFieldFile,
-  VTable,
-  WifiIcon,
-} from '@/components/general/index.ts';
+import { VAutocomplete, VBreadcrumb, VButton, VCheckbox, VDropdown, VList, VSelect, VTextarea, VTextField, VTextFieldFile, VTable } from '@/components/general/index.ts';
 
 import {
   IconBurger,
@@ -169,7 +151,6 @@ import {
   IconFile,
   IconFolder,
   IconLogo,
-  IconLogoMini,
   IconLogout,
   IconNoti,
   IconSave,

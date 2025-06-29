@@ -5,6 +5,7 @@ import CardDimmer from '@/components/dashboard/cards/CardDimmer.vue';
 import CardInfo from '@/components/dashboard/cards/CardInfo.vue';
 import CardInput from '@/components/dashboard/cards/CardInput.vue';
 import CardSwitch from '@/components/dashboard/cards/CardSwitch.vue';
+import CardList from '@/components/dashboard/cards/CardList.vue';
 import BlockItemEdit from '@/components/dashboard/BlockItemEdit.vue';
 
-export { CardBase, CardButton, CardDate, CardDimmer, CardInfo, CardInput, CardSwitch, BlockItemEdit };
+export { CardBase, CardButton, CardDate, CardDimmer, CardInfo, CardInput, CardSwitch, CardList, BlockItemEdit };
