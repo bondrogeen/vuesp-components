@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import type { Ref } from 'vue';
-import type { TypePropertyString } from '@/vuesp-data/types.ts';
+import type { TypePropertyString } from '@/types/types.ts';
 
 import { computed, onMounted, ref } from 'vue';
 

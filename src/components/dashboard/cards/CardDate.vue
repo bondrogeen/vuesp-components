@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TypeProperty } from '@/vuesp-data/types.ts';
+import type { TypeProperty } from '@/types/types.ts';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 

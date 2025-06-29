@@ -1,13 +1,16 @@
 <template>
   <CardBase v-bind="props" @click="onClick">
-    <template #header>
-      <div class="flex justify-end"></div>
+    <template #value="item">
+      {{ getValue(item) }}
     </template>
-    <template #dialog>
+
+    <template #dialog-value="item">
+      {{ getValue(item) }}
+    </template>
+
+    <template #dialog="{ name, value, list }">
       <div class="flex justify-center py-4">
-        <v-button type="icon" size="sm" class="h-18 w-18" @click.stop="setState" :class="props.value ? 'text-amber-500' : 'text-blue-600 dark:text-blue-400'">
-          <icon-power class="size-16" />
-        </v-button>
+        <VSelect :value="value" :label="name" :list="list" @change="setState" />
       </div>
     </template>
   </CardBase>
@@ -17,6 +20,7 @@
 import type { TypeProperty } from '@/types/types.ts';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
+import VSelect from '@/components/general/VSelect.vue';
 
 const emit = defineEmits<{
   (e: 'click', event: Event): void;
@@ -26,5 +30,6 @@ const emit = defineEmits<{
 const props = defineProps<TypeProperty>();
 
 const onClick = (event: Event) => emit('click', event);
-const setState = () => emit('setState', props);
+const setState = ({ value }: any) => emit('setState', { ...props, value });
+const getValue = ({ list, value }: any) => (Array.isArray(list) ? list.find((i) => i.value === value)?.name : value + '12121');
 </script>

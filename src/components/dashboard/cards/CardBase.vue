@@ -11,9 +11,19 @@
     </div>
 
     <div>
-      <h6 class="text-sm text-gray-500 font-medium text-ellipsis overflow-hidden text-nowrap">{{ name }}</h6>
+      <slot name="body" v-bind="bind">
+        <h6 class="text-sm text-gray-500 font-medium text-ellipsis overflow-hidden text-nowrap">
+          <slot name="name" v-bind="bind">
+            {{ name }}
+          </slot>
+        </h6>
 
-      <div class="text-sm text-ellipsis overflow-hidden text-nowrap">{{ getModifyValue(value) }}</div>
+        <div class="text-sm text-ellipsis overflow-hidden text-nowrap">
+          <slot name="value" v-bind="bind">
+            {{ getModifyValue(value) }}
+          </slot>
+        </div>
+      </slot>
     </div>
 
     <AppDialog v-if="dialog" size="sm" :title="name" @close="dialog = false">
@@ -27,11 +37,19 @@
 
       <div class="min-h-60 relative">
         <div class="pt-6">
-          <h3 class="text-center text-3xl text-ellipsis overflow-hidden">{{ name }}</h3>
+          <h3 class="text-center text-3xl text-ellipsis overflow-hidden">
+            <slot name="dialog-name" v-bind="bind">
+              {{ name }}
+            </slot>
+          </h3>
 
           <slot name="dialog" v-bind="bind"></slot>
 
-          <p class="text-center text-xl mt-4">{{ getModifyValue(value) }}</p>
+          <p class="text-center text-xl mt-4">
+            <slot name="dialog-value" v-bind="bind">
+              {{ getModifyValue(value) }}
+            </slot>
+          </p>
         </div>
       </div>
     </AppDialog>
@@ -39,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TypeProperty } from '@/vuesp-data/types.ts';
+import type { TypeProperty } from '@/types/types.ts';
 import { ref, computed } from 'vue';
 
 import AppDialog from '@/components/app/AppDialog.vue';
@@ -50,7 +68,7 @@ const emit = defineEmits<{
   (e: 'edit', event: Event): void;
 }>();
 
-const { name, value, icon, min, type, max, modifyValue } = defineProps<TypeProperty>();
+const { name, value, icon, min, type, max, list, modifyValue } = defineProps<TypeProperty>();
 
 const getIcon = computed(() => (icon ? `icon-${icon}` : 'icon-therm'));
 
@@ -66,10 +84,11 @@ const onClick = () => (dialog.value = true);
 const getModifyValue = (value: any) => modifyValue?.(value) || value;
 
 const bind = computed(() => ({
-  value: value,
+  value,
   name,
   min,
   max,
+  list,
   modify: getModifyValue(value),
   icon: getIcon.value,
 }));
