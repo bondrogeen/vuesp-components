@@ -7,6 +7,7 @@
             {{ item.name }}
           </component>
         </slot>
+
         <IconChevron v-if="item.path" class="rotate-270"></IconChevron>
       </li>
     </ol>
@@ -14,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import IconChevron from '@/components/icons/IconChevron.vue';
+import IconChevron from '@/assets/icons/IconChevron.svg';
 
 interface TypeItem {
   name: string;

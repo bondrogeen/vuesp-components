@@ -5,7 +5,7 @@
   >
     <div class="flex-auto flex justify-between">
       <div :class="getColorValue">
-        <component :is="getIcon" class="size-8" />
+        <VIcons :name="icon || ''" class="size-8" />
       </div>
       <slot name="header" v-bind="bind"></slot>
     </div>
@@ -29,9 +29,9 @@
     <AppDialog v-if="dialog" size="sm" :title="name" @close="dialog = false">
       <template #header>
         <div class="flex-auto flex items-center justify-between gap-6 me-2">
-          <v-button type="icon" size="" @click="onEdit">
-            <icon-dots />
-          </v-button>
+          <VButton type="icon" size="" @click="onEdit">
+            <VIcons name="IconDots" class="size-8" />
+          </VButton>
         </div>
       </template>
 
@@ -57,10 +57,11 @@
 </template>
 
 <script setup lang="ts">
-import type { TypeProperty } from '@/types/types.ts';
-import { ref, computed } from 'vue';
+import { ref, computed, defineEmits, defineProps } from 'vue';
+import type { TypeProperty } from '@/types/types';
 
-import AppDialog from '@/components/app/AppDialog.vue';
+import VIcons from '@/components/general/VIcons.vue';
+import VButton from '@/components/general/VButton.vue';
 
 const dialog = ref(false);
 
@@ -68,9 +69,9 @@ const emit = defineEmits<{
   (e: 'edit', event: Event): void;
 }>();
 
-const { name, value, icon, min, type, max, list, modifyValue } = defineProps<TypeProperty>();
+export interface IProps extends TypeProperty {}
 
-const getIcon = computed(() => (icon ? `icon-${icon}` : 'icon-therm'));
+const { name, value, icon, min, type, max, list, modifyValue } = defineProps<IProps>();
 
 const getColorValue = computed(() => {
   if (['button', 'switch'].includes(type || '')) return value ? 'text-amber-500' : 'text-gray-400';
@@ -90,6 +91,6 @@ const bind = computed(() => ({
   max,
   list,
   modify: getModifyValue(value),
-  icon: getIcon.value,
+  icon,
 }));
 </script>

@@ -1,52 +1,44 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import { fileURLToPath, URL } from 'node:url';
-import tailwindcss from '@tailwindcss/vite';
-import typescript2 from 'rollup-plugin-typescript2';
 import dts from 'vite-plugin-dts';
+import * as path from 'path';
+import tailwindcss from '@tailwindcss/vite';
+import svgLoader from 'vite-svg-loader';
 
-const path = fileURLToPath(new URL('./src', import.meta.url));
-
-export default defineConfig({
+export default defineConfig(() => ({
+  root: __dirname,
+  cacheDir: '../../node_modules/.vite/libs/my-lib',
   plugins: [
     vue(),
     tailwindcss(),
+    svgLoader({ svgoConfig: { plugins: [{ name: 'preset-default', params: { overrides: { removeViewBox: false } } }] } }),
     dts({
-      insertTypesEntry: true,
-      include: ['src'],
-      rollupTypes: true,
-      tsconfigPath: './tsconfig.app.json',
-    }),
-    typescript2({
-      check: false,
-      include: ['src/components/**/*.vue'],
-      tsconfigOverride: {
-        compilerOptions: {
-          outDir: 'dist',
-          sourceMap: true,
-          declaration: true,
-          declarationMap: true,
-        },
-      },
-      exclude: ['vite.config.ts', 'index.ts'],
+      entryRoot: 'src',
+      tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),
     }),
   ],
   resolve: {
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     alias: {
-      '@': path,
+      '@': path.resolve(__dirname, 'src'),
     },
   },
-
   build: {
-    target: 'esnext',
-    lib: {
-      entry: `${path}/index.ts`,
-      name: 'VuespComponents',
-      fileName: (format) => `vuesp-components.${format}.js`,
+    outDir: './dist',
+    emptyOutDir: true,
+    reportCompressedSize: true,
+    commonjsOptions: {
+      transformMixedEsModules: true,
     },
-    // filenameHashing: false,
-    cssCodeSplit: false,
+    lib: {
+      // Could also be a dictionary or array of multiple entry points.
+      entry: 'src/index.ts',
+      name: 'vuesp-components',
+      fileName: 'index',
+      // Change this to the formats you want to support.
+      // Don't forget to update your package.json as well.
+      formats: ['es' as const],
+    },
     rollupOptions: {
       external: ['vue'],
       output: {
@@ -57,9 +49,4 @@ export default defineConfig({
       },
     },
   },
-
-  server: {
-    host: '0.0.0.0',
-    port: 3000,
-  },
-});
+}));

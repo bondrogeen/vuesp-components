@@ -19,35 +19,41 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, defineProps, defineEmits } from 'vue';
 
-const props = defineProps({
-  top: { type: String, default: 'calc(100% + 5px)' },
-  left: { type: String, default: '0' },
-  right: { type: String, default: '' },
-  hideOnClick: { type: Boolean, default: true },
-  height: { type: String, default: '200px' },
-});
+interface Props {
+  top?: string;
+  left?: string;
+  right?: string;
+  height?: string;
+  hideOnClick?: boolean;
+}
 
-const emit = defineEmits(['click', 'show', 'close']);
+const { top = 'calc(100% + 5px)', left = '0', right = '', height = '200px', hideOnClick = false } = defineProps<Props>();
+
+const emit = defineEmits<{
+  (e: 'click', value: boolean): void;
+  (e: 'show', value: Event): void;
+  (e: 'close', value: Event): void;
+}>();
 
 const isShown = ref(false);
-const getStyle = computed(() => ({ top: props.top, left: props.left, right: props.right, 'max-height': props.height }));
+const getStyle = computed(() => ({ top, left, right, 'max-height': height }));
 
-const outside = () => {
-  if (isShown.value) hide();
+const outside = (e: Event) => {
+  if (isShown.value) hide(e);
 };
-const onClick = () => {
-  if (!isShown.value) onShow();
-  else if (props.hideOnClick) hide();
+const onClick = (e: Event) => {
+  if (!isShown.value) onShow(e);
+  else if (hideOnClick) hide(e);
   emit('click', isShown.value);
 };
-const onShow = (e) => {
+const onShow = (e: Event) => {
   isShown.value = true;
   emit('show', e);
 };
-const hide = (e) => {
+const hide = (e: Event) => {
   isShown.value = false;
   emit('close', e);
 };

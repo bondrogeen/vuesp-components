@@ -15,12 +15,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, defineEmits, defineProps } from 'vue';
 
-import IconChevron from '@/components/icons/IconChevron.vue';
 import VTextField from '@/components/general/VTextField.vue';
 import VDropdown from '@/components/general/VDropdown.vue';
 import VList from '@/components/general/VList.vue';
+
+import IconChevron from '@/assets/icons/IconChevron.svg';
 
 interface Props {
   value?: number | string;
@@ -37,7 +38,7 @@ const emit = defineEmits<{
   (e: 'change', item: any): void;
 }>();
 
-const getValue = computed(() => list.find((i) => i.value === value)?.[valueName] || '');
+const getValue = computed(() => list.find((i: any) => i.value === value)?.[valueName] || '');
 
 const getClass = (show: boolean) => ({ 'rotate-x-180': show });
 

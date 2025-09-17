@@ -24,7 +24,7 @@ import { ref, computed, defineProps, defineEmits } from 'vue';
 import VTextField from '@/components/general/VTextField.vue';
 import VDropdown from '@/components/general/VDropdown.vue';
 import VList from '@/components/general/VList.vue';
-import IconChevron from '@/components/icons/IconChevron.vue';
+import IconChevron from '@/assets/icons/IconChevron.svg';
 
 const props = defineProps({
   value: { type: String, default: '' },

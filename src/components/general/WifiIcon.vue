@@ -13,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps } from 'vue';
+
 interface Props {
   rssi?: number;
   channel?: number;

@@ -20,9 +20,9 @@
                 </h4>
               </slot>
 
-              <v-button type="icon" size="" @click="onClose">
-                <icon-close class="h-5 w-5"></icon-close>
-              </v-button>
+              <VButton type="icon" size="" @click="onClose">
+                <IconClose class="h-5 w-5"></IconClose>
+              </VButton>
             </div>
 
             <div class="px-4 py-2 flex-auto scroll-none">
@@ -33,7 +33,7 @@
 
             <div v-if="$slots.footer || callback" class="px-4 py-2 flex justify-end">
               <slot name="footer">
-                <v-button color="blue" size="small" @click="onButton">{{ button }}</v-button>
+                <VButton color="blue" size="small" @click="onButton">{{ button }}</VButton>
               </slot>
             </div>
           </div>
@@ -46,7 +46,10 @@
 <script setup lang="ts">
 import { ref, defineProps, defineEmits, computed, onMounted } from 'vue';
 
-interface Props {
+import IconClose from '@/assets/icons/IconClose.svg';
+import VButton from '@/components/general/VButton.vue';
+
+export interface Props {
   value?: boolean;
   title?: string;
   message?: string;
