@@ -21,12 +21,14 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps, defineEmits } from 'vue';
+
 interface Props {
-  modelValue?: any;
+  modelValue?: boolean;
   disabled?: boolean;
 }
 
-const { modelValue = '', disabled } = defineProps<Props>();
+const { modelValue = false, disabled = false } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: Event): void;

@@ -11,7 +11,7 @@
         :disabled="disabled"
         :type="type"
         rows="2"
-        wrap
+        wrap="soft"
         class="h-full w-full px-4 py-2 outline-none flex-auto bg-transparent"
         @focus="onFocus"
         @blur="onBlur"
@@ -33,49 +33,57 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, defineProps, defineEmits, computed } from 'vue';
 
-const props = defineProps({
-  modelValue: { type: [String, Number], default: null },
-  label: { type: String, default: '' },
-  disabled: { type: Boolean, default: false },
-  type: { type: String, default: 'text' },
-  active: { type: Boolean, default: false },
-  hideMessage: { type: Boolean, default: false },
-  rules: { type: Array, default: () => [] },
-  message: { type: String, default: '' },
-});
+interface Props {
+  modelValue?: number | string | null;
+  label?: string;
+  type: string;
+  message: string;
+  disabled?: boolean;
+  active?: boolean;
+  hideMessage?: boolean;
+  rules?: any[];
+}
 
-const emit = defineEmits(['update:modelValue', 'click', 'on-icon', 'enter', 'blur']);
+const { modelValue = null, label = '', type = 'text', message = '', disabled = false, active = false, hideMessage = false } = defineProps<Props>();
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', event: string): void;
+  (e: 'click', event: Event): void;
+  (e: 'on-icon', event: Event): void;
+  (e: 'enter', event: Event): void;
+  (e: 'blur', event: Event): void;
+}>();
 
 const isFocus = ref(false);
 
 const getClassSlot = computed(() => [
-  props.message ? 'border-red-500 hover:border-red-400' : '',
-  props.disabled ? 'border-gray-400 opacity-40' : 'border-gray-300 hover:border-gray-400 dark:border-gray-700/50 hover:dark:border-gray-600/50',
+  message ? 'border-red-500 hover:border-red-400' : '',
+  disabled ? 'border-gray-400 opacity-40' : 'border-gray-300 hover:border-gray-400 dark:border-gray-700/50 hover:dark:border-gray-600/50',
 ]);
 
-const isValue = (value) => value || value === 0;
+const isValue = (value: number | string | null) => value || value === 0;
 
 const after = 'after:absolute after:h-1 after:w-full after:left-0 after:translate-y-[6px] after:-z-10 dark:after:bg-gray-800 after:bg-white after:transition-all';
 
-const getClassLabel = computed(() => [after, isFocus.value || isValue(props.modelValue) || props.active ? 'top-0 left-3 text-xs' : 'top-1/2']);
+const getClassLabel = computed(() => [after, isFocus.value || isValue(modelValue) || active ? 'top-0 left-3 text-xs' : 'top-1/2']);
 
-const onInput = ({ target }) => {
-  emit('update:modelValue', target.value);
+const onInput = ({ target }: Event) => {
+  emit('update:modelValue', (target as HTMLTextAreaElement).value);
 };
 
-const onBlur = (e) => {
+const onBlur = (e: Event) => {
   isFocus.value = false;
   emit('blur', e);
 };
-const onEnter = (e) => emit('enter', e);
+const onEnter = (e: Event) => emit('enter', e);
 
 const onFocus = () => (isFocus.value = true);
-const onClick = (e) => emit('click', e);
-const onIcon = (e) => {
-  if (props.disabled) return;
+const onClick = (e: Event) => emit('click', e);
+const onIcon = (e: Event) => {
+  if (disabled) return;
   emit('on-icon', e);
 };
 </script>

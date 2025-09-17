@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue';
 
-import type { TypeTextFieldEvent, TypeTextFieldInfo } from '@/types/types.ts';
+import type { TypeTextFieldEvent, TypeTextFieldInfo } from '@/types/types';
 
 const emit = defineEmits<{
   (e: 'change', value: TypeTextFieldEvent): void;

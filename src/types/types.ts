@@ -1,9 +1,8 @@
-import type { Component } from 'vue';
-
 export interface TypeVList {
-  id?: number;
+  id: number;
   name: string;
-  icon?: Component;
+  type?: string;
+  icon?: string;
   event?: string;
 }
 
@@ -56,7 +55,7 @@ export interface TypeTextFieldInfo {
   totalSize: number;
 }
 export interface TypeTextFieldEvent {
-  files: FileList;
+  files: any;
   info?: TypeTextFieldInfo;
 }
 

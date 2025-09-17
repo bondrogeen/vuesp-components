@@ -2,16 +2,17 @@
   <CardBase v-bind="props" @click="onClick">
     <template #dialog="{ value }">
       <div class="flex justify-center relative mx-2 my-6">
-        <v-text-field :modelValue="datetime(value)" type="datetime-local" label="Date" @change="onChangeDate"></v-text-field>
+        <VTextField :modelValue="datetime(value)" type="datetime-local" label="Date" @change="onChangeDate"></VTextField>
       </div>
     </template>
   </CardBase>
 </template>
 
 <script setup lang="ts">
-import type { TypeProperty } from '@/types/types.ts';
+import type { TypeProperty } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
+import VTextField from '@/components/general/VTextField.vue';
 
 const emit = defineEmits<{
   (e: 'click', event: Event): void;

@@ -2,7 +2,7 @@
   <div ref="root" class="border-b dark:border-gray-700 border-gray-200">
     <div class="cursor-pointer min-h-[60px] px-4 flex items-center justify-between" @click="onActive">
       <h4>{{ label }}</h4>
-      
+
       <div class="transition text-gray-400" :class="{ 'rotate-180': isActive }">
         <IconChevron></IconChevron>
       </div>
@@ -15,21 +15,26 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import type { Ref } from 'vue';
 import { ref, defineProps, onMounted } from 'vue';
 
-import IconChevron from '@/components/icons/IconChevron.vue';
+import IconChevron from '@/assets/icons/IconChevron.svg';
 
-const props = defineProps({
-  label: { type: String, default: '' },
-  value: { type: Boolean, default: false },
-});
+interface Props {
+  label?: string;
+  value?: boolean;
+}
 
-const root = ref(null);
-const isActive = ref(props.value);
+const { label = '', value = false } = defineProps<Props>();
+
+const root: Ref<HTMLDivElement | null> = ref(null);
+const isActive = ref(value);
 
 const onChange = () => {
-  const content = root.value.querySelector('.v-expansion__content');
+  if (!root.value) return;
+  const content: HTMLDivElement | null = root.value.querySelector('.v-expansion__content');
+  if (!content) return;
   content.style.maxHeight = isActive.value ? `${content.scrollHeight}px` : '0';
 };
 

@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import directives from '@/utils/directives/index.ts';
+import directives from '@/utils/directives/index';
 
 import '@/assets/tailwind.css';
 

@@ -9,9 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import { VLoader } from '@/components/general/index.ts';
-
 import { defineProps, defineEmits, computed } from 'vue';
+
+import VLoader from '@/components/general/VLoader.vue';
 
 interface Props {
   block?: boolean;

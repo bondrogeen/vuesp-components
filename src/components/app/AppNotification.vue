@@ -1,7 +1,7 @@
 <template>
   <div>
     <TransitionGroup name="list" tag="ul" class="flex flex-col gap-2">
-      <v-notification v-for="item of notifications" :key="item.id" v-bind="item" @close="emit('close', item)"></v-notification>
+      <VNotification v-for="item of notifications" :key="item.id" v-bind="item" @close="emit('close', item)"></VNotification>
     </TransitionGroup>
   </div>
 </template>
@@ -9,9 +9,11 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
 
-import type { TypeNotificationItem } from '@/types/types.ts';
+import type { TypeNotificationItem } from '@/types/types';
 
-interface Props {
+import VNotification from '@/components/general/VNotification.vue';
+
+export interface Props {
   notifications?: TypeNotificationItem[];
 }
 

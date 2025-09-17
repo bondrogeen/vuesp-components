@@ -1,4 +1,5 @@
 import outside from './outside';
+
 import type { Directive } from 'vue';
 
 interface ItemDirective {

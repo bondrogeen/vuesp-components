@@ -4,11 +4,13 @@
       <IconLogo></IconLogo>
     </div>
     <div>
-      <VButton color="" type="icon" @click="changeTheme">
-        <IconTheme class="h-1 w-1"></IconTheme>
+      <VButton type="icon" @click="changeTheme">
+        <IconTheme></IconTheme>
       </VButton>
     </div>
   </header>
+
+  <MyIcon />
 
   <div class="flex flex-col gap-6 p-8">
     <VBreadcrumb :items="[{ name: 'Home', path: '/' }, { name: 'List' }]"></VBreadcrumb>
@@ -86,7 +88,7 @@
           <VTextField v-model="input" label="Input" message="Error"></VTextField>
         </div>
 
-        <VTextarea v-model="input" label="Textarea" color="gray"></VTextarea>
+        <VTextField v-model="input" component="textarea" label="Textarea" color="gray"></VTextField>
 
         <VTextFieldFile color="gray"></VTextFieldFile>
 
@@ -110,7 +112,7 @@
           <div class="flex-auto flex justify-end">
             <VDropdown left="unset" right="0" top="0">
               <template #activator="{ on }">
-                <VButton type="icon" color="gray" class="flex" @click.stop="on.click()">
+                <VButton type="icon" color="gray" class="flex" @click.stop="on.click">
                   <IconDots />
                 </VButton>
               </template>
@@ -134,32 +136,30 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { TypeVList } from '@/types/types.ts';
+import type { TypeVList } from '@/types/types';
 
-import { VAutocomplete, VBreadcrumb, VButton, VCheckbox, VDropdown, VList, VSelect, VTextarea, VTextField, VTextFieldFile, VTable } from '@/components/general/index.ts';
+import IconBurger from '@/assets/icons/IconBurger.svg';
+import IconChevron from '@/assets/icons/IconChevron.svg';
+import IconClose from '@/assets/icons/IconClose.svg';
+import IconTheme from '@/assets/icons/IconTheme.svg';
+import IconEyeClose from '@/assets/icons/IconEyeClose.svg';
+import IconDots from '@/assets/icons/IconDots.svg';
+import IconDevice from '@/assets/icons/IconDevice.svg';
+import IconEyeOpen from '@/assets/icons/IconEyeOpen.svg';
+import IconFile from '@/assets/icons/IconFile.svg';
+import IconFolder from '@/assets/icons/IconFolder.svg';
+import IconLogo from '@/assets/icons/IconLogo.svg';
+import IconLogout from '@/assets/icons/IconLogout.svg';
+import IconNoti from '@/assets/icons/IconNoti.svg';
+import IconSave from '@/assets/icons/IconSave.svg';
+import IconSearch from '@/assets/icons/IconSearch.svg';
+import IconUpdate from '@/assets/icons/IconUpdate.svg';
+import IconVideo from '@/assets/icons/IconVideo.svg';
+import IconDashboard from '@/assets/icons/IconDashboard.svg';
 
-import {
-  IconBurger,
-  IconChevron,
-  IconClose,
-  IconTheme,
-  IconDashboard,
-  IconDevice,
-  IconDots,
-  IconEyeClose,
-  IconEyeOpen,
-  IconFile,
-  IconFolder,
-  IconLogo,
-  IconLogout,
-  IconNoti,
-  IconSave,
-  IconSearch,
-  IconUpdate,
-  IconVideo,
-} from '@/components/icons/index.ts';
+import { VAutocomplete, VBreadcrumb, VButton, VCheckbox, VDropdown, VList, VSelect, VTextField, VTextFieldFile, VTable } from '@/components/general/';
 
-import { VCardGray } from '@/components/cards/index.ts';
+import VCardGray from '@/components/general/VCardGray.vue';
 
 const input = ref('');
 const select = ref('item1');
