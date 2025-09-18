@@ -3,13 +3,13 @@ import { ObjectPlugin } from 'node_modules/@vue/runtime-core/dist/runtime-core';
 
 import directives from '@/utils/directives';
 
-import { VButton, VLoader, VDropdown, VList, VTextField, WifiIcon, VIcons, VCardGray } from '@/components/general';
+import { VButton, VSelect, VLoader, VDropdown, VList, VTextField, WifiIcon, VIcons, VCardGray } from '@/components/general';
 import * as dashboard from '@/components/dashboard';
 import * as app from '@/components/app';
 
 import '@/assets/tailwind.css';
 
-const components: any = { ...app, ...dashboard, VButton, VLoader, VDropdown, VList, VTextField, WifiIcon, VIcons, VCardGray };
+const components: any = { ...app, ...dashboard, VButton, VLoader, VDropdown, VList, VTextField, VSelect, WifiIcon, VIcons, VCardGray };
 
 export * from '@/components/general/';
 export * from '@/components/app/';

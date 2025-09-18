@@ -1,4 +1,4 @@
-export interface TypeVList {
+export interface IListItem {
   id: number;
   name: string;
   type?: string;
@@ -6,67 +6,56 @@ export interface TypeVList {
   event?: string;
 }
 
-export interface TypeWSSend {
+export interface ISelectList {
+  name: string;
+  value: string | number;
+}
+export interface IWSSend {
   comm: string;
   data?: any;
 }
 
-export interface TypeMenuChild {
+export interface IMenuChild {
   name: string;
   path?: string;
 }
 
-export interface TypeMenuItem {
+export interface IMenuItem {
   name: string;
   icon: string;
   path: string;
-  children?: TypeMenuChild[];
+  children?: IMenuChild[];
 }
 
-export interface TypeMenu {
-  title: string;
-  path: string;
-  items: TypeMenuItem[];
-}
-
-export interface TypeBreadcrumb {
-  name: string;
-  path?: string;
-}
-
-export interface TypeDialog {
+export interface IDialog {
   message?: string;
   title?: string;
   value?: boolean;
   callback?: () => void;
 }
 
-export interface TypeListMenu {
-  id: number;
-  name: string;
-}
-
-export interface TypeTextFieldFile {
+export interface ITextFieldFile {
   name: string;
   size: number;
 }
-export interface TypeTextFieldInfo {
-  files: TypeTextFieldFile[];
+export interface ITextFieldInfo {
+  files: ITextFieldFile[];
   totalSize: number;
 }
-export interface TypeTextFieldEvent {
+export interface ITextFieldEvent {
   files: any;
-  info?: TypeTextFieldInfo;
+  info?: ITextFieldInfo;
 }
 
-export interface TypeStateInfo {
+export interface IStateInfo {
   id?: number;
   firmware?: number[];
   totalBytes?: number;
   usedBytes?: number;
   uptime?: number;
+  name?: string;
 }
-export interface TypeStateFile {
+export interface IStateFile {
   key: number;
   isDir: number;
   isFile: number;
@@ -75,23 +64,7 @@ export interface TypeStateFile {
   name?: string;
 }
 
-export interface TypeGpio {
-  key: number;
-  command: number;
-  gpio: number;
-  data: number;
-}
-
-export interface TypeStateGpio {
-  [key: string]: TypeGpio;
-}
-
-export interface TypelistWiFi {
-  name: string;
-  value: number;
-}
-
-export interface TypeStateScan {
+export interface IStateScan {
   key: number;
   id: number;
   isHidden: number;
@@ -100,7 +73,24 @@ export interface TypeStateScan {
   rssi: number;
   ssid: string;
 }
-export interface TypeStateSettings {
+
+export interface IGpio {
+  key: number;
+  command: number;
+  gpio: number;
+  mode: number;
+  value: number;
+  interrupt: number;
+  disabled: number;
+}
+
+export interface IStateMain {
+  info?: IStateInfo;
+  gpio: Record<string, IGpio>;
+  device: any;
+  dallas: any;
+}
+export interface IStateSettings {
   key?: number;
   wifiDhcp?: number;
   wifiMode?: number;
@@ -117,39 +107,30 @@ export interface TypeStateSettings {
   authPass?: string;
 }
 
-export interface TypeStateWebSocket {
-  info?: TypeStateInfo;
-  fileList: TypeStateFile[];
-  gpio: TypeStateGpio;
-  scanList: TypeStateScan[];
+export interface IStateWebSocket {
+  fileList: IStateFile[];
+  scanList: IStateScan[];
   path: string[];
-  settings: TypeStateSettings;
+  settings: IStateSettings;
+  main: IStateMain;
   progress: any;
-  unknown: any;
-  device: any;
-  dallas: any;
 }
 
-export interface TypeNotificationItem {
+export interface INotificationItem {
   id?: number;
   text?: string;
   timeout?: number;
 }
-export interface TypeStateApp {
-  menu: TypeMenuItem[];
+export interface IStateApp {
+  menu: IMenuItem[];
   isLoading: boolean;
   theme: string;
-  dialog: TypeDialog;
-  notifications: TypeNotificationItem[];
+  dialog: IDialog;
+  notifications: INotificationItem[];
   struct: {};
 }
 
-export interface TypeSelectList {
-  name: string;
-  value: string | number;
-}
-
-export interface TypePropertyString {
+export interface IPropertyString {
   id: string;
   name: string;
   keyValue: string;
@@ -157,13 +138,13 @@ export interface TypePropertyString {
   type?: string;
   min?: number;
   max?: number;
-  list?: TypeSelectList[];
+  list?: ISelectList[];
   get?: string;
   set?: string;
   modifyValue?: string;
 }
 
-export interface TypeProperty {
+export interface IProperty {
   id: string;
   name: string;
   keyValue: string;
@@ -172,10 +153,41 @@ export interface TypeProperty {
   value?: any;
   min?: number;
   max?: number;
-  list?: TypeSelectList[];
+  list?: ISelectList[];
   get?: (output: any) => any;
   set?: (output: any, value: any) => any;
   modifyValue?: (value: any) => any;
   getItem?: (output: any) => any;
   setItem?: (output: any, value: any) => any;
+}
+
+export interface IWSSend {
+  comm: string;
+  data?: any;
+}
+
+export interface IWebSocket {
+  socket: WebSocket | null;
+  pingClient: number;
+  pingDevice: number;
+  struct: any;
+}
+
+export interface IListWiFi {
+  name: string;
+  value: number;
+}
+
+export interface INotificationItem {
+  id?: number;
+  text?: string;
+  timeout?: number;
+}
+export interface IStateApp {
+  menu: IMenuItem[];
+  isLoading: boolean;
+  theme: string;
+  dialog: IDialog;
+  notifications: INotificationItem[];
+  struct: {};
 }

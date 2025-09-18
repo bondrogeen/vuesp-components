@@ -9,18 +9,18 @@
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue';
 
-import type { TypeTextFieldEvent, TypeTextFieldInfo } from '@/types/types';
+import type { ITextFieldEvent, ITextFieldInfo } from '@/types/types';
 
 const emit = defineEmits<{
-  (e: 'change', value: TypeTextFieldEvent): void;
+  (e: 'change', value: ITextFieldEvent): void;
 }>();
 
-const selectFiles = ref<TypeTextFieldInfo>({ files: [], totalSize: 0 });
+const selectFiles = ref<ITextFieldInfo>({ files: [], totalSize: 0 });
 
 const onChange = async (e: any) => {
   const files: FileList = e.target.files;
 
-  const info: TypeTextFieldInfo = { files: [], totalSize: 0 };
+  const info: ITextFieldInfo = { files: [], totalSize: 0 };
 
   for (let i = 0; i < files.length; i++) {
     const file: File | null = files.item(i);

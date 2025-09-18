@@ -2,7 +2,7 @@
   <label class="inline-flex items-center relative" :class="{ 'cursor-pointer': !disabled }">
     <input
       type="checkbox"
-      :checked="modelValue"
+      :checked="Boolean(modelValue)"
       :disabled="disabled"
       class="peer h-5 w-5 transition-all appearance-none rounded border border-gray-300 dark:border-gray-700 disabled:opacity-40"
       @change="onChange"
@@ -24,7 +24,7 @@
 import { defineProps, defineEmits } from 'vue';
 
 interface Props {
-  modelValue?: boolean;
+  modelValue?: number | boolean;
   disabled?: boolean;
 }
 

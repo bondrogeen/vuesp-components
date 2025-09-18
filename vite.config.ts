@@ -7,7 +7,7 @@ import svgLoader from 'vite-svg-loader';
 
 export default defineConfig(() => ({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/libs/my-lib',
+  cacheDir: '../../node_modules/.vite/libs/vuesp-components',
   plugins: [
     vue(),
     tailwindcss(),

@@ -19,13 +19,13 @@
 </template>
 
 <script setup lang="ts">
-import type { TypeNotificationItem } from '@/types/types';
+import type { INotificationItem } from '@/types/types';
 
 import { defineProps, defineEmits, onMounted, computed } from 'vue';
 
 import IconClose from '@/assets/icons/IconClose.svg';
 
-interface Props extends TypeNotificationItem {
+interface Props extends INotificationItem {
   text?: string;
   empty?: number;
   id?: number;

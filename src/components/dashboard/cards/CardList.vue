@@ -17,7 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import type { TypeProperty } from '@/types/types';
+import { defineEmits, defineProps } from 'vue';
+
+import type { IProperty } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 import VSelect from '@/components/general/VSelect.vue';
@@ -27,7 +29,7 @@ const emit = defineEmits<{
   (e: 'setState', item: any): void;
 }>();
 
-const props = defineProps<TypeProperty>();
+const props = defineProps<IProperty>();
 
 const onClick = (event: Event) => emit('click', event);
 const setState = ({ value }: any) => emit('setState', { ...props, value });

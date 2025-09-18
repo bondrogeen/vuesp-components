@@ -58,7 +58,7 @@
 
 <script setup lang="ts">
 import { ref, computed, defineEmits, defineProps } from 'vue';
-import type { TypeProperty } from '@/types/types';
+import type { IProperty } from '@/types/types';
 
 import VIcons from '@/components/general/VIcons.vue';
 import VButton from '@/components/general/VButton.vue';
@@ -69,7 +69,7 @@ const emit = defineEmits<{
   (e: 'edit', event: Event): void;
 }>();
 
-export interface IProps extends TypeProperty {}
+export interface IProps extends IProperty {}
 
 const { name, value, icon, min, type, max, list, modifyValue } = defineProps<IProps>();
 

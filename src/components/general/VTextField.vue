@@ -1,33 +1,19 @@
 <template>
   <div class="w-full relative">
-    <label class="relative w-full h-[40px] border border-gray-300 dark:border-gray-700 flex items-center rounded transition dark:bg-gray-800" :class="getClassSlot">
+    <label class="relative w-full min-h-[40px] border border-gray-300 dark:border-gray-700 flex items-center rounded transition dark:bg-gray-800" :class="getClassSlot">
       <span class="absolute left-4 transition-all rounded -translate-y-1/2 text-gray-600 dark:text-gray-400" :class="getClassLabel">
         {{ label }}
       </span>
 
-      <input
-        v-if="component === 'input'"
+      <component
+        :is="component"
         v-bind="$attrs"
         :value="modelValue"
         :disabled="disabled"
         :type="type"
-        class="w-full h-full px-4 outline-none overflow-ellipsis flex-auto overflow-hidden w-[calc(100% - 20px)] bg-transparent"
-        @focus="onFocus"
-        @blur="onBlur"
-        @input="onInput"
-        @click="onClick"
-        @keypress.enter="onEnter"
-      />
-
-      <textarea
-        v-if="component === 'textarea'"
-        v-bind="$attrs"
-        :value="modelValue"
-        :disabled="disabled"
-        :type="type"
-        rows="2"
-        wrap="soft"
-        class="h-full w-full px-4 py-2 outline-none flex-auto bg-transparent"
+        :rows="isInput ? null : '2'"
+        :wrap="isInput ? null : 'soft'"
+        :class="getClassComponent"
         @focus="onFocus"
         @blur="onBlur"
         @input="onInput"
@@ -70,7 +56,7 @@ interface Props {
   rules?: any[];
 }
 
-const { modelValue = null, label = '', type = 'text', message = '', disabled = false, active = false, hideMessage = false } = defineProps<Props>();
+const { modelValue = null, label = '', component = 'input', type = 'text', message = '', disabled = false, active = false, hideMessage = false } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'update:modelValue', event: string): void;
@@ -80,6 +66,11 @@ const emit = defineEmits<{
   (e: 'blur', event: Event): void;
 }>();
 
+const componentClass: Record<string, string> = {
+  input: 'w-full h-full px-4 outline-none overflow-ellipsis flex-auto overflow-hidden w-[calc(100% - 20px)] bg-transparent',
+  textarea: 'h-full w-full px-4 py-2 outline-none flex-auto bg-transparent',
+};
+
 const isFocus = ref(false);
 
 const getClassSlot = computed(() => [
@@ -87,11 +78,14 @@ const getClassSlot = computed(() => [
   disabled ? 'border-gray-400 opacity-40' : 'border-gray-300 hover:border-gray-400 dark:border-gray-700/50 hover:dark:border-gray-600/50',
 ]);
 
+const getClassComponent = computed(() => componentClass[component]);
+
 const isValue = (value: number | string | null) => value || value === 0;
 
 const after = 'after:absolute after:h-1 after:w-full after:left-0 after:translate-y-[6px] after:-z-10 dark:after:bg-gray-800 after:bg-white after:transition-all';
 
 const getClassLabel = computed(() => [after, isFocus.value || isValue(modelValue) || active ? 'top-0 left-3 text-xs' : 'top-1/2']);
+const isInput = computed(() => component === 'input');
 
 const onInput = ({ target }: Event) => {
   emit('update:modelValue', (target as HTMLTextAreaElement).value);
