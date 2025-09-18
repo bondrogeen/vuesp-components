@@ -43,11 +43,11 @@
 
 <script setup lang="ts">
 import type { Ref } from 'vue';
-import type { TypePropertyString } from '@/types/types';
+import type { IPropertyString } from '@/types/types';
 
 import { computed, onMounted, ref, defineProps, defineEmits } from 'vue';
 
-import type { TypeVList } from '@/types/types';
+import type { IListItem } from '@/types/types';
 
 import VIcons from '@/components/general/VIcons.vue';
 import VButton from '@/components/general/VButton.vue';
@@ -55,21 +55,21 @@ import VSelect from '@/components/general/VSelect.vue';
 import VTextField from '@/components/general/VTextField.vue';
 
 interface Props {
-  item: TypePropertyString;
+  item: IPropertyString;
   isNew: boolean;
 }
 
 const { item: data, isNew } = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: 'remove', value: TypePropertyString): void;
-  (e: 'save', value: TypePropertyString): void;
+  (e: 'remove', value: IPropertyString): void;
+  (e: 'save', value: IPropertyString): void;
   (e: 'select', event: Event): void;
 }>();
 
-const item: Ref<TypePropertyString> = ref({ id: '', name: '', keyValue: '' });
+const item: Ref<IPropertyString> = ref({ id: '', name: '', keyValue: '' });
 
-const listIcon: TypeVList[] = [
+const listIcon: IListItem[] = [
   { id: 1, name: 'Air', icon: 'IconAir' },
   { id: 2, name: 'Bulb', icon: 'IconBulb' },
   { id: 3, name: 'Cold', icon: 'IconCold' },
@@ -90,7 +90,7 @@ const listIcon: TypeVList[] = [
   { id: 1, name: 'Folder', icon: 'IconFolder' },
 ];
 
-const listType: TypeVList[] = [
+const listType: IListItem[] = [
   { id: 1, name: 'Button', type: 'button' },
   { id: 2, name: 'Info', type: 'info' },
   { id: 3, name: 'Dimmer', type: 'dimmer' },

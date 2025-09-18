@@ -10,21 +10,20 @@
 
         <div class="lg:hidden h-[30px] me-10">
           <router-link to="/">
-            <IconLogo class="h-[30px]"></IconLogo>
+            <IconLogo class="h-[30px] text-primary"></IconLogo>
           </router-link>
         </div>
 
         <div class="flex-auto"></div>
 
-        <div class="flex gap-4">
-          <VButton type="icon" color="gray" class="hidden md:flex" @click="onChangeTheme">
+        <div class="gap-4 hidden lg:flex">
+          <VButton type="icon" color="gray" @click="onChangeTheme">
             <IconTheme />
           </VButton>
 
           <VButton
             type="icon"
             color="gray"
-            class="hidden md:flex"
             @click.prevent="
               dropdownOpen = !dropdownOpen;
               notifying = false;
@@ -36,12 +35,12 @@
             <IconNoti class="h-5 w-5" />
           </VButton>
 
-          <VButton type="icon" color="gray" class="hidden md:flex" @click.prevent="onLogout">
+          <VButton type="icon" color="gray" @click.prevent="onLogout">
             <IconLogout class="h-5 w-5" />
           </VButton>
         </div>
 
-        <div class="md:hidden flex gap-4">
+        <div class="lg:hidden flex gap-4">
           <VDropdown left="unset" right="0" top="0">
             <template #activator="{ on }">
               <VButton type="icon" color="gray" class="flex" @click="on.click">
@@ -63,7 +62,7 @@
 <script setup lang="ts">
 import { ref, defineEmits, defineProps } from 'vue';
 
-import type { TypeVList } from '@/types/types';
+import type { IListItem } from '@/types/types';
 
 import VButton from '@/components/general/VButton.vue';
 import VDropdown from '@/components/general/VDropdown.vue';
@@ -89,7 +88,7 @@ const emit = defineEmits<{
 const dropdownOpen = ref(false);
 const notifying = ref(false);
 
-const listMenu: TypeVList[] = [
+const listMenu: IListItem[] = [
   { id: 1, name: 'Theme', icon: IconTheme },
   { id: 2, name: 'Logout', icon: IconLogout },
 ];

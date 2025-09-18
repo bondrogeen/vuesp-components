@@ -15,5 +15,6 @@ import VTable from '@/components/general/VTable.vue';
 import WifiIcon from '@/components/general/WifiIcon.vue';
 import VIcons from '@/components/general/VIcons.vue';
 import VCardGray from '@/components/general/VCardGray.vue';
+import VListObject from '@/components/general/VListObject.vue';
 
-export { VAutocomplete, VBreadcrumb, VButton, VLoader, VCheckbox, VDropdown, VExpansion, VList, VNotification, VSelect, VTextField, VTextFieldFile, VTable, WifiIcon, VIcons, VCardGray };
+export { VAutocomplete, VBreadcrumb, VButton, VLoader, VCheckbox, VDropdown, VExpansion, VList, VNotification, VSelect, VTextField, VTextFieldFile, VTable, WifiIcon, VIcons, VCardGray, VListObject };

@@ -9,17 +9,17 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
 
-import type { TypeNotificationItem } from '@/types/types';
+import type { INotificationItem } from '@/types/types';
 
 import VNotification from '@/components/general/VNotification.vue';
 
 export interface Props {
-  notifications?: TypeNotificationItem[];
+  notifications?: INotificationItem[];
 }
 
 const { notifications = [] } = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: 'close', value: TypeNotificationItem): void;
+  (e: 'close', value: INotificationItem): void;
 }>();
 </script>

@@ -136,7 +136,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { TypeVList } from '@/types/types';
+import type { IListItem } from '@/types/types';
 
 import IconBurger from '@/assets/icons/IconBurger.svg';
 import IconChevron from '@/assets/icons/IconChevron.svg';
@@ -196,7 +196,7 @@ const listTable = [
   { name: 'item2', value: 2 },
 ];
 
-const listMenu: TypeVList[] = [
+const listMenu: IListItem[] = [
   { id: 2, icon: IconSearch, name: 'Upload' },
   { id: 3, icon: IconUpdate, name: 'Reload' },
   { id: 4, icon: IconSave, name: 'Format' },
@@ -208,7 +208,7 @@ const headers = [
   { key: 'action', name: 'Action', className: 'w-40 text-left' },
 ];
 
-const onMenu = (item: TypeVList) => {
+const onMenu = (item: IListItem) => {
   console.log(item);
 };
 

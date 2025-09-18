@@ -9,7 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import type { TypeProperty } from '@/types/types';
+import { defineEmits, defineProps } from 'vue';
+
+import type { IProperty } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 import VTextField from '@/components/general/VTextField.vue';
@@ -19,7 +21,7 @@ const emit = defineEmits<{
   (e: 'setState', item: any): void;
 }>();
 
-const props = defineProps<TypeProperty>();
+const props = defineProps<IProperty>();
 
 const onChange = (e: any) => {
   const value: number = e?.target?.value;

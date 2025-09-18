@@ -11,6 +11,9 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./types": {
+      "types": "./dist/types/types.d.ts"
+    },
     "./dist/style.css": {
       "import": "./dist/style.css",
       "require": "./dist/style.css"
