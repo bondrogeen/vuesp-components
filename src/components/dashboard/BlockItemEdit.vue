@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 import type { Ref } from 'vue';
-import type { IPropertyString } from '@/types/types';
+import type { IDashboardItemString } from '@/types/types';
 
 import { computed, onMounted, ref, defineProps, defineEmits } from 'vue';
 
@@ -55,19 +55,19 @@ import VSelect from '@/components/general/VSelect.vue';
 import VTextField from '@/components/general/VTextField.vue';
 
 interface Props {
-  item: IPropertyString;
+  item: IDashboardItemString;
   isNew: boolean;
 }
 
 const { item: data, isNew } = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: 'remove', value: IPropertyString): void;
-  (e: 'save', value: IPropertyString): void;
+  (e: 'remove', value: IDashboardItemString): void;
+  (e: 'save', value: IDashboardItemString): void;
   (e: 'select', event: Event): void;
 }>();
 
-const item: Ref<IPropertyString> = ref({ id: '', name: '', keyValue: '' });
+const item: Ref<IDashboardItemString> = ref({ id: '', name: '', keyValue: '' });
 
 const listIcon: IListItem[] = [
   { id: 1, name: 'Air', icon: 'IconAir' },
@@ -101,10 +101,10 @@ const listType: IListItem[] = [
 
 const isMinMax = computed(() => item.value.type === 'dimmer');
 
-const onIcon = ({ value }: any) => {
-  item.value.icon = value;
+const onIcon = ({ icon }: IListItem) => {
+  item.value.icon = icon;
 };
-const onType = ({ type }: any) => {
+const onType = ({ type }: IListItem) => {
   item.value.type = type;
 };
 

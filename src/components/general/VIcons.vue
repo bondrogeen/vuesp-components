@@ -41,6 +41,7 @@ import IconTherm from '@/assets/icons/IconTherm.svg';
 import IconTv from '@/assets/icons/IconTv.svg';
 import IconVent from '@/assets/icons/IconVent.svg';
 import IconVideo from '@/assets/icons/IconVideo.svg';
+import IconInfo from '@/assets/icons/IconInfo.svg';
 
 interface IProps {
   name: string | undefined;
@@ -83,6 +84,7 @@ const icons: Record<string, unknown> = {
   IconLogoMini,
   IconPower,
   IconTheme,
+  IconInfo,
 };
 
 const { name } = defineProps<IProps>();

@@ -2,14 +2,19 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@layer base {
+@theme {
+  --color-primary: #28b7f0;
+  --color-secondary: #66d3f1;
+}
+
+@layer lib {
   html {
     font-family: 'Roboto', sans-serif;
 
-    @apply min-h-screen leading-[140%] text-base md:overflow-y-scroll;
+    @apply min-h-[100dvh] leading-[140%] text-base md:overflow-y-scroll;
   }
   body {
-    @apply min-h-screen min-w-[320px] text-gray-900 bg-gray-50 dark:bg-gray-900 dark:text-white transition;
+    @apply min-h-[100dvh] min-w-[320px] text-gray-900 bg-gray-50 dark:bg-gray-900 dark:text-white transition;
   }
   input {
     outline: none;
@@ -34,5 +39,9 @@
   }
   input {
     background: transparent;
+  }
+
+  .bg-blur {
+    backdrop-filter: blur(3px);
   }
 }

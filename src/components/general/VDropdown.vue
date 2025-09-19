@@ -1,7 +1,7 @@
 <template>
   <div v-outside="outside" class="relative">
     <div class="flex items-center cursor-pointer">
-      <slot name="activator" :on="{ click: onClick }" :show="isShown"></slot>
+      <slot name="activator" :on="on" :show="isShow"></slot>
     </div>
 
     <transition
@@ -12,8 +12,8 @@
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="transform opacity-0 -translate-y-2"
     >
-      <div v-if="isShown" class="z-10 min-w-full absolute overflow-auto shadow-lg" :style="getStyle" @click="onClick">
-        <slot :show="onShow" :hide="hide" :is-shown="isShown"></slot>
+      <div v-if="isShow" class="z-10 min-w-full absolute overflow-auto shadow-lg" :style="getStyle" @click="onClick">
+        <slot :on="on" :show="onShow" :hide="hide" :is-shown="isShow"></slot>
       </div>
     </transition>
   </div>
@@ -38,23 +38,25 @@ const emit = defineEmits<{
   (e: 'close', value: Event): void;
 }>();
 
-const isShown = ref(false);
+const isShow = ref(false);
 const getStyle = computed(() => ({ top, left, right, 'max-height': height }));
 
 const outside = (e: Event) => {
-  if (isShown.value) hide(e);
+  if (isShow.value) hide(e);
 };
 const onClick = (e: Event) => {
-  if (!isShown.value) onShow(e);
+  if (!isShow.value) onShow(e);
   else if (hideOnClick) hide(e);
-  emit('click', isShown.value);
+  emit('click', isShow.value);
 };
 const onShow = (e: Event) => {
-  isShown.value = true;
+  isShow.value = true;
   emit('show', e);
 };
 const hide = (e: Event) => {
-  isShown.value = false;
+  isShow.value = false;
   emit('close', e);
 };
+
+const on = { click: onClick };
 </script>

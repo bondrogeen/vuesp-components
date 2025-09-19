@@ -1,11 +1,11 @@
 <template>
-  <button :class="getClass" :disabled="disabled" @click="onClick">
+  <component :is="isComponents" v-bind="$attrs" :href="href" :to="to" :class="getClass" :disabled="disabled" @click="onClick">
     <span :class="loading ? 'opacity-0' : ''">
       <slot></slot>
     </span>
 
     <VLoader v-if="loading" class="absolute left-1/2 -translate-x-1/2" />
-  </button>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -19,11 +19,13 @@ interface Props {
   color?: string;
   size?: string;
   type?: string;
+  href?: string;
+  to?: string;
   loading?: boolean;
   disabled?: boolean;
 }
 
-const { color = 'gray', block, size = 'normal', type = 'button', outline = false, loading = false, disabled = false } = defineProps<Props>();
+const { href = '', to = '', color = 'gray', block, size = 'normal', type = 'button', outline = false, loading = false, disabled = false } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'click', value: Event): void;
@@ -54,4 +56,5 @@ const getType = (type: string): any => types?.[type] || '';
 const getColor = (color: string): any => (type === 'icon' ? '' : `${outline ? 'dark:text-white' : 'text-white'} ${colors?.[color] || ''}`);
 
 const getClass = computed(() => [gefClass, getColor(color), getType(type), getSize(size), { 'w-full': block }]);
+const isComponents = computed(() => (href || to ? 'router-link' : 'button'));
 </script>
