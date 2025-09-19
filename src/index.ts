@@ -22,3 +22,5 @@ export default {
     directives.forEach(({ name, directive }: any) => app.directive(name, directive));
   },
 } as ObjectPlugin;
+
+export * from '@/dashboard';

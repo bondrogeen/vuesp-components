@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { defineEmits, defineProps } from 'vue';
 
-import type { IProperty } from '@/types/types';
+import type { IDashboardItem } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 import VTextField from '@/components/general/VTextField.vue';
@@ -21,7 +21,7 @@ const emit = defineEmits<{
   (e: 'setState', item: any): void;
 }>();
 
-const props = defineProps<IProperty>();
+const props = defineProps<IDashboardItem>();
 
 const datetime = (now: number) => new Date(now * 1000).toISOString().slice(0, 16);
 

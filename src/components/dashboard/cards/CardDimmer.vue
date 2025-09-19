@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import { defineEmits, defineProps } from 'vue';
 
-import type { IProperty } from '@/types/types';
+import type { IDashboardItem } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 
@@ -47,7 +47,7 @@ const emit = defineEmits<{
   (e: 'setState', item: any): void;
 }>();
 
-const props = defineProps<IProperty>();
+const props = defineProps<IDashboardItem>();
 
 const getPercent = (value: number, max: number) => Math.round((100 * value) / max);
 const getRangePercent = (value: number, max: number) => Math.round(187 - (value / max) * 187);

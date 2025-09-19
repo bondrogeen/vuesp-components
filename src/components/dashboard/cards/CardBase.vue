@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col border aspect-square rounded-sm bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 p-2 hover:border-blue-400 dark:hover:border-blue-700 transition-all"
+    class="flex flex-col border aspect-square rounded-sm bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 p-2 hover:border-blue-400 dark:hover:border-blue-700 transition-all cursor-pointer"
     @click="onClick"
   >
     <div class="flex-auto flex justify-between">
@@ -58,7 +58,7 @@
 
 <script setup lang="ts">
 import { ref, computed, defineEmits, defineProps } from 'vue';
-import type { IProperty } from '@/types/types';
+import type { IDashboardItem } from '@/types/types';
 
 import VIcons from '@/components/general/VIcons.vue';
 import VButton from '@/components/general/VButton.vue';
@@ -69,7 +69,7 @@ const emit = defineEmits<{
   (e: 'edit', event: Event): void;
 }>();
 
-export interface IProps extends IProperty {}
+export interface IProps extends IDashboardItem {}
 
 const { name, value, icon, min, type, max, list, modifyValue } = defineProps<IProps>();
 

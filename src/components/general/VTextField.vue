@@ -25,6 +25,7 @@
         v-if="$slots.icon"
         :disabled="disabled"
         style="flex: 0 0 50px"
+        :class="{ 'cursor-pointer': !disabled }"
         class="h-full flex items-center justify-center text-gray-400 border-l border-gray-300 dark:border-gray-700/50"
         @click="onIcon"
       >

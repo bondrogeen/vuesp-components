@@ -1,16 +1,18 @@
 <template>
-  <VDropdown class="relative w-full" v-bind="$attrs" top="50px">
+  <VDropdown class="relative w-full" v-bind="$attrs" top="50px" hideOnClick>
     <template #activator="{ on, show }">
-      <VTextField :model-value="getValue" readonly :disabled="disabled" active :label="label" @click="on.click" @on-icon="on.click">
+      <VTextField :model-value="getValue" readonly hideMessage :disabled="disabled" active :label="label" @click="on.click" @on-icon="on.click">
         <template #icon>
           <IconChevron class="transition" :class="getClass(show)"></IconChevron>
         </template>
       </VTextField>
     </template>
 
-    <VList v-slot="{ item }" :list="list" @click="onChange">
-      <slot :item="item">{{ item.name }}</slot>
-    </VList>
+    <template #default="{ on }">
+      <VList v-slot="{ item }" :list="list" @click="onChange(on, $event)">
+        <slot :item="item">{{ item.name }}</slot>
+      </VList>
+    </template>
   </VDropdown>
 </template>
 
@@ -42,5 +44,10 @@ const getValue = computed(() => list.find((i: any) => i.value === value)?.[value
 
 const getClass = (show: boolean) => ({ 'rotate-x-180': show });
 
-const onChange = (item: any) => emit('change', item);
+const onChange = (on: any, item: any) => {
+  console.log(on);
+  
+  on.click(item);
+  emit('change', item);
+};
 </script>

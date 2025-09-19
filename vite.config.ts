@@ -31,18 +31,21 @@ export default defineConfig(() => ({
       transformMixedEsModules: true,
     },
     lib: {
-      // Could also be a dictionary or array of multiple entry points.
-      entry: 'src/index.ts',
+      entry: {
+        main: path.resolve(__dirname, 'src/index.ts'),
+        dashboard: path.resolve(__dirname, 'src/dashboard/index.ts'),
+      },
+      fileName: (format, entryName) => {
+        if (entryName === 'main') return `index.${format}.js`;
+        return `${entryName}/index.${format}.js`;
+      },
       name: 'vuesp-components',
-      fileName: 'index',
-      // Change this to the formats you want to support.
-      // Don't forget to update your package.json as well.
       formats: ['es' as const],
     },
     rollupOptions: {
       external: ['vue'],
       output: {
-        inlineDynamicImports: true,
+        inlineDynamicImports: false,
         globals: {
           vue: 'Vue',
         },

@@ -5,6 +5,7 @@
       :checked="Boolean(modelValue)"
       :disabled="disabled"
       class="peer h-5 w-5 transition-all appearance-none rounded border border-gray-300 dark:border-gray-700 disabled:opacity-40"
+      :class="{ 'cursor-pointer': !disabled }"
       @change="onChange"
     />
 

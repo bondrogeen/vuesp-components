@@ -9,7 +9,7 @@
       leave-to-class="transform opacity-0 -translate-y-2"
     >
       <div v-if="show" class="z-20 fixed top-0 h-[100dvh] w-full left-0 flex flex-col" @wheel.stop>
-        <div class="absolute h-full w-full top-0 left-0 bg-black/60" @click="onClose"></div>
+        <div class="absolute h-full w-full top-0 left-0 bg-black/40 bg-blur" @click="onClose"></div>
 
         <div class="flex-auto flex align-center p-4">
           <div class="m-auto w-full bg-white dark:bg-gray-900 shadow-lg flex flex-col rounded-lg z-30" :class="getClass">
