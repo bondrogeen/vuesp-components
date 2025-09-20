@@ -34,6 +34,7 @@ export default defineConfig(() => ({
       entry: {
         main: path.resolve(__dirname, 'src/index.ts'),
         dashboard: path.resolve(__dirname, 'src/dashboard/index.ts'),
+        helpers: path.resolve(__dirname, 'src/helpers/index.ts'),
       },
       fileName: (format, entryName) => {
         if (entryName === 'main') return `index.${format}.js`;

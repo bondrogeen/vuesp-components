@@ -60,8 +60,8 @@
 import { ref, computed, defineEmits, defineProps } from 'vue';
 import type { IDashboardItem } from '@/types/types';
 
-import VIcons from '@/components/general/VIcons.vue';
-import VButton from '@/components/general/VButton.vue';
+import VIcons from '@/components/general/forms/VIcons.vue';
+import VButton from '@/components/general/forms/VButton.vue';
 
 const dialog = ref(false);
 

@@ -2,7 +2,7 @@
   <CardBase v-bind="props" @click="onClick">
     <template #header="{ value, max }">
       <div class="flex justify-end">
-        <div class="" :class="'text-blue-600 dark:text-blue-400'">
+        <div :class="'text-blue-600 dark:text-blue-400'">
           <svg width="32" height="32" viewBox="-7.5 -7.5 75 75" version="1.1" style="transform: rotate(-90deg)">
             <circle class="stroke-gray-300 dark:stroke-gray-700" r="30" cx="30" cy="30" fill="transparent" stroke-width="10"></circle>
             <circle

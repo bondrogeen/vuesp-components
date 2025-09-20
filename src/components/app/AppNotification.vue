@@ -11,7 +11,7 @@ import { defineProps, defineEmits } from 'vue';
 
 import type { INotificationItem } from '@/types/types';
 
-import VNotification from '@/components/general/VNotification.vue';
+import VNotification from '@/components/general/cards/CardNotification.vue';
 
 export interface Props {
   notifications?: INotificationItem[];

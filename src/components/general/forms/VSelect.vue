@@ -19,9 +19,9 @@
 <script setup lang="ts">
 import { computed, defineEmits, defineProps } from 'vue';
 
-import VTextField from '@/components/general/VTextField.vue';
-import VDropdown from '@/components/general/VDropdown.vue';
-import VList from '@/components/general/VList.vue';
+import VTextField from '@/components/general/forms/VTextField.vue';
+import VDropdown from '@/components/general/forms/VDropdown.vue';
+import VList from '@/components/general/forms/VList.vue';
 
 import IconChevron from '@/assets/icons/IconChevron.svg';
 
@@ -46,7 +46,7 @@ const getClass = (show: boolean) => ({ 'rotate-x-180': show });
 
 const onChange = (on: any, item: any) => {
   console.log(on);
-  
+
   on.click(item);
   emit('change', item);
 };

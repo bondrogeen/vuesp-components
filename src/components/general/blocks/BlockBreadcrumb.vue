@@ -15,6 +15,7 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps, defineEmits } from 'vue';
 import IconChevron from '@/assets/icons/IconChevron.svg';
 
 interface TypeItem {

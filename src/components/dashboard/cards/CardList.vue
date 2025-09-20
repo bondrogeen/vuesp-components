@@ -22,7 +22,7 @@ import { defineEmits, defineProps } from 'vue';
 import type { IDashboardItem } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
-import VSelect from '@/components/general/VSelect.vue';
+import VSelect from '@/components/general/forms/VSelect.vue';
 
 const emit = defineEmits<{
   (e: 'click', event: Event): void;

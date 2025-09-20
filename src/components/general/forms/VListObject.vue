@@ -1,6 +1,6 @@
 <template>
-  <ul class="">
-    <li v-for="(item, key) of items" :key="key" class="" :class="isObject(item) ? '' : `flex items-center ${getClass()}`">
+  <ul>
+    <li v-for="(item, key) of items" :key="key" :class="isObject(item) ? '' : `flex items-center ${getClass()}`">
       <div class="flex items-center cursor-pointer ps-2 h-8" :class="isObject(item) ? `${getClass()}` : ''" @click="onClick(key)">
         <div v-if="isObject(item)" class="me-1">
           <IconFolder class="size-5 text-gray-400" />
@@ -42,7 +42,7 @@
 import { ref, defineProps, defineEmits } from 'vue';
 import type { Ref } from 'vue';
 
-import VListObject from '@/components/general/VListObject.vue';
+import VListObject from '@/components/general/forms/VListObject.vue';
 
 import IconFolder from '@/assets/icons/IconFolder.svg';
 import IconSave from '@/assets/icons/IconSave.svg';

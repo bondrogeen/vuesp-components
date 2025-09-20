@@ -4,7 +4,7 @@
       <h4>{{ label }}</h4>
 
       <div class="transition text-gray-400" :class="{ 'rotate-180': isActive }">
-        <IconChevron></IconChevron>
+        <IconChevron />
       </div>
     </div>
 

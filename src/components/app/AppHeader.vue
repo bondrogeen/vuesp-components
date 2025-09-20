@@ -64,9 +64,9 @@ import { ref, defineEmits, defineProps } from 'vue';
 
 import type { IListItem } from '@/types/types';
 
-import VButton from '@/components/general/VButton.vue';
-import VDropdown from '@/components/general/VDropdown.vue';
-import VList from '@/components/general/VList.vue';
+import VButton from '@/components/general/forms/VButton.vue';
+import VDropdown from '@/components/general/forms/VDropdown.vue';
+import VList from '@/components/general/forms/VList.vue';
 
 import IconDots from '@/assets/icons/IconDots.svg';
 import IconBurger from '@/assets/icons/IconBurger.svg';
