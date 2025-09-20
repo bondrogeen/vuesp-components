@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { defineProps, defineEmits, computed } from 'vue';
 
-import VLoader from '@/components/general/VLoader.vue';
+import VLoader from '@/components/general/forms/VLoader.vue';
 
 interface Props {
   block?: boolean;

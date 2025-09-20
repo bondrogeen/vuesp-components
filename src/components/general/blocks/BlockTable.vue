@@ -24,7 +24,7 @@
       </template>
 
       <template v-else>
-        <tr class="">
+        <tr>
           <td class="py-3 whitespace-nowrap" colspan="9">
             <div class="flex items-center justify-center text-theme-sm text-gray-700 dark:text-gray-400 px-2">
               <slot name="empty">The list is empty</slot>

@@ -14,7 +14,7 @@ import { defineEmits, defineProps } from 'vue';
 import type { IDashboardItem } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
-import VTextField from '@/components/general/VTextField.vue';
+import VTextField from '@/components/general/forms/VTextField.vue';
 
 const emit = defineEmits<{
   (e: 'click', event: Event): void;

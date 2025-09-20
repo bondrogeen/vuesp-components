@@ -47,7 +47,7 @@
 import { ref, defineProps, defineEmits, computed, onMounted } from 'vue';
 
 import IconClose from '@/assets/icons/IconClose.svg';
-import VButton from '@/components/general/VButton.vue';
+import VButton from '@/components/general/forms/VButton.vue';
 
 export interface Props {
   value?: boolean;

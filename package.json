@@ -16,6 +16,11 @@
       "import": "./dist/dashboard/index.es.js",
       "default": "./dist/dashboard/index.es.js"
     },
+    "./helpers": {
+      "types": "./dist/helpers/index.d.ts",
+      "import": "./dist/helpers/index.es.js",
+      "default": "./dist/helpers/index.es.js"
+    },
     "./types": {
       "types": "./dist/types/types.d.ts"
     },

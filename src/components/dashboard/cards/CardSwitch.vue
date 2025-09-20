@@ -21,8 +21,8 @@ import { defineEmits, defineProps } from 'vue';
 import type { IDashboardItem } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
+import VButton from '@/components/general/forms/VButton.vue';
 import IconPower from '@/assets/icons/IconPower.svg';
-import VButton from '@/components/general/VButton.vue';
 
 const emit = defineEmits<{
   (e: 'click', event: Event): void;

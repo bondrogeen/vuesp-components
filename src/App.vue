@@ -13,9 +13,9 @@
   <MyIcon />
 
   <div class="flex flex-col gap-6 p-8">
-    <VBreadcrumb :items="[{ name: 'Home', path: '/' }, { name: 'List' }]"></VBreadcrumb>
+    <BlockBreadcrumb :items="[{ name: 'Home', path: '/' }, { name: 'List' }]"></BlockBreadcrumb>
 
-    <VCardGray title="Button">
+    <CardGray title="Button">
       <template #header>
         <VDropdown right="0" left="unset" top="0">
           <template #activator="{ on }">
@@ -68,9 +68,9 @@
           </div>
         </div>
       </div>
-    </VCardGray>
+    </CardGray>
 
-    <VCardGray title="Form">
+    <CardGray title="Form">
       <div class="flex flex-col mb-4">
         <div class="flex gap-4 mb-4">
           <VCheckbox>Checkbox</VCheckbox>
@@ -94,10 +94,10 @@
 
         <VSelect :value="select" label="Select" :list="listSelect" message="Error" @change="select = $event.name"></VSelect>
       </div>
-    </VCardGray>
+    </CardGray>
 
-    <VCardGray title="Tablet">
-      <VTable :headers="headers" :items="listTable" @click="onClickItem">
+    <CardGray title="Tablet">
+      <BlockTable :headers="headers" :items="listTable" @click="onClickItem">
         <template #header="{ item }">
           <div class="flex items-center" :class="{ 'justify-end': item.key === 'action' }">
             {{ item.name }}
@@ -121,16 +121,16 @@
             </VDropdown>
           </div>
         </template>
-      </VTable>
-    </VCardGray>
+      </BlockTable>
+    </CardGray>
 
-    <VCardGray title="Icons">
+    <CardGray title="Icons">
       <div class="flex gap-4">
         <div v-for="(icon, i) of icons" :key="i" class="flex">
           <component :is="icon"></component>
         </div>
       </div>
-    </VCardGray>
+    </CardGray>
   </div>
 </template>
 
@@ -157,9 +157,9 @@ import IconUpdate from '@/assets/icons/IconUpdate.svg';
 import IconVideo from '@/assets/icons/IconVideo.svg';
 import IconDashboard from '@/assets/icons/IconDashboard.svg';
 
-import { VAutocomplete, VBreadcrumb, VButton, VCheckbox, VDropdown, VList, VSelect, VTextField, VTextFieldFile, VTable } from '@/components/general/';
+import { VAutocomplete, BlockBreadcrumb, VButton, VCheckbox, VDropdown, VList, VSelect, VTextField, VTextFieldFile, BlockTable } from '@/components/general';
 
-import VCardGray from '@/components/general/VCardGray.vue';
+import CardGray from '@/components/general/cards/CardGray.vue';
 
 const input = ref('');
 const select = ref('item1');

@@ -10,7 +10,7 @@
       <VTextField v-model="item.name" label="Name"></VTextField>
 
       <div class="grid grid-cols-2 gap-x-4">
-        <VSelect v-slot="{ item }" :value="item.icon" class="" label="Icon" :list="listIcon" @change="onIcon">
+        <VSelect v-slot="{ item }" :value="item.icon" label="Icon" :list="listIcon" @change="onIcon">
           <div class="flex gap-2 items-center">
             <VIcons :name="item.icon" class="size-5"></VIcons>
 
@@ -18,7 +18,7 @@
           </div>
         </VSelect>
 
-        <VSelect :value="item.type" class="" label="Type" :list="listType" @change="onType"></VSelect>
+        <VSelect :value="item.type" label="Type" :list="listType" @change="onType"></VSelect>
       </div>
 
       <div class="grid grid-cols-2 gap-x-4">
@@ -49,10 +49,10 @@ import { computed, onMounted, ref, defineProps, defineEmits } from 'vue';
 
 import type { IListItem } from '@/types/types';
 
-import VIcons from '@/components/general/VIcons.vue';
-import VButton from '@/components/general/VButton.vue';
-import VSelect from '@/components/general/VSelect.vue';
-import VTextField from '@/components/general/VTextField.vue';
+import VIcons from '@/components/general/forms/VIcons.vue';
+import VButton from '@/components/general/forms/VButton.vue';
+import VSelect from '@/components/general/forms/VSelect.vue';
+import VTextField from '@/components/general/forms/VTextField.vue';
 
 interface Props {
   item: IDashboardItemString;

@@ -7,16 +7,11 @@ export interface IListItem {
   value?: string | number | boolean;
 }
 
-export interface IMenuChild {
-  name: string;
-  path?: string;
-}
-
 export interface IMenuItem {
   name: string;
   icon: string;
   path: string;
-  children?: IMenuChild[];
+  children?: IMenuItem[];
 }
 
 export interface IDialog {
