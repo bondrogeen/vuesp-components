@@ -37,12 +37,12 @@
 </template>
 
 <script setup lang="ts">
-import type { IStoreInfo } from '@/types/types';
+import type { IStateInfo } from '@/types/types';
 
 import { ref, computed, defineProps, onMounted, onUnmounted } from 'vue';
 import { toByte, secToTime } from '@/helpers';
 
-const { id = 0, firmware = [], totalBytes = 0, usedBytes = 0, uptime = 0, pkg } = defineProps<IStoreInfo>();
+const { id = 0, firmware = [], totalBytes = 0, usedBytes = 0, uptime = 0, pkg } = defineProps<IStateInfo>();
 
 const time = ref(uptime);
 let idTime = null as ReturnType<typeof setTimeout> | null;

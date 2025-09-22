@@ -29,10 +29,10 @@
       <div class="flex gap-4">
         Links:
         <div class="flex flex-wrap gap-2 text-gray-700 dark:text-gray-400">
-          <router-link v-if="links.homepage" :href="links.homepage" target="_blank" class="me-4">Homepage</router-link>
-          <router-link v-if="links.repository" :href="links.repository" target="_blank" class="me-4">Repository</router-link>
-          <router-link v-if="links.bugs" :href="links.bugs" target="_blank" class="me-4">Bugs</router-link>
-          <router-link v-if="links.author" :href="links.author" target="_blank" class="me-4">Author</router-link>
+          <a v-if="links.homepage" :href="links.homepage" target="_blank" class="me-4">Homepage</a>
+          <a v-if="links.repository" :href="links.repository" target="_blank" class="me-4">Repository</a>
+          <a v-if="links.bugs" :href="links.bugs" target="_blank" class="me-4">Bugs</a>
+          <a v-if="links.author" :href="links.author" target="_blank" class="me-4">Author</a>
         </div>
       </div>
     </div>
@@ -42,9 +42,9 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue';
 
-import type { IStoreInfo } from '@/types/types';
+import type { IStateInfo } from '@/types/types';
 
-const { id = 0, firmware = [], pkg } = defineProps<IStoreInfo>();
+const { id = 0, firmware = [], pkg } = defineProps<IStateInfo>();
 
 const getFirmware = computed(() => firmware.join('.'));
 
