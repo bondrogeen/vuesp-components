@@ -19,20 +19,17 @@
 </template>
 
 <script setup lang="ts">
-import type { INotificationItem } from '@/types/types';
+import type { IMessageNotification } from '@/types/types';
 
 import { defineProps, defineEmits, onMounted, computed } from 'vue';
 
 import IconClose from '@/assets/icons/IconClose.svg';
 
-interface Props extends INotificationItem {
-  text?: string;
+interface Props extends IMessageNotification {
   empty?: number;
-  id?: number;
   length?: number;
   size?: number;
   status?: number;
-  timeout?: number;
 }
 
 const { text = '', empty = 0, id = 0, length = 0, size = 0, status = 0, timeout = 0 } = defineProps<Props>();
