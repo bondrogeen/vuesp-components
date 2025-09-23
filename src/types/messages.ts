@@ -49,10 +49,10 @@ export interface IMessageProgress {
 
 export interface IMessageFile {
   key?: number;
-  isDir: number;
-  isFile: number;
-  command?: number;
-  size: number;
+  isDir?: number;
+  isFile?: number;
+  command: number;
+  size?: number;
   name: string;
 }
 
@@ -62,12 +62,12 @@ export interface IMessageReboot {
 
 export interface IMessagePort {
   key?: number;
-  command: number;
   gpio: number;
-  mode: number;
-  value: number;
-  interrupt: number;
-  disabled: number;
+  mode?: number;
+  interrupt?: number;
+  value?: number;
+  state?: number;
+  command: number;
 }
 
 export interface IMessageInit {
@@ -80,3 +80,45 @@ export interface IMessageNotification {
   timeout: number;
   text: string;
 }
+
+interface IKeyMessageSettings {
+  key: 'SETTINGS';
+  object?: IMessageSettings;
+}
+
+interface IKeyMessageInfo {
+  key: 'INFO';
+  object?: IMessageInfo;
+}
+
+interface IKeyMessagePing {
+  key: 'PING';
+  object?: IMessageFile;
+}
+
+interface IKeyMessageScan {
+  key: 'SCAN';
+  object?: IMessageScan;
+}
+
+interface IKeyMessageProgress {
+  key: 'PROGRESS';
+  object?: IMessageProgress;
+}
+
+interface IKeyMessageFiles {
+  key: 'FILES';
+  object?: IMessageFile;
+}
+
+interface IKeyMessageReboot {
+  key: 'REBOOT';
+  object?: IMessageReboot;
+}
+
+interface IKeyMessagePort {
+  key: 'PORT';
+  object?: IMessagePort;
+}
+
+export type TypeConstMessage = IKeyMessageSettings | IKeyMessageInfo | IKeyMessagePing | IKeyMessageScan | IKeyMessageProgress | IKeyMessageFiles | IKeyMessageReboot | IKeyMessagePort;

@@ -1,7 +1,6 @@
 <template>
   <div>
     <TransitionGroup name="list" tag="ul" class="flex flex-col gap-2">
-      {{ notifications }}
       <VNotification v-for="item of notifications" :key="item.id" v-bind="item" @close="emit('close', item)"></VNotification>
     </TransitionGroup>
   </div>
