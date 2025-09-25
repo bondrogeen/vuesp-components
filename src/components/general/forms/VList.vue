@@ -1,5 +1,5 @@
 <template>
-  <ul class="bg-white dark:bg-gray-800">
+  <ul :class="className">
     <li
       v-for="item of list"
       :key="item.id"
@@ -18,9 +18,10 @@ import type { IListItem } from '@/types/types';
 
 interface Props {
   list: IListItem[];
+  className?: string;
 }
 
-const { list = [] } = defineProps<Props>();
+const { list = [], className = 'bg-white dark:bg-gray-800' } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'click', value: IListItem): void;
