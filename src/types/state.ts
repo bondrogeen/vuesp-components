@@ -17,9 +17,7 @@ export interface IStateInfo extends IMessageInfo {
 }
 export interface IStateMain {
   info: IStateInfo;
-  gpio: Record<string, IMessagePort>;
-  device: any;
-  dallas: any;
+  ports: Record<string, IMessagePort>;
 }
 
 export interface IStateApp {

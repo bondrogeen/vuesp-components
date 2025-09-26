@@ -4,7 +4,7 @@ export interface IListItem {
   type?: string;
   icon?: string;
   event?: string;
-  value?: string | number | boolean;
+  value: string | number;
 }
 
 export interface IMenuItem {

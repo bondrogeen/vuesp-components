@@ -23,9 +23,9 @@ const emit = defineEmits<{
 
 const props = defineProps<IDashboardItem>();
 
-const onChange = (e: any) => {
-  const value: number = e?.target?.value;
-  emit('setState', { ...props, value });
+const onChange = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  emit('setState', target.value);
 };
 
 const onClick = (event: Event) => emit('click', event);
