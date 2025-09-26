@@ -23,14 +23,12 @@ const emit = defineEmits<{
 
 const props = defineProps<IDashboardItem>();
 
-const datetime = (now: number) => new Date(now * 1000).toISOString().slice(0, 16);
+const datetime = (now: number | string) => new Date(+now * 1000).toISOString().slice(0, 16);
 
 const onChangeDate = (e: any) => {
   const now: number = e?.target?.valueAsNumber;
-  console.log(now);
-
   if (now) {
-    emit('setState', { ...props, value: now / 1000 });
+    emit('setState', now / 1000);
   }
 };
 

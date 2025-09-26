@@ -1,67 +1,40 @@
-import type { IDashboardItem, IDashboardItemString } from '@/types/types';
+import type { IDashboardItem, TypeGetDataValue } from '@/types/types';
 
-export const saveObjectWithFunctions = (obj: any) => {
-  const processValue = (value: any) => {
-    if (typeof value === 'function') return `${value.toString()}`;
-    if (Array.isArray(value)) {
-      const items: any = value.map((v) => processValue(v));
-      return `[${items.join(',')}]`;
-    }
-    if (typeof value === 'object' && value !== null) {
-      const entries: any = Object.entries(value).map(([key, val]) => `${JSON.stringify(key)}: ${processValue(val)}`);
-      return `{${entries.join(',')}}`;
-    }
-    return JSON.stringify(value);
-  };
-  return processValue(obj);
-};
+const getDataValue: TypeGetDataValue = (key, main) => {
+  const keys = key.split('.') as string[];
+  let current: any = main;
 
-export const safeEval = (code: string) => {
-  if (typeof code !== 'string' || code.trim() === '') {
-    return null;
-  }
-  try {
-    return eval(code);
-  } catch (error) {
-    return null;
-  }
-};
-
-export const stringToFunction = ({ set, get, modifyValue, ...all }: IDashboardItemString): IDashboardItem => {
-  const obj: IDashboardItem = { ...all };
-  if (set && typeof set === 'string') obj.set = safeEval(set);
-  if (get && typeof get === 'string') obj.get = safeEval(get);
-  if (modifyValue && typeof modifyValue === 'string') obj.modifyValue = safeEval(modifyValue);
-  return obj;
-};
-
-export const functionToString = ({ set, get, modifyValue, ...arg }: IDashboardItem) => {
-  const obj: IDashboardItemString = { ...arg };
-  if (set) obj.set = set.toString();
-  if (get) obj.get = get.toString();
-  if (modifyValue) obj.modifyValue = modifyValue.toString();
-  return obj;
-};
-
-export const createObjectFromPaths = (paths: string[], delimiter = '.') => {
-  const result = {};
-
-  for (const path of paths) {
-    const keys = path.split(delimiter);
-    let current: any = result;
-
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-      if (!current[key]) {
-        current[key] = i === keys.length - 1 ? path : {};
-      } else if (current[key] === true && i < keys.length - 1) {
-        current[key] = {};
-      }
-      if (i < keys.length - 1) {
-        current = current[key];
-      }
+  for (const k of keys) {
+    if (current !== null && typeof current === 'object' && k in current) {
+      current = current[k];
+    } else {
+      return undefined;
     }
   }
+  return current;
+};
 
-  return result;
+const getParamsData = ({ parameters }: IDashboardItem, main: IMyIStateMain): ReturnType<typeof getDataValue>[] => {
+  return parameters.map((i: string) => getDataValue(i, main));
+};
+
+const getFunction = (parameters?: string[]) => {
+  if (!parameters?.length) return null;
+  let body = parameters[parameters.length - 1];
+  const params = parameters.slice(0, parameters.length - 1);
+  body = body.trim().startsWith('return') ? body : `return ${body}`;
+  return new Function(...[...params, body]);
+};
+
+const getBind = (item: IDashboardItem) => {
+  const args = getParamsData(item, main.value);
+  let value = null;
+  const getFunc = getFunction(item.get);
+  if (getFunc) value = getFunc(...args);
+
+  let convert = null;
+  const modifyFunc = getFunction(item.modify);
+  if (modifyFunc) convert = modifyFunc(...args);
+
+  return { ...item, value, convert };
 };

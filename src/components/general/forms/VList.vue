@@ -1,9 +1,9 @@
 <template>
-  <ul :class="className">
+  <ul :class="props.className ?? 'bg-white dark:bg-gray-800'">
     <li
-      v-for="item of list"
+      v-for="item of props.list"
       :key="item.id"
-      class="whitespace-nowrap cursor-pointer flex items-center min-h-[40px] py-1 px-6 border-b last:border-b-0 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+      class="whitespace-nowrap cursor-pointer flex items-center min-h-[40px] py-1 px-6 border-b last:border-b-0 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/30"
       @click="onClick(item)"
     >
       <slot :item="item">{{ item.name }}</slot>
@@ -12,16 +12,15 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
-
 import type { IListItem } from '@/types/types';
+import { defineProps, defineEmits } from 'vue';
 
 interface Props {
   list: IListItem[];
   className?: string;
 }
 
-const { list = [], className = 'bg-white dark:bg-gray-800' } = defineProps<Props>();
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'click', value: IListItem): void;

@@ -1,5 +1,5 @@
 <template>
-  <VDropdown class="relative w-full" v-bind="$attrs" top="50px" hideOnClick>
+  <VDropdown class="relative w-full" v-bind="$attrs" top="46px" hideOnClick>
     <template #activator="{ on, show }">
       <VTextField :model-value="getValue" readonly hideMessage :disabled="disabled" active :label="label" @click="on.click" @on-icon="on.click">
         <template #icon>
@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import type { IListItem } from '@/types/types';
 import { computed, defineEmits, defineProps } from 'vue';
 
 import VTextField from '@/components/general/forms/VTextField.vue';
@@ -30,23 +31,28 @@ interface Props {
   valueName?: string;
   label: string;
   disabled?: boolean;
-  list?: any[];
+  list: IListItem[];
 }
 
-const { valueName = 'name', value = '', list = [], disabled = false } = defineProps<Props>();
+const { valueName = 'name', value = '', list, disabled = false } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: Event): void;
-  (e: 'change', item: any): void;
+  (e: 'change', item: IListItem): void;
 }>();
 
-const getValue = computed(() => list.find((i: any) => i.value === value)?.[valueName] || '');
+const getValue = computed(() => {
+  const item = list.find((i: IListItem) => i.value === value) ?? null;
+  if (!item || !valueName) return '';
+  if (valueName in item) {
+    return String(item[valueName as keyof IListItem]) || '';
+  }
+  return '';
+});
 
 const getClass = (show: boolean) => ({ 'rotate-x-180': show });
 
-const onChange = (on: any, item: any) => {
-  console.log(on);
-
+const onChange = (on: any, item: IListItem) => {
   on.click(item);
   emit('change', item);
 };
