@@ -44,8 +44,8 @@ import type { Ref } from 'vue';
 
 import VListObject from '@/components/general/forms/VListObject.vue';
 
-import IconFolder from '@/assets/icons/IconFolder.svg';
-import IconSave from '@/assets/icons/IconSave.svg';
+import IconFolder from '@/assets/icons/Folder.svg';
+import IconSave from '@/assets/icons/Save.svg';
 
 interface Props {
   items: object;

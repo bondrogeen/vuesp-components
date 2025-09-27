@@ -23,7 +23,7 @@ import type { IMessageNotification } from '@/types/types';
 
 import { defineProps, defineEmits, onMounted, computed } from 'vue';
 
-import IconClose from '@/assets/icons/IconClose.svg';
+import IconClose from '@/assets/icons/Close.svg';
 
 interface Props extends IMessageNotification {
   empty?: number;

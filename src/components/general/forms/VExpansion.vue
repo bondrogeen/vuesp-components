@@ -19,7 +19,7 @@
 import type { Ref } from 'vue';
 import { ref, defineProps, onMounted } from 'vue';
 
-import IconChevron from '@/assets/icons/IconChevron.svg';
+import IconChevron from '@/assets/icons/Chevron.svg';
 
 interface Props {
   label?: string;

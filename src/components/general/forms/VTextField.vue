@@ -1,6 +1,6 @@
 <template>
   <div class="w-full relative">
-    <label class="relative w-full min-h-[40px] border border-gray-300 dark:border-gray-700 flex items-center rounded transition bg-white dark:bg-gray-800" :class="getClassSlot">
+    <label class="relative w-full border border-gray-300 dark:border-gray-700 flex items-center rounded transition bg-white dark:bg-gray-800" :class="getClassSlot">
       <span class="absolute left-4 transition-all rounded -translate-y-1/2 text-gray-600 dark:text-gray-400" :class="getClassLabel">
         {{ label }}
       </span>
@@ -24,9 +24,8 @@
       <button
         v-if="$slots.icon"
         :disabled="disabled"
-        style="flex: 0 0 50px"
         :class="{ 'cursor-pointer': !disabled }"
-        class="h-full flex items-center justify-center text-gray-400 border-l border-gray-300 dark:border-gray-700/50"
+        class="flex-[0_0_50px] h-full flex items-center justify-center text-gray-400 border-l border-gray-300 dark:border-gray-700/50"
         @click="onIcon"
       >
         <slot name="icon"></slot>
@@ -75,6 +74,7 @@ const componentClass: Record<string, string> = {
 const isFocus = ref(false);
 
 const getClassSlot = computed(() => [
+  component === 'input' ? 'h-[40px]' : 'min-h-[40px]',
   message ? 'border-red-500 hover:border-red-400' : '',
   disabled ? 'border-gray-400 opacity-40' : 'border-gray-300 hover:border-gray-400 dark:border-gray-700/50 hover:dark:border-gray-600/50',
 ]);

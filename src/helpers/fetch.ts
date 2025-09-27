@@ -1,8 +1,23 @@
+const useFetchJson = async <T = any>(useFetch: Promise<Response>): Promise<T | null> => {
+  try {
+    const res = await useFetch;
+    if (!res.ok) return null;
+    return (await res.json()) as T;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 export const useFetch = {
   get: (url: string, init?: RequestInit) => fetch(url, init),
   post: (url: string, init?: RequestInit) => fetch(url, { method: 'POST', ...init }),
   put: (url: string, init?: RequestInit) => fetch(url, { method: 'PUT', ...init }),
   delete: (url: string, init?: RequestInit) => fetch(url, { method: 'DELETE', ...init }),
+  $get: (url: string, init?: RequestInit) => useFetchJson(fetch(url, init)),
+  $post: (url: string, init?: RequestInit) => useFetchJson(fetch(url, { method: 'POST', ...init })),
+  $put: (url: string, init?: RequestInit) => useFetchJson(fetch(url, { method: 'PUT', ...init })),
+  $delete: (url: string, init?: RequestInit) => useFetchJson(fetch(url, { method: 'DELETE', ...init })),
 };
 
 export const downloadBinary = async (path: string) => {
@@ -17,13 +32,4 @@ export const uploadBinary = (path: string, buffer: any) => {
   var body = new FormData();
   body.append(`file[0]`, blob, path);
   return useFetch.post('/fs', { body });
-};
-
-export const createDownloadLink = (href: string, name = 'file') => {
-  const link = document.createElement('a');
-  link.setAttribute('download', name);
-  link.href = href;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
 };

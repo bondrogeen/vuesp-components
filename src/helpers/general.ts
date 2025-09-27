@@ -6,19 +6,7 @@ export const jsonParse = (data: string | null) => {
   }
 };
 
-const jsonString = (data: object) => (typeof data === 'object' ? JSON.stringify(data) : data);
-
-export const localGet = (name: string) => jsonParse(localStorage.getItem(name));
-
-export const localSet = (name: string, data: any) => {
-  if (localStorage) localStorage.setItem(name, jsonString(data));
-};
-
-export const sessionGet = (name: string) => jsonParse(sessionStorage.getItem(name));
-
-export const sessionSet = (name: string, data: any) => {
-  if (sessionStorage) sessionStorage.setItem(name, jsonString(data));
-};
+export const jsonString = (data: unknown): string => (typeof data === 'object' ? JSON.stringify(data) : (data as string));
 
 export const toByte = (value: number) => {
   const sizes = ['B', 'KB', 'MB'];
@@ -38,10 +26,14 @@ export const timeUtcToString = (value: string | number | Date, options: Intl.Dat
   return localDate.toLocaleTimeString(location, options);
 };
 
-export const debounce = (fn: Function, ms = 300) => {
-  let timeoutId: ReturnType<typeof setTimeout>;
-  return function (this: any, ...args: any[]) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(this, args), ms);
-  };
+export const addZero = (value: number) => (value >= 10 ? value : `0${value}`);
+
+export const secToTime = (seconds: number) => {
+  // let y = Math.floor(seconds / 31536000);
+  // let mo = Math.floor((seconds % 31536000) / 2628000);
+  let d = Math.floor(((seconds % 31536000) % 2628000) / 86400);
+  let h = Math.floor((seconds % (3600 * 24)) / 3600);
+  let m = Math.floor((seconds % 3600) / 60);
+  let s = Math.floor(seconds % 60);
+  return `${d ? d + ' days ' : ''} ${addZero(h)}:${addZero(m)}:${addZero(s)}`;
 };

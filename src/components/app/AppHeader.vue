@@ -68,12 +68,12 @@ import VButton from '@/components/general/forms/VButton.vue';
 import VDropdown from '@/components/general/forms/VDropdown.vue';
 import VList from '@/components/general/forms/VList.vue';
 
-import IconDots from '@/assets/icons/IconDots.svg';
-import IconBurger from '@/assets/icons/IconBurger.svg';
-import IconNoti from '@/assets/icons/IconNoti.svg';
-import IconLogout from '@/assets/icons/IconLogout.svg';
-import IconLogo from '@/assets/icons/IconLogo.svg';
-import IconTheme from '@/assets/icons/IconTheme.svg';
+import IconDots from '@/assets/icons/Dots.svg';
+import IconBurger from '@/assets/icons/Burger.svg';
+import IconNoti from '@/assets/icons/Noti.svg';
+import IconLogout from '@/assets/icons/Logout.svg';
+import IconLogo from '@/assets/icons/Logo.svg';
+import IconTheme from '@/assets/icons/Theme.svg';
 
 export interface Props {
   changeTheme?: (value?: string) => void;
@@ -89,8 +89,8 @@ const dropdownOpen = ref(false);
 const notifying = ref(false);
 
 const listMenu: IListItem[] = [
-  { id: 1, name: 'Theme', icon: IconTheme },
-  { id: 2, name: 'Logout', icon: IconLogout },
+  { id: 1, name: 'Theme', value: IconTheme },
+  { id: 2, name: 'Logout', value: IconLogout },
 ];
 
 const onSidebar = (e: Event) => emit('sidebar', e);

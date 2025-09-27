@@ -2,7 +2,7 @@
   <CardBase v-bind="props" @click="onClick">
     <template #dialog="{ value, name }">
       <div class="flex justify-center relative mx-2 my-6">
-        <VTextField :modelValue="value" :label="name" @change="onChange"></VTextField>
+        <VTextField :modelValue="value" :label="name" autofocus @change="onChange"></VTextField>
       </div>
     </template>
   </CardBase>

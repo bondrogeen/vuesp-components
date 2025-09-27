@@ -138,25 +138,6 @@
 import { ref } from 'vue';
 import type { IListItem } from '@/types/types';
 
-import IconBurger from '@/assets/icons/IconBurger.svg';
-import IconChevron from '@/assets/icons/IconChevron.svg';
-import IconClose from '@/assets/icons/IconClose.svg';
-import IconTheme from '@/assets/icons/IconTheme.svg';
-import IconEyeClose from '@/assets/icons/IconEyeClose.svg';
-import IconDots from '@/assets/icons/IconDots.svg';
-import IconDevice from '@/assets/icons/IconDevice.svg';
-import IconEyeOpen from '@/assets/icons/IconEyeOpen.svg';
-import IconFile from '@/assets/icons/IconFile.svg';
-import IconFolder from '@/assets/icons/IconFolder.svg';
-import IconLogo from '@/assets/icons/IconLogo.svg';
-import IconLogout from '@/assets/icons/IconLogout.svg';
-import IconNoti from '@/assets/icons/IconNoti.svg';
-import IconSave from '@/assets/icons/IconSave.svg';
-import IconSearch from '@/assets/icons/IconSearch.svg';
-import IconUpdate from '@/assets/icons/IconUpdate.svg';
-import IconVideo from '@/assets/icons/IconVideo.svg';
-import IconDashboard from '@/assets/icons/IconDashboard.svg';
-
 import { VAutocomplete, BlockBreadcrumb, VButton, VCheckbox, VDropdown, VList, VSelect, VTextField, VTextFieldFile, BlockTable } from '@/components/general';
 
 import CardGray from '@/components/general/cards/CardGray.vue';
@@ -164,26 +145,6 @@ import CardGray from '@/components/general/cards/CardGray.vue';
 const input = ref('');
 const select = ref('item1');
 let theme = 'light';
-
-const icons = [
-  IconBurger,
-  IconChevron,
-  IconClose,
-  IconTheme,
-  IconDashboard,
-  IconDevice,
-  IconDots,
-  IconEyeClose,
-  IconEyeOpen,
-  IconFile,
-  IconFolder,
-  IconLogout,
-  IconNoti,
-  IconSave,
-  IconSearch,
-  IconUpdate,
-  IconVideo,
-];
 
 const colors: string[] = ['gray', 'blue', 'red', 'green'];
 
@@ -197,9 +158,9 @@ const listTable = [
 ];
 
 const listMenu: IListItem[] = [
-  { id: 2, icon: IconSearch, name: 'Upload' },
-  { id: 3, icon: IconUpdate, name: 'Reload' },
-  { id: 4, icon: IconSave, name: 'Format' },
+  { id: 2, name: 'Upload', value: 'IconSearch' },
+  { id: 3, name: 'Reload', value: 'IconUpdate' },
+  { id: 4, name: 'Format', value: 'IconSave' },
 ];
 
 const headers = [

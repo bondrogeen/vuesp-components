@@ -43,7 +43,7 @@ import type { IMenuItem } from '@/types/types';
 
 import { findMenuItem } from '@/helpers/app';
 
-import IconChevron from '@/assets/icons/IconChevron.svg';
+import IconChevron from '@/assets/icons/Chevron.svg';
 
 interface Props {
   menu?: IMenuItem[];

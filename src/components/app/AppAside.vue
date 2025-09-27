@@ -2,7 +2,7 @@
   <div v-if="isSidebar" class="lg:hidden overlay fixed left-0 top-0 h-full w-full bg-black/40 bg-blur z-10" @click="onSidebar"></div>
   <aside
     :class="isSidebar ? 'translate-x-0 lg:w-[90px]' : '-translate-x-full'"
-    class="overflow-x-hidden fixed top-0 left-0 z-10 flex lg:static h-full w-[290px] flex-col overflow-y-auto border-r border-gray-200 px-5 transition-all lg:translate-x-0 dark:border-gray-800 bg-white dark:bg-gray-900 -translate-x-full"
+    class="overflow-x-hidden fixed top-0 left-0 z-10 flex lg:static h-full w-[290px] flex-col overflow-y-auto border-r border-gray-200 px-5 transition-all duration-350 lg:translate-x-0 dark:border-gray-800 bg-white dark:bg-gray-900 -translate-x-full"
   >
     <div :class="isSidebar ? 'justify-center' : 'justify-between'" class="sidebar-header flex items-center gap-2 pt-6 pb-6 justify-between">
       <router-link to="/">
@@ -21,8 +21,8 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
 
-import IconLogoMini from '@/assets/icons/IconLogoMini.svg';
-import IconLogo from '@/assets/icons/IconLogo.svg';
+import IconLogoMini from '@/assets/icons/LogoMini.svg';
+import IconLogo from '@/assets/icons/Logo.svg';
 
 interface Props {
   isSidebar?: boolean;
