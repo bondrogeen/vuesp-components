@@ -11,9 +11,9 @@
       <div v-if="show" class="z-20 fixed top-0 h-[100dvh] w-full left-0 flex flex-col" @wheel.stop>
         <div class="absolute h-full w-full top-0 left-0 bg-black/40 bg-blur" @click="onClose"></div>
 
-        <div class="flex-auto flex align-center p-4">
+        <div class="flex-auto flex align-center md:p-4 overflow-y-auto no-scrollbar">
           <div class="m-auto w-full bg-white dark:bg-gray-900 shadow-lg flex flex-col rounded-lg z-30" :class="getClass">
-            <div class="flex items-center justify-between px-4 py-2 border-b dark:border-gray-700 border-gray-200">
+            <div class="flex items-center justify-between px-4 py-2 border-b dark:border-gray-700 bg-white dark:bg-gray-900 border-gray-200 sticky top-0 z-30">
               <slot name="header">
                 <h4>
                   {{ title }}
@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import { ref, defineProps, defineEmits, computed, onMounted } from 'vue';
 
-import IconClose from '@/assets/icons/IconClose.svg';
+import IconClose from '@/assets/icons/Close.svg';
 import VButton from '@/components/general/forms/VButton.vue';
 
 export interface Props {

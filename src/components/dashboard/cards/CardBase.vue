@@ -73,8 +73,6 @@ const emit = defineEmits<{
 
 const props = defineProps<IDashboardItem>();
 
-// const { type, value, name, icon, valueModify } = computed(() => props);
-
 const getColorValue = computed(() => {
   if (['button', 'switch'].includes(props.type || '')) return props.value ? 'text-amber-500' : 'text-gray-400';
   return 'text-gray-400';
