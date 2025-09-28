@@ -12,6 +12,7 @@ import VIcons from '@/components/general/forms/VIcons.vue';
 import VWifiIcon from '@/components/general/forms/VWifiIcon.vue';
 import VListObject from '@/components/general/forms/VListObject.vue';
 import VDragDrop from '@/components/general/forms/VDragDrop.vue';
-import VTextChips from '@/components/general/forms/VDragDrop.vue';
+import VFunc from '@/components/general/forms/VFunc.vue';
+import VTextWrapper from '@/components/general/forms/VTextWrapper.vue';
 
-export { VAutocomplete, VButton, VLoader, VCheckbox, VDropdown, VExpansion, VList, VSelect, VTextField, VTextFieldFile, VIcons, VWifiIcon, VListObject, VDragDrop, VTextChips };
+export { VAutocomplete, VButton, VLoader, VCheckbox, VDropdown, VExpansion, VList, VSelect, VTextField, VTextFieldFile, VIcons, VWifiIcon, VListObject, VDragDrop, VTextWrapper, VFunc };

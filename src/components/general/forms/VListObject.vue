@@ -8,11 +8,11 @@
 
         <div class="text-gray-400">{{ key }}</div>
 
-        <template v-if="isObject(item)">
+        <template v-if="!onlyValue && isObject(item)">
           <div class="flex-auto"></div>
 
           <div class="flex items-center z-10">
-            <button class="px-2 cursor-pointer text-gray-400 hover:text-gray-200" @click.stop="onGetKey(key)">
+            <button class="px-2 cursor-pointer text-gray-400 hover:text-gray-200" @click.stop="onGetKey(key, isObject(item))">
               <IconSave class="size-5" />
             </button>
           </div>
@@ -20,7 +20,7 @@
       </div>
 
       <div v-if="isObject(item)" class="flex ps-5">
-        <VListObject v-show="show[key]" class="flex-auto" :path="getPath(key)" :items="item" @click="emit('click', $event)"></VListObject>
+        <VListObject v-show="show[key]" class="flex-auto" :path="getPath(key)" :items="item" :onlyValue="onlyValue" @click="emit('click', $event)"></VListObject>
       </div>
 
       <template v-else>
@@ -30,7 +30,7 @@
           {{ item }}
         </div>
 
-        <button class="px-2 cursor-pointer z-10" @click.stop="onGetKey(key)">
+        <button class="px-2 cursor-pointer z-10" @click.stop="onGetKey(key, isObject(item))">
           <IconSave class="size-5" />
         </button>
       </template>
@@ -41,6 +41,7 @@
 <script setup lang="ts">
 import { ref, defineProps, defineEmits } from 'vue';
 import type { Ref } from 'vue';
+import type { VListObjectReturnData } from '@/types/components';
 
 import VListObject from '@/components/general/forms/VListObject.vue';
 
@@ -50,12 +51,13 @@ import IconSave from '@/assets/icons/Save.svg';
 interface Props {
   items: object;
   path?: string;
+  onlyValue?: boolean;
 }
 
-const { items = {}, path = '' } = defineProps<Props>();
+const { items = {}, path = '', onlyValue = false } = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: 'click', value: string): void;
+  (e: 'click', data: VListObjectReturnData): void;
 }>();
 
 const getClass = () => `before:absolute before:w-full before:h-8 before:t-0 before:left-0 before:rounded-sm hover:before:bg-gray-400/10`;
@@ -69,7 +71,7 @@ const isObject = (item: unknown) => typeof item === 'object';
 
 const getPath = (key: string) => `${path ? path + '.' : ''}${key}`;
 
-const onGetKey = (key: string) => {
-  emit('click', getPath(key));
+const onGetKey = (key: string, isObject: boolean) => {
+  emit('click', { key, path: getPath(key), isObject });
 };
 </script>

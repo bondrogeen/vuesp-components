@@ -41,6 +41,15 @@
     background: transparent;
   }
 
+  textarea {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  textarea::-webkit-scrollbar {
+    display: none;
+  }
+
   .bg-blur {
     backdrop-filter: blur(3px);
   }

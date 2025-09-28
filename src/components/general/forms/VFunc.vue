@@ -1,0 +1,64 @@
+<template>
+  <VTextWrapper :active="Boolean(value)" :disabled="disabled" :label="label" :hideIcon="hideIcon" @icon="onClickIcon">
+    <template v-if="value">
+      <div class="flex gap-1 text-yellow-400/60 self-start text-nowrap select-none">
+        (
+        <template v-for="(param, i) of parameters" :key="param">
+          <span class="text-blue-400/80" :title="param" @mouseenter="emit('hover', 'enter', i)" @mouseleave="emit('hover', 'leave', i)">{{ params[i] }}</span>
+          <span class="last:hidden">,</span>
+        </template>
+        ) =>
+      </div>
+
+      <div class="flex flex-auto">
+        <textarea ref="textarea" v-model="input" class="outline-0 w-full resize-none" type="text" :disabled="disabled" @change="onChange"></textarea>
+      </div>
+    </template>
+
+    <template #icon>
+      <IconClose v-if="value" class="size-4" />
+      <IconPlus v-else class="size-4" />
+    </template>
+  </VTextWrapper>
+</template>
+
+<script setup lang="ts">
+import { defineEmits, defineProps, watch } from 'vue';
+import { useTextareaAutosize } from '@vueuse/core';
+
+import VTextWrapper from '@/components/general/forms/VTextWrapper';
+
+import IconClose from '@/assets/icons/Close.svg';
+import IconPlus from '@/assets/icons/Plus.svg';
+
+const { textarea, input } = useTextareaAutosize();
+
+interface Props {
+  label: string;
+  parameters: string[];
+  value: string | undefined;
+  disabled?: boolean;
+  hideIcon?: boolean;
+}
+
+const { parameters, value, disabled = false, hideIcon = false } = defineProps<Props>();
+
+const emit = defineEmits<{
+  (e: 'change', event: Event): void;
+  (e: 'icon', event: Event): void;
+  (e: 'hover', event: string, index: number): void;
+}>();
+
+const params = ['v', 'a', 'b', 'c'];
+input.value = value || '';
+
+const onChange = (e: Event) => emit('change', e);
+const onClickIcon = (e: Event) => emit('icon', e);
+
+watch(
+  () => value,
+  () => {
+    if (value) input.value = value;
+  }
+);
+</script>
