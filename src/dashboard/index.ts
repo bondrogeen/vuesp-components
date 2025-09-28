@@ -18,10 +18,8 @@ export const getParamsData: TypeGetParamsData = ({ parameters }, main) => {
   return parameters.map((i: string) => getDataValue(i, main));
 };
 
-export const getFunction = (parameters?: string[]) => {
-  if (!parameters?.length) return null;
-  let body = parameters[parameters.length - 1];
-  const params = parameters.slice(0, parameters.length - 1);
-  body = body.trim().startsWith('return') ? body : `return ${body}`;
-  return new Function(...[...params, body]);
+export const getFunction = (body: string | undefined) => {
+  if (!body) return null;
+  body = body.includes('return') ? body : `return ${body}`;
+  return new Function('v', 'a', 'b', 'c', body);
 };

@@ -31,3 +31,9 @@ export interface ITextFieldEvent {
   files: any;
   info?: ITextFieldInfo;
 }
+
+export interface VListObjectReturnData {
+  key: string;
+  path: string;
+  isObject: boolean;
+}

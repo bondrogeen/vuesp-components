@@ -16,9 +16,9 @@ export interface IDashboardItem {
   options?: IDashboardItemOptions;
   list?: IListItem[];
   parameters: string[];
-  get: string[];
-  set?: string[];
-  modify?: string[];
+  get: string;
+  set?: string;
+  modify?: string;
 }
 
 export type GetTypeByPath<T, Path extends string> = Path extends keyof T ? T[Path] : Path extends `${infer K}.${infer R}` ? (K extends keyof T ? GetTypeByPath<T[K], R> : never) : never;
