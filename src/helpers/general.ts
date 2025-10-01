@@ -8,6 +8,8 @@ export const jsonParse = (data: string | null) => {
 
 export const jsonString = (data: unknown): string => (typeof data === 'object' ? JSON.stringify(data) : (data as string));
 
+export const clone = (obj: object) => jsonParse(jsonString(obj));
+
 export const toByte = (value: number) => {
   const sizes = ['B', 'KB', 'MB'];
   if (value == 0) return '0 B';
@@ -16,15 +18,11 @@ export const toByte = (value: number) => {
   return Math.round(value / Math.pow(1024, i)) + ' ' + sizes[i];
 };
 
-export const dateUtcToString = (value: string | number | Date, options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'numeric', day: 'numeric' }, location = []) => {
-  const localDate = new Date(value);
-  return localDate.toLocaleDateString(location, options);
-};
+export const dateUtcToString = (value: string | number | Date, options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'numeric', day: 'numeric' }, location = []) =>
+  new Date(value).toLocaleDateString(location, options);
 
-export const timeUtcToString = (value: string | number | Date, options: Intl.DateTimeFormatOptions = { second: '2-digit', minute: '2-digit', hour: '2-digit', timeZone: 'UTC' }, location = []) => {
-  const localDate = new Date(value);
-  return localDate.toLocaleTimeString(location, options);
-};
+export const timeUtcToString = (value: string | number | Date, options: Intl.DateTimeFormatOptions = { second: '2-digit', minute: '2-digit', hour: '2-digit', timeZone: 'UTC' }, location = []) =>
+  new Date(value).toLocaleTimeString(location, options);
 
 export const addZero = (value: number) => (value >= 10 ? value : `0${value}`);
 

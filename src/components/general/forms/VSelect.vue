@@ -7,7 +7,7 @@
         </template>
       </VTextField>
       <select class="md:hidden absolute left-0 top-0 w-full h-full opacity-0" name="select" @change="onSelect">
-        <option v-for="item of list" :key="item.id" :value="item.value" :selected="value === item.name">{{ item.name }}</option>
+        <option v-for="item of list" :key="item.value" :value="item.value" :selected="value === item.name">{{ item.name }}</option>
       </select>
     </template>
 
@@ -31,13 +31,12 @@ import IconChevron from '@/assets/icons/Chevron.svg';
 
 interface Props {
   value?: number | string;
-  valueName?: string;
   label: string;
-  disabled?: boolean;
+  disabled?: boolean | number;
   list: IListItem[];
 }
 
-const { valueName = 'name', value = '', list, disabled = false } = defineProps<Props>();
+const { value = '', list, disabled = false } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: Event): void;
@@ -45,12 +44,8 @@ const emit = defineEmits<{
 }>();
 
 const getValue = computed(() => {
-  const item = list.find((i: IListItem) => i.value === value) ?? null;
-  if (!item || !valueName) return '';
-  if (valueName in item) {
-    return String(item[valueName as keyof IListItem]) || '';
-  }
-  return '';
+  const item = list.find((i: IListItem) => i.value === value);
+  return item?.name || '';
 });
 
 const getClass = (show: boolean) => ({ 'rotate-x-180': show });

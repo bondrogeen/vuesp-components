@@ -1,5 +1,5 @@
 <template>
-  <component :is="isComponents" v-bind="$attrs" :href="href" :to="to" :class="getClass" :disabled="disabled" @click="onClick">
+  <component :is="isComponents" v-bind="$attrs" :href="href" :to="to" :class="getClass" :disabled="Boolean(disabled)" @click="onClick">
     <span :class="loading ? 'opacity-0' : ''">
       <slot></slot>
     </span>
@@ -22,7 +22,7 @@ interface Props {
   href?: string;
   to?: string;
   loading?: boolean;
-  disabled?: boolean;
+  disabled?: number | boolean;
 }
 
 const { href = '', to = '', color = 'gray', block, size = 'normal', type = 'button', outline = false, loading = false, disabled = false } = defineProps<Props>();

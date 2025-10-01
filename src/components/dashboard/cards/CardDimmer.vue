@@ -12,14 +12,14 @@
     </template>
 
     <template #dialog="item">
-      <div class="flex justify-center relative mx-2 my-6">
+      <div class="flex justify-center relative mx-2 my-6" :class="getBind(item).disabled ? 'opacity-40' : ''">
         <div class="absolute h-10 w-full top-0 left-0 bg-gray-400 dark:bg-gray-800 z-0 rounded-md"></div>
 
         <div class="absolute h-10 top-0 left-0 bg-blue-600 dark:bg-blue-400 z-0 rounded-md transition-[width_0.3s_linear]" :style="`width: ${getPercent(item)}%`"></div>
 
         <div class="absolute top-1/2 left-1/2 -translate-1/2 text-white z-10 font-bold text-xl">{{ getPercent(item) }} %</div>
 
-        <input type="range" v-bind="getBind(item)" :value="value" class="w-full h-10 z-10 appearance-none cursor-pointer opacity-0" @change="onChange" />
+        <input type="range" v-bind="getBind(item)" class="w-full h-10 z-10 appearance-none opacity-0" @change="onChange" />
       </div>
     </template>
   </CardBase>
@@ -39,24 +39,14 @@ const emit = defineEmits<{
 
 const props = defineProps<IDashboardItem>();
 
-const getPercent = ({ options, value }: IDashboardItem) => {
-  const { max = 255 } = options || {};
-  return Math.round((100 * +value) / max);
-};
-const getRangePercent = ({ options, value }: IDashboardItem) => {
-  const { max = 255 } = options || {};
-  return Math.round(187 - (+value / max) * 187);
-};
+const getPercent = ({ opts, value }: IDashboardItem) => Math.round((100 * +value) / (opts?.max || 255));
+const getRangePercent = ({ opts, value }: IDashboardItem) => Math.round(187 - (+value / (opts?.max || 255)) * 187);
 
-const getBind = ({ options }: IDashboardItem) => {
-  const { min = 0, max = 255, step = 1 } = options || {};
-  return { min, max, step };
+const getBind = ({ value, opts }: IDashboardItem) => {
+  const { min = 0, max = 255, step = 1, disabled } = opts || {};
+  return { min, max, step, value, disabled: Boolean(disabled), class: disabled ? '' : 'cursor-pointer' };
 };
 
 const onClick = (event: Event) => emit('click', event);
-
-const onChange = (e: any) => {
-  const value = +e?.target?.value || 0;
-  emit('setState', value);
-};
+const onChange = (e: Event) => emit('setState', +(e.target as HTMLTextAreaElement).value || 0);
 </script>

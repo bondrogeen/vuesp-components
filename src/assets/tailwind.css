@@ -5,6 +5,19 @@
 @theme {
   --color-primary: #28b7f0;
   --color-secondary: #66d3f1;
+
+  --animate-shake: shake 0.2s ease-in-out;
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-2px) rotate(-3deg);
+    }
+    75% {
+      transform: translateX(2px) rotate(3deg);
+    }
+  }
 }
 
 @layer lib {

@@ -1,9 +1,10 @@
 import type { IListItem } from '@/types/types';
 export interface IDashboardItemOptions {
-  disabled?: boolean | number;
+  disabled?: number;
   min?: number;
   max?: number;
   step?: number;
+  list?: IListItem[];
 }
 
 export interface IDashboardItem {
@@ -12,13 +13,12 @@ export interface IDashboardItem {
   type: string;
   icon: string;
   value: string | number;
-  convert: string;
-  options?: IDashboardItemOptions;
-  list?: IListItem[];
-  parameters: string[];
-  get: string;
+  valueTo?: string;
+  opts?: IDashboardItemOptions;
+  args: string[];
   set?: string;
-  modify?: string;
+  get: string;
+  getTo?: string;
 }
 
 export type GetTypeByPath<T, Path extends string> = Path extends keyof T ? T[Path] : Path extends `${infer K}.${infer R}` ? (K extends keyof T ? GetTypeByPath<T[K], R> : never) : never;

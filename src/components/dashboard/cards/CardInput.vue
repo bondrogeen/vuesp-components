@@ -1,8 +1,8 @@
 <template>
   <CardBase v-bind="props" @click="onClick">
-    <template #dialog="{ value, name }">
+    <template #dialog="item">
       <div class="flex justify-center relative mx-2 my-6">
-        <VTextField :modelValue="value" :label="name" autofocus @change="onChange"></VTextField>
+        <VTextField v-bind="getBind(item)" autofocus @change="onChange"></VTextField>
       </div>
     </template>
   </CardBase>
@@ -23,10 +23,11 @@ const emit = defineEmits<{
 
 const props = defineProps<IDashboardItem>();
 
-const onChange = (e: Event) => {
-  const target = e.target as HTMLInputElement;
-  emit('setState', target.value);
+const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
+  const { disabled } = opts;
+  return { label: name, modelValue: value, disabled };
 };
 
+const onChange = (e: Event) => emit('setState', (e.target as HTMLInputElement).value);
 const onClick = (event: Event) => emit('click', event);
 </script>

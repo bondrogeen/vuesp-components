@@ -25,7 +25,6 @@
           </template>
 
           <VList v-slot="{ item }" :list="listMenu" @click="onMenu">
-            <component :is="item.icon"></component>
             <span class="ms-2">{{ item.name }}</span>
           </VList>
         </VDropdown>
@@ -124,13 +123,13 @@
       </BlockTable>
     </CardGray>
 
-    <CardGray title="Icons">
+    <!-- <CardGray title="Icons">
       <div class="flex gap-4">
         <div v-for="(icon, i) of icons" :key="i" class="flex">
           <component :is="icon"></component>
         </div>
       </div>
-    </CardGray>
+    </CardGray> -->
   </div>
 </template>
 
@@ -158,9 +157,9 @@ const listTable = [
 ];
 
 const listMenu: IListItem[] = [
-  { id: 2, name: 'Upload', value: 'IconSearch' },
-  { id: 3, name: 'Reload', value: 'IconUpdate' },
-  { id: 4, name: 'Format', value: 'IconSave' },
+  { name: 'Upload', value: 2 },
+  { name: 'Reload', value: 3 },
+  { name: 'Format', value: 4 },
 ];
 
 const headers = [
