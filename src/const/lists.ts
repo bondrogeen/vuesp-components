@@ -43,5 +43,5 @@ const icons = [
 
 const dashboardCards = ['Button', 'Info', 'Dimmer', 'Date', 'Input', 'List'];
 
-export const listIcons: IListItem[] = icons.map((item, i) => ({ id: ++i, name: `${item}`, value: `Icon${item}` }));
+export const listIcons: IListItem[] = icons.map((item, i) => ({ id: ++i, name: `${item}`, value: item }));
 export const listDashboard: IListItem[] = dashboardCards.map((item, i) => ({ id: ++i, name: `${item}`, value: `${item.toLowerCase()}` }));

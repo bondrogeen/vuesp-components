@@ -36,7 +36,7 @@ import { ref, defineProps, defineEmits, defineExpose } from 'vue';
 
 interface Props {
   value: number;
-  items: unknown[];
+  items: { title: string }[];
 }
 
 const { items, value } = defineProps<Props>();

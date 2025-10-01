@@ -1,7 +1,6 @@
 export interface IListItem {
-  id: number;
+  id?: number;
   name: string;
-  icon?: string;
   value: string | number;
 }
 

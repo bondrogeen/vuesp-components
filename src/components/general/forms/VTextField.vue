@@ -9,8 +9,9 @@
         :is="component"
         v-bind="$attrs"
         :value="modelValue"
-        :disabled="disabled"
+        :disabled="Boolean(disabled)"
         :type="type"
+        :readonly="readonly"
         :rows="isInput ? null : '2'"
         :wrap="isInput ? null : 'soft'"
         :class="getClassComponent"
@@ -23,7 +24,7 @@
 
       <button
         v-if="$slots.icon"
-        :disabled="disabled"
+        :disabled="Boolean(disabled)"
         :class="{ 'cursor-pointer': !disabled }"
         class="flex-[0_0_50px] h-full flex items-center justify-center text-gray-400 border-l border-gray-300 dark:border-gray-700/50"
         @click="onIcon"
@@ -44,13 +45,13 @@
 import { ref, defineProps, defineEmits, computed } from 'vue';
 
 interface Props {
-  modelValue?: number | string | undefined;
+  modelValue?: number | string;
   label?: string;
   component?: string;
   type?: string;
   message?: string;
   readonly?: boolean;
-  disabled?: boolean;
+  disabled?: boolean | number;
   active?: boolean;
   hideMessage?: boolean;
   rules?: any[];
@@ -88,20 +89,14 @@ const after = 'after:absolute after:h-1 after:w-full after:left-0 after:translat
 const getClassLabel = computed(() => [after, isFocus.value || isValue(modelValue) || active ? 'top-0 left-3 text-xs' : 'top-1/2']);
 const isInput = computed(() => component === 'input');
 
-const onInput = ({ target }: Event) => {
-  emit('update:modelValue', (target as HTMLTextAreaElement).value);
-};
-
 const onBlur = (e: Event) => {
   isFocus.value = false;
   emit('blur', e);
 };
+const onInput = ({ target }: Event) => emit('update:modelValue', (target as HTMLTextAreaElement).value);
 const onEnter = (e: Event) => emit('enter', e);
-
 const onFocus = () => (isFocus.value = true);
-
 const onClick = (e: Event) => emit('click', e);
-
 const onIcon = (e: Event) => {
   if (disabled) return;
   emit('on-icon', e);

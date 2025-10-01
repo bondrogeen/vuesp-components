@@ -91,5 +91,5 @@ const icons: Record<string, unknown> = {
 
 const { name } = defineProps<IProps>();
 
-const getIcon = computed(() => (name ? icons[name] : IconTherm));
+const getIcon = computed(() => (name ? icons[`Icon${name}`] : IconTherm));
 </script>

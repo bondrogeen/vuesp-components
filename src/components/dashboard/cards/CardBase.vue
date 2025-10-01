@@ -5,14 +5,14 @@
   >
     <div class="flex-auto flex justify-between">
       <div :class="getColorValue">
-        <VIcons :name="props.icon || ''" class="size-8" />
+        <VIcons :name="getIcon" class="size-8" :class="props.value ? 'animate-shake' : ''" />
       </div>
       <slot name="header" v-bind="props"></slot>
     </div>
 
     <div>
       <slot name="body" v-bind="props">
-        <h6 class="text-sm text-gray-500 font-medium text-ellipsis overflow-hidden text-nowrap">
+        <h6 class="text-sm text-gray-500 font-medium line-clamp-2 overflow-hidden">
           <slot name="name" v-bind="props">
             {{ props.name }}
           </slot>
@@ -20,19 +20,19 @@
 
         <div class="text-sm text-ellipsis overflow-hidden text-nowrap">
           <slot name="value" v-bind="props">
-            {{ props.convert || props.value }}
+            {{ props.valueTo || props.value }}
           </slot>
         </div>
       </slot>
     </div>
 
-    <VIcons v-if="props.icon" :name="props.icon || ''" class="absolute left-1/2 top-1/2 size-[calc(50%)] opacity-5 text-gray-200/20 -translate-1/2" />
+    <VIcons v-if="getIcon" :name="getIcon" class="absolute left-1/2 top-1/2 size-[calc(50%)] opacity-5 text-gray-200/20 -translate-1/2" />
 
     <AppDialog v-if="dialog" size="sm" :title="name" @close="dialog = false">
       <template #header>
         <div class="flex-auto flex items-center justify-between gap-6 me-2">
           <VButton type="icon" size="" @click="onEdit">
-            <VIcons name="IconDots" class="size-8" />
+            <VIcons name="Dots" class="size-8" />
           </VButton>
         </div>
       </template>
@@ -49,7 +49,7 @@
 
           <p class="text-center text-xl mt-4">
             <slot name="dialog-value" v-bind="props">
-              {{ props.convert || props.value }}
+              {{ props.valueTo || props.value }}
             </slot>
           </p>
         </div>
@@ -74,10 +74,11 @@ const emit = defineEmits<{
 const props = defineProps<IDashboardItem>();
 
 const getColorValue = computed(() => {
-  if (['button', 'switch'].includes(props.type || '')) return props.value ? 'text-amber-500' : 'text-gray-400';
+  if (['button', 'dimmer'].includes(props.type || '')) return props.value ? 'text-amber-500' : 'text-gray-400';
   return 'text-gray-400';
 });
 
+const getIcon = computed(() => props.icon || '');
 const onEdit = (e: Event) => emit('edit', e);
 
 const onClick = () => (dialog.value = true);

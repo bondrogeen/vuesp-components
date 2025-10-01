@@ -1,8 +1,8 @@
 <template>
   <CardBase v-bind="props" @click="onClick">
-    <template #dialog="{ value }">
+    <template #dialog="item">
       <div class="flex justify-center relative mx-2 my-6">
-        <VTextField :modelValue="datetime(value)" type="datetime-local" label="Date" @change="onChangeDate"></VTextField>
+        <VTextField v-bind="getBind(item)" type="datetime-local" @change="onChangeDate"></VTextField>
       </div>
     </template>
   </CardBase>
@@ -30,6 +30,11 @@ const onChangeDate = (e: any) => {
   if (now) {
     emit('setState', now / 1000);
   }
+};
+
+const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
+  const { disabled } = opts;
+  return { label: name, modelValue: datetime(value), disabled };
 };
 
 const onClick = (event: Event) => emit('click', event);

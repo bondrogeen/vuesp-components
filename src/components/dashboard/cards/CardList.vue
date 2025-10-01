@@ -4,9 +4,9 @@
 
     <template #dialog-value="item">{{ getValue(item) }}</template>
 
-    <template #dialog="{ name, value, list = [] }">
+    <template #dialog="item">
       <div class="flex justify-center py-4">
-        <VSelect :value="value" :label="name" :list="getList(list)" @change="setState" />
+        <VSelect v-bind="getBind(item)" @change="setState" />
       </div>
     </template>
   </CardBase>
@@ -29,6 +29,10 @@ const props = defineProps<IDashboardItem>();
 
 const onClick = (event: Event) => emit('click', event);
 const setState = ({ value }: IListItem) => emit('setState', value);
-const getList = (list: IListItem[]) => (list ? list : ([] as IListItem[]));
-const getValue = ({ list, value }: IDashboardItem) => (Array.isArray(list) ? list.find((i) => i.value === value)?.name || value : value);
+const getValue = ({ opts, value }: IDashboardItem) => (Array.isArray(opts?.list) ? opts?.list.find((i) => i.value === value)?.name || value : value);
+
+const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
+  const { list = [], disabled } = opts;
+  return { label: name, value, list, disabled };
+};
 </script>

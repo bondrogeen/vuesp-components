@@ -9,12 +9,12 @@ export const createDownloadLink = (href: string, name = 'file') => {
   link.remove();
 };
 
-export const localGet = (name: string) => jsonParse(localStorage.getItem(name));
-export const localSet = (name: string, data: unknown) => {
-  if (localStorage) localStorage.setItem(name, jsonString(data));
+const getStorage = (store: Storage) => (name: string) => jsonParse(store.getItem(name));
+const setStorage = (store: Storage) => (name: string, data: unknown) => {
+  if (store) store.setItem(name, jsonString(data));
 };
 
-export const sessionGet = (name: string) => jsonParse(sessionStorage.getItem(name));
-export const sessionSet = (name: string, data: unknown) => {
-  if (sessionStorage) sessionStorage.setItem(name, jsonString(data));
-};
+export const localGet = getStorage(localStorage);
+export const localSet = setStorage(localStorage);
+export const sessionGet = getStorage(sessionStorage);
+export const sessionSet = setStorage(sessionStorage);

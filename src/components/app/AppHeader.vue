@@ -49,7 +49,6 @@
             </template>
 
             <VList v-slot="{ item }" :list="listMenu" @click="onMenu">
-              <component :is="item.icon"></component>
               <span class="ms-2">{{ item.name }}</span>
             </VList>
           </VDropdown>
@@ -89,8 +88,8 @@ const dropdownOpen = ref(false);
 const notifying = ref(false);
 
 const listMenu: IListItem[] = [
-  { id: 1, name: 'Theme', value: IconTheme },
-  { id: 2, name: 'Logout', value: IconLogout },
+  { name: 'Theme', value: 1 },
+  { name: 'Logout', value: 2 },
 ];
 
 const onSidebar = (e: Event) => emit('sidebar', e);
@@ -105,8 +104,8 @@ const onChangeTheme = () => {
   if (changeTheme) changeTheme();
 };
 
-const onMenu = ({ name }: any) => {
-  if (name == 'Logout') onLogout();
-  if (name == 'Theme') onChangeTheme();
+const onMenu = ({ value }: IListItem) => {
+  if (value == 1) onChangeTheme();
+  if (value == 2) onLogout();
 };
 </script>
