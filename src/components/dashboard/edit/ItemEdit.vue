@@ -32,11 +32,11 @@
         <div class="flex flex-col gap-4">
           <VTextWrapper :active="Boolean(item.args.length)" :disabled="isParamsDisabled" label="Arguments" @icon="dialog = true">
             <div class="flex gap-2 flex-wrap flex-auto px-2 py-1">
-              <div v-for="(item, i) of item.args" :key="item" class="flex items-center rounded-full bg-gray-900/50 px-2 py-[2px] text-xs">
+              <div v-for="(item, i) of item.args" :key="item" class="flex items-center rounded-full bg-gray-200 dark:bg-gray-900/50 px-2 py-[2px] text-xs">
                 <div class="relative group">
                   <span class="select-none">{{ item }}</span>
                   <div
-                    class="fixed left-1/2 top-1/2 p-4 bg-gray-950 rounded-lg rounded-bl-none group-hover:visible invisible opacity-0 group-hover:opacity-100 z-50 transition-all -translate-1/2"
+                    class="fixed left-1/2 top-1/2 p-4 text-white bg-gray-900 rounded-md group-hover:visible invisible opacity-0 group-hover:opacity-100 z-50 transition-all -translate-1/2"
                     :class="isHover(i) ? 'visible opacity-100' : ''"
                   >
                     <pre>{{ getDataValue(item, object) }}</pre>
@@ -49,9 +49,9 @@
             </div>
           </VTextWrapper>
 
-          <VFunc :value="item['get']" :args="item.args" :disabled="!isParams" label="Get" hideIcon @icon="onFunc('get')" @hover="onHover" @change="onChange('get', $event)" />
-
           <VFunc :value="item.set" :args="item.args" :disabled="!isParams || isSet" label="Set" @icon="onFunc('set')" @hover="onHover" @change="onChange('set', $event)" />
+
+          <VFunc :value="item.get" :args="item.args" :disabled="!isParams" label="Get" @icon="onFunc('get')" @hover="onHover" @change="onChange('get', $event)" />
 
           <VFunc :value="item.getTo" :args="item.args" :disabled="!isParams" label="GetTo" @icon="onFunc('getTo')" @hover="onHover" @change="onChange('getTo', $event)" />
         </div>
@@ -114,25 +114,24 @@ const tabs = [{ title: 'Main' }, { title: 'Data' }, { title: 'Options' }];
 
 const item: Ref<IDashboardItem> = ref({
   id: '',
-  name: 'New',
+  name: '',
   type: 'button',
   icon: 'Bulb',
   value: '',
   args: [],
-  set: '({ ...a, value: v, command: 1 })',
-  get: 'v',
-  getTo: "v ? 'ON' : 'OFF'",
+  set: '',
+  get: '',
+  getTo: '',
 });
 
 const dialog = ref(false);
 const isNew = computed(() => Boolean(!data?.id));
-
 const isSet = computed(() => item.value.type === 'info');
 const isParams = computed(() => item.value.args?.length);
 const isParamsDisabled = computed(() => item.value.args.length > 3);
 const isDisabled = computed(() => {
-  const { id, args, get } = item.value;
-  return !id || !args.length || !get;
+  const { id, args } = item.value;
+  return !id || !args.length;
 });
 
 const onIcon = ({ value }: IListItem) => (item.value.icon = value as string);
@@ -142,12 +141,13 @@ const onType = ({ value }: IListItem) => {
   item.value.type = type;
   delete item.value.opts;
   if (!['button', 'list', 'dimmer'].includes(type)) return;
-  if (value === 'button') item.value.opts = { disabled: 0 };
+  if (value === 'button') item.value.opts = {};
   if (value === 'list') item.value.opts = { list: [] };
   if (value === 'dimmer') item.value.opts = { min: 0, max: 255, step: 1 };
 };
 
 const onFunc = (key: string) => {
+  if (key === 'get') item.value.get ? delete item.value.get : (item.value.get = 'v');
   if (key === 'set') item.value.set ? delete item.value.set : (item.value.set = 'v');
   if (key === 'getTo') item.value.getTo ? delete item.value.getTo : (item.value.getTo = 'v');
 };
@@ -156,9 +156,7 @@ const onButton = (key: string) => emit('button', key, item.value);
 const onRemoveParams = (value: string) => (item.value.args = item.value.args.filter((i: string) => i !== value));
 
 const onAddParams = ({ path }: VListObjectReturnData) => {
-  if (!item.value.args.length) {
-    item.value.id = path;
-  }
+  if (!item.value.args.length) item.value.id = path;
   item.value.args.push(path);
   dialog.value = false;
 };
@@ -187,7 +185,7 @@ const onCheckId = () => {
 const onOptions = <K extends keyof IDashboardItemOptions>(key: K, value: IDashboardItemOptions[K]) => {
   if (!item.value.opts) item.value.opts = {};
   item.value.opts[key] = value;
-  if (key === 'disabled') delete item.value.opts[key];
+  if (key === 'disabled' && !value) delete item.value.opts[key];
 };
 
 onMounted(() => {
