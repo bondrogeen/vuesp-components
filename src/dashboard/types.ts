@@ -17,7 +17,7 @@ export interface IDashboardItem {
   opts?: IDashboardItemOptions;
   args: string[];
   set?: string;
-  get: string;
+  get?: string;
   getTo?: string;
 }
 

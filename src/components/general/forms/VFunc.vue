@@ -1,7 +1,7 @@
 <template>
   <VTextWrapper :active="Boolean(value)" :disabled="disabled" :label="label" :hideIcon="hideIcon" @icon="onClickIcon">
     <template v-if="value">
-      <div class="flex gap-1 text-yellow-400/60 self-start text-nowrap select-none">
+      <div class="flex gap-1 text-amber-500 self-start text-nowrap select-none">
         (
         <template v-for="(param, i) of args" :key="param">
           <span class="text-blue-400/80" :title="param" @mouseenter="emit('hover', 'enter', i)" @mouseleave="emit('hover', 'leave', i)">{{ params[i] }}</span>

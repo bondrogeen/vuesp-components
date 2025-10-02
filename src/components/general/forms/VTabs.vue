@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="flex border-b border-gray-700">
+    <div class="flex border-b border-gray-200 dark:border-gray-700">
       <div v-for="(tab, i) in items" :key="i" class="relative">
         <button
           class="font-medium text-lg transition cursor-pointer before:h-[2px] before:absolute before:w-full before:bg-blue-700 before:left-0 before:bottom-0 px-4 py-2"

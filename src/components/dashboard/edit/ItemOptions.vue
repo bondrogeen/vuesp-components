@@ -69,17 +69,13 @@ const emit = defineEmits<{
 }>();
 
 const listWithId = computed(() => list.map((i: IListItem, idx: number) => ({ ...i, id: ++idx })));
-
 const listItem: Ref<IListItem> = ref({ name: '', value: '' });
-
 const listLength = computed(() => list.length + 1);
 const isDisabledList = computed(() => !listItem.value?.id);
 const isType = (key: string) => type === key;
 
 const onUpdate = <K extends keyof IDashboardItemOptions>(key: K, value: TypeValue) => emit('update', key, value);
-
 const clearListId = (list: IListItem[]) => list.map(({ name, value }) => ({ name, value }));
-
 const onSelect = ({ id, name, value }: IListItem) => (listItem.value = { id, name, value });
 
 const onAdd = () => {

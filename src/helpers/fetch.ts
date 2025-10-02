@@ -28,8 +28,13 @@ export const downloadBinary = async (path: string) => {
 };
 
 export const uploadBinary = (path: string, buffer: any) => {
-  const blob = new Blob([buffer], { type: 'octet/stream' });
-  var body = new FormData();
-  body.append(`file[0]`, blob, path);
-  return useFetch.post('/fs', { body });
+  const body = new FormData();
+  body.append(`file[0]`, new Blob([buffer], { type: 'octet/stream' }), path);
+  return useFetch.$post('/fs', { body });
+};
+
+export const uploadJson = (path: string, data: object) => {
+  const body = new FormData();
+  body.append('file[0]', new Blob([JSON.stringify(data)], { type: 'application/json' }), path);
+  return useFetch.$post('/fs', { body });
 };

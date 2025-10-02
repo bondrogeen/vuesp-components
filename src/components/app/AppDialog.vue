@@ -12,8 +12,8 @@
         <div class="absolute h-full w-full top-0 left-0 bg-black/40 bg-blur" @click="onClose"></div>
 
         <div class="flex-auto flex align-center md:p-4 overflow-y-auto no-scrollbar">
-          <div class="m-auto w-full bg-white dark:bg-gray-900 shadow-lg flex flex-col rounded-lg z-30" :class="getClass">
-            <div class="flex items-center justify-between px-4 py-2 border-b dark:border-gray-700 bg-white dark:bg-gray-900 border-gray-200 sticky top-0 z-30">
+          <div class="m-auto w-full bg-gray-50 dark:bg-gray-900 shadow-lg flex flex-col rounded-md z-30" :class="getClass">
+            <div class="flex items-center justify-between px-4 py-2 rounded-md border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 sticky top-0 z-30">
               <slot name="header">
                 <h4>
                   {{ title }}

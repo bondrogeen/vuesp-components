@@ -34,7 +34,7 @@ export const setStateItem = <T>(item: IDashboardItem, value: unknown, object: T)
 
 export const getStateItem = <T>(item: IDashboardItem, object: T) => {
   const args = getParamsData(item, object);
-  let value = null;
+  let value = args?.[0] || '';
 
   const getFunc = getFunction(item.get);
   if (getFunc) value = getFunc(...args);

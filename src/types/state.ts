@@ -1,4 +1,4 @@
-import type { IMenuItem, IDialog, IMessageInfo, IMessagePort, IMessageSettings, IMessageNotification, IMessageProgress } from '@/types/types';
+import type { IMenuItem, IDialog, IMessageInfo, IMessagePort, IMessageSettings, IMessageNotification, IMessageProgress, IDashboardItem } from '@/types/types';
 
 export interface IPackage {
   name: string;
@@ -22,6 +22,7 @@ export interface IStateMain {
 
 export interface IStateApp {
   menu: IMenuItem[];
+  dashboard: IDashboardItem[];
   theme: string;
   dialog: IDialog;
 }
