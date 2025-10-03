@@ -33,7 +33,7 @@
       </button>
     </label>
 
-    <div v-if="!hideMessage" class="text-red-500 h-[24px] px-2 text-xs">
+    <div v-if="!hideMessage" class="text-red-400 h-[24px] px-2 text-xs">
       <slot name="message">
         {{ message }}
       </slot>

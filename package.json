@@ -16,6 +16,11 @@
       "import": "./dist/dashboard/index.es.js",
       "default": "./dist/dashboard/index.es.js"
     },
+    "./composables": {
+      "types": "./dist/composables/index.d.ts",
+      "import": "./dist/composables/index.es.js",
+      "default": "./dist/composables/index.es.js"
+    },
     "./helpers": {
       "types": "./dist/helpers/index.d.ts",
       "import": "./dist/helpers/index.es.js",
