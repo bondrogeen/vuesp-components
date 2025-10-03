@@ -7,7 +7,7 @@ import VExpansion from '@/components/general/forms/VExpansion.vue';
 import VList from '@/components/general/forms/VList.vue';
 import VSelect from '@/components/general/forms/VSelect.vue';
 import VTextField from '@/components/general/forms/VTextField.vue';
-import VTextFieldFile from '@/components/general/forms/VTextFieldFile.vue';
+import VFile from '@/components/general/forms/VFile.vue';
 import VIcons from '@/components/general/forms/VIcons.vue';
 import VWifiIcon from '@/components/general/forms/VWifiIcon.vue';
 import VListObject from '@/components/general/forms/VListObject.vue';
@@ -15,4 +15,4 @@ import VDragDrop from '@/components/general/forms/VDragDrop.vue';
 import VFunc from '@/components/general/forms/VFunc.vue';
 import VTextWrapper from '@/components/general/forms/VTextWrapper.vue';
 
-export { VAutocomplete, VButton, VLoader, VCheckbox, VDropdown, VExpansion, VList, VSelect, VTextField, VTextFieldFile, VIcons, VWifiIcon, VListObject, VDragDrop, VTextWrapper, VFunc };
+export { VAutocomplete, VButton, VLoader, VCheckbox, VDropdown, VExpansion, VList, VSelect, VTextField, VFile, VIcons, VWifiIcon, VListObject, VDragDrop, VTextWrapper, VFunc };

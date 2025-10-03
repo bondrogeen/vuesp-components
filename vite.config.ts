@@ -34,6 +34,7 @@ export default defineConfig(() => ({
       entry: {
         main: path.resolve(__dirname, 'src/index.ts'),
         dashboard: path.resolve(__dirname, 'src/dashboard/index.ts'),
+        composables: path.resolve(__dirname, 'src/composables/index.ts'),
         helpers: path.resolve(__dirname, 'src/helpers/index.ts'),
       },
       fileName: (format, entryName) => {
@@ -44,6 +45,7 @@ export default defineConfig(() => ({
       formats: ['es' as const],
     },
     rollupOptions: {
+      treeshake: 'smallest',
       external: ['vue'],
       output: {
         inlineDynamicImports: false,

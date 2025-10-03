@@ -89,7 +89,7 @@
 
         <VTextField v-model="input" component="textarea" label="Textarea" color="gray"></VTextField>
 
-        <VTextFieldFile color="gray"></VTextFieldFile>
+        <VFile color="gray"></VFile>
 
         <VSelect :value="select" label="Select" :list="listSelect" message="Error" @change="select = $event.name"></VSelect>
       </div>
@@ -137,7 +137,7 @@
 import { ref } from 'vue';
 import type { IListItem } from '@/types/types';
 
-import { VAutocomplete, BlockBreadcrumb, VButton, VCheckbox, VDropdown, VList, VSelect, VTextField, VTextFieldFile, BlockTable } from '@/components/general';
+import { VAutocomplete, BlockBreadcrumb, VButton, VCheckbox, VDropdown, VList, VSelect, VTextField, VFile, BlockTable } from '@/components/general';
 
 import CardGray from '@/components/general/cards/CardGray.vue';
 

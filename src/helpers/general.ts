@@ -35,3 +35,6 @@ export const secToTime = (seconds: number) => {
   let s = Math.floor(seconds % 60);
   return `${d ? d + ' days ' : ''} ${addZero(h)}:${addZero(m)}:${addZero(s)}`;
 };
+
+export const arrToStr = (v: number[]) => v.join('.');
+export const strToArr = (v: string) => v.split('.').map((i) => +i);

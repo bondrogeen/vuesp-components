@@ -18,19 +18,6 @@ export interface IDialog {
   callback?: () => void;
 }
 
-export interface ITextFieldFile {
-  name: string;
-  size: number;
-}
-export interface ITextFieldInfo {
-  files: ITextFieldFile[];
-  totalSize: number;
-}
-export interface ITextFieldEvent {
-  files: any;
-  info?: ITextFieldInfo;
-}
-
 export interface VListObjectReturnData {
   key: string;
   path: string;

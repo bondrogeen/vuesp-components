@@ -82,7 +82,7 @@ import type { IDashboardItem, IDashboardItemOptions, IListItem, VListObjectRetur
 import { computed, onMounted, ref, defineProps, defineEmits } from 'vue';
 
 import { listIcons, listDashboard } from '@/const/lists';
-import { getDataValue } from 'vuesp-components/dashboard';
+import { getDataValue } from '@/dashboard/index';
 import { clone } from '@/helpers/general';
 
 import VTextWrapper from '@/components/general/forms/VTextWrapper.vue';

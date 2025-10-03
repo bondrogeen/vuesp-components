@@ -14,6 +14,8 @@ const components: any = { ...app, ...dashboard, VButton, VLoader, VDropdown, VLi
 export * from '@/components/general/';
 export * from '@/components/app/';
 
+export * from './composables';
+
 export default {
   install: (app: App, options?: any) => {
     Object.keys(components).forEach((name) => {
