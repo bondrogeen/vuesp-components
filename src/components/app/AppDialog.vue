@@ -11,8 +11,8 @@
       <div v-if="show" class="z-20 fixed top-0 h-[100dvh] w-full left-0 flex flex-col" @wheel.stop>
         <div class="absolute h-full w-full top-0 left-0 bg-black/40 bg-blur" @click="onClose"></div>
 
-        <div class="flex-auto flex align-center md:p-4 overflow-y-auto no-scrollbar">
-          <div class="m-auto w-full bg-gray-50 dark:bg-gray-900 shadow-lg flex flex-col rounded-md z-30" :class="getClass">
+        <div class="flex-auto flex align-center md:px-4 overflow-y-auto no-scrollbar">
+          <div class="m-auto w-full bg-gray-50 dark:bg-gray-900 shadow-lg flex flex-col rounded-sm z-30" :class="getClass">
             <div class="flex items-center justify-between px-4 py-2 rounded-md border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 sticky top-0 z-30">
               <slot name="header">
                 <h4>
@@ -20,8 +20,8 @@
                 </h4>
               </slot>
 
-              <VButton type="icon" size="" @click="onClose">
-                <IconClose class="h-5 w-5"></IconClose>
+              <VButton type="icon" @click="onClose">
+                <IconClose></IconClose>
               </VButton>
             </div>
 

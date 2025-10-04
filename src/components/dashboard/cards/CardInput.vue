@@ -2,7 +2,11 @@
   <CardBase v-bind="props" @click="onClick">
     <template #dialog="item">
       <div class="flex justify-center relative mx-2 my-6">
-        <VTextField v-bind="getBind(item)" autofocus @change="onChange"></VTextField>
+        <VTextField v-bind="getBind(item)" autofocus @enter="onChange" @blur="onChange">
+          <template #icon>
+            <IconChevron class="size-6 rotate-270" />
+          </template>
+        </VTextField>
       </div>
     </template>
   </CardBase>
@@ -15,6 +19,8 @@ import type { IDashboardItem } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 import VTextField from '@/components/general/forms/VTextField.vue';
+
+import IconChevron from '@/assets/icons/Chevron.svg';
 
 const emit = defineEmits<{
   (e: 'click', event: Event): void;

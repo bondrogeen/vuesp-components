@@ -3,10 +3,10 @@
     <li v-for="(item, key) of items" :key="key" :class="isObject(item) ? '' : `flex items-center ${getClass()}`">
       <div class="flex items-center cursor-pointer ps-2 h-8" :class="isObject(item) ? `${getClass()}` : ''" @click="onClick(key)">
         <div v-if="isObject(item)" class="me-1">
-          <IconFolder class="size-5 text-gray-400" />
+          <IconFolder class="size-5" />
         </div>
 
-        <div class="text-gray-400">{{ key }}</div>
+        <div>{{ key }}</div>
 
         <template v-if="!onlyValue && isObject(item)">
           <div class="flex-auto"></div>
@@ -60,7 +60,7 @@ const emit = defineEmits<{
   (e: 'click', data: VListObjectReturnData): void;
 }>();
 
-const getClass = () => `before:absolute before:w-full before:h-8 before:t-0 before:left-0 before:rounded-sm hover:before:bg-gray-400/10`;
+const getClass = () => `before:absolute before:w-full before:h-8 before:t-0 before:left-0 before:border-b before:border-gray-200 dark:before:border-gray-800/50  hover:before:bg-gray-400/10`;
 
 const show: Ref<{ [index: string]: boolean }> = ref({});
 
