@@ -1,65 +1,67 @@
 <template>
   <div class="flex flex-col">
-    <VTabs class="flex-auto" :value="0" :items="tabs">
-      <template #tab-0>
-        <div class="flex flex-col md:flex-row gap-6">
-          <div class="flex-auto gap-x-2 order-1">
-            <VTextField v-model="item.id" label="ID" :disabled="!isNew" @click="onCheckId"></VTextField>
+    <div class="flex flex-col md:flex-row gap-6 min-h-[300px]">
+      <div class="flex-auto order-1">
+        <VTabs class="flex-auto" :value="0" :items="tabs">
+          <template #tab-0>
+            <div class="flex-auto gap-x-2 order-1">
+              <VTextField v-model="item.id" label="ID" :disabled="!isNew" @click="onCheckId"></VTextField>
 
-            <VTextField v-model="item.name" label="Name"></VTextField>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-              <VSelect v-slot="{ item }" :value="item.icon" label="Icon" class="mb-6" :list="listIcons" @change="onIcon">
-                <div class="flex gap-2 items-center">
-                  <VIcons :name="`${item.value}`" class="size-5"></VIcons>
+              <VTextField v-model="item.name" label="Name"></VTextField>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                <VSelect v-slot="{ item }" :value="item.icon" label="Icon" class="mb-6" :list="listIcons" @change="onIcon">
+                  <div class="flex gap-2 items-center">
+                    <VIcons :name="`${item.value}`" class="size-5"></VIcons>
 
-                  <div>{{ item.name }}</div>
-                </div>
-              </VSelect>
-
-              <VSelect :value="item.type" label="Type" :list="listDashboard" @change="onType"></VSelect>
-            </div>
-          </div>
-
-          <div class="flex justify-center order-0 md:order-1">
-            <div class="flex-[0_0_130px] size-[130px]">
-              <slot name="default" :item="item"></slot>
-            </div>
-          </div>
-        </div>
-      </template>
-
-      <template #tab-1>
-        <div class="flex flex-col gap-4">
-          <VTextWrapper :active="Boolean(item.args.length)" :disabled="isParamsDisabled" label="Arguments" @icon="dialog = true">
-            <div class="flex gap-2 flex-wrap flex-auto px-2 py-1">
-              <div v-for="(item, i) of item.args" :key="item" class="flex items-center rounded-full bg-gray-200 dark:bg-gray-900/50 px-2 py-[2px] text-xs">
-                <div class="relative group">
-                  <span class="select-none">{{ item }}</span>
-                  <div
-                    class="fixed left-1/2 top-1/2 p-4 text-white bg-gray-900 rounded-md group-hover:visible invisible opacity-0 group-hover:opacity-100 z-50 transition-all -translate-1/2"
-                    :class="isHover(i) ? 'visible opacity-100' : ''"
-                  >
-                    <pre>{{ getDataValue(item, object) }}</pre>
+                    <div>{{ item.name }}</div>
                   </div>
-                </div>
-                <button v-if="i" class="cursor-pointer ms-1" @click="onRemoveParams(item)">
-                  <IconClose class="size-5" />
-                </button>
+                </VSelect>
+
+                <VSelect :value="item.type" label="Type" :list="listDashboard" @change="onType"></VSelect>
               </div>
             </div>
-          </VTextWrapper>
+          </template>
 
-          <VFunc :value="item.set" :args="item.args" :disabled="!isParams || isSet" label="Set" @icon="onFunc('set')" @hover="onHover" @change="onChange('set', $event)" />
+          <template #tab-1>
+            <div class="flex flex-col gap-4">
+              <VTextWrapper :active="Boolean(item.args.length)" :disabled="isParamsDisabled" label="Arguments" @icon="dialog = true">
+                <div class="flex gap-2 flex-wrap flex-auto px-2 py-1">
+                  <div v-for="(item, i) of item.args" :key="item" class="flex items-center rounded-full bg-gray-200 dark:bg-gray-900/50 px-2 py-[2px] text-xs">
+                    <div class="relative group">
+                      <span class="select-none">{{ item }}</span>
+                      <div
+                        class="fixed left-1/2 top-1/2 p-4 text-white bg-gray-900 rounded-md group-hover:visible invisible opacity-0 group-hover:opacity-100 z-50 transition-all -translate-1/2"
+                        :class="isHover(i) ? 'visible opacity-100' : ''"
+                      >
+                        <pre>{{ getDataValue(item, object) }}</pre>
+                      </div>
+                    </div>
+                    <button v-if="i" class="cursor-pointer ms-1" @click="onRemoveParams(item)">
+                      <IconClose class="size-5" />
+                    </button>
+                  </div>
+                </div>
+              </VTextWrapper>
 
-          <VFunc :value="item.get" :args="item.args" :disabled="!isParams" label="Get" @icon="onFunc('get')" @hover="onHover" @change="onChange('get', $event)" />
+              <VFunc :value="item.set" :args="item.args" :disabled="!isParams || isSet" label="Set" @icon="onFunc('set')" @hover="onHover" @change="onChange('set', $event)" />
 
-          <VFunc :value="item.getTo" :args="item.args" :disabled="!isParams" label="GetTo" @icon="onFunc('getTo')" @hover="onHover" @change="onChange('getTo', $event)" />
+              <VFunc :value="item.get" :args="item.args" :disabled="!isParams" label="Get" @icon="onFunc('get')" @hover="onHover" @change="onChange('get', $event)" />
+
+              <VFunc :value="item.getTo" :args="item.args" :disabled="!isParams" label="GetTo" @icon="onFunc('getTo')" @hover="onHover" @change="onChange('getTo', $event)" />
+            </div>
+          </template>
+          <template #tab-2>
+            <ItemOptions v-bind="item.opts" :value="item.value" :type="item.type" @update="onOptions" />
+          </template>
+        </VTabs>
+      </div>
+
+      <div class="flex justify-center order-0 md:order-1 md:mt-11">
+        <div class="flex-[0_0_130px] size-[130px]">
+          <slot name="default" :item="item"></slot>
         </div>
-      </template>
-      <template #tab-2>
-        <ItemOptions v-bind="item.opts" :value="item.value" :type="item.type" @update="onOptions" />
-      </template>
-    </VTabs>
+      </div>
+    </div>
 
     <div class="flex gap-4 justify-end">
       <VButton class="px-4" color="red" outline @click="onButton('remove')">{{ 'Remove' }}</VButton>

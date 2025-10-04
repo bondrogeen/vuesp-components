@@ -12,7 +12,7 @@
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="transform opacity-0 -translate-y-2"
     >
-      <div v-if="isShow" class="z-10 min-w-full absolute overflow-auto shadow-lg" :style="getStyle" @click="onClick">
+      <div v-if="isShow" class="z-10 min-w-full absolute overflow-auto shadow-lg scrollbar" :style="getStyle" @click="onClick">
         <slot :on="on" :show="onShow" :hide="hide" :is-shown="isShow"></slot>
       </div>
     </transition>

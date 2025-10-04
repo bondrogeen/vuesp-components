@@ -31,8 +31,8 @@
     <AppDialog v-if="dialog" size="sm" :title="name" @close="dialog = false">
       <template #header>
         <div class="flex-auto flex items-center justify-between gap-6 me-2">
-          <VButton type="icon" size="" @click="onEdit">
-            <VIcons name="Dots" class="size-8" />
+          <VButton type="icon" @click="onEdit">
+            <VIcons name="Dots" />
           </VButton>
         </div>
       </template>

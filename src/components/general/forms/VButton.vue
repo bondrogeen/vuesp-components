@@ -17,8 +17,8 @@ interface Props {
   block?: boolean;
   outline?: boolean;
   color?: string;
-  size?: string;
-  type?: string;
+  size?: 'normal' | 'small';
+  type?: 'button' | 'icon';
   href?: string;
   to?: string;
   loading?: boolean;
@@ -44,17 +44,20 @@ const colors: { [index: string]: string } = { green, red, gray, blue };
 
 const types: { [index: string]: string } = {
   button: 'px-4',
-  icon: 'h-10 w-10 rounded-full border border-gray-200 dark:border-gray-800',
+  icon: 'rounded-full border border-gray-200 dark:border-gray-800',
 };
 
-const sizes: { [index: string]: string } = { normal: 'h-10', small: 'h-8' };
+const sizes = {
+  button: { normal: 'h-10', small: 'h-8' },
+  icon: { normal: 'size-10', small: 'size-8' },
+};
 
-const getSize = (size: string): any => sizes?.[size] || '';
+const getSize = (type: keyof typeof sizes, size: 'normal' | 'small'): string => sizes[type]?.[size] || '';
 
-const getType = (type: string): any => types?.[type] || '';
+const getType = (type: string): string => types?.[type] || '';
 
-const getColor = (color: string): any => (type === 'icon' ? '' : `${outline ? 'dark:text-white' : 'text-white'} ${colors?.[color] || ''}`);
+const getColor = (color: string): string => (type === 'icon' ? '' : `${outline ? 'dark:text-white' : 'text-white'} ${colors?.[color] || ''}`);
 
-const getClass = computed(() => [gefClass, getColor(color), getType(type), getSize(size), { 'w-full': block }]);
+const getClass = computed(() => [gefClass, getColor(color), getType(type), getSize(type, size), { 'w-full': block }]);
 const isComponents = computed(() => (href || to ? 'router-link' : 'button'));
 </script>

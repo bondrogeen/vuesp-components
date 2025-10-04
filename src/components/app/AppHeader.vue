@@ -2,13 +2,13 @@
   <header class="bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 left-0 w-full z-10 sticky top-0">
     <div class="px-4 py-4 sm:px-6 lg:px-8">
       <div class="container mx-auto flex flex-auto items-center">
-        <VButton type="icon" color="gray" class="me-6" @click="onSidebar">
-          <IconBurger class="h-5 w-5" />
+        <VButton type="icon" color="gray" @click="onSidebar">
+          <IconBurger class="size-5" />
         </VButton>
 
         <div class="lg:hidden flex-auto"></div>
 
-        <div class="lg:hidden h-[30px] me-10">
+        <div class="lg:hidden h-[30px]">
           <router-link to="/">
             <IconLogo class="h-[30px] text-primary"></IconLogo>
           </router-link>
@@ -21,15 +21,21 @@
             <IconTheme />
           </VButton>
 
-          <slot></slot>
+          <VButton type="icon" color="gray" @click="onNotif">
+            <span :class="isNewNotif ? 'hidden' : 'flex'" class="absolute right-0 top-0.5 z-1 h-2 w-2 rounded-full bg-orange-400 flex">
+              <span class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
+            </span>
+
+            <IconNoti class="size-5" />
+          </VButton>
 
           <VButton type="icon" color="gray" @click.prevent="onLogout">
-            <IconLogout class="h-5 w-5" />
+            <IconLogout class="size-5" />
           </VButton>
         </div>
 
         <div class="lg:hidden flex gap-4">
-          <VDropdown left="unset" right="0" top="0">
+          <VDropdown left="unset" right="0" top="0" hideOnClick>
             <template #activator="{ on }">
               <VButton type="icon" color="gray" class="flex" @click="on.click">
                 <IconDots />
@@ -47,9 +53,8 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue';
-
-import type { IListItem } from '@/types/types';
+import type { IListItem, IMessageNotification } from '@/types/types';
+import { computed, defineEmits, defineProps } from 'vue';
 
 import VButton from '@/components/general/forms/VButton.vue';
 import VDropdown from '@/components/general/forms/VDropdown.vue';
@@ -60,23 +65,29 @@ import IconBurger from '@/assets/icons/Burger.svg';
 import IconLogout from '@/assets/icons/Logout.svg';
 import IconLogo from '@/assets/icons/Logo.svg';
 import IconTheme from '@/assets/icons/Theme.svg';
+import IconNoti from '@/assets/icons/Noti.svg';
 
 interface Props {
   changeTheme?: (value?: string) => void;
+  notifications: IMessageNotification[];
 }
 
-const { changeTheme } = defineProps<Props>();
+const { changeTheme, notifications } = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: 'sidebar', value: Event): void;
+  (e: 'sidebar' | 'notif', value: Event): void;
 }>();
 
 const listMenu: IListItem[] = [
   { name: 'Theme', value: 1 },
   { name: 'Logout', value: 2 },
+  { name: 'Notification', value: 3 },
 ];
 
+const isNewNotif = computed(() => notifications.length);
+
 const onSidebar = (e: Event) => emit('sidebar', e);
+const onNotif = (e: Event) => emit('notif', e);
 const onLogout = async () => await fetch('/', { headers: { Authorization: 'Basic AAAAAAAAAAAAAAAAAAA=' } });
 
 const onChangeTheme = () => {
@@ -86,5 +97,6 @@ const onChangeTheme = () => {
 const onMenu = ({ value }: IListItem) => {
   if (value == 1) onChangeTheme();
   if (value == 2) onLogout();
+  if (value == 3) onNotif();
 };
 </script>
