@@ -11,6 +11,11 @@
       "import": "./dist/index.es.js",
       "default": "./dist/index.es.js"
     },
+    "./plugins": {
+      "types": "./dist/plugins/index.d.ts",
+      "import": "./dist/plugins/index.es.js",
+      "default": "./dist/plugins/index.es.js"
+    },
     "./dashboard": {
       "types": "./dist/dashboard/index.d.ts",
       "import": "./dist/dashboard/index.es.js",

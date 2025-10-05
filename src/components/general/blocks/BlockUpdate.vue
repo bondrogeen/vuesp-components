@@ -55,7 +55,7 @@ const updateLittleFS = () => nextTick(() => onFlash(files.littleFS, 'littlefs.bi
 const onSureFlash = (name: string) =>
   onDialog({
     value: true,
-    message: `Are you sure you want to update the ${name}?></p>`,
+    message: `Are you sure you want to update the ${name}?`,
     callback: name === 'firmware' ? updateFirmware : updateLittleFS,
   });
 </script>

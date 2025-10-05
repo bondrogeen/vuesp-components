@@ -4,8 +4,7 @@
       type="checkbox"
       :checked="Boolean(modelValue)"
       :disabled="disabled"
-      class="peer size-5 transition-all appearance-none rounded border border-gray-300 dark:border-gray-700 disabled:opacity-40"
-      :class="{ 'cursor-pointer': !disabled }"
+      class="peer size-5 transition-all appearance-none rounded border border-gray-300 dark:border-gray-700 disabled:opacity-40 not-disabled:cursor-pointer"
       @change="onChange"
     />
 
