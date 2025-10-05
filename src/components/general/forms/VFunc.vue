@@ -53,8 +53,21 @@ const emit = defineEmits<{
 const params = ['v', 'a', 'b', 'c'];
 input.value = value || '';
 
+const validateJS = (code: string) => {
+  try {
+    new Function(code);
+    console.log('true');
+
+    return true;
+  } catch (error) {
+    console.log('false');
+    return false;
+  }
+};
+
 const onChange = debounce((e: Event) => {
   const target = e.target as HTMLInputElement;
+  if (!validateJS(target.value)) return;
   emit('change', target.value);
 }, 500);
 const onClickIcon = (e: Event) => emit('icon', e);

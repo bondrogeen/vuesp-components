@@ -7,7 +7,7 @@
         </template>
       </VTextField>
       <select class="md:hidden absolute left-0 top-0 w-full h-full opacity-0" name="select" @change="onSelect">
-        <option v-for="item of list" :key="item.value" :value="item.value" :selected="value === item.name">{{ item.name }}</option>
+        <option v-for="item of list" :key="item.value" :value="item.value" :selected="value === item.value">{{ item.name }}</option>
       </select>
     </template>
 

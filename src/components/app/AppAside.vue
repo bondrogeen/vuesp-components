@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isSidebar" class="lg:hidden overlay fixed left-0 top-0 h-full w-full bg-black/40 bg-blur z-10" @click="onClose"></div>
+  <div v-if="isSidebar" class="lg:hidden overlay fixed left-0 top-0 h-full w-full bg-black/40 z-10 bg-blur" @click="onClose"></div>
   <aside
     :class="isSidebar ? 'translate-x-0 lg:w-[90px]' : '-translate-x-full'"
     class="overflow-x-hidden fixed top-0 left-0 z-10 flex lg:static h-full w-[290px] flex-col overflow-y-auto border-r border-gray-200 px-5 transition-all duration-350 lg:translate-x-0 dark:border-gray-800 bg-white dark:bg-gray-900"

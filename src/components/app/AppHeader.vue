@@ -22,7 +22,7 @@
           </VButton>
 
           <VButton type="icon" color="gray" @click="onNotif">
-            <span :class="isNewNotif ? 'hidden' : 'flex'" class="absolute right-0 top-0.5 z-1 h-2 w-2 rounded-full bg-orange-400 flex">
+            <span :class="isNewNotif ? 'flex' : 'hidden'" class="absolute right-0 top-0.5 z-1 h-2 w-2 rounded-full bg-orange-400">
               <span class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
             </span>
 
@@ -80,11 +80,11 @@ const emit = defineEmits<{
 
 const listMenu: IListItem[] = [
   { name: 'Theme', value: 1 },
-  { name: 'Logout', value: 2 },
-  { name: 'Notification', value: 3 },
+  { name: 'Notification', value: 2 },
+  { name: 'Logout', value: 3 },
 ];
 
-const isNewNotif = computed(() => notifications.length);
+const isNewNotif = computed(() => Boolean(notifications.find((i: IMessageNotification) => i.isNew)));
 
 const onSidebar = (e: Event) => emit('sidebar', e);
 const onNotif = (e: Event) => emit('notif', e);
@@ -94,9 +94,9 @@ const onChangeTheme = () => {
   if (changeTheme) changeTheme();
 };
 
-const onMenu = ({ value }: IListItem) => {
+const onMenu = ({ value }: IListItem, e: Event) => {
   if (value == 1) onChangeTheme();
-  if (value == 2) onLogout();
-  if (value == 3) onNotif();
+  if (value == 2) onNotif(e);
+  if (value == 3) onLogout();
 };
 </script>

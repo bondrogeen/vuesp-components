@@ -1,20 +1,23 @@
 <template>
-  <div class="flex items-center gap-2 w-full p-4">
-    <div class="relative flex justify-center items-center size-10 border border-gray-900 rounded-full">
-      <span :class="isNew ? 'flex' : 'hidden'" class="absolute right-0 top-0.5 z-1 size-2 rounded-full bg-orange-400 flex">
+  <div class="relative flex items-center gap-2 w-full p-2 overflow-hidden">
+    <div class="absolute left-0 top-0 w-[3px] h-full" :class="getColor(props.color)"></div>
+
+    <VButton class="shrink-0" type="icon" color="gray" @click="onRead">
+      <span :class="props.isNew ? 'flex' : 'hidden'" class="absolute right-0 top-0.5 z-1 h-2 w-2 rounded-full bg-orange-400">
         <span class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
       </span>
 
       <IconNoti class="size-5" />
+    </VButton>
+
+    <div class="flex-auto text-xs">
+      <div>{{ props.text }}</div>
+
+      <div class="text-gray-500 dark:text-gray-400 mt-1">{{ dateUtcToString(props.date) }} ({{ timeUtcToString(props.date) }})</div>
     </div>
 
-    <div class="flex-auto text-sm">
-      <div>{{ text }}</div>
-      <div class="text-gray-500 dark:text-gray-400">{{ dateUtcToString(new Date()) }}</div>
-    </div>
-
-    <VButton type="icon" size="small" @click="onClose">
-      <IconClose></IconClose>
+    <VButton class="shrink-0" type="icon" size="small" @click="onRemove">
+      <IconClose class="size-4"></IconClose>
     </VButton>
   </div>
 </template>
@@ -23,18 +26,22 @@
 import type { IMessageNotification } from '@/types/types';
 
 import { defineProps, defineEmits } from 'vue';
-import { dateUtcToString } from '@/helpers/general';
+import { dateUtcToString, timeUtcToString } from '@/helpers/general';
+
+import VButton from '@/components/general/forms/VButton.vue';
 
 import IconNoti from '@/assets/icons/Noti.svg';
 import IconClose from '@/assets/icons/Close.svg';
 
-const { text, id, date, isNew = true, timeout } = defineProps<IMessageNotification>();
+const props = defineProps<IMessageNotification>();
 
 const emit = defineEmits<{
-  (e: 'close', value: IMessageNotification): void;
+  (e: 'remove' | 'read', event: Event): void;
 }>();
 
-const onClose = () => {
-  emit('close', { text, id, timeout });
-};
+const colors = ['', 'bg-green-500', 'bg-red-500', 'bg-yellow-500', 'bg-blue-500'];
+const getColor = (color: number) => colors[color];
+
+const onRemove = (e: Event) => emit('remove', e);
+const onRead = (e: Event) => emit('read', e);
 </script>
