@@ -27,8 +27,12 @@ export const getFunction = (body: string | undefined) => {
 export const setStateItem = <T>(item: IDashboardItem, value: unknown, object: T) => {
   const [_, ...args] = getParamsData(item, object);
   let data = null;
-  const setFunc = getFunction(item.set);
-  if (setFunc) data = setFunc(value, ...args);
+  try {
+    const setFunc = getFunction(item.set);
+    if (setFunc) data = setFunc(value, ...args);
+  } catch (error) {
+    console.warn(error);
+  }
   return data;
 };
 
@@ -36,14 +40,17 @@ export const getStateItem = <T>(item: IDashboardItem, object: T) => {
   const args = getParamsData(item, object);
   const [v, a, b, c] = args;
   let value = v ?? '';
-
-  const getFunc = getFunction(item.get);
-  if (getFunc) value = getFunc(value, a, b, c);
-
   let valueTo = null;
-  const getToFunc = getFunction(item.getTo);
-  if (getToFunc) {
-    valueTo = getToFunc(value, a, b, c);
+
+  try {
+    const getFunc = getFunction(item.get);
+    if (getFunc) value = getFunc(value, a, b, c);
+    const getToFunc = getFunction(item.getTo);
+    if (getToFunc) {
+      valueTo = getToFunc(value, a, b, c);
+    }
+  } catch (error) {
+    console.warn(error);
   }
 
   return { ...item, value, valueTo };

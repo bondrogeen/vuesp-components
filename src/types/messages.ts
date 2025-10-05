@@ -76,8 +76,10 @@ export interface IMessageInit {
 
 export interface IMessageNotification {
   key?: number;
-  id: number;
+  isNew: number;
+  color: number;
   timeout: number;
+  date: number;
   text: string;
 }
 

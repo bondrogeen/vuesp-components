@@ -4,7 +4,7 @@
       v-for="item of props.list"
       :key="`${item.value}_${item.name}`"
       class="whitespace-nowrap cursor-pointer flex items-center min-h-[40px] py-1 px-6 border-b last:border-b-0 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/30"
-      @click="onClick(item)"
+      @click="onClick(item, $event)"
     >
       <slot :item="item">{{ item.name }}</slot>
     </li>
@@ -23,8 +23,8 @@ interface Props {
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: 'click', value: IListItem): void;
+  (e: 'click', value: IListItem, event: Event): void;
 }>();
 
-const onClick = (item: IListItem) => emit('click', item);
+const onClick = (item: IListItem, e: Event) => emit('click', item, e);
 </script>

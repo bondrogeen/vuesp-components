@@ -7,6 +7,7 @@
   --color-secondary: #66d3f1;
 
   --animate-shake: shake 0.2s ease-in-out;
+  --animate-opacity: opacity 0.3s ease-in;
   @keyframes shake {
     0% {
       transform: translateX(0);
@@ -16,6 +17,14 @@
     }
     75% {
       transform: translateX(2px) rotate(3deg);
+    }
+  }
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+    }
+    100%% {
+      opacity: 1;
     }
   }
 }
@@ -64,6 +73,7 @@
   }
 
   .bg-blur {
+    animation: opacity 0.3s ease-in;
     backdrop-filter: blur(3px);
   }
   .no-scrollbar {
