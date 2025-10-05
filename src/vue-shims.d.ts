@@ -16,3 +16,6 @@ declare module 'vuesp-components/types' {
 declare module 'vuesp-components/helpers' {
   export * from 'vuesp-components/dist/helpers';
 }
+declare module 'vuesp-components/plugins' {
+  export * from 'vuesp-components/dist/plugins';
+}

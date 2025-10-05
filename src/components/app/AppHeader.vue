@@ -35,7 +35,7 @@
         </div>
 
         <div class="lg:hidden flex gap-4">
-          <VDropdown left="unset" right="0" top="0" hideOnClick>
+          <VDropdown left="unset" right="0" top="0">
             <template #activator="{ on }">
               <VButton type="icon" color="gray" class="flex" @click="on.click">
                 <IconDots />

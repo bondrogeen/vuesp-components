@@ -29,7 +29,7 @@
       <slot></slot>
 
       <div class="flex gap-2 mt-4">
-        <v-button :href="pkg?.repository.url" target="_blank" class="w-full text-white" color="blue">Github</v-button>
+        <v-button :href="pkg?.repository?.url" target="_blank" class="w-full text-white" color="blue">Github</v-button>
 
         <v-button v-if="pkg?.homepage" :href="pkg?.homepage" target="_blank" class="w-full" color="blue" outline>Homepage</v-button>
       </div>

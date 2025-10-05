@@ -1,53 +1,46 @@
 <template>
-  <VDropdown v-bind="$attrs" top="50px">
-    <template #activator="{ show, on }">
-      <VTextField :value="show ? search : currentUser" :placeholder="show ? 'Search' : placeholder" @click="on.click" @input="onInput" @on-icon="on.click" @focus="search = ''">
-        <template #icon>
-          <IconChevron class="transition" :class="getClass(show)"></IconChevron>
-        </template>
-      </VTextField>
+  <VDropdown v-bind="$attrs" top="50px" hide-on-click>
+    <template #activator="{ on }">
+      <VTextField :model-value="modelValue" :name="name" :message="message" :label="label" @update:model-value="onInput" @click="on.open" />
     </template>
 
-    <div>
-      <VList v-slot="{ item }" :list="getList" @click="$emit('change', $event)">
-        <slot :item="item">{{ item[valueName] }}</slot>
+    <template #default="{ on }">
+      <VList v-slot="{ item }" :list="list" @click="onChange(on, $event)">
+        <slot :item="item">{{ item.name }}</slot>
       </VList>
-    </div>
-
-    <div v-if="isEmpty" class="p-4 py-2">Not found</div>
+    </template>
   </VDropdown>
 </template>
 
-<script setup>
-import { ref, computed, defineProps, defineEmits } from 'vue';
+<script setup lang="ts">
+import type { IListItem } from '@/types/types';
+import { defineProps, defineEmits } from 'vue';
 
 import VTextField from '@/components/general/forms/VTextField.vue';
 import VDropdown from '@/components/general/forms/VDropdown.vue';
 import VList from '@/components/general/forms/VList.vue';
-import IconChevron from '@/assets/icons/Chevron.svg';
 
-const props = defineProps({
-  value: { type: String, default: '' },
-  valueName: { type: String, default: 'name' },
-  placeholder: { type: String, default: '' },
-  list: { type: Array, default: () => [] },
-});
+interface Props {
+  modelValue?: string | number | undefined;
+  label: string;
+  name?: string;
+  message?: string;
+  list: IListItem[];
+}
 
-defineEmits(['change']);
-const search = ref('');
+const { modelValue = '', list, message = '', name = '' } = defineProps<Props>();
 
-const currentUser = computed(() => props.value);
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void;
+  (e: 'select', item: IListItem): void;
+}>();
 
-const getList = computed(() => {
-  const list = props?.list || [];
-  return list.filter((i) => (search.value ? i[props.valueName].toLowerCase().includes(search.value.toLowerCase()) : true));
-});
+const onInput = (value: string) => {
+  emit('update:modelValue', value);
+};
 
-const placeholder = computed(() => props.placeholder);
-
-const isEmpty = computed(() => Boolean(!getList?.value?.length));
-
-const onInput = (e) => (search.value = e.target.value);
-
-const getClass = (show) => ({ 'rotate-x-180': show });
+const onChange = (on: any, item: IListItem) => {
+  on.click(item);
+  emit('select', item);
+};
 </script>

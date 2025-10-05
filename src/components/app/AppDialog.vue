@@ -55,7 +55,7 @@ export interface Props {
   message?: string;
   callback?: () => void;
   button?: string;
-  size?: string;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 const { title = 'Attention !', message = '', callback, button = 'OK', size = 'sm' } = defineProps<Props>();
@@ -66,9 +66,9 @@ const emit = defineEmits<{
 
 const show = ref(false);
 
-const sizes: { [index: string]: string } = { sm: 'max-w-[330px]', md: 'max-w-[600px]', lg: 'max-w-[960px]' };
+const sizes = { sm: 'max-w-[330px]', md: 'max-w-[600px]', lg: 'max-w-[960px]' };
 
-const getClass = computed(() => [`${sizes?.[size] || ''}`]);
+const getClass = computed(() => sizes[size as keyof typeof sizes]);
 
 const onClose = (e: Event) => {
   show.value = false;

@@ -16,7 +16,7 @@ import VLoader from '@/components/general/forms/VLoader.vue';
 interface Props {
   block?: boolean;
   outline?: boolean;
-  color?: string;
+  color?: 'green' | 'red' | 'gray' | 'blue';
   size?: 'normal' | 'small';
   type?: 'button' | 'icon';
   href?: string;
@@ -40,9 +40,9 @@ const red = outline ? `border border-red-600 text-red-600` : 'bg-red-600 dark:bg
 const gray = outline ? `border border-gray-600 text-gray-600` : 'bg-gray-500 dark:bg-gray-800';
 const blue = outline ? `border border-blue-600 text-blue-600` : 'bg-blue-700 dark:bg-blue-800';
 
-const colors: { [index: string]: string } = { green, red, gray, blue };
+const colors = { green, red, gray, blue };
 
-const types: { [index: string]: string } = {
+const types = {
   button: 'px-4',
   icon: 'rounded-full border border-gray-200 dark:border-gray-800',
 };
@@ -54,9 +54,9 @@ const sizes = {
 
 const getSize = (type: keyof typeof sizes, size: 'normal' | 'small'): string => sizes[type]?.[size] || '';
 
-const getType = (type: string): string => types?.[type] || '';
+const getType = (type: string): string => types?.[type as keyof typeof types] || '';
 
-const getColor = (color: string): string => (type === 'icon' ? '' : `${outline ? 'dark:text-white' : 'text-white'} ${colors?.[color] || ''}`);
+const getColor = (color: string): string => (type === 'icon' ? '' : `${outline ? 'dark:text-white' : 'text-white'} ${colors?.[color as keyof typeof colors] || ''}`);
 
 const getClass = computed(() => [gefClass, getColor(color), getType(type), getSize(type, size), { 'w-full': block }]);
 const isComponents = computed(() => (href || to ? 'router-link' : 'button'));

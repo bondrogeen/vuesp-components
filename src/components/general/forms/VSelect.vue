@@ -1,5 +1,5 @@
 <template>
-  <VDropdown class="relative w-full" v-bind="$attrs" top="46px" hideOnClick>
+  <VDropdown class="relative w-full" v-bind="$attrs" top="46px">
     <template #activator="{ on, show }">
       <VTextField :model-value="getValue" readonly hideMessage :disabled="disabled" active :label="label" @click="on.click" @on-icon="on.click">
         <template #icon>

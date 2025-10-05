@@ -34,8 +34,7 @@ const { top = 'calc(100% + 5px)', left = '0', right = '', height = '200px', hide
 
 const emit = defineEmits<{
   (e: 'click', value: boolean): void;
-  (e: 'show', value: Event): void;
-  (e: 'close', value: Event): void;
+  (e: 'show' | 'close', value: Event): void;
 }>();
 
 const isShow = ref(false);
@@ -58,5 +57,5 @@ const hide = (e: Event) => {
   emit('close', e);
 };
 
-const on = { click: onClick };
+const on = { click: onClick, open: onShow };
 </script>
