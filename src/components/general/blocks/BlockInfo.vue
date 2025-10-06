@@ -27,13 +27,7 @@
 
     <div class="flex flex-col gap-4 text-sm">
       <div class="flex gap-4">
-        Links:
-        <div class="flex flex-wrap gap-2 text-gray-700 dark:text-gray-400">
-          <a v-if="links.homepage" :href="links.homepage" target="_blank" class="me-4">Homepage</a>
-          <a v-if="links.repository" :href="links.repository" target="_blank" class="me-4">Repository</a>
-          <a v-if="links.bugs" :href="links.bugs" target="_blank" class="me-4">Bugs</a>
-          <a v-if="links.author" :href="links.author" target="_blank" class="me-4">Author</a>
-        </div>
+        <slot name="links" :links="links"></slot>
       </div>
     </div>
   </div>
@@ -48,10 +42,12 @@ const { id = 0, firmware = [], pkg } = defineProps<IStateInfo>();
 
 const getFirmware = computed(() => firmware.join('.'));
 
-const links = computed(() => ({
-  homepage: pkg?.homepage,
-  repository: pkg?.repository?.url,
-  bugs: pkg?.bugs?.url,
-  author: pkg?.author ? `mailto:${pkg?.author}` : '',
-}));
+const links = computed(() => {
+  const arr = [];
+  if (pkg?.homepage) arr.push({ name: 'homepage', href: pkg.homepage });
+  if (pkg?.repository?.url) arr.push({ name: 'repository', href: pkg.repository.url });
+  if (pkg?.bugs?.url) arr.push({ name: 'bugs', href: pkg.bugs.url });
+  if (pkg?.author) arr.push({ name: 'author', href: `mailto:${pkg?.author}` });
+  return arr;
+});
 </script>

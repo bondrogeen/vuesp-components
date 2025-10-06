@@ -30,7 +30,7 @@ interface Props {
   hideOnClick?: boolean;
 }
 
-const { top = 'calc(100% + 5px)', left = '0', right = '', height = '200px', hideOnClick = false } = defineProps<Props>();
+const { top = 'calc(100% + 5px)', left = '0', right = '', height = '200px', hideOnClick = true } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'click', value: boolean): void;

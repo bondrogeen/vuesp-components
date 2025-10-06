@@ -56,11 +56,8 @@ input.value = value || '';
 const validateJS = (code: string) => {
   try {
     new Function(code);
-    console.log('true');
-
     return true;
   } catch (error) {
-    console.log('false');
     return false;
   }
 };

@@ -18,33 +18,35 @@ const i18nPlugin = {
     const i18n: I18nInstance = {
       state: readonly(state),
 
-      t(key: string, params: Record<string, string> = {}): string {
+      $t(key: string, params: Record<string, string> | undefined = {}): string {
         const keys: string[] = key.split('.');
         let value: any = finalLocales[state.locale];
 
         for (const k of keys) {
           value = value?.[k];
         }
-
         if (typeof value !== 'string') return key;
-
-        return value.replace(/{(\w+)}/g, (match: string, param: string): string => {
-          return params[param] || match;
-        });
+        return value.replace(/{(\w+)}/g, (match: string, param: string): string => params[param] || match);
       },
 
       setLocale(locale: string): void {
         if (finalLocales[locale]) {
           state.locale = locale;
+          return;
         }
+        state.locale = finalDefaultLocale;
       },
 
       getLocale(): string {
         return state.locale;
       },
+
+      getListLocales() {
+        return Object.keys(finalLocales);
+      },
     };
 
-    app.config.globalProperties.$i18n = i18n;
+    app.config.globalProperties.$t = i18n.$t;
     app.provide('i18n', i18n);
 
     window.$i18n = i18n;

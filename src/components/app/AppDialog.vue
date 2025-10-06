@@ -51,14 +51,14 @@ import VButton from '@/components/general/forms/VButton.vue';
 
 export interface Props {
   value?: boolean;
-  title?: string;
+  title: string;
   message?: string;
   callback?: () => void;
   button?: string;
   size?: 'sm' | 'md' | 'lg';
 }
 
-const { title = 'Attention !', message = '', callback, button = 'OK', size = 'sm' } = defineProps<Props>();
+const { title, message = '', callback, button = 'OK', size = 'sm' } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'close', value: Event): void;
