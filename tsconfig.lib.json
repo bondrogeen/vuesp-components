@@ -37,5 +37,5 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
-  ]
+, "../vuesp/vue/src/components/block/BlockUpdate.vue"  ]
 }

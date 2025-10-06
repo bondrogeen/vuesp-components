@@ -9,9 +9,11 @@
   >
     <div v-if="isShow" class="w-full min-w-[260px] max-w-xs p-4 bg-white rounded-lg shadow-lg dark:bg-gray-800" role="alert">
       <div class="flex items-center gap-4 text-sm">
-        <div class="flex-auto">Progress...</div>
+        <slot :isDone="isDone">
+          <div class="flex-auto">Progress...</div>
 
-        <span v-if="isProgressDone" class="text-green-600">Done</span>
+          <span v-if="isDone" class="text-green-600">Done</span>
+        </slot>
 
         <button class="cursor-pointer transition text-gray-700 dark:text-gray-400 self-start hover:text-gray-600" @click="isShow = false">
           <IconClose class="h-4 w-4"></IconClose>
@@ -48,7 +50,7 @@ const isShow = ref(false);
 
 const getPercent = computed(() => (status ? Math.ceil((size * 100) / length) : 100));
 const isProgress = computed(() => Boolean(length));
-const isProgressDone = computed(() => Boolean(isProgress.value && getPercent.value === 100 && !status));
+const isDone = computed(() => Boolean(isProgress.value && getPercent.value === 100 && !status));
 
 const onClose = debounce(() => {
   isShow.value = false;
