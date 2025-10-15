@@ -13,7 +13,7 @@ export interface IDashboardItem {
   type: string;
   icon: string;
   value: string | number;
-  valueTo?: string;
+  valueTo?: string | number;
   opts?: IDashboardItemOptions;
   args: string[];
   set?: string;

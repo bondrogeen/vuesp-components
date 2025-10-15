@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col border relative aspect-square rounded-sm bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 p-2 hover:border-blue-400 dark:hover:border-blue-700 transition-all cursor-pointer"
+    class="flex flex-col border relative aspect-square rounded-md bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 p-2 hover:border-blue-400 dark:hover:border-blue-700 transition-all cursor-pointer"
     @click="onClick"
   >
     <div class="flex-auto flex justify-between">
@@ -28,7 +28,7 @@
 
     <VIcons v-if="getIcon" :name="getIcon" class="absolute left-1/2 top-1/2 size-[calc(50%)] opacity-5 text-gray-200/20 -translate-1/2" />
 
-    <AppDialog v-if="dialog" size="sm" :title="name" @close="dialog = false">
+    <AppDialog v-if="dialog" :size="props.size || 'sm'" :title="name" @close="closeDialog" @open="openDialog">
       <template #header>
         <div class="flex-auto flex items-center justify-between gap-6 me-2">
           <VButton type="icon" @click="onEdit">
@@ -68,10 +68,15 @@ import VButton from '@/components/general/forms/VButton.vue';
 const dialog = ref(false);
 
 const emit = defineEmits<{
-  (e: 'edit', event: Event): void;
+  (e: 'edit' | 'close', event: Event): void;
+  (e: 'open', event: boolean): void;
 }>();
 
-const props = defineProps<IDashboardItem>();
+interface Props extends IDashboardItem {
+  size?: string;
+}
+
+const props = defineProps<Props>();
 
 const getColorValue = computed(() => {
   if (['button', 'dimmer'].includes(props.type || '')) return props.value ? 'text-amber-500' : 'text-gray-400';
@@ -82,4 +87,9 @@ const getIcon = computed(() => props.icon || '');
 const onEdit = (e: Event) => emit('edit', e);
 
 const onClick = () => (dialog.value = true);
+const openDialog = (e: boolean) => emit('open', e);
+const closeDialog = (e: Event) => {
+  dialog.value = false;
+  emit('close', e);
+};
 </script>

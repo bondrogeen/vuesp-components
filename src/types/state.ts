@@ -31,6 +31,7 @@ export interface IStateWebSocket {
   socket: WebSocket | null;
   pingClient: number;
   pingDevice: number;
+  isInit: boolean;
 }
 export interface IStateWebSocketStore {
   settings: IMessageSettings;
