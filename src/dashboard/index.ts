@@ -40,7 +40,7 @@ export const getStateItem = <T>(item: IDashboardItem, object: T) => {
   const args = getParamsData(item, object);
   const [v, a, b, c] = args;
   let value = v ?? '';
-  let valueTo = null;
+  let valueTo = value;
 
   try {
     const getFunc = getFunction(item.get);

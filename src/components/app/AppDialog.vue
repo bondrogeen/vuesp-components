@@ -7,6 +7,7 @@
       leave-active-class="duration-200 ease-in"
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="transform opacity-0 -translate-y-2"
+      @after-enter="onOpen"
     >
       <div v-if="show" class="z-20 fixed top-0 h-[100dvh] w-full left-0 flex flex-col" @wheel.stop>
         <div class="absolute h-full w-full top-0 left-0 bg-black/40 bg-blur" @click="onClose"></div>
@@ -62,6 +63,7 @@ const { title, message = '', callback, button = 'OK', size = 'sm' } = defineProp
 
 const emit = defineEmits<{
   (e: 'close', value: Event): void;
+  (e: 'open', value: boolean): void;
 }>();
 
 const show = ref(false);
@@ -81,6 +83,8 @@ const onButton = (e: Event) => {
   if (callback) callback();
   onClose(e);
 };
+
+const onOpen = () => emit('open', show.value);
 
 onMounted(() => {
   setTimeout(() => {
