@@ -22,9 +22,10 @@
 
       <div v-if="isProgress" class="h-[2px] fixed top-0 left-0 w-full bg-blue-600 transition-all duration-500" :style="`width: ${getPercent}%`"></div>
 
-      <div v-if="isProgress" class="relative w-full bg-gray-200 rounded-full dark:bg-gray-700 mt-2 overflow-hidden h-5">
+      <div v-if="isProgress" class="relative block h-4 w-full rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-900/50 select-none mt-2">
         <div class="absolute left-[140px] top-1/2 -translate-1/2 text-sm font-bold text-black dark:text-white text-center leading-none">{{ getPercent }}%</div>
-        <div class="bg-blue-600 rounded-full h-5 overflow-hidden relative transition-all duration-500" :style="`width: ${getPercent}%`">
+
+        <div class="bg-blue-600 rounded-full h-4 overflow-hidden relative transition-all duration-500" :style="`width: ${getPercent}%`">
           <div class="absolute left-[140px] top-1/2 -translate-1/2 text-sm font-bold text-white text-center leading-none">{{ getPercent }}%</div>
         </div>
       </div>
