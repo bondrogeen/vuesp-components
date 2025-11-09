@@ -19,7 +19,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     });
   };
 
-  const validateField = (fieldName: string, value: any): boolean => {
+  const validateField = (fieldName: string, value: unknown): boolean => {
     const validators = validationSchema[fieldName] || [];
     const fieldErrors: string[] = [];
 
@@ -45,7 +45,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     return isValid;
   };
 
-  const defineField = <T = any>(fieldName: string, options: DefineFieldOptions = {}): [Ref<T>, ComputedRef<Record<string, any>>] => {
+  const defineField = <T = unknown>(fieldName: string, options: DefineFieldOptions = {}): [Ref<T>, ComputedRef<Record<string, unknown>>] => {
     if (!validationSchema[fieldName]) {
       console.warn(`Field "${fieldName}" not found in validationSchema`);
     }
@@ -61,7 +61,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
       },
     });
 
-    const attrs = computed<Record<string, any>>(() => {
+    const attrs = computed<Record<string, unknown>>(() => {
       const fieldContext: FieldContext = {
         errors: errors[fieldName] || [],
         touched: touched[fieldName] || false,
@@ -91,7 +91,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     return [valueRef as Ref<T>, attrs];
   };
 
-  const handleSubmit = (callback: (values: Record<string, any>) => void | Promise<void>) => {
+  const handleSubmit = (callback: (values: Record<string, unknown>) => void | Promise<void>) => {
     return async (event?: Event): Promise<void> => {
       if (event) {
         event.preventDefault();

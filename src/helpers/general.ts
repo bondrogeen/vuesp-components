@@ -2,6 +2,8 @@ export const jsonParse = (data: string | null) => {
   try {
     return data ? JSON.parse(data) : null;
   } catch (error) {
+    console.warn(error);
+
     return data;
   }
 };
@@ -29,10 +31,10 @@ export const addZero = (value: number) => (value >= 10 ? value : `0${value}`);
 export const secToTime = (seconds: number) => {
   // let y = Math.floor(seconds / 31536000);
   // let mo = Math.floor((seconds % 31536000) / 2628000);
-  let d = Math.floor(((seconds % 31536000) % 2628000) / 86400);
-  let h = Math.floor((seconds % (3600 * 24)) / 3600);
-  let m = Math.floor((seconds % 3600) / 60);
-  let s = Math.floor(seconds % 60);
+  const d = Math.floor(((seconds % 31536000) % 2628000) / 86400);
+  const h = Math.floor((seconds % (3600 * 24)) / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
   return `${d ? d + ' days ' : ''} ${addZero(h)}:${addZero(m)}:${addZero(s)}`;
 };
 

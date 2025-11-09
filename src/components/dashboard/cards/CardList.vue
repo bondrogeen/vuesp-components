@@ -13,19 +13,18 @@
 </template>
 
 <script setup lang="ts">
+import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
+
 import { defineEmits, defineProps } from 'vue';
 
 import type { IDashboardItem, IListItem } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
-import VSelect from '@/components/general/forms/VSelect.vue';
+import VSelect from '@/components/ui/select/VSelect.vue';
 
-const emit = defineEmits<{
-  (e: 'click', event: Event): void;
-  (e: 'setState', item: any): void;
-}>();
+const props = defineProps<ICardBaseProps>();
 
-const props = defineProps<IDashboardItem>();
+const emit = defineEmits<ICardBaseEmits>();
 
 const onClick = (event: Event) => emit('click', event);
 const setState = ({ value }: IListItem) => emit('setState', value);

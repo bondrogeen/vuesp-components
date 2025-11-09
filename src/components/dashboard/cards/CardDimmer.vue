@@ -5,6 +5,7 @@
         <div :class="'text-blue-600 dark:text-blue-400'">
           <svg width="32" height="32" viewBox="-7.5 -7.5 75 75" version="1.1" style="transform: rotate(-90deg)">
             <circle class="stroke-gray-300 dark:stroke-gray-700" r="30" cx="30" cy="30" fill="transparent" stroke-width="10"></circle>
+
             <circle r="30" cx="30" cy="30" stroke="currentColor" stroke-width="8" stroke-linecap="butt" :stroke-dashoffset="getRangePercent(item)" fill="transparent" stroke-dasharray="187"></circle>
           </svg>
         </div>
@@ -26,18 +27,16 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue';
-
 import type { IDashboardItem } from '@/types/types';
+import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
+
+import { defineEmits, defineProps } from 'vue';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 
-const emit = defineEmits<{
-  (e: 'click', event: Event): void;
-  (e: 'setState', item: any): void;
-}>();
+const props = defineProps<ICardBaseProps>();
 
-const props = defineProps<IDashboardItem>();
+const emit = defineEmits<ICardBaseEmits>();
 
 const getPercent = ({ opts, value }: IDashboardItem) => Math.round((100 * +value) / (opts?.max || 255));
 const getRangePercent = ({ opts, value }: IDashboardItem) => Math.round(187 - (+value / (opts?.max || 255)) * 187);

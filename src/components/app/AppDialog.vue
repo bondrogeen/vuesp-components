@@ -22,7 +22,7 @@
               </slot>
 
               <VButton type="icon" @click="onClose">
-                <IconClose></IconClose>
+                <VIcon name="Close"></VIcon>
               </VButton>
             </div>
 
@@ -45,26 +45,15 @@
 </template>
 
 <script setup lang="ts">
+import type { IAppDialogProps, IAppDialogEmits } from '@/components/app/types';
 import { ref, defineProps, defineEmits, computed, onMounted } from 'vue';
 
-import IconClose from '@/assets/icons/Close.svg';
-import VButton from '@/components/general/forms/VButton.vue';
+import VIcon from '@/components/ui/icon/VIcon.vue';
+import VButton from '@/components/ui/button/VButton.vue';
 
-export interface Props {
-  value?: boolean;
-  title: string;
-  message?: string;
-  callback?: () => void;
-  button?: string;
-  size?: 'sm' | 'md' | 'lg';
-}
+const { title, message = '', callback, button = 'OK', size = 'sm' } = defineProps<IAppDialogProps>();
 
-const { title, message = '', callback, button = 'OK', size = 'sm' } = defineProps<Props>();
-
-const emit = defineEmits<{
-  (e: 'close', value: Event): void;
-  (e: 'open', value: boolean): void;
-}>();
+const emit = defineEmits<IAppDialogEmits>();
 
 const show = ref(false);
 

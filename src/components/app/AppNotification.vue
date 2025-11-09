@@ -33,23 +33,16 @@
 </template>
 
 <script setup lang="ts">
+import type { IMessageNotification } from '@/types/types';
+import type { IAppNotificationProps, IAppNotificationEmits } from '@/components/app/types';
+
 import { computed, defineProps, defineEmits } from 'vue';
 
-import type { IMessageNotification } from '@/types/types';
+import CardNotification from '@/components/card/notification/CardNotification.vue';
 
-import CardNotification from '@/components/general/cards/CardNotification.vue';
+const props = defineProps<IAppNotificationProps>();
 
-export interface Props {
-  value: boolean;
-  notifications: IMessageNotification[];
-}
-
-const props = defineProps<Props>();
-
-const emit = defineEmits<{
-  (e: 'close', event: Event): void;
-  (e: 'remove' | 'read', item: IMessageNotification): void;
-}>();
+const emit = defineEmits<IAppNotificationEmits>();
 
 const isNew = computed(() => Boolean(props.notifications.find((i: IMessageNotification) => i.isNew)));
 const isNotificationLength = computed(() => Boolean(props.notifications.length));

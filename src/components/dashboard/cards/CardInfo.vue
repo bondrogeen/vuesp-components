@@ -5,17 +5,15 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps } from 'vue';
+import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
-import type { IDashboardItem } from '@/types/types';
+import { defineEmits, defineProps } from 'vue';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 
-const emit = defineEmits<{
-  (e: 'click', event: Event): void;
-}>();
+const props = defineProps<ICardBaseProps>();
 
-const props = defineProps<IDashboardItem>();
+const emit = defineEmits<ICardBaseEmits>();
 
 const onClick = (e: Event) => emit('click', e);
 </script>

@@ -1,4 +1,4 @@
-const useFetchJson = async <T = any>(useFetch: Promise<Response>): Promise<T | null> => {
+const useFetchJson = async <T = unknown>(useFetch: Promise<Response>): Promise<T | null> => {
   try {
     const res = await useFetch;
     if (!res.ok) return null;
@@ -21,13 +21,14 @@ export const useFetch = {
 };
 
 export const downloadBinary = async (path: string) => {
-  const { body, status }: any = await useFetch.get(path);
-  const res: any = await body.getReader().read();
-  const data = Array.from(res.value);
+  const { body, status }: Response = await useFetch.get(path);
+  if (!body) return [];
+  const res: ReadableStreamReadResult<Uint8Array<ArrayBuffer>> = await body.getReader().read();
+  const data = res.value ? Array.from(res.value) : [];
   return status === 200 ? data : [];
 };
 
-export const uploadBinary = (path: string, buffer: any) => {
+export const uploadBinary = (path: string, buffer: BlobPart) => {
   const body = new FormData();
   body.append(`file[0]`, new Blob([buffer], { type: 'octet/stream' }), path);
   return useFetch.$post('/fs', { body });

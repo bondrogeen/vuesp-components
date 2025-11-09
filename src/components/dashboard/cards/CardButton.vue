@@ -3,14 +3,15 @@
     <template #header="item">
       <div class="flex justify-end">
         <VButton v-bind="getBind(item)" type="icon" class="text-gray-500" @click.stop="setState">
-          <IconPower class="size-10" />
+          <VIcon name="Power" class="size-10" />
         </VButton>
       </div>
     </template>
+
     <template #dialog="item">
       <div class="flex justify-center py-4">
         <VButton v-bind="getBind(item)" type="icon" class="size-18" :class="props.value ? 'text-amber-500' : 'text-blue-600 dark:text-blue-400'" @click.stop="setState">
-          <IconPower class="size-16" />
+          <VIcon name="Power" class="size-16" />
         </VButton>
       </div>
     </template>
@@ -18,19 +19,20 @@
 </template>
 
 <script setup lang="ts">
+import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
+
 import type { IDashboardItem } from '@/types/types';
 import { defineEmits, defineProps } from 'vue';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
-import VButton from '@/components/general/forms/VButton.vue';
-import IconPower from '@/assets/icons/Power.svg';
 
-const emit = defineEmits<{
-  (e: 'click', event: Event): void;
-  (e: 'setState', item: any): void;
-}>();
+import VButton from '@/components/ui/button/VButton.vue';
 
-const props = defineProps<IDashboardItem>();
+import VIcon from '@/components/ui/icon/VIcon.vue';
+
+const props = defineProps<ICardBaseProps>();
+
+const emit = defineEmits<ICardBaseEmits>();
 
 const getBind = ({ opts = {} }: IDashboardItem) => {
   const { disabled } = opts;

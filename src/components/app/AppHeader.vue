@@ -3,14 +3,14 @@
     <div class="px-4 py-4 sm:px-6 lg:px-8">
       <div class="container mx-auto flex flex-auto items-center">
         <VButton type="icon" color="gray" @click="onSidebar">
-          <IconBurger class="size-5" />
+          <VIcon name="Burger" class="size-5" />
         </VButton>
 
         <div class="lg:hidden flex-auto"></div>
 
         <div class="lg:hidden h-[30px]">
           <router-link to="/">
-            <IconLogo class="h-[30px] text-primary"></IconLogo>
+            <VIcon name="Logo" class="h-[30px] text-primary"></VIcon>
           </router-link>
         </div>
 
@@ -18,7 +18,7 @@
 
         <div class="gap-4 hidden lg:flex">
           <VButton type="icon" color="gray" @click="onChangeTheme">
-            <IconTheme />
+            <VIcon name="Theme" />
           </VButton>
 
           <VButton type="icon" color="gray" @click="onNotif">
@@ -26,11 +26,11 @@
               <span class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
             </span>
 
-            <IconNoti class="size-5" />
+            <VIcon name="Noti" class="size-5" />
           </VButton>
 
           <VButton type="icon" color="gray" @click.prevent="onLogout">
-            <IconLogout class="size-5" />
+            <VIcon name="Logout" class="size-5" />
           </VButton>
         </div>
 
@@ -38,7 +38,7 @@
           <VDropdown left="unset" right="0" top="0">
             <template #activator="{ on }">
               <VButton type="icon" color="gray" class="flex" @click="on.click">
-                <IconDots />
+                <VIcon name="Dots" />
               </VButton>
             </template>
 
@@ -53,30 +53,19 @@
 </template>
 
 <script setup lang="ts">
+import type { IAppHeaderProps, IAppHeaderEmits } from '@/components/app/types';
 import type { IListItem, IMessageNotification } from '@/types/types';
+
 import { computed, defineEmits, defineProps } from 'vue';
 
-import VButton from '@/components/general/forms/VButton.vue';
-import VDropdown from '@/components/general/forms/VDropdown.vue';
-import VList from '@/components/general/forms/VList.vue';
+import VButton from '@/components/ui/button/VButton.vue';
+import VDropdown from '@/components/ui/dropdown/VDropdown.vue';
+import VList from '@/components/ui/list/VList.vue';
+import VIcon from '@/components/ui/icon/VIcon.vue';
 
-import IconDots from '@/assets/icons/Dots.svg';
-import IconBurger from '@/assets/icons/Burger.svg';
-import IconLogout from '@/assets/icons/Logout.svg';
-import IconLogo from '@/assets/icons/Logo.svg';
-import IconTheme from '@/assets/icons/Theme.svg';
-import IconNoti from '@/assets/icons/Noti.svg';
+const { changeTheme, notifications } = defineProps<IAppHeaderProps>();
 
-interface Props {
-  changeTheme?: (value?: string) => void;
-  notifications: IMessageNotification[];
-}
-
-const { changeTheme, notifications } = defineProps<Props>();
-
-const emit = defineEmits<{
-  (e: 'sidebar' | 'notif', value: Event): void;
-}>();
+const emit = defineEmits<IAppHeaderEmits>();
 
 const listMenu: IListItem[] = [
   { name: 'Theme', value: 1 },

@@ -9,24 +9,22 @@
 </template>
 
 <script setup lang="ts">
+import type { IDashboardItem } from '@/types/types';
+import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
+
 import { defineEmits, defineProps } from 'vue';
 
-import type { IDashboardItem } from '@/types/types';
-
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
-import VTextField from '@/components/general/forms/VTextField.vue';
+import VTextField from '@/components/ui/text-field/VTextField.vue';
 
-const emit = defineEmits<{
-  (e: 'click', event: Event): void;
-  (e: 'setState', item: any): void;
-}>();
+const props = defineProps<ICardBaseProps>();
 
-const props = defineProps<IDashboardItem>();
+const emit = defineEmits<ICardBaseEmits>();
 
 const datetime = (now: number | string) => new Date(+now * 1000).toISOString().slice(0, 16);
 
-const onChangeDate = (e: any) => {
-  const now: number = e?.target?.valueAsNumber;
+const onChangeDate = (e: Event) => {
+  const now: number = (e?.target as HTMLInputElement)?.valueAsNumber;
   if (now) {
     emit('setState', now / 1000);
   }

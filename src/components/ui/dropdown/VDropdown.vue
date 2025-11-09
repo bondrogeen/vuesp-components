@@ -1,0 +1,51 @@
+<template>
+  <div v-outside="outside" class="relative">
+    <div class="flex items-center cursor-pointer">
+      <slot name="activator" :on="on" :show="isShow"></slot>
+    </div>
+
+    <transition
+      enter-active-class="duration-300 ease-out"
+      enter-from-class="transform opacity-0 -translate-y-2"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="duration-200 ease-in"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="transform opacity-0 -translate-y-2"
+    >
+      <div v-if="isShow" class="z-10 min-w-full absolute overflow-auto shadow-lg scrollbar" :style="getStyle" @click="onClick">
+        <slot :on="on" :show="onShow" :hide="hide" :is-shown="isShow"></slot>
+      </div>
+    </transition>
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { IVDropdownProps, IVDropdownEmits } from '@/components/ui/dropdown/types';
+import { ref, computed, defineProps, defineEmits } from 'vue';
+
+const { top = 'calc(100% + 5px)', left = '0', right = '', height = '200px', hideOnClick = true } = defineProps<IVDropdownProps>();
+
+const emit = defineEmits<IVDropdownEmits>();
+
+const isShow = ref(false);
+const getStyle = computed(() => ({ top, left, right, 'max-height': height }));
+
+const outside = (e: Event) => {
+  if (isShow.value) hide(e);
+};
+const onClick = (e: Event) => {
+  if (!isShow.value) onShow(e);
+  else if (hideOnClick) hide(e);
+  emit('click', isShow.value);
+};
+const onShow = (e: Event) => {
+  isShow.value = true;
+  emit('show', e);
+};
+const hide = (e: Event) => {
+  isShow.value = false;
+  emit('close', e);
+};
+
+const on = { click: onClick, open: onShow };
+</script>
