@@ -37,7 +37,7 @@
 import type { IAppProgressProps } from '@/components/app/types';
 
 import { defineProps, computed, watch, ref } from 'vue';
-import { debounce } from '@/helpers/utils';
+import { useDebounceFn } from '@vueuse/core'
 
 import VIcon from '@/components/ui/icon/VIcon.vue';
 
@@ -50,7 +50,7 @@ const isDone = computed(() => Boolean(isProgress.value && getPercent.value === 1
 
 const getPercent = computed(() => (status ? Math.ceil((size * 100) / length) : 100));
 
-const onClose = debounce(() => {
+const onClose = useDebounceFn(() => {
   isShow.value = false;
 }, timeout);
 

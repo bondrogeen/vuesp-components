@@ -45,7 +45,7 @@ import type { IItemOptionsProps, IItemOptionsEmits } from '@/components/dashboar
 
 import { ref, defineProps, defineEmits, computed } from 'vue';
 
-import { debounce } from '@/helpers';
+import { useDebounceFn } from '@vueuse/core'
 
 import VButton from '@/components/ui/button/VButton.vue';
 import VSelect from '@/components/ui/select/VSelect.vue';
@@ -81,7 +81,7 @@ const onRemove = (item: IListItem) => {
   onUpdate('list', clearListId(listWithId.value.filter((i: IListItem) => i.value !== item.value)));
 };
 
-const onChangeList = debounce(() => {
+const onChangeList = useDebounceFn(() => {
   const item = listItem.value;
   if (!item.name || !item.value) return;
   const items = listWithId.value.map((i: IListItem) => (i.id === item.id ? item : i));
