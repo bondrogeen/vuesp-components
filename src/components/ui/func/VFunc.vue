@@ -26,8 +26,7 @@
 import type { IVFunkProps, IVFunkEmits } from '@/components/ui/func/types';
 
 import { defineEmits, defineProps, watch } from 'vue';
-import { useTextareaAutosize } from '@vueuse/core';
-import { debounce } from '@/helpers';
+import { useTextareaAutosize, useDebounceFn } from '@vueuse/core';
 
 import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
 
@@ -52,7 +51,7 @@ const validateJS = (code: string) => {
   }
 };
 
-const onChange = debounce((e: Event) => {
+const onChange = useDebounceFn((e: Event) => {
   const target = e.target as HTMLInputElement;
   if (!validateJS(target.value)) return;
   emit('change', target.value);

@@ -31,11 +31,5 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "include": [
-    "src/**/*.js",
-    "src/**/*.jsx",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-, "../vuesp/vue/src/components/block/BlockUpdate.vue"  ]
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
