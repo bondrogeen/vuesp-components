@@ -2,7 +2,7 @@ import outside from './outside';
 
 import type { Directive } from 'vue';
 
-interface ItemDirective {
+export interface ItemDirective {
   name: string;
   directive: Directive;
 }

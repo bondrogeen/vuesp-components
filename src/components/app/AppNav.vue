@@ -9,12 +9,12 @@
           :class="isActive(item.path) ? 'bg-blue-500/10' : 'hover:bg-gray-500/10'"
           @click.prevent.stop="onSelect(item)"
         >
-          <v-icons :name="item.icon" class="size-5 flex-[0_0_24px]" />
+          <v-icon :name="item.icon" class="size-5 flex-[0_0_24px]" />
 
           <span class="flex-1 first-letter:uppercase text-sm" :class="isSidebar ? 'lg:hidden' : ''">{{ item.name }}</span>
 
           <button class="cursor-pointer" :class="[isSidebar ? 'lg:hidden' : '']" @click.prevent.stop="onSelect(item)">
-            <IconChevron v-if="item.children" />
+            <VIcon v-if="item.children" name="Chevron" />
           </button>
         </component>
 
@@ -23,7 +23,7 @@
             <li v-for="{ name, path, icon } of item.children" :key="name">
               <component :is="path ? 'router-link' : 'span'" :to="path" class="flex gap-2 items-center px-3 py-2 rounded-lg" :class="isActive(path) ? 'bg-blue-500/10' : 'hover:bg-gray-500/10'">
                 <div class="flex gap-2 ms-8">
-                  <v-icons v-if="icon" :name="icon" class="size-5 flex-[0_0_24px]" />
+                  <v-icon v-if="icon" :name="icon" class="size-5 flex-[0_0_24px]" />
 
                   <span class="flex-1 first-letter:uppercase text-sm">{{ name }}</span>
                 </div>
@@ -37,29 +37,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, defineEmits, watch } from 'vue';
-
+import type { IAppNavProps, IAppNavEmits } from '@/components/app/types';
 import type { IMenuItem } from '@/types/types';
+
+import { ref, defineProps, defineEmits, watch } from 'vue';
 
 import { findMenuItem } from '@/helpers/app';
 
-import IconChevron from '@/assets/icons/Chevron.svg';
+import VIcon from '@/components/ui/icon/VIcon.vue';
 
-interface Props {
-  menu?: IMenuItem[];
-  fullPath?: string;
-  isSidebar?: boolean;
-}
+const { isSidebar = false, menu = [], fullPath = '' } = defineProps<IAppNavProps>();
 
-const { isSidebar = false, menu = [], fullPath = '' } = defineProps<Props>();
-
-const emit = defineEmits<{
-  (e: 'sidebar', value: boolean): void;
-}>();
+const emit = defineEmits<IAppNavEmits>();
 
 const selected = ref('');
 
-const onSelect = ({ name, path }: IMenuItem) => {
+const onSelect = ({ name }: IMenuItem) => {
   if (isSidebar) emit('sidebar', !isSidebar);
   if (selected.value === name) return;
   selected.value = selected.value === name ? '' : name;

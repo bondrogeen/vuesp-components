@@ -59,24 +59,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineEmits, defineProps } from 'vue';
-import type { IDashboardItem } from '@/types/types';
+import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
-import VIcons from '@/components/general/forms/VIcons.vue';
-import VButton from '@/components/general/forms/VButton.vue';
+import { ref, computed, defineEmits, defineProps } from 'vue';
+
+import VIcons from '@/components/ui/icon/VIcon.vue';
+import VButton from '@/components/ui/button/VButton.vue';
+
+const props = defineProps<ICardBaseProps>();
+
+const emit = defineEmits<ICardBaseEmits>();
 
 const dialog = ref(false);
-
-const emit = defineEmits<{
-  (e: 'edit' | 'close', event: Event): void;
-  (e: 'open', event: boolean): void;
-}>();
-
-interface Props extends IDashboardItem {
-  size?: string;
-}
-
-const props = defineProps<Props>();
 
 const getColorValue = computed(() => {
   if (['button', 'dimmer'].includes(props.type || '')) return props.value ? 'text-amber-500' : 'text-gray-400';

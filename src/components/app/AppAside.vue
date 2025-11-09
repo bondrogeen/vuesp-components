@@ -6,9 +6,9 @@
   >
     <div :class="isSidebar ? 'justify-center' : 'justify-between'" class="sidebar-header flex items-center gap-2 pt-6 pb-6 justify-between">
       <router-link to="/">
-        <IconLogoMini v-if="isSidebar" class="h-[30px] text-primary" />
+        <VIcon v-if="isSidebar" name="LogoMini" class="h-[30px] text-primary" />
 
-        <IconLogo v-else class="h-[30px] text-primary" />
+        <VIcon v-else name="Logo" class="h-[30px] text-primary" />
       </router-link>
     </div>
 
@@ -19,20 +19,14 @@
 </template>
 
 <script setup lang="ts">
+import type { IAppAsideProps, IAppAsideEmits } from '@/components/app/types';
 import { defineProps, defineEmits } from 'vue';
 
-import IconLogoMini from '@/assets/icons/LogoMini.svg';
-import IconLogo from '@/assets/icons/Logo.svg';
+import VIcon from '@/components/ui/icon/VIcon.vue';
 
-interface Props {
-  isSidebar?: boolean;
-}
+const { isSidebar = false } = defineProps<IAppAsideProps>();
 
-const { isSidebar = false } = defineProps<Props>();
-
-const emit = defineEmits<{
-  (e: 'sidebar', value: boolean): void;
-}>();
+const emit = defineEmits<IAppAsideEmits>();
 
 const onClose = () => {
   if (isSidebar) {

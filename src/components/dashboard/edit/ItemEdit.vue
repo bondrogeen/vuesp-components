@@ -8,10 +8,11 @@
               <VTextField v-model="item.id" label="ID" :disabled="!isNew" @click="onCheckId"></VTextField>
 
               <VTextField v-model="item.name" label="Name"></VTextField>
+
               <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                 <VSelect v-slot="{ item }" :value="item.icon" label="Icon" class="mb-6" :list="listIcons" @change="onIcon">
                   <div class="flex gap-2 items-center">
-                    <VIcons :name="`${item.value}`" class="size-5"></VIcons>
+                    <VIcon :name="`${item.value}`" class="size-5"></VIcon>
 
                     <div>{{ item.name }}</div>
                   </div>
@@ -29,6 +30,7 @@
                   <div v-for="(item, i) of item.args" :key="item" class="flex items-center rounded-full bg-gray-200 dark:bg-gray-900/50 px-2 py-[2px] text-xs">
                     <div class="relative group">
                       <span class="select-none">{{ item }}</span>
+
                       <div
                         class="fixed left-1/2 top-1/2 p-4 text-white bg-gray-900 rounded-md group-hover:visible invisible opacity-0 group-hover:opacity-100 z-50 transition-all -translate-1/2"
                         :class="isHover(i) ? 'visible opacity-100' : ''"
@@ -36,8 +38,9 @@
                         <pre>{{ getDataValue(item, object) }}</pre>
                       </div>
                     </div>
+
                     <button v-if="i" class="cursor-pointer ms-1" @click="onRemoveParams(item)">
-                      <IconClose class="size-5" />
+                      <VIcon name="Close" class="size-5" />
                     </button>
                   </div>
                 </div>
@@ -50,6 +53,7 @@
               <VFunc :value="item.getTo" :args="item.args" :disabled="!isParams" label="GetTo" @icon="onFunc('getTo')" @hover="onHover" @change="onChange('getTo', $event)" />
             </div>
           </template>
+
           <template #tab-2>
             <ItemOptions v-bind="item.opts" :value="item.value" :type="item.type" @update="onOptions" />
           </template>
@@ -80,37 +84,30 @@
 <script setup lang="ts">
 import type { Ref } from 'vue';
 import type { IDashboardItem, IDashboardItemOptions, IListItem, VListObjectReturnData } from '@/types/types';
+import type { IItemEditProps, IItemEditEmits } from '@/components/dashboard/edit/types';
 
 import { computed, onMounted, ref, defineProps, defineEmits } from 'vue';
 
 import { listIcons, listDashboard } from '@/const/lists';
 import { getDataValue } from '@/dashboard/index';
-import { clone } from '@/helpers/general';
+import { clone } from '@/helpers/';
 
-import VTextWrapper from '@/components/general/forms/VTextWrapper.vue';
-import VIcons from '@/components/general/forms/VIcons.vue';
-import VButton from '@/components/general/forms/VButton.vue';
-import VSelect from '@/components/general/forms/VSelect.vue';
-import VTextField from '@/components/general/forms/VTextField.vue';
-import VListObject from '@/components/general/forms/VListObject.vue';
+import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
+import VButton from '@/components/ui/button/VButton.vue';
+import VSelect from '@/components/ui/select/VSelect.vue';
+import VTextField from '@/components/ui/text-field/VTextField.vue';
+import VListObject from '@/components/ui/list/VListObject.vue';
 import AppDialog from '@/components/app/AppDialog.vue';
-import VTabs from '@/components/general/forms/VTabs.vue';
-import VFunc from '@/components/general/forms/VFunc.vue';
+import VTabs from '@/components/ui/tabs/VTabs.vue';
+import VFunc from '@/components/ui/func/VFunc.vue';
+import VIcon from '@/components/ui/icon/VIcon.vue';
 
 import ItemOptions from '@/components/dashboard/edit/ItemOptions.vue';
 
-import IconClose from '@/assets/icons/Close.svg';
 
-interface Props {
-  item: IDashboardItem;
-  object: object;
-}
+const { item: data, object } = defineProps<IItemEditProps>();
 
-const { item: data, object } = defineProps<Props>();
-
-const emit = defineEmits<{
-  (e: 'button', key: string, value: IDashboardItem): void;
-}>();
+const emit = defineEmits<IItemEditEmits>();
 
 const tabs = [{ title: 'Main' }, { title: 'Data' }, { title: 'Options' }];
 
@@ -149,9 +146,27 @@ const onType = ({ value }: IListItem) => {
 };
 
 const onFunc = (key: string) => {
-  if (key === 'get') item.value.get ? delete item.value.get : (item.value.get = 'v');
-  if (key === 'set') item.value.set ? delete item.value.set : (item.value.set = 'v');
-  if (key === 'getTo') item.value.getTo ? delete item.value.getTo : (item.value.getTo = 'v');
+  if (key === 'get') {
+    if (item.value.get) {
+      delete item.value.get;
+    } else {
+      item.value.get = 'v';
+    }
+  }
+  if (key === 'set') {
+    if (item.value.set) {
+      delete item.value.set;
+    } else {
+      item.value.set = 'v';
+    }
+  }
+  if (key === 'getTo') {
+    if (item.value.getTo) {
+      delete item.value.getTo;
+    } else {
+      item.value.getTo = 'v';
+    }
+  }
 };
 
 const onButton = (key: string) => emit('button', key, item.value);

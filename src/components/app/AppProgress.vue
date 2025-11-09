@@ -16,7 +16,7 @@
         </slot>
 
         <button class="cursor-pointer transition text-gray-700 dark:text-gray-400 self-start hover:text-gray-600" @click="isShow = false">
-          <IconClose class="h-4 w-4"></IconClose>
+          <VIcon name="Close" class="h-4 w-4"></VIcon>
         </button>
       </div>
 
@@ -34,24 +34,21 @@
 </template>
 
 <script setup lang="ts">
-import type { IMessageProgress } from '@/types/types';
+import type { IAppProgressProps } from '@/components/app/types';
 
 import { defineProps, computed, watch, ref } from 'vue';
 import { debounce } from '@/helpers/utils';
 
-import IconClose from '@/assets/icons/Close.svg';
+import VIcon from '@/components/ui/icon/VIcon.vue';
 
-interface Props extends IMessageProgress {
-  timeout?: number;
-}
-
-const { length = 0, size = 0, status = 0, timeout = 5000 } = defineProps<Props>();
+const { length = 0, size = 0, status = 0, timeout = 5000 } = defineProps<IAppProgressProps>();
 
 const isShow = ref(false);
 
-const getPercent = computed(() => (status ? Math.ceil((size * 100) / length) : 100));
 const isProgress = computed(() => Boolean(length));
 const isDone = computed(() => Boolean(isProgress.value && getPercent.value === 100 && !status));
+
+const getPercent = computed(() => (status ? Math.ceil((size * 100) / length) : 100));
 
 const onClose = debounce(() => {
   isShow.value = false;

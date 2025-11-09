@@ -6,7 +6,9 @@
 
     <div v-if="isType('dimmer')" class="flex gap-4">
       <VTextField :modelValue="min" label="Min" @update:modelValue="onUpdate('min', +$event)"></VTextField>
+
       <VTextField :modelValue="max" label="Max" @update:modelValue="onUpdate('max', +$event)"></VTextField>
+
       <VTextField :modelValue="step" label="Step" @update:modelValue="onUpdate('step', +$event)"></VTextField>
     </div>
 
@@ -23,12 +25,14 @@
             <span>{{ item.name }}</span>
 
             <button class="cursor-pointer size-4" @click.prevent.stop="onRemove(item)">
-              <Close />
+              <VIcon name="Close" />
             </button>
           </div>
         </VSelect>
 
-        <VButton class="px-4" color="blue" @click="onAdd"><Plus /></VButton>
+        <VButton class="px-4" color="blue" @click="onAdd">
+          <VIcon name="Plus" />
+        </VButton>
       </div>
     </div>
   </div>
@@ -36,45 +40,33 @@
 
 <script setup lang="ts">
 import type { Ref } from 'vue';
-import type { IListItem, IDashboardItemOptions } from '@/types/types';
+import type { IListItem, IDashboardItemOptions, TypeValueDashboardItemOptions } from '@/types/types';
+import type { IItemOptionsProps, IItemOptionsEmits } from '@/components/dashboard/edit/types';
 
 import { ref, defineProps, defineEmits, computed } from 'vue';
 
 import { debounce } from '@/helpers';
 
-import VButton from '@/components/general/forms/VButton.vue';
-import VSelect from '@/components/general/forms/VSelect.vue';
-import VTextField from '@/components/general/forms/VTextField.vue';
-import VCheckbox from '@/components/general/forms/VCheckbox.vue';
+import VButton from '@/components/ui/button/VButton.vue';
+import VSelect from '@/components/ui/select/VSelect.vue';
+import VTextField from '@/components/ui/text-field/VTextField.vue';
+import VCheckbox from '@/components/ui/checkbox/VCheckbox.vue';
 
-import Close from '@/assets/icons/Close.svg';
-import Plus from '@/assets/icons/Plus.svg';
+import VIcon from '@/components/ui/icon/VIcon.vue';
 
-interface Props {
-  min?: number;
-  max?: number;
-  step?: number;
-  disabled?: number;
-  list?: IListItem[];
-  value?: string | number;
-  type: string;
-}
+const { min = 0, max = 255, step = 1, type, list = [] } = defineProps<IItemOptionsProps>();
 
-type TypeValue = IDashboardItemOptions[keyof IDashboardItemOptions];
-
-const { min = 0, max = 255, step = 1, type, list = [] } = defineProps<Props>();
-
-const emit = defineEmits<{
-  (e: 'update', key: keyof IDashboardItemOptions, value: TypeValue): void;
-}>();
+const emit = defineEmits<IItemOptionsEmits>();
 
 const listWithId = computed(() => list.map((i: IListItem, idx: number) => ({ ...i, id: ++idx })));
 const listItem: Ref<IListItem> = ref({ name: '', value: '' });
 const listLength = computed(() => list.length + 1);
 const isDisabledList = computed(() => !listItem.value?.id);
+
 const isType = (key: string) => type === key;
 
-const onUpdate = <K extends keyof IDashboardItemOptions>(key: K, value: TypeValue) => emit('update', key, value);
+const onUpdate = <K extends keyof IDashboardItemOptions>(key: K, value: TypeValueDashboardItemOptions) => emit('update', key, value);
+
 const clearListId = (list: IListItem[]) => list.map(({ name, value }) => ({ name, value }));
 const onSelect = ({ id, name, value }: IListItem) => (listItem.value = { id, name, value });
 

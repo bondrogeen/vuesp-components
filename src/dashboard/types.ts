@@ -27,4 +27,6 @@ export type TypeGetDataValue = <T extends string, S>(key: T, main: S) => GetType
 
 export type TypeGetParamsData = <S>(item: IDashboardItem, main: S) => (GetTypeByPath<S, string> | undefined)[];
 
+export type TypeValueDashboardItemOptions = IDashboardItemOptions[keyof IDashboardItemOptions];
+
 // export type TypeGetBind = <S>(item: IDashboardItem, main: S) => IDashboardItem;
