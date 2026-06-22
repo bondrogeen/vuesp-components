@@ -1,12 +1,8 @@
-export interface IVDragDropItem {
-  id: number;
-}
-
-export interface IVDragDropProps {
-  items: IVDragDropItem[];
+export interface IVDragDropProps<T> {
+  items: T[];
   itemKey?: 'id';
 }
-export interface IVDragDropEmits {
-  (e: 'update:items', items: IVDragDropItem[]): void;
-  (e: 'order-change', payload: { fromIndex: number; toIndex: number; movedItem: IVDragDropItem; newOrder: IVDragDropItem[] }): void;
+export interface IVDragDropEmits<T> {
+  (e: 'update:items', items: T[]): void;
+  (e: 'order-change', payload: { fromIndex: number; toIndex: number; movedItem: T; newOrder: T[] }): void;
 }
