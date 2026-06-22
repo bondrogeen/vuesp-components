@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import type { IVDropdownProps, IVDropdownEmits } from '@/components/ui/dropdown/types';
-import { ref, computed, defineProps, defineEmits } from 'vue';
+import { ref, computed } from 'vue';
 
 const { top = 'calc(100% + 5px)', left = '0', right = '', height = '200px', hideOnClick = true } = defineProps<IVDropdownProps>();
 

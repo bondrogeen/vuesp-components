@@ -29,7 +29,7 @@
 </template>
 <script setup lang="ts">
 import { IVDragDropProps, IVDragDropEmits, IVDragDropItem } from '@/components/ui/drag-drop/types';
-import { ref, defineEmits, defineProps } from 'vue';
+import { ref } from 'vue';
 
 const { items, itemKey = 'id' } = defineProps<IVDragDropProps>();
 

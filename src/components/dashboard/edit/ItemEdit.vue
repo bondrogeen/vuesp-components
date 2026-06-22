@@ -86,7 +86,7 @@ import type { Ref } from 'vue';
 import type { IDashboardItem, IDashboardItemOptions, IListItem, VListObjectReturnData } from '@/types/types';
 import type { IItemEditProps, IItemEditEmits } from '@/components/dashboard/edit/types';
 
-import { computed, onMounted, ref, defineProps, defineEmits } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 import { listIcons, listDashboard } from '@/const/lists';
 import { getDataValue } from '@/dashboard/index';

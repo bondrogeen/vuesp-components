@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 	import type { IVAccordionItemProps, IVAccordionItemEmits } from '@/components/ui/accordion/types';
-	import { defineProps, defineEmits, computed } from 'vue';
+	import { computed } from 'vue';
 
 	const { value, isOpen } = defineProps<IVAccordionItemProps>();
 

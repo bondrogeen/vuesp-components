@@ -1,17 +1,17 @@
-import type { TypeGetDataValue, TypeGetParamsData, IDashboardItem } from '@/types/types';
+import type { TypeGetDataValue, TypeGetParamsData, IDashboardItem, GetTypeByPath } from '@/types/types';
 
-export const getDataValue: TypeGetDataValue = (key, main) => {
+export const getDataValue: TypeGetDataValue = <T extends string, S>(key: T, main: S) => {
   const keys = key.split('.') as string[];
-  let current: any = main;
+  let current: unknown = main;
 
   for (const k of keys) {
     if (current !== null && typeof current === 'object' && k in current) {
-      current = current[k];
+      current = (current as Record<string, unknown>)[k];
     } else {
       return undefined;
     }
   }
-  return current;
+  return current as GetTypeByPath<S, T> | undefined;
 };
 
 export const getParamsData: TypeGetParamsData = ({ args }, main) => {
@@ -25,7 +25,7 @@ export const getFunction = (body: string | undefined) => {
 };
 
 export const setStateItem = <T>(item: IDashboardItem, value: unknown, object: T) => {
-  const [_, ...args] = getParamsData(item, object);
+  const [, ...args] = getParamsData(item, object);
   let data = null;
   try {
     const setFunc = getFunction(item.set);

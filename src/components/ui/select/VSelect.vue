@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import type { IVSelectProps, IVSelectEmits, IListItem } from '@/components/ui/select/types';
 
-import { computed, defineEmits, defineProps } from 'vue';
+import { computed } from 'vue';
 
 import VTextField from '@/components/ui/text-field/VTextField.vue';
 import VDropdown from '@/components/ui/dropdown/VDropdown.vue';

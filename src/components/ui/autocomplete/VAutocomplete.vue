@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import type { IVAutocompleteProps, IVAutocompleteEmits, IListItem } from '@/components/ui/autocomplete/types';
-import { defineProps, defineEmits } from 'vue';
+
 
 import VTextField from '@/components/ui/text-field/VTextField.vue';
 import VDropdown from '@/components/ui/dropdown/VDropdown.vue';

@@ -5,26 +5,26 @@ import { reactive, computed } from 'vue';
 export function useForm(options: UseFormOptions): UseFormReturn {
   const { validationSchema, initialValues = {} } = options;
 
-  const values = reactive<Record<string, any>>({});
+  const values = reactive<Record<string, unknown>>({});
   const errors = reactive<Record<string, string[]>>({});
   const touched = reactive<Record<string, boolean>>({});
   const dirty = reactive<Record<string, boolean>>({});
 
   const initializeFields = () => {
     Object.keys(validationSchema).forEach((field) => {
-      values[field] = initialValues[field] || '';
+      values[field] = initialValues[field] ?? '';
       errors[field] = [];
       touched[field] = false;
       dirty[field] = false;
     });
   };
 
-  const validateField = (fieldName: string, value: any): boolean => {
+  const validateField = (fieldName: string, value: unknown): boolean => {
     const validators = validationSchema[fieldName] || [];
     const fieldErrors: string[] = [];
 
     for (const validator of validators) {
-      const result = validator(value, values);
+      const result = validator(value as string, values);
       if (result !== true) {
         fieldErrors.push(result);
       }
@@ -45,13 +45,13 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     return isValid;
   };
 
-  const defineField = <T = string>(fieldName: string, options: DefineFieldOptions = {}): [Ref<T>, ComputedRef<Record<string, string>>] => {
+  const defineField = <T = unknown>(fieldName: string, options: DefineFieldOptions = {}): [Ref<T>, ComputedRef<Record<string, unknown>>] => {
     if (!validationSchema[fieldName]) {
       console.warn(`Field "${fieldName}" not found in validationSchema`);
     }
 
     const valueRef = computed<T>({
-      get: () => values[fieldName],
+      get: () => values[fieldName] as T,
       set: (newValue: T) => {
         values[fieldName] = newValue;
         dirty[fieldName] = true;
@@ -61,7 +61,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
       },
     });
 
-    const attrs = computed<Record<string, any>>(() => {
+    const attrs = computed<Record<string, unknown>>(() => {
       const fieldContext: FieldContext = {
         errors: errors[fieldName] || [],
         touched: touched[fieldName] || false,
@@ -91,7 +91,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     return [valueRef as Ref<T>, attrs];
   };
 
-  const handleSubmit = (callback: (values: Record<string, any>) => void | Promise<void>) => {
+  const handleSubmit = (callback: (values: Record<string, unknown>) => void | Promise<void>) => {
     return async (event?: Event): Promise<void> => {
       if (event) {
         event.preventDefault();

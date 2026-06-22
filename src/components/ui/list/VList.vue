@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import type { IVListProps, IVListEmits, IListItem } from '@/components/ui/list/types';
-import { defineProps, defineEmits } from 'vue';
+
 
 const props = defineProps<IVListProps>();
 

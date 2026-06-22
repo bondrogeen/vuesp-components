@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import type { ICardNotificationProps, ICardNotificationEmits } from '@/components/card/notification/types';
 
-import { defineProps, defineEmits } from 'vue';
+
 import { dateUtcToString, timeUtcToString } from '@/helpers/';
 
 import VButton from '@/components/ui/button/VButton.vue';

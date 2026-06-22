@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 import type { IAppDialogProps, IAppDialogEmits } from '@/components/app/types';
-import { ref, defineProps, defineEmits, computed, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 import VIcon from '@/components/ui/icon/VIcon.vue';
 import VButton from '@/components/ui/button/VButton.vue';

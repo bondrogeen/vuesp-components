@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits } from 'vue';
+
 
 import type { IVFileEmits } from '@/components/ui/file/types';
 

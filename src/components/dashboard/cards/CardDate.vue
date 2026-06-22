@@ -12,7 +12,7 @@
 import type { IDashboardItem } from '@/types/types';
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
-import { defineEmits, defineProps } from 'vue';
+
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';

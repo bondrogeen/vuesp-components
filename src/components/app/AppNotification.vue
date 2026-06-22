@@ -36,7 +36,7 @@
 import type { IMessageNotification } from '@/types/types';
 import type { IAppNotificationProps, IAppNotificationEmits } from '@/components/app/types';
 
-import { computed, defineProps, defineEmits } from 'vue';
+import { computed } from 'vue';
 
 import CardNotification from '@/components/card/notification/CardNotification.vue';
 

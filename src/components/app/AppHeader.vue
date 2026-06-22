@@ -56,7 +56,7 @@
 import type { IAppHeaderProps, IAppHeaderEmits } from '@/components/app/types';
 import type { IListItem, IMessageNotification } from '@/types/types';
 
-import { computed, defineEmits, defineProps } from 'vue';
+import { computed } from 'vue';
 
 import VButton from '@/components/ui/button/VButton.vue';
 import VDropdown from '@/components/ui/dropdown/VDropdown.vue';

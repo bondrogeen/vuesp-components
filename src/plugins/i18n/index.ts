@@ -1,12 +1,10 @@
-import { reactive, readonly, App } from 'vue';
-import type { I18nInstance, I18nState, I18nOptions, ILocales } from '@/plugins/i18n/types';
-
-import { ObjectPlugin } from 'node_modules/@vue/runtime-core/dist/runtime-core';
+import { reactive, readonly, App, Plugin } from 'vue';
+import type { I18nInstance, I18nState, I18nOptions, ILocales, ILocaleMessages } from '@/plugins/i18n/types';
 
 const locales = { en: {} };
 const defaultLocale = 'en';
 
-const i18nPlugin = {
+const i18nPlugin: Plugin = {
   install(app: App, options: I18nOptions = {}) {
     const finalLocales: ILocales = options?.locales || locales;
     const finalDefaultLocale = options?.defaultLocale || defaultLocale;
@@ -20,10 +18,15 @@ const i18nPlugin = {
 
       $t(key: string, params: Record<string, string> | undefined = {}): string {
         const keys: string[] = key.split('.');
-        let value: any = finalLocales[state.locale];
+        let value: string | ILocaleMessages | undefined = finalLocales[state.locale];
 
         for (const k of keys) {
-          value = value?.[k];
+          if (typeof value === 'object' && value !== null) {
+            value = (value as ILocaleMessages)[k];
+          } else {
+            value = undefined;
+            break;
+          }
         }
         if (typeof value !== 'string') return key;
         return value.replace(/{(\w+)}/g, (match: string, param: string): string => params[param] || match);
@@ -47,10 +50,9 @@ const i18nPlugin = {
     };
 
     app.config.globalProperties.$t = i18n.$t;
+    app.config.globalProperties.$i18n = i18n;
     app.provide('i18n', i18n);
-
-    window.$i18n = i18n;
   },
-} as ObjectPlugin;
+};
 
 export default i18nPlugin;

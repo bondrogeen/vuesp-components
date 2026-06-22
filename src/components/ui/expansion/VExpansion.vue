@@ -19,7 +19,7 @@
 import type { IVExpansionProps } from '@/components/ui/expansion/types';
 import type { Ref } from 'vue';
 
-import { ref, defineProps, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
 import VIcon from '@/components/ui/icon/VIcon.vue';
 

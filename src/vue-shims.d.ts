@@ -4,6 +4,13 @@ declare module '*.vue' {
   export default component;
 }
 
+declare global {
+  const defineProps: typeof import('vue')['defineProps'];
+  const defineEmits: typeof import('vue')['defineEmits'];
+  const defineExpose: typeof import('vue')['defineExpose'];
+  const withDefaults: typeof import('vue')['withDefaults'];
+}
+
 declare module 'vuesp-components' {
   import * as components from 'vuesp-components/dist/types';
   export = components;

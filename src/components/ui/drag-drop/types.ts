@@ -3,10 +3,10 @@ export interface IVDragDropItem {
 }
 
 export interface IVDragDropProps {
-  items: any[];
+  items: IVDragDropItem[];
   itemKey?: 'id';
 }
 export interface IVDragDropEmits {
-  (e: 'update:items', items: any[]): void;
-  (e: 'order-change', payload: { fromIndex: number; toIndex: number; movedItem: unknown; newOrder: unknown[] }): void;
+  (e: 'update:items', items: IVDragDropItem[]): void;
+  (e: 'order-change', payload: { fromIndex: number; toIndex: number; movedItem: IVDragDropItem; newOrder: IVDragDropItem[] }): void;
 }

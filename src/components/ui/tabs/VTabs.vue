@@ -33,7 +33,7 @@
 
 <script setup lang="ts">
 import type { IVTabsProps, IVTabsEmit } from '@/components/ui/tabs/types';
-import { ref, defineProps, defineEmits, defineExpose } from 'vue';
+import { ref, defineExpose } from 'vue';
 
 const { items, value } = defineProps<IVTabsProps>();
 
