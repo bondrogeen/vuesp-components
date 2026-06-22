@@ -27,19 +27,19 @@
     </TransitionGroup>
   </div>
 </template>
-<script setup lang="ts">
-import { IVDragDropProps, IVDragDropEmits, IVDragDropItem } from '@/components/ui/drag-drop/types';
+<script setup lang="ts" generic="T extends { id: string | number }">
+import { IVDragDropProps, IVDragDropEmits } from '@/components/ui/drag-drop/types';
 import { ref } from 'vue';
 
-const { items, itemKey = 'id' } = defineProps<IVDragDropProps>();
+const { items, itemKey = 'id' } = defineProps<IVDragDropProps<T>>();
 
-const emit = defineEmits<IVDragDropEmits>();
+const emit = defineEmits<IVDragDropEmits<T>>();
 
 const draggingId = ref<string | number | null>(null);
 const dragStartIndex = ref(0);
 const dragOverIndex = ref(-1);
 
-const getClass = ({ id }: IVDragDropItem) => ({
+const getClass = ({ id }: T) => ({
   'opacity-30 scale-105 z-10': draggingId.value === id,
   'transition-transform duration-200': draggingId.value !== id,
 });
@@ -64,7 +64,7 @@ const handleContainerDrop = (event: DragEvent) => {
   event.preventDefault();
 
   if (draggingId.value && dragOverIndex.value !== -1) {
-    const fromIndex = items.findIndex((item: IVDragDropItem) => item[itemKey] === draggingId.value);
+    const fromIndex = items.findIndex((item: T) => item[itemKey] === draggingId.value);
     const toIndex = dragOverIndex.value;
 
     if (fromIndex !== toIndex && toIndex !== -1) {
