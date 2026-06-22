@@ -42,7 +42,7 @@
 import type { Ref } from 'vue';
 import type { IVListObjectProps, IVListObjectEmits } from '@/components/ui/list/types';
 
-import { ref, defineProps, defineEmits } from 'vue';
+import { ref } from 'vue';
 
 import VListObject from '@/components/ui/list/VListObject.vue';
 

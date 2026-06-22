@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import type { IVCheckboxProps, IVCheckboxEmits } from '@/components/ui/checkbox/types';
-import { defineProps, defineEmits } from 'vue';
+
 
 const { modelValue = false, disabled = false } = defineProps<IVCheckboxProps>();
 

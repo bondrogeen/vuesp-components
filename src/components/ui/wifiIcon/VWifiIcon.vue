@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import type { IVWifiIconProps } from '@/components/ui/wifiIcon/types';
 
-import { defineProps } from 'vue';
+
 
 const { rssi = 0, channel = 0 } = defineProps<IVWifiIconProps>();
 

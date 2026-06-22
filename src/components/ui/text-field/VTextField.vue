@@ -44,7 +44,7 @@
 <script setup lang="ts">
 import type { IVTextFieldProps, IVTextFieldEmits } from '@/components/ui/text-field/types';
 
-import { ref, defineProps, defineEmits, computed } from 'vue';
+import { ref, computed } from 'vue';
 
 const { modelValue = null, label = '', component = 'input', type = 'text', message = '', disabled = false, active = false, hideMessage = false } = defineProps<IVTextFieldProps>();
 

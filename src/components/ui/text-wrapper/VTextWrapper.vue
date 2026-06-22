@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import type { IVTextWrapperProps, IVTextWrapperEmits } from '@/components/ui/text-wrapper/types';
-import { computed, defineProps, defineEmits } from 'vue';
+import { computed } from 'vue';
 
 import VIcon from '@/components/ui/icon/VIcon.vue';
 

@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import type { IBlockBreadcrumbProps, IBlockBreadcrumbEmits, IBreadcrumb } from '@/components/block/breadcrumb/types';
 
-import { defineProps, defineEmits } from 'vue';
+
 
 import VIcon from '@/components/ui/icon/VIcon.vue';
 

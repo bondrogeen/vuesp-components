@@ -43,7 +43,7 @@ import type { Ref } from 'vue';
 import type { IListItem, IDashboardItemOptions, TypeValueDashboardItemOptions } from '@/types/types';
 import type { IItemOptionsProps, IItemOptionsEmits } from '@/components/dashboard/edit/types';
 
-import { ref, defineProps, defineEmits, computed } from 'vue';
+import { ref, computed } from 'vue';
 
 import { useDebounceFn } from '@vueuse/core'
 

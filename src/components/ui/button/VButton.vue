@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import type { IVButtonProps, IVButtonEmits } from '@/components/ui/button/types';
-import { defineProps, defineEmits, computed } from 'vue';
+import { computed } from 'vue';
 
 import VLoader from '@/components/ui/loader/VLoader.vue';
 

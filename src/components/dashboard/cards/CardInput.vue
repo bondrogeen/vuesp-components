@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
-import { defineEmits, defineProps } from 'vue';
+
 
 import type { IDashboardItem } from '@/types/types';
 

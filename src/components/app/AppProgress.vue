@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import type { IAppProgressProps } from '@/components/app/types';
 
-import { defineProps, computed, watch, ref } from 'vue';
+import { computed, watch, ref } from 'vue';
 import { useDebounceFn } from '@vueuse/core'
 
 import VIcon from '@/components/ui/icon/VIcon.vue';

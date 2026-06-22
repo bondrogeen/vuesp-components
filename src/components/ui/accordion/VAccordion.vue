@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 	import type { IVAccordionProps, IVAccordionEmits } from '@/components/ui/accordion/types';
-	import { defineProps, defineEmits, } from 'vue';
+	
 
 	const { modelValue } = defineProps<IVAccordionProps>();
 

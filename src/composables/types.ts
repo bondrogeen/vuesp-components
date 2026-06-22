@@ -1,6 +1,6 @@
 import type { Ref, ComputedRef } from 'vue';
 
-export type Validator = (value: string, values?: Record<string, any>) => true | string;
+export type Validator = (value: string, values?: Record<string, unknown>) => true | string;
 export type ValidationSchema = Record<string, Validator[]>;
 
 export interface FieldState {
@@ -11,14 +11,14 @@ export interface FieldState {
 }
 
 export interface FormState {
-  values: Record<string, any>;
+  values: Record<string, unknown>;
   errors: Record<string, string[]>;
   touched: Record<string, boolean>;
   dirty: Record<string, boolean>;
 }
 
 export interface DefineFieldOptions {
-  props?: (context: FieldContext) => Record<string, any>;
+  props?: (context: FieldContext) => Record<string, unknown>;
 }
 
 export interface FieldContext {
@@ -29,14 +29,14 @@ export interface FieldContext {
 
 export interface UseFormOptions {
   validationSchema: ValidationSchema;
-  initialValues?: Record<string, any>;
+  initialValues?: Record<string, unknown>;
 }
 
 export interface UseFormReturn {
-  values: Record<string, any>;
+  values: Record<string, unknown>;
   errors: Record<string, string[]>;
-  defineField: <T = any>(name: string, options?: DefineFieldOptions) => [Ref<T>, ComputedRef<Record<string, any>>];
-  handleSubmit: (callback: (values: Record<string, any>) => void | Promise<void>) => (event?: Event) => Promise<void>;
+  defineField: <T = unknown>(name: string, options?: DefineFieldOptions) => [Ref<T>, ComputedRef<Record<string, unknown>>];
+  handleSubmit: (callback: (values: Record<string, unknown>) => void | Promise<void>) => (event?: Event) => Promise<void>;
   resetForm: () => void;
   validate: () => boolean;
 }

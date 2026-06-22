@@ -61,7 +61,7 @@
 <script setup lang="ts">
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
-import { ref, computed, defineEmits, defineProps } from 'vue';
+import { ref, computed } from 'vue';
 
 import VIcons from '@/components/ui/icon/VIcon.vue';
 import VButton from '@/components/ui/button/VButton.vue';

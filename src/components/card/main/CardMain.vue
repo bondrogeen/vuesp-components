@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { ICardMainProps } from '@/components/card/main/types';
 
-import { defineProps } from 'vue';
+
 
 const props = defineProps<ICardMainProps>();
 </script>

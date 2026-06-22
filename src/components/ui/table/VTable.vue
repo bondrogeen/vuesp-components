@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 import type { IVTableProps, IVTableEmits, IItemTable, IHeaderTable } from '@/components/ui/table/types';
-import { defineEmits, defineProps } from 'vue';
+
 
 const { headers = [], items = [] } = defineProps<IVTableProps>();
 

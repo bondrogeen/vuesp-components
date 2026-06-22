@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import type { IBlockInfoProps } from '@/components/block/info/types';
 
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 
 const { id = 0, firmware = [], pkg } = defineProps<IBlockInfoProps>();
 

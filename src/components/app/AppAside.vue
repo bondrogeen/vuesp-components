@@ -20,7 +20,6 @@
 
 <script setup lang="ts">
 import type { IAppAsideProps, IAppAsideEmits } from '@/components/app/types';
-import { defineProps, defineEmits } from 'vue';
 
 import VIcon from '@/components/ui/icon/VIcon.vue';
 

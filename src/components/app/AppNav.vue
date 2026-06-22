@@ -40,7 +40,7 @@
 import type { IAppNavProps, IAppNavEmits } from '@/components/app/types';
 import type { IMenuItem } from '@/types/types';
 
-import { ref, defineProps, defineEmits, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 import { findMenuItem } from '@/helpers/app';
 

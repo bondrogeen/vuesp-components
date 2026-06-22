@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 
 import IconAir from '@/assets/icons/Air.svg';
 import IconBulb from '@/assets/icons/Bulb.svg';

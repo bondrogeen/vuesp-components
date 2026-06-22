@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import type { IVFunkProps, IVFunkEmits } from '@/components/ui/func/types';
 
-import { defineEmits, defineProps, watch } from 'vue';
+import { watch } from 'vue';
 import { useTextareaAutosize, useDebounceFn } from '@vueuse/core';
 
 import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
