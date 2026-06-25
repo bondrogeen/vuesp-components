@@ -106,7 +106,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     
     Object.keys(schema).forEach((field) => {
       const validators = schema[field] || [];
-      validators.forEach((validator) => {
+      validators.forEach((validator: unknown) => {
         if (typeof validator === 'function' && validator.name === 'sameAs') {
           const match = validator.toString().match(/['"](.*?)['"]/);
           if (match) {
