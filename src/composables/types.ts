@@ -2,6 +2,7 @@ import type { Ref, ComputedRef } from 'vue';
 
 export type Validator = (value: string, values?: Record<string, unknown>) => true | string;
 export type ValidationSchema = Record<string, Validator[]>;
+export type ValidationSchemaFn = (values: Record<string, unknown>) => ValidationSchema;
 
 export interface FieldState {
   value: string | number;
@@ -28,7 +29,7 @@ export interface FieldContext {
 }
 
 export interface UseFormOptions {
-  validationSchema: ValidationSchema;
+  validationSchema: ValidationSchema | ValidationSchemaFn;
   initialValues?: Record<string, unknown>;
 }
 
@@ -39,4 +40,5 @@ export interface UseFormReturn {
   handleSubmit: (callback: (values: Record<string, unknown>) => void | Promise<void>) => (event?: Event) => Promise<void>;
   resetForm: () => void;
   validate: () => boolean;
+  updateSchema: (newSchema: ValidationSchema) => void;
 }
