@@ -3,7 +3,6 @@ export const jsonParse = (data: string | null) => {
     return data ? JSON.parse(data) : null;
   } catch (error) {
     console.warn(error);
-
     return data;
   }
 };

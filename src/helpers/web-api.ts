@@ -21,9 +21,11 @@ export const loadScript = (src: string) => {
   });
 };
 
-const getStorage = (store: Storage) => (name: string) => jsonParse(store.getItem(name));
-const setStorage = (store: Storage) => (name: string, data: unknown) => {
-  if (store) store.setItem(name, jsonString(data));
+const getStorage = (store: Storage) => (name: string, isJSON?: boolean) => {
+  return isJSON ? jsonParse(store.getItem(name)) : store.getItem(name);
+};
+const setStorage = (store: Storage) => (name: string, data: string | object) => {
+  if (store) store.setItem(name, typeof data === 'string' ? data : jsonString(data));
 };
 
 export const localGet = getStorage(localStorage);

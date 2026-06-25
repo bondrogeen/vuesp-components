@@ -3,7 +3,7 @@ import { localSet, localGet } from '@/helpers/web-api';
 
 export const isNewVersion = (name = 'isShow') => {
   const isShow = localGet(name);
-  if (!isShow) localSet(name, true);
+  if (!isShow) localSet(name, 'true');
   return !isShow;
 };
 
