@@ -74,10 +74,10 @@ export interface IMessageInit {
   key?: number;
 }
 
-export interface IMessageNotification {
+export interface IMessageMessage {
   key?: number;
+  type: number;
   isNew: number;
-  color: number;
   timeout: number;
   date: number;
   text: string;
@@ -123,4 +123,9 @@ interface IKeyMessagePort {
   object?: IMessagePort;
 }
 
-export type TypeConstMessage = IKeyMessageSettings | IKeyMessageInfo | IKeyMessagePing | IKeyMessageScan | IKeyMessageProgress | IKeyMessageFiles | IKeyMessageReboot | IKeyMessagePort;
+interface IKeyMessageMessage {
+  key: 'MESSAGE';
+  object?: IMessageMessage;
+}
+
+export type TypeConstMessage = IKeyMessageSettings | IKeyMessageInfo | IKeyMessagePing | IKeyMessageScan | IKeyMessageProgress | IKeyMessageFiles | IKeyMessageReboot | IKeyMessagePort | IKeyMessageMessage;
