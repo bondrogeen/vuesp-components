@@ -1,4 +1,4 @@
-import type { IMenuItem, IMessageNotification, IMessageProgress } from '@/types/types';
+import type { IMenuItem, INotification, IMessageProgress } from '@/types/types';
 
 export interface IAppAsideProps {
   isSidebar?: boolean;
@@ -23,7 +23,7 @@ export interface IAppDialogEmits {
 
 export interface IAppHeaderProps {
   changeTheme?: (value?: string) => void;
-  notifications: IMessageNotification[];
+  notifications: INotification[];
 }
 export interface IAppHeaderEmits {
   (e: 'sidebar' | 'notif', value: Event): void;
@@ -40,11 +40,11 @@ export interface IAppNavEmits {
 
 export interface IAppNotificationProps {
   value: boolean;
-  notifications: IMessageNotification[];
+  notifications: INotification[];
 }
 export interface IAppNotificationEmits {
   (e: 'close', event: Event): void;
-  (e: 'remove' | 'read', item: IMessageNotification): void;
+  (e: 'remove' | 'read', item: INotification): void;
 }
 
 export interface IAppProgressProps extends IMessageProgress {

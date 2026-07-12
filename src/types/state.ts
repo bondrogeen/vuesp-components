@@ -1,4 +1,14 @@
-import type { IMenuItem, IDialog, IMessageInfo, IMessagePort, IMessageSettings, IMessageNotification, IMessageProgress, IDashboardItem } from '@/types/types';
+import type { IMenuItem, IDialog, IMessageInfo, IMessagePort, IMessageSettings, IMessageProgress, IDashboardItem } from '@/types/types';
+
+
+export interface INotification {
+  key?: number;
+  isNew: number;
+  color: number;
+  timeout: number;
+  date: number;
+  text: string;
+}
 
 export interface IPackage {
   name: string;
@@ -13,7 +23,8 @@ export interface IPackage {
 }
 
 export interface IStateInfo extends IMessageInfo {
-  pkg?: IPackage;
+    pkg?: IPackage;
+    board?: number;
 }
 export interface IStateMain {
   info: IStateInfo;
@@ -37,5 +48,5 @@ export interface IStateWebSocketStore {
   settings: IMessageSettings;
   main: IStateMain;
   progress: IMessageProgress;
-  notifications: IMessageNotification[];
+  notifications: INotification[];
 }

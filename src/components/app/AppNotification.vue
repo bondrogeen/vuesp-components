@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IMessageNotification } from '@/types/types';
+import type { INotification } from '@/types/types';
 import type { IAppNotificationProps, IAppNotificationEmits } from '@/components/app/types';
 
 import { computed } from 'vue';
@@ -44,10 +44,10 @@ const props = defineProps<IAppNotificationProps>();
 
 const emit = defineEmits<IAppNotificationEmits>();
 
-const isNew = computed(() => Boolean(props.notifications.find((i: IMessageNotification) => i.isNew)));
+const isNew = computed(() => Boolean(props.notifications.find((i: INotification) => i.isNew)));
 const isNotificationLength = computed(() => Boolean(props.notifications.length));
 
 const onClose = (e: Event) => emit('close', e);
-const onRemove = (item: IMessageNotification) => emit('remove', item);
-const onRead = (item: IMessageNotification) => emit('read', item);
+const onRemove = (item: INotification) => emit('remove', item);
+const onRead = (item: INotification) => emit('read', item);
 </script>

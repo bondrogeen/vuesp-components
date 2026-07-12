@@ -1,6 +1,6 @@
-import type { IMessageNotification } from '@/types/types';
+import type { INotification } from '@/types/types';
 
-export interface ICardNotificationProps extends IMessageNotification {
+export interface ICardNotificationProps extends INotification {
   empty?: string;
 }
 

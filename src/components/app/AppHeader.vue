@@ -54,7 +54,7 @@
 
 <script setup lang="ts">
 import type { IAppHeaderProps, IAppHeaderEmits } from '@/components/app/types';
-import type { IListItem, IMessageNotification } from '@/types/types';
+import type { IListItem, INotification } from '@/types/types';
 
 import { computed } from 'vue';
 
@@ -73,7 +73,7 @@ const listMenu: IListItem[] = [
   { name: 'Logout', value: 3 },
 ];
 
-const isNewNotif = computed(() => Boolean(notifications.find((i: IMessageNotification) => i.isNew)));
+const isNewNotif = computed(() => Boolean(notifications.find((i: INotification) => i.isNew)));
 
 const onSidebar = (e: Event) => emit('sidebar', e);
 const onNotif = (e: Event) => emit('notif', e);
