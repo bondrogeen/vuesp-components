@@ -6,7 +6,7 @@
   --color-primary: #28b7f0;
   --color-secondary: #66d3f1;
 
-  --shadow-bottom-nav: 0px 7px 16px 0px #0000001a;
+  --shadow-nav: 0px 7px 16px 0px #0000001a;
 
   --animate-shake: shake 0.2s ease-in-out;
   --animate-opacity: opacity 0.3s ease-in;

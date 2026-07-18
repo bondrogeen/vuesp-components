@@ -31,6 +31,6 @@ const getValue = ({ opts, value }: IDashboardItem) => (Array.isArray(opts?.items
 const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
   const { items = [], disabled } = opts;
   // VSelect expects `modelValue` and `title` props
-  return { label: name, modelValue: value, items, disabled };
+  return { label: name, modelValue: value, items, disabled: Boolean(disabled) };
 };
 </script>

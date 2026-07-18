@@ -31,13 +31,13 @@ const onClick = (e: Event) => {
 
 const on: IVDropdownOn = { click: onClick, open: onOpen, set: onSet };
 const getSize = computed(() => ({
-  auto: 'max-h-[calc(100dvh-24px)] md:max-h-[calc(100dvh-100px)]',
+  auto: 'max-h-[calc(100dvh-50px)]',
   full: 'h-[calc(100dvh-24px)] md:h-[calc(100dvh-100px)]',
   screen: 'h-dvh',
 }));
 
 const getSizeContent = computed(() => ({
-  auto: 'max-h-[calc(100dvh-24px-16px)] md:max-h-[calc(100dvh-100px-16px)]',
+  auto: 'max-h-[calc(100dvh-50px-16px)]',
   full: 'h-[calc(100dvh-24px-16px)] md:h-[calc(100dvh-100px-16px)]',
   screen: 'h-[calc(100dvh-16px)]',
 }));
@@ -56,7 +56,7 @@ const getSizeContent = computed(() => ({
       <div v-if="show" ref="container" class="fixed bottom-0 left-0 w-full z-15">
         <div v-if="overlay" class="fixed h-full w-full top-0 left-0 bg-black/40 bg-blur xl:hidden animate-opacity overscroll-contain" :style="{ opacity }" @click="onClose" @wheel.prevent @touchmove.prevent />
 
-        <div class="bg-white dark:bg-gray-800 w-full shadow-bottom-nav relative" :class="getSize[size]" :style="{ transform }">
+        <div class="bg-white dark:bg-gray-800 w-full shadow-nav relative" :class="getSize[size]" :style="{ transform }">
           <div ref="target" class="flex justify-center py-3 md:pb-6" @wheel.prevent @touchmove.prevent>
             <div class="self-end h-1 w-12 bg-gray-400" />
           </div>
@@ -67,7 +67,7 @@ const getSizeContent = computed(() => ({
             </v-button>
           </div>
 
-          <div class="overflow-y-auto max-h-[calc(100dvh-24px-16px)] overscroll-contain" :class="getSizeContent[size]">
+          <div class="overflow-y-auto max-h-[calc(100dvh-24px-16px)] overscroll-contain scrollbar" :class="getSizeContent[size]">
             <slot :on-close="onClose" :on="on" />
           </div>
         </div>

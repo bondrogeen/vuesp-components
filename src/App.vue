@@ -25,17 +25,49 @@
         <main :class="isIframe ? 'no-scrollbar' : 'px-4 py-6 sm:px-6 lg:px-8 flex-auto'">
           <div :class="isIframe ? '' : 'container mx-auto h-full'">
             <router-view />
-            <VSelect
-              :model-value="select"
-              label="List"
-              :items="[
-                { name: 'test', value: 'test' },
-                { name: 'test', value: 'test' },
-                { name: 'test', value: 'test' },
-                { name: 'test', value: 'test' },
-              ]"
-              @select="select = $event.name"
-            ></VSelect>
+            <div class="max-w-50">
+              <VSelect
+                :model-value="select"
+                label="List"
+                :items="[
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                  { name: 'test', value: 'test' },
+                ]"
+                @change="select = $event.name"
+              ></VSelect>
+            </div>
           </div>
         </main>
 
@@ -44,7 +76,7 @@
             <div class="flex items-center justify-between py-4 sticky top-0 z-20 bg-gray-50 dark:bg-gray-900 px-2">
               <h5>{{ 'List' }}</h5>
 
-              <VButton size="small" color="gray" class="text-sm" :disabled="!isNew">{{ 'All' }}</VButton>
+              <VButton color="gray" class="text-sm" :disabled="!isNew">{{ 'All' }}</VButton>
             </div>
           </template>
           <template #empty>
