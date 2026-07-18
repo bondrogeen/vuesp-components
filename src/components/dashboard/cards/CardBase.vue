@@ -5,7 +5,7 @@
   >
     <div class="flex-auto flex justify-between">
       <div :class="getColorValue">
-        <VIcons :name="getIcon" class="size-8" :class="props.value ? 'animate-shake' : ''" />
+        <!-- <VIcons :name="getIcon" class="size-8" :class="props.value ? 'animate-shake' : ''" /> -->
       </div>
       <slot name="header" v-bind="props"></slot>
     </div>
@@ -26,13 +26,13 @@
       </slot>
     </div>
 
-    <VIcons v-if="getIcon" :name="getIcon" class="absolute left-1/2 top-1/2 size-[calc(50%)] opacity-5 text-gray-200/20 -translate-1/2" />
+    <!-- <VIcons v-if="getIcon" :name="getIcon" class="absolute left-1/2 top-1/2 size-[calc(50%)] opacity-5 text-gray-200/20 -translate-1/2" /> -->
 
-    <AppDialog v-if="dialog" :size="props.size || 'sm'" :title="name" @close="closeDialog" @open="openDialog">
+    <VDialog v-if="dialog" :size="props.size || 'sm'" :title="name" @close="closeDialog" @open="openDialog">
       <template #header>
         <div class="flex-auto flex items-center justify-between gap-6 me-2">
           <VButton type="icon" @click="onEdit">
-            <VIcons name="Dots" />
+            <icon-ri-more-line />
           </VButton>
         </div>
       </template>
@@ -54,7 +54,7 @@
           </p>
         </div>
       </div>
-    </AppDialog>
+    </VDialog>
   </div>
 </template>
 
@@ -63,7 +63,7 @@ import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/card
 
 import { ref, computed } from 'vue';
 
-import VIcons from '@/components/ui/icon/VIcon.vue';
+// import VIcons from '@/components/ui/icon/VIcon.vue';
 import VButton from '@/components/ui/button/VButton.vue';
 
 const props = defineProps<ICardBaseProps>();
@@ -77,7 +77,7 @@ const getColorValue = computed(() => {
   return 'text-gray-400';
 });
 
-const getIcon = computed(() => props.icon || '');
+// const getIcon = computed(() => props.icon || '');
 const onEdit = (e: Event) => emit('edit', e);
 
 const onClick = () => (dialog.value = true);

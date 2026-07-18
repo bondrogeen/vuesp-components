@@ -7,7 +7,7 @@
         <span class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
       </span>
 
-      <VIcon name="Noti" class="size-5" />
+      <icon-ri-notification-line class="size-5" />
     </VButton>
 
     <div class="flex-auto text-xs">
@@ -17,7 +17,7 @@
     </div>
 
     <VButton class="shrink-0" type="icon" size="small" @click="onRemove">
-      <VIcon name="Close" class="size-4"></VIcon>
+      <icon-ri-close-line class="size-4" />
     </VButton>
   </div>
 </template>
@@ -25,12 +25,9 @@
 <script setup lang="ts">
 import type { ICardNotificationProps, ICardNotificationEmits } from '@/components/card/notification/types';
 
-
 import { dateUtcToString, timeUtcToString } from '@/helpers/';
 
 import VButton from '@/components/ui/button/VButton.vue';
-
-import VIcon from '@/components/ui/icon/VIcon.vue';
 
 const props = defineProps<ICardNotificationProps>();
 

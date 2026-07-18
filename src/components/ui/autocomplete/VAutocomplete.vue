@@ -5,7 +5,7 @@
     </template>
 
     <template #default="{ on }">
-      <VList v-slot="{ item }" :list="list" @click="onChange(on, $event)">
+      <VList v-slot="{ item }" :items="list" @click="onChange(on, $event)">
         <slot :item="item">{{ item.name }}</slot>
       </VList>
     </template>

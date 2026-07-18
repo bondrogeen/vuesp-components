@@ -10,15 +10,17 @@
               <VTextField v-model="item.name" label="Name"></VTextField>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                <VSelect v-slot="{ item }" :value="item.icon" label="Icon" class="mb-6" :list="listIcons" @change="onIcon">
-                  <div class="flex gap-2 items-center">
-                    <VIcon :name="`${item.value}`" class="size-5"></VIcon>
+                <VSelect :model-value="item.icon" label="Icon" class="mb-6" :items="listIcons" @change="onIcon">
+                  <template #item="{ item }">
+                    <div class="flex gap-2 items-center">
+                      <!-- <VIcon :name="`${item.value}`" class="size-5"></VIcon> -->
 
-                    <div>{{ item.name }}</div>
-                  </div>
+                      <div>{{ item.name }}</div>
+                    </div>
+                  </template>
                 </VSelect>
 
-                <VSelect :value="item.type" label="Type" :list="listDashboard" @change="onType"></VSelect>
+                <VSelect :model-value="item.type" label="Type" :items="listDashboard" @change="onType"></VSelect>
               </div>
             </div>
           </template>
@@ -40,7 +42,7 @@
                     </div>
 
                     <button v-if="i" class="cursor-pointer ms-1" @click="onRemoveParams(item)">
-                      <VIcon name="Close" class="size-5" />
+                      <icon-ri-close-line class="size-5" />
                     </button>
                   </div>
                 </div>
@@ -73,11 +75,11 @@
       <VButton class="px-4" color="blue" :disabled="isDisabled" @click="onButton(isNew ? 'add' : 'save')">{{ isNew ? 'Add' : 'Save' }}</VButton>
     </div>
 
-    <app-dialog v-if="dialog" size="md" title="Select" @close="dialog = false">
+    <v-dialog v-if="dialog" size="md" title="Select" @close="dialog = false">
       <div class="relative min-h-[200px] max-h-100dvh overflow-auto scrollbar">
         <VListObject :items="object" :onlyValue="!isParams" @click="onAddParams" />
       </div>
-    </app-dialog>
+    </v-dialog>
   </div>
 </template>
 
@@ -88,7 +90,7 @@ import type { IItemEditProps, IItemEditEmits } from '@/components/dashboard/edit
 
 import { computed, onMounted, ref } from 'vue';
 
-import { listIcons, listDashboard } from '@/const/lists';
+import { listIcons, listDashboard } from '@/dashboard/lists';
 import { getDataValue } from '@/dashboard/index';
 import { clone } from '@/helpers/';
 
@@ -97,13 +99,11 @@ import VButton from '@/components/ui/button/VButton.vue';
 import VSelect from '@/components/ui/select/VSelect.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
 import VListObject from '@/components/ui/list/VListObject.vue';
-import AppDialog from '@/components/app/AppDialog.vue';
+import VDialog from '@/components/ui/dialog/VDialog.vue';
 import VTabs from '@/components/ui/tabs/VTabs.vue';
 import VFunc from '@/components/ui/func/VFunc.vue';
-import VIcon from '@/components/ui/icon/VIcon.vue';
 
 import ItemOptions from '@/components/dashboard/edit/ItemOptions.vue';
-
 
 const { item: data, object } = defineProps<IItemEditProps>();
 
@@ -141,7 +141,7 @@ const onType = ({ value }: IListItem) => {
   delete item.value.opts;
   if (!['button', 'list', 'dimmer'].includes(type)) return;
   if (value === 'button') item.value.opts = {};
-  if (value === 'list') item.value.opts = { list: [] };
+  if (value === 'list') item.value.opts = { items: [] };
   if (value === 'dimmer') item.value.opts = { min: 0, max: 255, step: 1 };
 };
 

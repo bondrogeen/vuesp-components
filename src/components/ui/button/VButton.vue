@@ -14,7 +14,7 @@ import { computed } from 'vue';
 
 import VLoader from '@/components/ui/loader/VLoader.vue';
 
-const { href = '', to = '', color = 'gray', block, size = 'normal', type = 'button', outline = false, loading = false, disabled = false } = defineProps<IVButtonProps>();
+const { href = '', to = '', color = 'gray', block, size = 'md', type = 'button', outline = false, loading = false, disabled = false } = defineProps<IVButtonProps>();
 
 const emit = defineEmits<IVButtonEmits>();
 
@@ -26,8 +26,9 @@ const green = outline ? `border border-green-600 text-green-600` : 'bg-green-600
 const red = outline ? `border border-red-600 text-red-600` : 'bg-red-600 dark:bg-red-800';
 const gray = outline ? `border border-gray-600 text-gray-600` : 'bg-gray-500 dark:bg-gray-800';
 const blue = outline ? `border border-blue-600 text-blue-600` : 'bg-blue-700 dark:bg-blue-800';
+const transparent = outline ? `` : '';
 
-const colors = { green, red, gray, blue };
+const colors = { green, red, gray, blue, transparent };
 
 const types = {
   button: 'px-4',
@@ -35,14 +36,14 @@ const types = {
 };
 
 const sizes = {
-  button: { normal: 'h-10', small: 'h-8' },
-  icon: { normal: 'size-10', small: 'size-8' },
+  button: { sm: 'h-8', md: 'h-10', lg: 'h-12', xl: 'h-14' },
+  icon: { sm: 'size-8', md: 'size-10', lg: 'size-12', xl: 'size-14' },
 };
 
 const getClass = computed(() => [gefClass, getColor(color), getType(type), getSize(type, size), { 'w-full': block }]);
 const isComponents = computed(() => (href || to ? 'router-link' : 'button'));
 
-const getSize = (type: keyof typeof sizes, size: 'normal' | 'small'): string => sizes[type]?.[size] || '';
+const getSize = (type: string, size: string): string => sizes[type as keyof typeof sizes]?.[size as keyof (typeof sizes)[keyof typeof sizes]] || '';
 const getType = (type: string): string => types?.[type as keyof typeof types] || '';
 const getColor = (color: string): string => (type === 'icon' ? '' : `${outline ? 'dark:text-white' : 'text-white'} ${colors?.[color as keyof typeof colors] || ''}`);
 </script>

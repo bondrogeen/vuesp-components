@@ -16,7 +16,7 @@
         </slot>
 
         <button class="cursor-pointer transition text-gray-700 dark:text-gray-400 self-start hover:text-gray-600" @click="isShow = false">
-          <VIcon name="Close" class="h-4 w-4"></VIcon>
+          <icon-ri-close-line class="size-4" />
         </button>
       </div>
 
@@ -37,9 +37,7 @@
 import type { IAppProgressProps } from '@/components/app/types';
 
 import { computed, watch, ref } from 'vue';
-import { useDebounceFn } from '@vueuse/core'
-
-import VIcon from '@/components/ui/icon/VIcon.vue';
+import { useDebounceFn } from '@vueuse/core';
 
 const { length = 0, size = 0, status = 0, timeout = 5000 } = defineProps<IAppProgressProps>();
 

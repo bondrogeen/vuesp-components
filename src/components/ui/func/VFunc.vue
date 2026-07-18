@@ -16,8 +16,8 @@
     </template>
 
     <template #icon>
-      <VIcon v-if="value" name="Close" class="size-4" />
-      <VIcon v-else name="Plus" class="size-4" />
+      <icon-ri-close-line v-if="value" class="size-4" />
+      <icon-ri-add-line v-else class="size-4" />
     </template>
   </VTextWrapper>
 </template>
@@ -29,8 +29,6 @@ import { watch } from 'vue';
 import { useTextareaAutosize, useDebounceFn } from '@vueuse/core';
 
 import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
-
-import VIcon from '@/components/ui/icon/VIcon.vue';
 
 const { textarea, input } = useTextareaAutosize();
 

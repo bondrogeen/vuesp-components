@@ -1,8 +1,8 @@
 export interface IVButtonProps {
   block?: boolean;
   outline?: boolean;
-  color?: 'green' | 'red' | 'gray' | 'blue';
-  size?: 'normal' | 'small';
+  color?: 'green' | 'red' | 'gray' | 'blue' | 'transparent';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   type?: 'button' | 'icon';
   href?: string;
   to?: string;

@@ -15,8 +15,6 @@
 <script setup lang="ts">
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
-
-
 import type { IDashboardItem, IListItem } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
@@ -28,10 +26,11 @@ const emit = defineEmits<ICardBaseEmits>();
 
 const onClick = (event: Event) => emit('click', event);
 const setState = ({ value }: IListItem) => emit('setState', value);
-const getValue = ({ opts, value }: IDashboardItem) => (Array.isArray(opts?.list) ? opts?.list.find((i) => i.value === value)?.name || value : value);
+const getValue = ({ opts, value }: IDashboardItem) => (Array.isArray(opts?.items) ? opts?.items.find((i) => i.value === value)?.name || value : value);
 
 const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
-  const { list = [], disabled } = opts;
-  return { label: name, value, list, disabled };
+  const { items = [], disabled } = opts;
+  // VSelect expects `modelValue` and `title` props
+  return { label: name, modelValue: value, items, disabled };
 };
 </script>

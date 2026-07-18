@@ -1,14 +1,9 @@
-import type { IListItem } from '@/types/types';
-
-export { IListItem };
-
-export interface IVSelectProps {
-  value?: number | string;
-  label: string;
-  disabled?: boolean | number;
-  list: IListItem[];
+export interface IVSelectProps<T> {
+  modelValue: string | number;
+  label?: string;
+  items: T[];
 }
-export interface IVSelectEmits {
-  (e: 'update:modelValue', value: Event): void;
-  (e: 'change', item: IListItem): void;
+
+export interface IVSelectEmits<T> {
+  (e: 'select', item: T): void;
 }

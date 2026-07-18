@@ -7,20 +7,6 @@ export interface IAppAsideEmits {
   (e: 'sidebar', value: boolean): void;
 }
 
-export interface IAppDialogProps {
-  value?: boolean;
-  title: string;
-  message?: string;
-  callback?: () => void;
-  button?: string;
-  size?: 'sm' | 'md' | 'lg';
-}
-
-export interface IAppDialogEmits {
-  (e: 'close', value: Event): void;
-  (e: 'open', value: boolean): void;
-}
-
 export interface IAppHeaderProps {
   changeTheme?: (value?: string) => void;
   notifications: INotification[];

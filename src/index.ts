@@ -3,13 +3,13 @@ import { App, Plugin, Component } from 'vue';
 import directives from '@/utils/directives';
 import type { ItemDirective } from '@/utils/directives';
 
-import { VButton, VSelect, VLoader, VDropdown, VList, VTextField, VWifiIcon, VIcon, CardMain } from '@/components/';
+import { VButton, VSelect, VLoader, VDropdown, VList, VTextField, VWifiIcon, CardMain, VIconLogoMini, VIconLogo, VDialog, VPopup } from '@/components/';
 import * as dashboard from '@/components/dashboard';
 import * as app from '@/components/app';
 
 import '@/assets/tailwind.css';
 
-const components: Record<string, Component> = { ...app, ...dashboard, VButton, VLoader, VDropdown, VList, VTextField, VSelect, VWifiIcon, VIcon, CardMain };
+const components: Record<string, Component> = { ...app, ...dashboard, VButton, VLoader, VDropdown, VList, VTextField, VSelect, VWifiIcon, CardMain, VIconLogoMini, VIconLogo, VDialog, VPopup };
 
 export * from '@/components/';
 
