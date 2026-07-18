@@ -63,7 +63,7 @@ const on: IVDropdownOn = { click: onClick, open: onShow, set: onSet };
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="transform opacity-0 -translate-y-2"
     >
-      <div v-if="isShow" class="z-5 min-w-full absolute" :style="getStyle">
+      <div v-if="isShow" class="z-30 min-w-full absolute" :style="getStyle">
         <slot :on="on" :show="onShow" :hide="onHide" :is-show="isShow" />
       </div>
     </transition>

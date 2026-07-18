@@ -55,7 +55,7 @@ app.mount('#app')
   <div>
     <VButton color="primary" @click="handleClick">Click me</VButton>
     <VTextField v-model="text" label="Input text" />
-    <VSelect v-model="selected" :items="options" />
+    <VSelect :model-value="select" :items="options" />
     <VCheckbox v-model="checked" />
   </div>
 </template>

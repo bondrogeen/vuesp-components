@@ -16,7 +16,7 @@
       <div class="text-gray-500 dark:text-gray-400 mt-1">{{ dateUtcToString(props.date) }} ({{ timeUtcToString(props.date) }})</div>
     </div>
 
-    <VButton class="shrink-0" type="icon" size="small" @click="onRemove">
+    <VButton class="shrink-0" type="icon" size="sm" @click="onRemove">
       <icon-ri-close-line class="size-4" />
     </VButton>
   </div>

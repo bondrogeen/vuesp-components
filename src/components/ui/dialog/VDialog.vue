@@ -52,7 +52,7 @@ defineExpose({
         <div class="absolute h-full w-full top-0 left-0 bg-black/40 bg-blur" @click="onClose" />
 
         <div class="flex-auto flex align-center overflow-y-auto overscroll-contain" :class="size === 'full' ? '' : ''">
-          <div class="m-auto w-full flex flex-col z-20 overflow-auto h-full scrollbar overscroll-contain bg-gray-50 dark:bg-gray-900 shadow-lg rounded-sm z-30" :class="getClass">
+          <div class="m-auto w-full flex flex-col z-20 overflow-auto h-full scrollbar overscroll-contain bg-gray-50 dark:bg-gray-900 shadow-lg rounded-sm" :class="getClass">
             <div class="flex justify-end" :class="size === 'full' ? 'absolute top-0 right-4' : ''" @wheel.prevent @touchmove.prevent>
               <VButton color="transparent" size="md" @click="onClose">
                 <icon-ri-close-line />
