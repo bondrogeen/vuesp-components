@@ -3,14 +3,18 @@ import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
 import tailwindcss from '@tailwindcss/vite';
-import svgLoader from 'vite-svg-loader';
+
+import Icons from 'unplugin-icons/vite';
+import IconsResolver from 'unplugin-icons/resolver';
+import Components from 'unplugin-vue-components/vite';
 
 export default defineConfig(() => ({
   cacheDir: '.vite',
   plugins: [
     vue(),
     tailwindcss(),
-    svgLoader({ svgoConfig: { plugins: [{ name: 'preset-default', params: { overrides: { removeViewBox: false } } }] } }),
+    Icons({ autoInstall: true }),
+    Components({ resolvers: [IconsResolver({ prefix: 'icon', enabledCollections: ['ri'] })] }),
     dts({
       entryRoot: 'src',
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),

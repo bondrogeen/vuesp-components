@@ -8,12 +8,15 @@ import VList from '@/components/ui/list/VList.vue';
 import VSelect from '@/components/ui/select/VSelect.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
 import VFile from '@/components/ui/file/VFile.vue';
-import VIcon from '@/components/ui/icon/VIcon.vue';
+import VIconLogo from '@/components/ui/icon/VIconLogo.vue';
+import VIconLogoMini from '@/components/ui/icon/VIconLogoMini.vue';
 import VWifiIcon from '@/components/ui/wifiIcon/VWifiIcon.vue';
 import VListObject from '@/components/ui/list/VListObject.vue';
 import VDragDrop from '@/components/ui/drag-drop/VDragDrop.vue';
 import VFunc from '@/components/ui/func/VFunc.vue';
 import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
 import VTable from '@/components/ui/table/VTable.vue';
+import VDialog from '@/components/ui/dialog/VDialog.vue';
+import VPopup from '@/components/ui/dialog/VPopup.vue';
 
-export { VAutocomplete, VButton, VLoader, VCheckbox, VDropdown, VExpansion, VList, VSelect, VTextField, VFile, VWifiIcon, VListObject, VDragDrop, VTextWrapper, VFunc, VTable, VIcon };
+export { VAutocomplete, VButton, VLoader, VCheckbox, VDropdown, VExpansion, VList, VSelect, VTextField, VFile, VWifiIcon, VListObject, VDragDrop, VTextWrapper, VFunc, VTable, VIconLogoMini, VIconLogo, VDialog, VPopup };

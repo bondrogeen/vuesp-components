@@ -6,9 +6,9 @@
   >
     <div :class="isSidebar ? 'justify-center' : 'justify-between'" class="sidebar-header flex items-center gap-2 pt-6 pb-6 justify-between">
       <router-link to="/">
-        <VIcon v-if="isSidebar" name="LogoMini" class="h-[30px] text-primary" />
+        <VIconLogoMini v-if="isSidebar" class="h-[30px] text-primary" />
 
-        <VIcon v-else name="Logo" class="h-[30px] text-primary" />
+        <VIconLogo v-else class="h-[30px] text-primary" />
       </router-link>
     </div>
 
@@ -21,7 +21,8 @@
 <script setup lang="ts">
 import type { IAppAsideProps, IAppAsideEmits } from '@/components/app/types';
 
-import VIcon from '@/components/ui/icon/VIcon.vue';
+import VIconLogo from '@/components/ui/icon/VIconLogo.vue';
+import VIconLogoMini from '@/components/ui/icon/VIconLogoMini.vue';
 
 const { isSidebar = false } = defineProps<IAppAsideProps>();
 

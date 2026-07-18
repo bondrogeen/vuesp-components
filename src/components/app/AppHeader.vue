@@ -3,14 +3,14 @@
     <div class="px-4 py-4 sm:px-6 lg:px-8">
       <div class="container mx-auto flex flex-auto items-center">
         <VButton type="icon" color="gray" @click="onSidebar">
-          <VIcon name="Burger" class="size-5" />
+          <icon-ri-menu-line class="size-5" />
         </VButton>
 
         <div class="lg:hidden flex-auto"></div>
 
         <div class="lg:hidden h-[30px]">
           <router-link to="/">
-            <VIcon name="Logo" class="h-[30px] text-primary"></VIcon>
+            <VIconLogo class="h-[30px] text-primary"></VIconLogo>
           </router-link>
         </div>
 
@@ -18,7 +18,8 @@
 
         <div class="gap-4 hidden lg:flex">
           <VButton type="icon" color="gray" @click="onChangeTheme">
-            <VIcon name="Theme" />
+            <icon-ri-sun-line class="dark:hidden" />
+            <icon-ri-moon-line class="hidden dark:flex" />
           </VButton>
 
           <VButton type="icon" color="gray" @click="onNotif">
@@ -26,11 +27,11 @@
               <span class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
             </span>
 
-            <VIcon name="Noti" class="size-5" />
+            <icon-ri-notification-line class="size-5" />
           </VButton>
 
           <VButton type="icon" color="gray" @click.prevent="onLogout">
-            <VIcon name="Logout" class="size-5" />
+            <icon-ri-logout-box-line class="size-5" />
           </VButton>
         </div>
 
@@ -38,11 +39,11 @@
           <VDropdown left="unset" right="0" top="0">
             <template #activator="{ on }">
               <VButton type="icon" color="gray" class="flex" @click="on.click">
-                <VIcon name="Dots" />
+                <icon-ri-more-line />
               </VButton>
             </template>
 
-            <VList v-slot="{ item }" :list="listMenu" @click="onMenu">
+            <VList v-slot="{ item }" :items="listMenu" @click="onMenu">
               <span class="ms-2">{{ item.name }}</span>
             </VList>
           </VDropdown>
@@ -61,7 +62,7 @@ import { computed } from 'vue';
 import VButton from '@/components/ui/button/VButton.vue';
 import VDropdown from '@/components/ui/dropdown/VDropdown.vue';
 import VList from '@/components/ui/list/VList.vue';
-import VIcon from '@/components/ui/icon/VIcon.vue';
+import VIconLogo from '@/components/ui/icon/VIconLogo.vue';
 
 const { changeTheme, notifications } = defineProps<IAppHeaderProps>();
 

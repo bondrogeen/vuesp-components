@@ -55,7 +55,7 @@ app.mount('#app')
   <div>
     <VButton color="primary" @click="handleClick">Click me</VButton>
     <VTextField v-model="text" label="Input text" />
-    <VSelect v-model="selected" :list="options" />
+    <VSelect v-model="selected" :items="options" />
     <VCheckbox v-model="checked" />
   </div>
 </template>
@@ -156,7 +156,6 @@ app.use(i18nPlugin, {
 - `VAccordion` - Accordion component
 - `VDropdown` - Dropdown menu
 - `VLoader` - Loading spinner
-- `VIcon` - Icon component
 - `VFile` - File upload
 - `VDragDrop` - Drag and drop
 - `VExpansion` - Expansion panel
@@ -166,7 +165,6 @@ app.use(i18nPlugin, {
 - `AppHeader` - Header with theme toggle
 - `AppNav` - Navigation menu
 - `AppAside` - Sidebar
-- `AppDialog` - Modal dialog
 - `AppNotification` - Toast notifications
 - `AppProgress` - Progress bar
 

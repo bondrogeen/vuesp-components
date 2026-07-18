@@ -4,7 +4,7 @@
       <div class="flex justify-center relative mx-2 my-6">
         <VTextField v-bind="getBind(item)" autofocus @enter="onChange" @blur="onChange">
           <template #icon>
-            <VIcon name="Chevron" class="size-6 rotate-270" />
+            <icon-ri-arrow-drop-right-line class="size-6 rotate-270" />
           </template>
         </VTextField>
       </div>
@@ -15,14 +15,10 @@
 <script setup lang="ts">
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
-
-
 import type { IDashboardItem } from '@/types/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
-
-import VIcon from '@/components/ui/icon/VIcon.vue';
 
 const props = defineProps<ICardBaseProps>();
 

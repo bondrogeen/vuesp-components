@@ -4,7 +4,7 @@ export interface IDashboardItemOptions {
   min?: number;
   max?: number;
   step?: number;
-  list?: IListItem[];
+  items?: IListItem[];
 }
 
 export interface IDashboardItem {

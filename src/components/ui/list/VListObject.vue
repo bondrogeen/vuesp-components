@@ -3,7 +3,7 @@
     <li v-for="(item, key) of items" :key="key" :class="isObject(item) ? '' : `flex items-center ${getClass()}`">
       <div class="flex items-center cursor-pointer ps-2 h-8" :class="isObject(item) ? `${getClass()}` : ''" @click="onClick(key)">
         <div v-if="isObject(item)" class="me-1">
-          <VIcon name="Folder" class="size-5" />
+          <icon-ri-folder-6-line class="size-5" />
         </div>
 
         <div>{{ key }}</div>
@@ -13,7 +13,7 @@
 
           <div class="flex items-center z-10">
             <button class="px-2 cursor-pointer text-gray-400 hover:text-gray-200" @click.stop="onGetKey(key, isObject(item))">
-              <VIcon name="Save" class="size-5" />
+              <icon-ri-save-line class="size-5" />
             </button>
           </div>
         </template>
@@ -31,7 +31,7 @@
         </div>
 
         <button class="px-2 cursor-pointer z-10" @click.stop="onGetKey(key, isObject(item))">
-          <VIcon name="Save" class="size-5" />
+          <icon-ri-save-line class="size-5" />
         </button>
       </template>
     </li>
@@ -45,8 +45,6 @@ import type { IVListObjectProps, IVListObjectEmits } from '@/components/ui/list/
 import { ref } from 'vue';
 
 import VListObject from '@/components/ui/list/VListObject.vue';
-
-import VIcon from '@/components/ui/icon/VIcon.vue';
 
 const { items = {}, path = '', onlyValue = false } = defineProps<IVListObjectProps>();
 

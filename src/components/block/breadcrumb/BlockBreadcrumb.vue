@@ -8,7 +8,7 @@
           </component>
         </slot>
 
-        <VIcon v-if="item.path" class="rotate-270" name="Chevron"></VIcon>
+        <icon-ri-arrow-drop-right-line v-if="item.path" class="rotate-270" />
       </li>
     </ol>
   </nav>
@@ -16,10 +16,6 @@
 
 <script setup lang="ts">
 import type { IBlockBreadcrumbProps, IBlockBreadcrumbEmits, IBreadcrumb } from '@/components/block/breadcrumb/types';
-
-
-
-import VIcon from '@/components/ui/icon/VIcon.vue';
 
 const { items = [] } = defineProps<IBlockBreadcrumbProps>();
 

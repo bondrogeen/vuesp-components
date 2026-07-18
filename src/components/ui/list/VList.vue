@@ -1,9 +1,9 @@
 <template>
-  <ul :class="props.className ?? 'bg-white dark:bg-gray-800'">
+  <ul :class="className ?? 'bg-white dark:bg-gray-800'">
     <li
-      v-for="item of props.list"
-      :key="`${item.value}_${item.name}`"
-      class="whitespace-nowrap cursor-pointer flex items-center min-h-[40px] py-1 px-6 border-b last:border-b-0 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/30"
+      v-for="item of items"
+      :key="item.name"
+      class="whitespace-nowrap cursor-pointer flex items-center min-h-[40px] border-b last:border-b-0 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/30 w-full px-4"
       @click="onClick(item, $event)"
     >
       <slot :item="item">{{ item.name }}</slot>
@@ -11,13 +11,12 @@
   </ul>
 </template>
 
-<script setup lang="ts">
-import type { IVListProps, IVListEmits, IListItem } from '@/components/ui/list/types';
+<script setup lang="ts" generic="T extends { name: string }">
+import type { IVListProps, IVListEmits } from '@/components/ui/list/types';
 
+const { items, className } = defineProps<IVListProps<T>>();
 
-const props = defineProps<IVListProps>();
+const emit = defineEmits<IVListEmits<T>>();
 
-const emit = defineEmits<IVListEmits>();
-
-const onClick = (item: IListItem, e: Event) => emit('click', item, e);
+const onClick = (item: T, e: Event) => emit('click', item, e);
 </script>

@@ -4,7 +4,7 @@
       <h4>{{ label }}</h4>
 
       <div class="transition text-gray-400" :class="{ 'rotate-180': isActive }">
-        <VIcon name="Chevron" />
+        <icon-ri-arrow-drop-right-line />
       </div>
     </div>
 
@@ -20,8 +20,6 @@ import type { IVExpansionProps } from '@/components/ui/expansion/types';
 import type { Ref } from 'vue';
 
 import { ref, onMounted } from 'vue';
-
-import VIcon from '@/components/ui/icon/VIcon.vue';
 
 const { label = '', value = false } = defineProps<IVExpansionProps>();
 

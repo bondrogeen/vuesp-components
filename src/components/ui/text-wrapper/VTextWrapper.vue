@@ -17,7 +17,7 @@
         @click="emit('icon', $event)"
       >
         <slot name="icon">
-          <VIcon name="Plus" class="size-4" />
+          <icon-ri-add-line class="size-4" />
         </slot>
       </button>
     </div>
@@ -27,8 +27,6 @@
 <script setup lang="ts">
 import type { IVTextWrapperProps, IVTextWrapperEmits } from '@/components/ui/text-wrapper/types';
 import { computed } from 'vue';
-
-import VIcon from '@/components/ui/icon/VIcon.vue';
 
 const { label = 'label', active, disabled = false, hideIcon = false } = defineProps<IVTextWrapperProps>();
 

@@ -63,11 +63,13 @@ export interface IMessageReboot {
 export interface IMessagePort {
   key?: number;
   gpio: number;
+  value?: number;
   mode?: number;
   interrupt?: number;
-  value?: number;
-  state?: number;
-  command: number;
+  disabled?: number;
+  command?: number;
+  list?: number;
+  empty?: number;
 }
 
 export interface IMessageInit {

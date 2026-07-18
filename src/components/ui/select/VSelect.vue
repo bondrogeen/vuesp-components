@@ -1,54 +1,51 @@
+<script setup lang="ts" generic="T extends { name: string; value: string | number }">
+import type { IVSelectProps, IVSelectEmits } from './types';
+import type { IVDropdownOn } from '@/components/ui/dropdown/types';
+
+import VDropdown from '@/components/ui/dropdown/VDropdown.vue';
+import VList from '@/components/ui/list/VList.vue';
+import VTextField from '@/components/ui/text-field/VTextField.vue';
+
+const { modelValue, label, items } = defineProps<IVSelectProps<T>>();
+
+const emit = defineEmits<IVSelectEmits<T>>();
+
+defineOptions({
+  inheritAttrs: false,
+});
+
+function onSelect(item: T, on: IVDropdownOn) {
+  emit('select', item);
+  on?.set(false);
+}
+</script>
+
 <template>
-  <VDropdown class="relative w-full" v-bind="$attrs" top="46px">
-    <template #activator="{ on, show }">
-      <VTextField :model-value="getValue" readonly hideMessage :disabled="disabled" active :label="label" @click="on.click" @on-icon="on.click">
-        <template #icon>
-          <VIcon name="Chevron" class="transition" :class="getClass(show)"></VIcon>
-        </template>
-      </VTextField>
-      <select class="md:hidden absolute left-0 top-0 w-full h-full opacity-0" name="select" @change="onSelect">
-        <option v-for="item of list" :key="item.value" :value="item.value" :selected="value === item.value">{{ item.name }}</option>
-      </select>
+  <VDropdown :hide-on-click="false" class="relative">
+    <template #activator="{ on, isShow }">
+      <slot name="activator" v-bind="{ on, isShow }">
+        <VTextField :model-value="modelValue" readonly hideMessage active @click="on.click" @on-icon="on.click">
+          <template #icon>
+            <icon-ri-arrow-up-s-line class="transition duration-300" :class="isShow ? 'rotate-x-180' : ''" />
+          </template>
+        </VTextField>
+      </slot>
     </template>
 
     <template #default="{ on }">
-      <VList v-slot="{ item }" :list="list" @click="onChange(on, $event)">
-        <slot :item="item">{{ item.name }}</slot>
-      </VList>
+      <div class="bg-white dark:bg-gray-800 rounded min-w-68.25 shadow-bottom-nav">
+        <h5 v-if="label" class="md:hidden text-title-md font-bold mb-4 uppercase px-4">
+          {{ label }}
+        </h5>
+
+        <div class="h-full h-hull max-h-78 overflow-auto scrollbar overscroll-contain">
+          <VList v-slot="{ item }" :items="items" @click="onSelect($event, on)">
+            <slot name="item" :item="item">
+              {{ item.name }}
+            </slot>
+          </VList>
+        </div>
+      </div>
     </template>
   </VDropdown>
 </template>
-
-<script setup lang="ts">
-import type { IVSelectProps, IVSelectEmits, IListItem } from '@/components/ui/select/types';
-
-import { computed } from 'vue';
-
-import VTextField from '@/components/ui/text-field/VTextField.vue';
-import VDropdown from '@/components/ui/dropdown/VDropdown.vue';
-import VList from '@/components/ui/list/VList.vue';
-import VIcon from '@/components/ui/icon/VIcon.vue';
-
-const { value = '', list, disabled = false } = defineProps<IVSelectProps>();
-
-const emit = defineEmits<IVSelectEmits>();
-
-const getValue = computed(() => {
-  const item = list.find((i: IListItem) => i.value === value);
-  return item?.name || '';
-});
-
-const getClass = (show: boolean) => ({ 'rotate-x-180': show });
-
-const onSelect = (e: Event) => {
-  const target = e.target as HTMLSelectElement;
-  const value = target?.value || 0;
-  const item = list.find((i: IListItem) => i.value == value);
-  if (item) emit('change', item);
-};
-
-const onChange = (on: { click: (e: Event) => void }, item: IListItem) => {
-  on.click(new Event('click'));
-  emit('change', item);
-};
-</script>
