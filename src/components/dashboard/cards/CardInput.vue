@@ -1,10 +1,14 @@
 <template>
-  <CardBase v-bind="props" @click="onClick">
+  <CardBase v-bind="props" @click="emit('click', $event)" @edit="emit('edit', $event)">
+    <template #icon="item">
+      <slot name="icon" v-bind="item"></slot>
+    </template>
+
     <template #dialog="item">
       <div class="flex justify-center relative mx-2 my-6">
         <VTextField v-bind="getBind(item)" autofocus @enter="onChange" @blur="onChange">
           <template #icon>
-            <icon-ri-arrow-drop-right-line class="size-6 rotate-270" />
+            <icon-ri-arrow-drop-right-line class="size-8" />
           </template>
         </VTextField>
       </div>
@@ -30,5 +34,4 @@ const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
 };
 
 const onChange = (e: Event) => emit('setState', (e.target as HTMLInputElement).value);
-const onClick = (event: Event) => emit('click', event);
 </script>

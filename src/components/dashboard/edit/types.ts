@@ -3,6 +3,8 @@ import type { IDashboardItem, IListItem, IDashboardItemOptions, TypeValueDashboa
 export interface IItemEditProps {
   item: IDashboardItem;
   object: object;
+  listDashboard: IListItem[];
+  listIcons: IListItem[];
 }
 
 export interface IItemEditEmits {

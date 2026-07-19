@@ -2,25 +2,25 @@
   <div class="flex flex-col">
     <div class="flex flex-col md:flex-row gap-6 min-h-[300px]">
       <div class="flex-auto order-1">
-        <VTabs class="flex-auto" :value="0" :items="tabs">
+        <VTabs class="flex-auto min-h-75" :value="0" :items="tabs">
           <template #tab-0>
             <div class="flex-auto gap-x-2 order-1">
               <VTextField v-model="item.id" label="ID" :disabled="!isNew" @click="onCheckId"></VTextField>
 
               <VTextField v-model="item.name" label="Name"></VTextField>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                <VSelect :model-value="item.icon" label="Icon" class="mb-6" :items="listIcons" @change="onIcon">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <VSelect :model-value="item.icon" bottom="0" top="unset" label="Icon" class="mb-6" :items="listIcons" @change="onIcon">
                   <template #item="{ item }">
                     <div class="flex gap-2 items-center">
-                      <!-- <VIcon :name="`${item.value}`" class="size-5"></VIcon> -->
+                      <slot name="icon" :icon="item.value"></slot>
 
                       <div>{{ item.name }}</div>
                     </div>
                   </template>
                 </VSelect>
 
-                <VSelect :model-value="item.type" label="Type" :items="listDashboard" @change="onType"></VSelect>
+                <VSelect :model-value="item.type" bottom="0" top="unset" label="Type" :items="listDashboard" @change="onType"></VSelect>
               </div>
             </div>
           </template>
@@ -29,19 +29,19 @@
             <div class="flex flex-col gap-4">
               <VTextWrapper :active="Boolean(item.args.length)" :disabled="isParamsDisabled" label="Arguments" @icon="dialog = true">
                 <div class="flex gap-2 flex-wrap flex-auto px-2 py-1">
-                  <div v-for="(item, i) of item.args" :key="item" class="flex items-center rounded-full bg-gray-200 dark:bg-gray-900/50 px-2 py-[2px] text-xs">
+                  <div v-for="(arg, i) of item.args" :key="arg" class="flex items-center rounded-full bg-gray-200 dark:bg-gray-900/50 px-2 py-[2px] text-xs">
                     <div class="relative group">
-                      <span class="select-none">{{ item }}</span>
+                      <span class="select-none">{{ arg }}</span>
 
                       <div
                         class="fixed left-1/2 top-1/2 p-4 text-white bg-gray-900 rounded-md group-hover:visible invisible opacity-0 group-hover:opacity-100 z-50 transition-all -translate-1/2"
                         :class="isHover(i) ? 'visible opacity-100' : ''"
                       >
-                        <pre>{{ getDataValue(item, object) }}</pre>
+                        <pre>{{ getDataValue(arg, object) }}</pre>
                       </div>
                     </div>
 
-                    <button v-if="i" class="cursor-pointer ms-1" @click="onRemoveParams(item)">
+                    <button v-if="i" class="cursor-pointer ms-1" @click="onRemoveParams(arg)">
                       <icon-ri-close-line class="size-5" />
                     </button>
                   </div>
@@ -70,12 +70,11 @@
     </div>
 
     <div class="flex gap-4 justify-end">
-      <VButton class="px-4" color="red" outline @click="onButton('remove')">{{ 'Remove' }}</VButton>
-      <VButton class="px-4" color="gray" outline @click="onButton('cancel')">{{ 'Cancel' }}</VButton>
-      <VButton class="px-4" color="blue" :disabled="isDisabled" @click="onButton(isNew ? 'add' : 'save')">{{ isNew ? 'Add' : 'Save' }}</VButton>
+      <VButton class="px-4" color="blue" :disabled="isDisabled" @click="onButton(isNew ? 'add' : 'save')">{{ isNew ? $t('add') : $t('save') }}</VButton>
+      <VButton class="px-4" color="red" outline @click="onButton('remove')">{{ $t('remove') }}</VButton>
     </div>
 
-    <v-dialog v-if="dialog" size="md" title="Select" @close="dialog = false">
+    <v-dialog v-if="dialog" size="md" :title="$t('select')" @close="dialog = false">
       <div class="relative min-h-[200px] max-h-100dvh overflow-auto scrollbar">
         <VListObject :items="object" :onlyValue="!isParams" @click="onAddParams" />
       </div>
@@ -90,7 +89,6 @@ import type { IItemEditProps, IItemEditEmits } from '@/components/dashboard/edit
 
 import { computed, onMounted, ref } from 'vue';
 
-import { listIcons, listDashboard } from '@/dashboard/lists';
 import { getDataValue } from '@/dashboard/index';
 import { clone } from '@/helpers/';
 
@@ -105,7 +103,7 @@ import VFunc from '@/components/ui/func/VFunc.vue';
 
 import ItemOptions from '@/components/dashboard/edit/ItemOptions.vue';
 
-const { item: data, object } = defineProps<IItemEditProps>();
+const { item: data, object, listIcons, listDashboard } = defineProps<IItemEditProps>();
 
 const emit = defineEmits<IItemEditEmits>();
 

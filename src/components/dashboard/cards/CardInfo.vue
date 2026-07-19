@@ -1,5 +1,9 @@
 <template>
-  <CardBase v-bind="props" @click="onClick">
+  <CardBase v-bind="props" @click="emit('click', $event)" @edit="emit('edit', $event)">
+    <template #icon="item">
+      <slot name="icon" v-bind="item"></slot>
+    </template>
+
     <slot name="dialog"></slot>
   </CardBase>
 </template>
@@ -7,13 +11,9 @@
 <script setup lang="ts">
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
-
-
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 
 const props = defineProps<ICardBaseProps>();
 
 const emit = defineEmits<ICardBaseEmits>();
-
-const onClick = (e: Event) => emit('click', e);
 </script>

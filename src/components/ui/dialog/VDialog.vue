@@ -53,24 +53,23 @@ defineExpose({
 
         <div class="flex-auto flex align-center overflow-y-auto overscroll-contain" :class="size === 'full' ? '' : ''">
           <div class="m-auto w-full flex flex-col z-20 overflow-auto h-full scrollbar overscroll-contain bg-gray-50 dark:bg-gray-900 shadow-lg rounded-sm" :class="getClass">
-            <div class="flex justify-end" :class="size === 'full' ? 'absolute top-0 right-4' : ''" @wheel.prevent @touchmove.prevent>
+            <div class="flex items-center min-h-14 ps-6 pe-3" :class="size === 'full' ? 'absolute top-0 right-4' : ''" @wheel.prevent @touchmove.prevent>
+              <h4 v-if="title" class="text-title-md uppercase font-bold flex-auto">
+                {{ title }}
+              </h4>
+
+              <slot name="header-btn" :close="onClose"></slot>
               <VButton color="transparent" size="md" @click="onClose">
                 <icon-ri-close-line />
               </VButton>
             </div>
-
-            <slot name="header" :close="onClose">
-              <h4 v-if="title" class="text-title-md uppercase font-bold px-6 mb-4">
-                {{ title }}
-              </h4>
-            </slot>
 
             <div
               class="relative overflow-auto h-full md:h-auto max-h-dvh scrollbar overflow-y-auto overscroll-contain"
               :class="size === 'full' ? 'flex-auto' : 'md:max-h-147.5 px-6 pb-6'"
               @close="onClose"
             >
-              <slot :close="onClose" />
+              <slot name="default" :close="onClose" />
             </div>
           </div>
         </div>
@@ -79,11 +78,20 @@ defineExpose({
   </Teleport>
 
   <VPopup v-else :size="popupSize" @close="onClose">
-    <div class="px-4 pb-4 md:px-6">
-      <h4 v-if="title" class="text-title-md uppercase font-bold mb-4">
-        {{ title }}
-      </h4>
-      <slot name="default" />
-    </div>
+    <template #button>
+      <slot name="header-btn" :close="onClose"></slot>
+    </template>
+
+    <template #default="{ close }">
+      <div class="px-4 pb-4 md:px-6">
+        <div class="flex items-center mb-4" :class="size === 'full' ? 'absolute top-0 right-4' : ''" @wheel.prevent @touchmove.prevent>
+          <h4 v-if="title" class="text-title-md uppercase font-bold">
+            {{ title }}
+          </h4>
+        </div>
+
+        <slot name="default" :close="close" />
+      </div>
+    </template>
   </VPopup>
 </template>

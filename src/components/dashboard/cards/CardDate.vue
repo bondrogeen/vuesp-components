@@ -1,5 +1,9 @@
 <template>
-  <CardBase v-bind="props" @click="onClick">
+  <CardBase v-bind="props" @click="emit('click', $event)" @edit="emit('edit', $event)">
+    <template #icon="item">
+      <slot name="icon" v-bind="item"></slot>
+    </template>
+
     <template #dialog="item">
       <div class="flex justify-center relative mx-2 my-6">
         <VTextField v-bind="getBind(item)" type="datetime-local" @change="onChangeDate"></VTextField>
@@ -11,8 +15,6 @@
 <script setup lang="ts">
 import type { IDashboardItem } from '@/types/types';
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
-
-
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
@@ -34,6 +36,4 @@ const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
   const { disabled } = opts;
   return { label: name, modelValue: datetime(value), disabled };
 };
-
-const onClick = (event: Event) => emit('click', event);
 </script>

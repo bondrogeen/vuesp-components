@@ -1,5 +1,7 @@
 import type { TypeGetDataValue, TypeGetParamsData, IDashboardItem, GetTypeByPath } from '@/types/types';
 
+export const dashboardCards = ['button', 'info', 'dimmer', 'date', 'input', 'list'];
+
 export const getDataValue: TypeGetDataValue = <T extends string, S>(key: T, main: S) => {
   const keys = key.split('.') as string[];
   let current: unknown = main;
