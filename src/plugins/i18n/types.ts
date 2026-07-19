@@ -6,11 +6,13 @@ export interface ILocales {
   [locale: string]: ILocaleMessages;
 }
 
+export type I18nPluralRule = (count: number, forms: string[]) => string;
+
 export interface I18nState {
   locale: string;
 }
 
-export type I18nGet = (key: string, params?: Record<string, string>) => string;
+export type I18nGet = (key: string, params?: Record<string, string | number>) => string;
 
 export interface I18nInstance {
   state: Readonly<I18nState>;
@@ -23,6 +25,7 @@ export interface I18nInstance {
 export interface I18nOptions {
   defaultLocale?: string;
   locales?: ILocales;
+  pluralize: (locale: string, count: number, forms: string[]) => string;
 }
 
 declare module '@vue/runtime-core' {

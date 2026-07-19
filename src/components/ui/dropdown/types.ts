@@ -1,7 +1,9 @@
 export interface IVDropdownProps {
+  title?: string;
   top?: string;
   left?: string;
   right?: string;
+  bottom?: string;
   height?: string;
   hideOnClick?: boolean;
   disabled?: boolean;
@@ -13,7 +15,7 @@ export interface IVDropdownEmits {
 }
 
 export interface IVDropdownOn {
-	click: (e: Event) => void;
-	open: (e: Event) => void;
-	set: (value: boolean) => void;
+  click: (e: Event) => void;
+  open: (e: Event) => void;
+  set: (value: boolean) => void;
 }

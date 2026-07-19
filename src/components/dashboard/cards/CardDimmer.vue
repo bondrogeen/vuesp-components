@@ -1,5 +1,9 @@
 <template>
-  <CardBase v-bind="props" @click="onClick">
+  <CardBase v-bind="props" @click="emit('click', $event)" @edit="emit('edit', $event)">
+    <template #icon="item">
+      <slot name="icon" v-bind="item"></slot>
+    </template>
+
     <template #header="item">
       <div class="flex justify-end">
         <div :class="'text-blue-600 dark:text-blue-400'">
@@ -14,7 +18,7 @@
 
     <template #dialog="item">
       <div class="flex justify-center relative mx-2 my-6" :class="getBind(item).disabled ? 'opacity-40' : ''">
-        <div class="absolute h-10 w-full top-0 left-0 bg-gray-400 dark:bg-gray-800 z-0 rounded-md"></div>
+        <div class="absolute h-10 w-full top-0 left-0 bg-gray-400 dark:bg-gray-700 z-0 rounded-md"></div>
 
         <div class="absolute h-10 top-0 left-0 bg-blue-600 dark:bg-blue-400 z-0 rounded-md transition-[width_0.3s_linear]" :style="`width: ${getPercent(item)}%`"></div>
 
@@ -30,8 +34,6 @@
 import type { IDashboardItem } from '@/types/types';
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
-
-
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 
 const props = defineProps<ICardBaseProps>();
@@ -46,6 +48,5 @@ const getBind = ({ value, opts }: IDashboardItem) => {
   return { min, max, step, value, disabled: Boolean(disabled), class: disabled ? '' : 'cursor-pointer' };
 };
 
-const onClick = (event: Event) => emit('click', event);
 const onChange = (e: Event) => emit('setState', +(e.target as HTMLTextAreaElement).value || 0);
 </script>

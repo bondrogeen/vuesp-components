@@ -1,5 +1,5 @@
 <template>
-  <ul :class="className ?? 'bg-white dark:bg-gray-800'">
+  <ul :class="className ?? 'bg-white dark:bg-gray-900'" class="ring-1 ring-gray-200 dark:ring-gray-800">
     <li
       v-for="item of items"
       :key="item.name"

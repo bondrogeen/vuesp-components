@@ -4,8 +4,8 @@
     @click="onClick"
   >
     <div class="flex-auto flex justify-between">
-      <div :class="getColorValue">
-        <!-- <VIcons :name="getIcon" class="size-8" :class="props.value ? 'animate-shake' : ''" /> -->
+      <div :class="getColorValue" class="size-8">
+        <slot name="icon" v-bind="props"></slot>
       </div>
       <slot name="header" v-bind="props"></slot>
     </div>
@@ -26,15 +26,15 @@
       </slot>
     </div>
 
-    <!-- <VIcons v-if="getIcon" :name="getIcon" class="absolute left-1/2 top-1/2 size-[calc(50%)] opacity-5 text-gray-200/20 -translate-1/2" /> -->
+    <div v-if="props.icon" class="absolute left-1/2 top-1/2 size-[calc(50%)] text-gray-200/30 dark:text-gray-800/30 -translate-1/2">
+      <slot name="icon" v-bind="props"></slot>
+    </div>
 
     <VDialog v-if="dialog" :size="props.size || 'sm'" :title="name" @close="closeDialog" @open="openDialog">
-      <template #header>
-        <div class="flex-auto flex items-center justify-between gap-6 me-2">
-          <VButton type="icon" @click="onEdit">
-            <icon-ri-more-line />
-          </VButton>
-        </div>
+      <template #header-btn>
+        <VButton color="transparent" @click="onEdit">
+          <icon-ri-more-line />
+        </VButton>
       </template>
 
       <div class="min-h-60 relative">
@@ -77,7 +77,6 @@ const getColorValue = computed(() => {
   return 'text-gray-400';
 });
 
-// const getIcon = computed(() => props.icon || '');
 const onEdit = (e: Event) => emit('edit', e);
 
 const onClick = () => (dialog.value = true);

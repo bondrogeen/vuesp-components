@@ -31,7 +31,7 @@ const transparent = outline ? `` : '';
 const colors = { green, red, gray, blue, transparent };
 
 const types = {
-  button: 'px-4',
+  button: 'px-3',
   icon: 'rounded-full border border-gray-200 dark:border-gray-800',
 };
 

@@ -5,7 +5,7 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 import VPopup from '@/components/ui/dialog/VPopup.vue';
 
-const { top = 'calc(100% + 8px)', left = '', right = '0', height = '200px', hideOnClick = true, disabled = false } = defineProps<IVDropdownProps>();
+const { top = 'calc(100% + 8px)', left = '', right = '0', bottom = '', height = '200px', hideOnClick = true, disabled = false, title = '' } = defineProps<IVDropdownProps>();
 
 const emit = defineEmits<IVDropdownEmits>();
 
@@ -13,10 +13,10 @@ const breakpoints = useBreakpoints(breakpointsTailwind);
 const isLgOrLarger = breakpoints.greaterOrEqual('lg');
 
 const isShow = ref(false);
-const getStyle = computed(() => ({ top, left, right, 'max-height': height }));
+const getStyle = computed(() => ({ top, left, right, bottom, 'max-height': height }));
 
 const outside = (e: Event) => {
-  if (!isLgOrLarger) return;
+  if (!isLgOrLarger.value) return;
   if (isShow.value) onHide(e);
 };
 const onClick = (e: Event) => {
@@ -68,7 +68,7 @@ const on: IVDropdownOn = { click: onClick, open: onShow, set: onSet };
       </div>
     </transition>
 
-    <VPopup v-if="!isLgOrLarger && isShow" @close="onClose">
+    <VPopup v-if="!isLgOrLarger && isShow" :title="title" @close="onClose">
       <template #default="{ on }">
         <slot :on="on" :show="onShow" :hide="onHide" :is-show="isShow" />
       </template>

@@ -25,48 +25,6 @@
         <main :class="isIframe ? 'no-scrollbar' : 'px-4 py-6 sm:px-6 lg:px-8 flex-auto'">
           <div :class="isIframe ? '' : 'container mx-auto h-full'">
             <router-view />
-            <div class="max-w-50">
-              <VSelect
-                :model-value="select"
-                label="List"
-                :items="[
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                  { name: 'test', value: 'test' },
-                ]"
-                @change="select = $event.name"
-              ></VSelect>
             </div>
           </div>
         </main>
@@ -104,10 +62,8 @@ import { ref } from 'vue';
 // import { useStore } from '@/composables/useStore';
 // import { useLocale } from '@/composables/useLocale';
 
-import VSelect from '@/components/ui/select/VSelect.vue';
 import VDialog from '@/components/ui/dialog/VDialog.vue';
 
-const select = ref('none');
 // const { $t, setLocale } = useLocale();
 
 // setLocale(localGet('locale') || navigator?.language);
