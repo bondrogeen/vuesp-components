@@ -5,9 +5,9 @@
         <VTabs class="flex-auto min-h-75" :value="0" :items="tabs">
           <template #tab-0>
             <div class="flex-auto gap-x-2 order-1">
-              <VTextField v-model="item.id" label="ID" :disabled="!isNew" @click="onCheckId"></VTextField>
+              <VTextField v-model="item.id" label="ID" :disabled="!isNew" @click="onCheckId" />
 
-              <VTextField v-model="item.name" label="Name"></VTextField>
+              <VTextField v-model="item.name" label="Name" />
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <VSelect :model-value="item.icon" bottom="0" top="unset" label="Icon" class="mb-6" :items="listIcons" @change="onIcon">
@@ -20,7 +20,7 @@
                   </template>
                 </VSelect>
 
-                <VSelect :model-value="item.type" bottom="0" top="unset" label="Type" :items="listDashboard" @change="onType"></VSelect>
+                <VSelect :model-value="item.type" bottom="0" top="unset" label="Type" :items="listDashboard" @change="onType" />
               </div>
             </div>
           </template>

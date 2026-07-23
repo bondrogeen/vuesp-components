@@ -11,12 +11,12 @@ export const useDialog = (emit: IVDialogEmits, timeout?: number) => {
   const keys = useMagicKeys();
 
   if (keys?.escape) {
-    watch(keys.escape, (v) => {
-      onClose(v);
+    watch(keys.escape, () => {
+      onClose(new Event('close'));
     });
   }
 
-  const onClose = (e?: Event | boolean) => {
+  const onClose = (e?: Event) => {
     overlay.value = false;
     setTimeout(() => {
       show.value = false;

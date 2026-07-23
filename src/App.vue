@@ -25,7 +25,6 @@
         <main :class="isIframe ? 'no-scrollbar' : 'px-4 py-6 sm:px-6 lg:px-8 flex-auto'">
           <div :class="isIframe ? '' : 'container mx-auto h-full'">
             <router-view />
-            </div>
           </div>
         </main>
 
@@ -34,11 +33,12 @@
             <div class="flex items-center justify-between py-4 sticky top-0 z-20 bg-gray-50 dark:bg-gray-900 px-2">
               <h5>{{ 'List' }}</h5>
 
-              <VButton color="gray" class="text-sm" :disabled="!isNew">{{ 'All' }}</VButton>
+              <v-button class="text-sm" :disabled="!isNew">{{ 'All' }}</v-button>
             </div>
           </template>
+          
           <template #empty>
-            <p class="text-center text-gray-200/50 py-10">{{ 'All' }}</p>
+            <p class="text-center py-10">{{ 'All' }}</p>
           </template>
         </app-notification>
       </div>

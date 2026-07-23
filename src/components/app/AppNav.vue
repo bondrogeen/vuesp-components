@@ -1,15 +1,15 @@
 <template>
   <nav>
-    <ul class="mb-4 flex flex-col gap-4">
+    <ul class="mb-4 flex flex-col gap-2">
       <li v-for="item of menu" :key="item.name">
         <component
           :is="item.path ? 'router-link' : 'span'"
           :to="item.path"
-          class="flex gap-2 items-center px-3 py-2 rounded-lg"
+          class="flex gap-2 items-center px-3 py-2 rounded"
           :class="isActive(item.path) ? 'bg-blue-500/10' : 'hover:bg-gray-500/10'"
           @click.prevent.stop="onSelect(item)"
         >
-          <div class="size-5 flex-[0_0_24px]">
+          <div class="size-6 flex-[0_0_24px] opacity-60">
             <slot name="icon" :item="item"></slot>
           </div>
 
@@ -23,7 +23,7 @@
         <div v-if="item.children" class="translate transform overflow-hidden mt-2" :class="[isSidebar ? 'lg:hidden' : '', selected === item.name ? 'block' : 'hidden']">
           <ul class="flex flex-col gap-2">
             <li v-for="{ name, path, icon } of item.children" :key="name">
-              <component :is="path ? 'router-link' : 'span'" :to="path" class="flex gap-2 items-center px-3 py-2 rounded-lg" :class="isActive(path) ? 'bg-blue-500/10' : 'hover:bg-gray-500/10'">
+              <component :is="path ? 'router-link' : 'span'" :to="path" class="flex gap-2 items-center px-3 py-2 rounded" :class="isActive(path) ? 'bg-blue-500/10' : 'hover:bg-gray-500/10'">
                 <div class="flex gap-2 ms-8">
                   <div class="size-5 flex-[0_0_24px]">
                     <slot name="icon-children" :item="{ name, path, icon }"></slot>

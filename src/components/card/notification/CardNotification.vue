@@ -2,7 +2,7 @@
   <div class="relative flex items-center gap-2 w-full p-2 overflow-hidden">
     <div class="absolute left-0 top-0 w-[3px] h-full" :class="getColor(props.color)"></div>
 
-    <VButton class="shrink-0" type="icon" color="gray" @click="onRead">
+    <VButton class="shrink-0" type="icon" @click="onRead">
       <span :class="props.isNew ? 'flex' : 'hidden'" class="absolute right-0 top-0.5 z-1 h-2 w-2 rounded-full bg-orange-400">
         <span class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
       </span>

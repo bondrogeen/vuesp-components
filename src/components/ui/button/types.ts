@@ -1,5 +1,4 @@
 export interface IVButtonProps {
-  block?: boolean;
   outline?: boolean;
   color?: 'green' | 'red' | 'gray' | 'blue' | 'transparent';
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -7,7 +6,6 @@ export interface IVButtonProps {
   href?: string;
   to?: string;
   loading?: boolean;
-  disabled?: number | boolean;
 }
 
 export interface IVButtonEmits {

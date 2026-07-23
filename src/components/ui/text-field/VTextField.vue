@@ -78,7 +78,7 @@ const onBlur = (e: Event) => {
 };
 const onFocus = (e: Event) => {
   isFocus.value = true;
-  emit('blur', e);
+  emit('focus', e);
 };
 
 const onInput = ({ target }: Event) => emit('update:modelValue', (target as HTMLTextAreaElement).value);

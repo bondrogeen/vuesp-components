@@ -11,5 +11,5 @@ export interface IVTextFieldProps {
 }
 export interface IVTextFieldEmits {
   (e: 'update:modelValue', event: string): void;
-  (e: 'click' | 'on-icon' | 'enter' | 'blur' | 'blur', event: Event): void;
+  (e: 'click' | 'on-icon' | 'enter' | 'blur' | 'focus', event: Event): void;
 }

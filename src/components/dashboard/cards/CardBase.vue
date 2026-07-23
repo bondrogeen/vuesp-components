@@ -63,8 +63,8 @@ import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/card
 
 import { ref, computed } from 'vue';
 
-// import VIcons from '@/components/ui/icon/VIcon.vue';
 import VButton from '@/components/ui/button/VButton.vue';
+import VDialog from '@/components/ui/dialog/VDialog.vue';
 
 const props = defineProps<ICardBaseProps>();
 

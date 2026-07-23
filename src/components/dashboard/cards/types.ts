@@ -1,7 +1,7 @@
 import type { IDashboardItem } from '@/types/types';
 
 export interface ICardBaseProps extends IDashboardItem {
-  size?: string;
+  size?: 'sm' | 'md' | 'lg' | 'full';
 }
 export interface ICardBaseEmits {
   (e: 'edit' | 'close' | 'click', event: Event): void;

@@ -16,7 +16,7 @@ export interface IItemOptionsProps {
   max?: number;
   step?: number;
   disabled?: number;
-  list?: IListItem[];
+  items?: IListItem[];
   value?: string | number;
   type: string;
 }

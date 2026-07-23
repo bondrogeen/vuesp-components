@@ -6,7 +6,7 @@
 
     <template #dialog="item">
       <div class="flex justify-center relative mx-2 my-6">
-        <VTextField v-bind="getBind(item)" autofocus @enter="onChange" @blur="onChange">
+        <VTextField v-model="input" v-bind="getBind(item)" @enter="onChange" @blur="onChange">
           <template #icon>
             <icon-ri-arrow-drop-right-line class="size-8" />
           </template>
@@ -18,8 +18,9 @@
 
 <script setup lang="ts">
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
-
 import type { IDashboardItem } from '@/types/types';
+
+import { ref, watch } from 'vue';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
@@ -28,10 +29,19 @@ const props = defineProps<ICardBaseProps>();
 
 const emit = defineEmits<ICardBaseEmits>();
 
-const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
+const input = ref(props.value || '');
+
+const getBind = ({ name, opts = {} }: IDashboardItem) => {
   const { disabled } = opts;
-  return { label: name, modelValue: value, disabled };
+  return { label: name, disabled };
 };
 
 const onChange = (e: Event) => emit('setState', (e.target as HTMLInputElement).value);
+
+watch(
+  () => props.value,
+  (value) => {
+    input.value = value;
+  }
+);
 </script>
