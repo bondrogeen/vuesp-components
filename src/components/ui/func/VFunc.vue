@@ -11,7 +11,7 @@
       </div>
 
       <div class="flex flex-auto">
-        <textarea ref="textarea" v-model="input" class="outline-0 w-full resize-none" type="text" :disabled="disabled" @input="onChange"></textarea>
+        <textarea v-model="input" class="outline-0 w-full resize-none field-sizing-content" type="text" :disabled="disabled" @input="onChange" />
       </div>
     </template>
 
@@ -25,19 +25,17 @@
 <script setup lang="ts">
 import type { IVFunkProps, IVFunkEmits } from '@/components/ui/func/types';
 
-import { watch } from 'vue';
-import { useTextareaAutosize, useDebounceFn } from '@vueuse/core';
+import { ref, watch } from 'vue';
+import { useDebounceFn } from '@vueuse/core';
 
 import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
-
-const { textarea, input } = useTextareaAutosize();
 
 const { args, value, disabled = false, hideIcon = false } = defineProps<IVFunkProps>();
 
 const emit = defineEmits<IVFunkEmits>();
 
 const params = ['v', 'a', 'b', 'c'];
-input.value = value || '';
+const input = ref(value || '');
 
 const validateJS = (code: string) => {
   try {

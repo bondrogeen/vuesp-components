@@ -22,7 +22,7 @@
       >
         <slot name="default" :item="item" :key="item.id" :index="index" :isDragging="draggingId === item.id"></slot>
 
-        <div v-if="dragOverIndex === index && draggingId !== item.id" class="absolute inset-0 border border-dashed border-blue-600 rounded-lg" />
+        <div v-if="dragOverIndex === index && draggingId !== item.id" class="absolute inset-0 border border-dashed border-blue-600 rounded" />
       </div>
     </TransitionGroup>
   </div>

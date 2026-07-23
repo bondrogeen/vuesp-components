@@ -7,6 +7,7 @@ export interface IVDropdownProps {
   height?: string;
   hideOnClick?: boolean;
   disabled?: boolean;
+  isPopup?: boolean;
 }
 
 export interface IVDropdownEmits {

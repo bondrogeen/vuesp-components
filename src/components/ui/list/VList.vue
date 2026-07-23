@@ -1,5 +1,5 @@
 <template>
-  <ul :class="className ?? 'bg-white dark:bg-gray-900'" class="ring-1 ring-gray-200 dark:ring-gray-800">
+  <ul class="bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800">
     <li
       v-for="item of items"
       :key="item.name"
@@ -14,7 +14,7 @@
 <script setup lang="ts" generic="T extends { name: string }">
 import type { IVListProps, IVListEmits } from '@/components/ui/list/types';
 
-const { items, className } = defineProps<IVListProps<T>>();
+const { items } = defineProps<IVListProps<T>>();
 
 const emit = defineEmits<IVListEmits<T>>();
 
