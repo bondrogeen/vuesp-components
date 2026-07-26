@@ -29,6 +29,7 @@ declare module 'vue' {
     CardMain: typeof import('./src/components/card/main/CardMain.vue')['default']
     CardNotification: typeof import('./src/components/card/notification/CardNotification.vue')['default']
     IconRiAddLine: typeof import('~icons/ri/add-line')['default']
+    IconRiArrowDropDownLine: typeof import('~icons/ri/arrow-drop-down-line')['default']
     IconRiArrowDropRightLine: typeof import('~icons/ri/arrow-drop-right-line')['default']
     IconRiArrowRightSLine: typeof import('~icons/ri/arrow-right-s-line')['default']
     IconRiArrowUpSLine: typeof import('~icons/ri/arrow-up-s-line')['default']

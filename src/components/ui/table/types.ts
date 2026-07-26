@@ -4,16 +4,10 @@ export interface IHeaderTable {
   className: string;
 }
 
-export interface IItemTable {
-  name: string;
-  key: string;
-  className: string;
-}
-
-export interface IVTableProps {
+export interface IVTableProps<T> {
   headers: IHeaderTable[];
-  items: IItemTable[];
+  items: T[];
 }
-export interface IVTableEmits {
-  (e: 'click', data: { item: IItemTable; event: Event }): void;
+export interface IVTableEmits<T> {
+  (e: 'click', item: T, event?: Event): void;
 }

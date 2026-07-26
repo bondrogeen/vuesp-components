@@ -79,10 +79,13 @@ export interface IMessageInit {
 export interface IMessageMessage {
   key?: number;
   type: number;
-  isNew: number;
-  timeout: number;
-  date: number;
-  text: string;
+  id?: number;
+  active?: number;
+  handler?: number;
+  index?: number;
+  len?: number;
+  date?: number;
+  text?: string;
 }
 
 interface IKeyMessageSettings {

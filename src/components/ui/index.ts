@@ -16,7 +16,30 @@ import VDragDrop from '@/components/ui/drag-drop/VDragDrop.vue';
 import VFunc from '@/components/ui/func/VFunc.vue';
 import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
 import VTable from '@/components/ui/table/VTable.vue';
+import VTabs from '@/components/ui/tabs/VTabs.vue';
 import VDialog from '@/components/ui/dialog/VDialog.vue';
 import VPopup from '@/components/ui/dialog/VPopup.vue';
 
-export { VAutocomplete, VButton, VLoader, VCheckbox, VDropdown, VExpansion, VList, VSelect, VTextField, VFile, VWifiIcon, VListObject, VDragDrop, VTextWrapper, VFunc, VTable, VIconLogoMini, VIconLogo, VDialog, VPopup };
+export {
+  VAutocomplete,
+  VButton,
+  VLoader,
+  VCheckbox,
+  VDropdown,
+  VExpansion,
+  VList,
+  VSelect,
+  VTextField,
+  VFile,
+  VWifiIcon,
+  VListObject,
+  VDragDrop,
+  VTextWrapper,
+  VFunc,
+  VTable,
+  VIconLogoMini,
+  VIconLogo,
+  VDialog,
+  VPopup,
+  VTabs,
+};

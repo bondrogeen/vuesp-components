@@ -7,7 +7,7 @@ export interface IVAutocompleteProps {
   label: string;
   name?: string;
   message?: string;
-  list: IListItem[];
+  items: IListItem[];
 }
 export interface IVAutocompleteEmits {
   (e: 'update:modelValue', value: string): void;
