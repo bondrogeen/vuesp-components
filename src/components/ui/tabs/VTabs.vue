@@ -1,13 +1,15 @@
 <template>
   <div class="">
     <div class="flex border-b border-gray-200 dark:border-gray-700">
-      <div v-for="(tab, i) in items" :key="i" class="relative">
-        <button
-          class="font-medium text-lg transition cursor-pointer before:h-[2px] before:absolute before:w-full before:bg-blue-700 before:left-0 before:bottom-0 px-4 py-2"
-          :class="getClass(i)"
-          @click="setActiveTab(i)"
-        >
-          {{ tab.title }}
+      <div v-for="(tab, i) in items" :key="i" class="relative flex-auto">
+        <button class="w-full" @click="setActiveTab(i)" >
+          <div :class="getClass(i)" class="font-medium text-lg transition cursor-pointer before:h-[2px] before:absolute before:w-full before:bg-blue-700 before:left-0 before:bottom-0">
+            <slot name="header" :tab="tab" :i="i">
+              <div class="px-4 py-2">
+                {{ tab.title }}
+              </div>
+            </slot>
+          </div>
         </button>
       </div>
     </div>
@@ -33,7 +35,7 @@
 
 <script setup lang="ts">
 import type { IVTabsProps, IVTabsEmit } from '@/components/ui/tabs/types';
-import { ref, defineExpose } from 'vue';
+import { ref } from 'vue';
 
 const { items, value } = defineProps<IVTabsProps>();
 

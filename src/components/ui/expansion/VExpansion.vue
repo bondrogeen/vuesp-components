@@ -3,8 +3,8 @@
     <div class="cursor-pointer min-h-[60px] px-4 flex items-center justify-between" @click="onActive">
       <h4>{{ label }}</h4>
 
-      <div class="transition text-gray-400" :class="{ 'rotate-180': isActive }">
-        <icon-ri-arrow-drop-right-line />
+      <div class="transition text-gray-400" :class="{ 'rotate-x-180': isActive }">
+        <icon-ri-arrow-drop-down-line class="size-6" />
       </div>
     </div>
 

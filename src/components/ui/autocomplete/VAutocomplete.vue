@@ -5,7 +5,7 @@
     </template>
 
     <template #default="{ on }">
-      <VList v-slot="{ item }" :items="list" @click="onChange(on, $event)">
+      <VList v-slot="{ item }" :items="items" @click="onChange(on, $event)">
         <slot :item="item">{{ item.name }}</slot>
       </VList>
     </template>
@@ -15,12 +15,11 @@
 <script setup lang="ts">
 import type { IVAutocompleteProps, IVAutocompleteEmits, IListItem } from '@/components/ui/autocomplete/types';
 
-
 import VTextField from '@/components/ui/text-field/VTextField.vue';
 import VDropdown from '@/components/ui/dropdown/VDropdown.vue';
 import VList from '@/components/ui/list/VList.vue';
 
-const { modelValue = '', list, message = '', name = '' } = defineProps<IVAutocompleteProps>();
+const { modelValue = '', items, message = '', name = '' } = defineProps<IVAutocompleteProps>();
 
 const emit = defineEmits<IVAutocompleteEmits>();
 
