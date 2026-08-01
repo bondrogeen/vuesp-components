@@ -6,7 +6,7 @@
     ></div>
     <div v-if="loading" class="absolute top-0 left-0 w-full h-full bg-gray-50 dark:bg-gray-900 z-10 opacity-50"></div>
 
-    <div v-if="title" class="mb-6 flex items-center justify-between">
+    <div v-if="title" class="mb-4 flex items-center justify-between">
       <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">{{ title }}</h3>
 
       <div>

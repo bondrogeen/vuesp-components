@@ -4,7 +4,7 @@
     @click="onClick"
   >
     <div class="flex-auto flex justify-between">
-      <div :class="getColorValue" class="size-8">
+      <div :class="getColorValue" class="size-8 animate-shake">
         <slot name="icon" v-bind="props"></slot>
       </div>
       <slot name="header" v-bind="props"></slot>
