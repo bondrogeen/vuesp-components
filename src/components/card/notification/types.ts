@@ -1,4 +1,4 @@
-import type { INotification } from '@/types/types';
+import type { INotification } from '@/types';
 
 export interface ICardNotificationProps extends INotification {
   empty?: string;

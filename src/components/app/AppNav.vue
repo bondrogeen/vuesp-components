@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import type { IAppNavProps, IAppNavEmits } from '@/components/app/types';
-import type { IMenuItem } from '@/types/types';
+import type { IMenuItem } from '@/types';
 
 import { ref, watch } from 'vue';
 

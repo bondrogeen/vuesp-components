@@ -1,4 +1,4 @@
-import type { IMenuItem } from '@/types/types';
+import type { IMenuItem } from '@/types';
 import { localSet, localGet } from '@/helpers/web-api';
 
 export const isNewVersion = (name = 'isShow') => {

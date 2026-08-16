@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 import type { IAppHeaderProps, IAppHeaderEmits } from '@/components/app/types';
-import type { IListItem, INotification } from '@/types/types';
+import type { IListItem, INotification } from '@/types';
 
 import { computed } from 'vue';
 

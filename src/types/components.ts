@@ -23,3 +23,12 @@ export interface VListObjectReturnData {
   path: string;
   isObject: boolean;
 }
+
+export interface INotification {
+  key?: number;
+  isNew: number;
+  color: number;
+  timeout: number;
+  date: number;
+  text: string;
+}

@@ -68,6 +68,7 @@ declare module 'vue' {
     VTabs: typeof import('./src/components/ui/tabs/VTabs.vue')['default']
     VTextField: typeof import('./src/components/ui/text-field/VTextField.vue')['default']
     VTextWrapper: typeof import('./src/components/ui/text-wrapper/VTextWrapper.vue')['default']
+    VTooltip: typeof import('./src/components/ui/tooltip/VTooltip.vue')['default']
     VWifiIcon: typeof import('./src/components/ui/wifiIcon/VWifiIcon.vue')['default']
   }
 }

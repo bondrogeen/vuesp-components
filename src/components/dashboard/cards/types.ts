@@ -1,4 +1,4 @@
-import type { IDashboardItem } from '@/types/types';
+import type { IDashboardItem } from '@/types';
 
 export interface ICardBaseProps extends IDashboardItem {
   size?: 'sm' | 'md' | 'lg' | 'full';

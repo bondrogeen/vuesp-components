@@ -1,4 +1,4 @@
-import type { IMenuItem, INotification, IMessageProgress } from '@/types/types';
+import type { IMenuItem, INotification, IMessageProgress } from '@/types';
 
 export interface IAppAsideProps {
   isSidebar?: boolean;

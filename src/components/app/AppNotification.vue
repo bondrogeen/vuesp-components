@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import type { INotification } from '@/types/types';
+import type { INotification } from '@/types';
 import type { IAppNotificationProps, IAppNotificationEmits } from '@/components/app/types';
 
 import { computed } from 'vue';
