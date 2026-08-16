@@ -84,7 +84,7 @@
 
 <script setup lang="ts">
 import type { Ref } from 'vue';
-import type { IDashboardItem, IDashboardItemOptions, IListItem, VListObjectReturnData } from '@/types/types';
+import type { IDashboardItem, IDashboardItemOptions, IListItem, VListObjectReturnData } from '@/types';
 import type { IItemEditProps, IItemEditEmits } from '@/components/dashboard/edit/types';
 
 import { computed, onMounted, ref } from 'vue';

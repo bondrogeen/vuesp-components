@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col border relative aspect-square rounded-md bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 p-2 hover:border-blue-400 dark:hover:border-blue-700 transition-all cursor-pointer"
+    class="flex flex-col border relative aspect-square rounded-md bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 p-2 hover-effect transition-all cursor-pointer"
     @click="onClick"
   >
     <div class="flex-auto flex justify-between">

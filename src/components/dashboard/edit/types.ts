@@ -1,4 +1,4 @@
-import type { IDashboardItem, IListItem, IDashboardItemOptions, TypeValueDashboardItemOptions } from '@/types/types';
+import type { IDashboardItem, IListItem, IDashboardItemOptions, TypeValueDashboardItemOptions } from '@/types';
 
 export interface IItemEditProps {
   item: IDashboardItem;

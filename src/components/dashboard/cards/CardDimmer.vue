@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IDashboardItem } from '@/types/types';
+import type { IDashboardItem } from '@/types';
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';

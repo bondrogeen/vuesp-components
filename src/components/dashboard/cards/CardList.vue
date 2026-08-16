@@ -12,7 +12,7 @@
       <div @click.prevent.stop>
         <VSelect v-bind="getBind(item)" is-popup top="0" left="-115px" @change="setState">
           <template #activator="{ on }">
-            <VButton type="icon" @click.stop="on.click">
+            <VButton type="icon" class="text-gray-500" @click.stop="on.click">
               <icon-ri-list-check class="size-6" />
             </VButton>
           </template>
@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
-import type { IDashboardItem, IListItem } from '@/types/types';
+import type { IDashboardItem, IListItem } from '@/types';
 
 import CardBase from '@/components/dashboard/cards/CardBase.vue';
 import VSelect from '@/components/ui/select/VSelect.vue';

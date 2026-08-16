@@ -21,14 +21,17 @@ export const loadScript = (src: string) => {
   });
 };
 
+const isClient = typeof window !== 'undefined';
+
 const getStorage = (store: Storage) => (name: string, isJSON?: boolean) => {
   return isJSON ? jsonParse(store.getItem(name)) : store.getItem(name);
 };
+
 const setStorage = (store: Storage) => (name: string, data: string | object) => {
-  if (store) store.setItem(name, typeof data === 'string' ? data : jsonString(data));
+  store.setItem(name, typeof data === 'string' ? data : jsonString(data));
 };
 
-export const localGet = getStorage(localStorage);
-export const localSet = setStorage(localStorage);
-export const sessionGet = getStorage(sessionStorage);
-export const sessionSet = setStorage(sessionStorage);
+export const localGet = isClient ? getStorage(localStorage) : () => null;
+export const localSet = isClient ? setStorage(localStorage) : () => undefined;
+export const sessionGet = isClient ? getStorage(sessionStorage) : () => null;
+export const sessionSet = isClient ? setStorage(sessionStorage) : () => undefined;

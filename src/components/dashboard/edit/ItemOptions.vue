@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import type { Ref } from 'vue';
-import type { IListItem, IDashboardItemOptions, TypeValueDashboardItemOptions } from '@/types/types';
+import type { IListItem, IDashboardItemOptions, TypeValueDashboardItemOptions } from '@/types';
 import type { IItemOptionsProps, IItemOptionsEmits } from '@/components/dashboard/edit/types';
 
 import { ref, computed } from 'vue';

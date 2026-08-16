@@ -19,6 +19,7 @@ import VTable from '@/components/ui/table/VTable.vue';
 import VTabs from '@/components/ui/tabs/VTabs.vue';
 import VDialog from '@/components/ui/dialog/VDialog.vue';
 import VPopup from '@/components/ui/dialog/VPopup.vue';
+import VTooltip from '@/components/ui/tooltip/VTooltip.vue';
 
 export {
   VAutocomplete,
@@ -42,4 +43,5 @@ export {
   VDialog,
   VPopup,
   VTabs,
+  VTooltip,
 };

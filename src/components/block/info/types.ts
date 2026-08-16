@@ -1,5 +1,5 @@
-import type { IStateInfo } from '@/types/types';
+import type { IMessageInfo, IPackage } from '@/types';
 
-export interface IBlockInfoProps extends IStateInfo {
-  empty?: string;
+export interface IBlockInfoProps extends IMessageInfo {
+  pkg?: IPackage;
 }

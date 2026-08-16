@@ -1,4 +1,4 @@
-import type { IListItem } from '@/types/types';
+import type { IListItem } from '@/types';
 export interface IDashboardItemOptions {
   disabled?: number;
   min?: number;

@@ -1,4 +1,4 @@
-import type { TypeGetDataValue, TypeGetParamsData, IDashboardItem, GetTypeByPath } from '@/types/types';
+import type { TypeGetDataValue, TypeGetParamsData, IDashboardItem, GetTypeByPath } from '@/types';
 
 export const dashboardCards = ['button', 'info', 'dimmer', 'date', 'input', 'list'];
 

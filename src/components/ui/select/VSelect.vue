@@ -33,7 +33,7 @@ function onSelect(item: T, on: IVDropdownOn) {
     </template>
 
     <template #default="{ on }">
-      <div class="bg-white dark:bg-gray-900 rounded min-w-50 shadow-nav pb-6 lg:pb-0">
+      <div class="bg-white dark:bg-gray-900 rounded min-w-50 shadow-nav transition-all duration-400 dark:shadow-lg dark:shadow-primary/20 pb-6 lg:pb-0">
         <h4 v-if="label" class="lg:hidden text-title-md font-bold mb-4 uppercase px-4 sticky top-0">
           {{ label }}
         </h4>

@@ -1,3 +1,8 @@
+export type TypeKEYS = 'INIT' | 'SETTINGS' | 'INFO' | 'PING' | 'SCAN' | 'PROGRESS' | 'FILES' | 'REBOOT' | 'EVENT' | 'PORT' | 'MESSAGE' | 'DALLAS' | 'BUFFER' | 'DEVICE' | 'DISCOVERY';
+
+export interface IMessageInit {
+  key?: number;
+}
 export interface IMessageSettings {
   key?: number;
   wifiDhcp: number;
@@ -13,6 +18,9 @@ export interface IMessageSettings {
   wifiPass: string;
   authLogin: string;
   authPass: string;
+  discovery: number;
+  discoveryInterval: number;
+  discoveryPort: number;
 }
 
 export interface IMessageInfo {
@@ -23,6 +31,7 @@ export interface IMessageInfo {
   usedBytes: number;
   uptime: number;
   name: string;
+  board: number;
 }
 
 export interface IMessagePing {
@@ -56,8 +65,13 @@ export interface IMessageFile {
   name: string;
 }
 
-export interface IMessageReboot {
+export interface IMessageEvent {
   key?: number;
+  comm?: number;
+  comm2?: number;
+  value1: number;
+  value2?: number;
+  name: string;
 }
 
 export interface IMessagePort {
@@ -66,14 +80,15 @@ export interface IMessagePort {
   value?: number;
   mode?: number;
   interrupt?: number;
-  disabled?: number;
-  command?: number;
   list?: number;
+  disabled?: number;
+  isButton?: number;
+  command?: number;
+  isPressed?: number;
+  count?: number;
   empty?: number;
-}
-
-export interface IMessageInit {
-  key?: number;
+  valueOld?: number;
+  pressStart?: number;
 }
 
 export interface IMessageMessage {
@@ -87,50 +102,117 @@ export interface IMessageMessage {
   date?: number;
   text?: string;
 }
+export interface IMessageDallas {
+  key?: number;
+  comm: number;
+  comm2?: number;
+  address?: number[];
+  temp?: number;
+}
+export interface IMessageBuffer {
+  key?: number;
+  empty: number;
+  head?: number;
+  tail?: number;
+  count?: number;
+  data?: number[];
+}
+
+export interface IMessageDiscovery {
+  key?: number;
+  status: number;
+  empty: number;
+  id: number;
+  ip: number;
+  lastSeen: number;
+}
+
+export interface IMessageReboot {
+  key?: number;
+}
+
+interface IKeyMessageInit {
+  key: Extract<TypeKEYS, 'INIT'>;
+  object?: IMessageInit;
+}
 
 interface IKeyMessageSettings {
-  key: 'SETTINGS';
+  key: Extract<TypeKEYS, 'SETTINGS'>;
   object?: IMessageSettings;
 }
 
 interface IKeyMessageInfo {
-  key: 'INFO';
+  key: Extract<TypeKEYS, 'INFO'>;
   object?: IMessageInfo;
 }
 
 interface IKeyMessagePing {
-  key: 'PING';
+  key: Extract<TypeKEYS, 'PING'>;
   object?: IMessageFile;
 }
 
 interface IKeyMessageScan {
-  key: 'SCAN';
+  key: Extract<TypeKEYS, 'SCAN'>;
   object?: IMessageScan;
 }
 
 interface IKeyMessageProgress {
-  key: 'PROGRESS';
+  key: Extract<TypeKEYS, 'PROGRESS'>;
   object?: IMessageProgress;
 }
 
 interface IKeyMessageFiles {
-  key: 'FILES';
+  key: Extract<TypeKEYS, 'FILES'>;
   object?: IMessageFile;
 }
 
 interface IKeyMessageReboot {
-  key: 'REBOOT';
+  key: Extract<TypeKEYS, 'REBOOT'>;
   object?: IMessageReboot;
 }
 
+interface IKeyMessageEvent {
+  key: Extract<TypeKEYS, 'EVENT'>;
+  object?: IMessageEvent;
+}
+
 interface IKeyMessagePort {
-  key: 'PORT';
+  key: Extract<TypeKEYS, 'PORT'>;
   object?: IMessagePort;
 }
 
 interface IKeyMessageMessage {
-  key: 'MESSAGE';
+  key: Extract<TypeKEYS, 'MESSAGE'>;
   object?: IMessageMessage;
 }
 
-export type TypeConstMessage = IKeyMessageSettings | IKeyMessageInfo | IKeyMessagePing | IKeyMessageScan | IKeyMessageProgress | IKeyMessageFiles | IKeyMessageReboot | IKeyMessagePort | IKeyMessageMessage;
+interface IKeyMessageDallas {
+  key: Extract<TypeKEYS, 'DALLAS'>;
+  object?: IMessageDallas;
+}
+
+interface IKeyMessageBuffer {
+  key: Extract<TypeKEYS, 'BUFFER'>;
+  object?: IMessageBuffer;
+}
+
+interface IKeyMessageDiscovery {
+  key: Extract<TypeKEYS, 'DISCOVERY'>;
+  object?: IMessageDiscovery;
+}
+
+export type TypeConstMessage =
+  | IKeyMessageInit
+  | IKeyMessageSettings
+  | IKeyMessageInfo
+  | IKeyMessagePing
+  | IKeyMessageScan
+  | IKeyMessageProgress
+  | IKeyMessageFiles
+  | IKeyMessageReboot
+  | IKeyMessageEvent
+  | IKeyMessagePort
+  | IKeyMessageMessage
+  | IKeyMessageDallas
+  | IKeyMessageBuffer
+  | IKeyMessageDiscovery;
