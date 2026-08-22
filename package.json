@@ -1,5 +1,5 @@
 {
-  "version": "2.1.4",
+  "version": "2.1.5",
   "name": "vuesp-components",
   "type": "module",
   "main": "./dist/index.js",
@@ -62,7 +62,8 @@
   "license": "MIT",
   "dependencies": {
     "@vueuse/core": "^13.9.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "yace": "1.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

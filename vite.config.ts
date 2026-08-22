@@ -2,11 +2,14 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 import tailwindcss from '@tailwindcss/vite';
 
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig(() => ({
   cacheDir: '.vite',
@@ -49,7 +52,10 @@ export default defineConfig(() => ({
       formats: ['es' as const],
     },
     rollupOptions: {
-      treeshake: 'smallest',
+      treeshake: {
+        moduleSideEffects: false,
+        propertyReadSideEffects: false,
+      },
       external: ['vue'],
       output: {
         inlineDynamicImports: false,

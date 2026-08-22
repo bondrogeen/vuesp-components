@@ -32,3 +32,5 @@ export interface INotification {
   date: number;
   text: string;
 }
+
+export * from '@/components/types';
