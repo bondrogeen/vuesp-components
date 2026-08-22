@@ -2,14 +2,14 @@ import type { IListItem } from '@/types';
 
 export { IListItem };
 
-export interface IVAutocompleteProps {
+export interface IVAutocompleteProps<T> {
   modelValue?: string | number | undefined;
   label: string;
   name?: string;
   message?: string;
-  items: IListItem[];
+  items: T[];
 }
-export interface IVAutocompleteEmits {
+export interface IVAutocompleteEmits<T> {
   (e: 'update:modelValue', value: string): void;
-  (e: 'select', item: IListItem): void;
+  (e: 'select', item: T): void;
 }

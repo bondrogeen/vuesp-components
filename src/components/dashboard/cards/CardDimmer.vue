@@ -1,5 +1,38 @@
+<script setup lang="ts">
+import type { IDashboardItem } from '@/types';
+import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
+
+import CardBase from '@/components/dashboard/cards/CardBase.vue';
+import VButton from '@/components/ui/button/VButton.vue';
+import { ref } from 'vue';
+
+const props = defineProps<ICardBaseProps>();
+
+const emit = defineEmits<ICardBaseEmits>();
+
+const lastValue = ref(0);
+const getPercent = ({ opts, value }: IDashboardItem) => Math.round((100 * +value) / (opts?.max || 255));
+const getRangePercent = ({ opts, value }: IDashboardItem) => Math.round(187 - (+value / (opts?.max || 255)) * 187);
+
+const getBind = ({ value, opts }: IDashboardItem) => {
+  const { min = 0, max = 255, step = 1, disabled } = opts || {};
+  return { min, max, step, value, disabled: Boolean(disabled), class: disabled ? '' : 'cursor-pointer' };
+};
+
+const onChange = (e: Event) => emit('setState', +(e.target as HTMLTextAreaElement).value || 0);
+
+const setState = ({ value }: IDashboardItem) => {
+  if (+value !== 0) {
+    lastValue.value = +value;
+    emit('setState', 0);
+  } else {
+    emit('setState', value ? 0 : lastValue.value || 255);
+  }
+};
+</script>
+
 <template>
-  <CardBase v-bind="props" @click="emit('click', $event)" @edit="emit('edit', $event)">
+  <CardBase v-bind="props" @click="emit('click', $event)" @edit="emit('edit', $event)" @clone="emit('clone', $event)">
     <template #icon="item">
       <slot name="icon" v-bind="item"></slot>
     </template>
@@ -9,7 +42,7 @@
         <div class="flex justify-end">
           <VButton v-bind="getBind(item)" type="icon" @click.stop="setState(item)">
             <div :class="'text-blue-600 dark:text-blue-400'">
-              <svg width="32" height="32" viewBox="-7.5 -7.5 75 75" version="1.1" style="transform: rotate(-90deg)">
+              <svg width="30" height="30" viewBox="-7.5 -7.5 75 75" version="1.1" style="transform: rotate(-90deg)">
                 <circle class="stroke-gray-300 dark:stroke-gray-700" r="30" cx="30" cy="30" fill="transparent" stroke-width="10"></circle>
 
                 <circle
@@ -43,36 +76,3 @@
     </template>
   </CardBase>
 </template>
-
-<script setup lang="ts">
-import type { IDashboardItem } from '@/types';
-import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
-
-import CardBase from '@/components/dashboard/cards/CardBase.vue';
-import VButton from '@/components/ui/button/VButton.vue';
-import { ref } from 'vue';
-
-const props = defineProps<ICardBaseProps>();
-
-const emit = defineEmits<ICardBaseEmits>();
-
-const lastValue = ref(0);
-const getPercent = ({ opts, value }: IDashboardItem) => Math.round((100 * +value) / (opts?.max || 255));
-const getRangePercent = ({ opts, value }: IDashboardItem) => Math.round(187 - (+value / (opts?.max || 255)) * 187);
-
-const getBind = ({ value, opts }: IDashboardItem) => {
-  const { min = 0, max = 255, step = 1, disabled } = opts || {};
-  return { min, max, step, value, disabled: Boolean(disabled), class: disabled ? '' : 'cursor-pointer' };
-};
-
-const onChange = (e: Event) => emit('setState', +(e.target as HTMLTextAreaElement).value || 0);
-
-const setState = ({ value }: IDashboardItem) => {
-  if (+value !== 0) {
-    lastValue.value = +value;
-    emit('setState', 0);
-  } else {
-    emit('setState', value ? 0 : lastValue.value || 255);
-  }
-};
-</script>

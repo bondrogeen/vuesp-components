@@ -35,6 +35,10 @@
         <VButton color="transparent" @click="onEdit">
           <icon-ri-more-line />
         </VButton>
+
+        <VButton color="transparent" @click="onClone">
+          <icon-ri-file-copy-2-line class="size-4 text-gray-500" />
+        </VButton>
       </template>
 
       <div class="min-h-60 relative">
@@ -78,6 +82,7 @@ const getColorValue = computed(() => {
 });
 
 const onEdit = (e: Event) => emit('edit', e);
+const onClone = (e: Event) => emit('clone', e);
 
 const onClick = () => (dialog.value = true);
 const openDialog = (e: boolean) => emit('open', e);

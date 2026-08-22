@@ -54,7 +54,7 @@ defineExpose({
         <div class="flex-auto flex align-center overflow-y-auto overscroll-contain" :class="size === 'full' ? '' : ''">
           <div class="m-auto w-full flex flex-col z-20 overflow-auto h-full scrollbar overscroll-contain bg-gray-50 dark:bg-gray-900 shadow-lg rounded-sm" :class="getClass">
             <div class="flex items-center min-h-14 ps-6 pe-3" :class="size === 'full' ? 'absolute top-0 right-4' : ''" @wheel.prevent @touchmove.prevent>
-              <h4 v-if="title" class="text-title-md uppercase font-bold flex-auto">
+              <h4 class="text-title-md uppercase font-bold flex-auto">
                 {{ title }}
               </h4>
 

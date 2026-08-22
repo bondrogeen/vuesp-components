@@ -2,7 +2,7 @@
 import type { ISuggestion } from './types';
 
 export const DEFAULT_SUGGESTIONS: ISuggestion[] = [
-  { label: 'if', type: 'keyword', insertText: 'if:${$v0<10};\n$v0=$v0+1;\nelse;\n$v0=$v0+5;\nend;', detail: 'условие if:${$v0<10};<br>$v0=$v0+1;<br>else;<br>$v0=$v0+5;<br>end;' },
+  { label: 'if', type: 'keyword', insertText: 'if:${$v0<10};\n\nelse;\n\nend;', detail: 'if:${$v0<10};else;end;' },
   { label: 'while', type: 'keyword', insertText: '$v0=0;\nwhile:${$v0<10};\nlog($v0);\n$v0=$v0+1;\nwait(1s);\nend;', detail: 'while' },
 
   { label: 'on', type: 'function', insertText: "on('${event}')\nend;", detail: 'event' },

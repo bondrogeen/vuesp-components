@@ -68,7 +68,7 @@ const { changeTheme, notifications } = defineProps<IAppHeaderProps>();
 
 const emit = defineEmits<IAppHeaderEmits>();
 
-const listMenu: IListItem[] = [
+const listMenu: IListItem<number>[] = [
   { name: 'Theme', value: 1 },
   { name: 'Notification', value: 2 },
   { name: 'Logout', value: 3 },
@@ -84,7 +84,7 @@ const onChangeTheme = () => {
   if (changeTheme) changeTheme();
 };
 
-const onMenu = ({ value }: IListItem, e: Event) => {
+const onMenu = ({ value }: IListItem<number>, e: Event) => {
   if (value == 1) onChangeTheme();
   if (value == 2) onNotif(e);
   if (value == 3) onLogout();

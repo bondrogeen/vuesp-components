@@ -1,5 +1,28 @@
+<script setup lang="ts">
+import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
+
+import type { IDashboardItem, IListItem } from '@/types';
+
+import CardBase from '@/components/dashboard/cards/CardBase.vue';
+import VSelect from '@/components/ui/select/VSelect.vue';
+import VButton from '@/components/ui/button/VButton.vue';
+
+const props = defineProps<ICardBaseProps>();
+
+const emit = defineEmits<ICardBaseEmits>();
+
+const setState = ({ value }: IListItem<string | number | boolean>) => emit('setState', value);
+const getValue = ({ opts, value }: IDashboardItem) => (Array.isArray(opts?.items) ? opts?.items.find((i) => i.value == value)?.name || value : value);
+
+const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
+  const { items = [], disabled } = opts;
+  const modelValue = items.find((i) => i.value == value)?.name || value;
+  return { label: name, modelValue, items, disabled: Boolean(disabled) };
+};
+</script>
+
 <template>
-  <CardBase v-bind="props" @click="emit('click', $event)" @edit="emit('edit', $event)">
+  <CardBase v-bind="props" @click="emit('click', $event)" @edit="emit('edit', $event)" @clone="emit('clone', $event)">
     <template #icon="item">
       <slot name="icon" v-bind="item"></slot>
     </template>
@@ -27,26 +50,3 @@
     </template>
   </CardBase>
 </template>
-
-<script setup lang="ts">
-import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
-
-import type { IDashboardItem, IListItem } from '@/types';
-
-import CardBase from '@/components/dashboard/cards/CardBase.vue';
-import VSelect from '@/components/ui/select/VSelect.vue';
-import VButton from '@/components/ui/button/VButton.vue';
-
-const props = defineProps<ICardBaseProps>();
-
-const emit = defineEmits<ICardBaseEmits>();
-
-const setState = ({ value }: IListItem) => emit('setState', value);
-const getValue = ({ opts, value }: IDashboardItem) => (Array.isArray(opts?.items) ? opts?.items.find((i) => i.value == value)?.name || value : value);
-
-const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
-  const { items = [], disabled } = opts;
-  const modelValue = items.find((i) => i.value == value)?.name || value;
-  return { label: name, modelValue, items, disabled: Boolean(disabled) };
-};
-</script>

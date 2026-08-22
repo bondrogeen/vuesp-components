@@ -1,10 +1,11 @@
 import type { IDashboardItem, IListItem, IDashboardItemOptions, TypeValueDashboardItemOptions } from '@/types';
 
 export interface IItemEditProps {
-  item: IDashboardItem;
+  items: IDashboardItem[];
+  item: IDashboardItem | null;
   object: object;
-  listDashboard: IListItem[];
-  listIcons: IListItem[];
+  listDashboard: IListItem<string>[];
+  listIcons: IListItem<string>[];
 }
 
 export interface IItemEditEmits {
@@ -16,7 +17,7 @@ export interface IItemOptionsProps {
   max?: number;
   step?: number;
   disabled?: number;
-  items?: IListItem[];
+  items?: IListItem<string>[];
   value?: string | number;
   type: string;
 }

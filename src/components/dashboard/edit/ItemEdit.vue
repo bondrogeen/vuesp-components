@@ -5,7 +5,13 @@
         <VTabs class="flex-auto min-h-75" :value="0" :items="tabs">
           <template #tab-0>
             <div class="flex-auto gap-x-2 order-1">
-              <VTextField v-model="item.id" label="ID" :disabled="!isNew" @click="onCheckId" />
+              <VTextField v-model="item.id" label="ID" :message="isFindId ? $t('used') : ''">
+                <template v-if="!isArgs" #icon>
+                  <VButton color="transparent" @click="onCheckId">
+                    <icon-ri-menu-search-line />
+                  </VButton>
+                </template>
+              </VTextField>
 
               <VTextField v-model="item.name" label="Name" />
 
@@ -27,7 +33,7 @@
 
           <template #tab-1>
             <div class="flex flex-col gap-4">
-              <VTextWrapper :active="Boolean(item.args.length)" :disabled="isParamsDisabled" label="Arguments" @icon="dialog = true">
+              <VTextWrapper :active="Boolean(item.args.length)" :disabled="isArgsDisabled" label="Arguments" @icon="dialog = true">
                 <div class="flex gap-2 flex-wrap flex-auto px-2 py-1">
                   <div v-for="(arg, i) of item.args" :key="arg" class="flex items-center rounded-full bg-gray-200 dark:bg-gray-900/50 px-2 py-[2px] text-xs">
                     <div class="relative group">
@@ -41,18 +47,18 @@
                       </div>
                     </div>
 
-                    <button v-if="i" class="cursor-pointer ms-1" @click="onRemoveParams(arg)">
+                    <button v-if="i ? true : Boolean(item.args.length < 2)" class="cursor-pointer ms-1" @click="onRemoveParams(arg)">
                       <icon-ri-close-line class="size-5" />
                     </button>
                   </div>
                 </div>
               </VTextWrapper>
 
-              <VFunc :value="item.set" :args="item.args" :disabled="!isParams || isSet" label="Set" @icon="onFunc('set')" @hover="onHover" @change="onChange('set', $event)" />
+              <VFunc :value="item.set" :args="item.args" :disabled="!isArgs || isSet" label="Set" @icon="onFunc('set')" @hover="onHover" @change="onChange('set', $event)" />
 
-              <VFunc :value="item.get" :args="item.args" :disabled="!isParams" label="Get" @icon="onFunc('get')" @hover="onHover" @change="onChange('get', $event)" />
+              <VFunc :value="item.get" :args="item.args" :disabled="!isArgs" label="Get" @icon="onFunc('get')" @hover="onHover" @change="onChange('get', $event)" />
 
-              <VFunc :value="item.getTo" :args="item.args" :disabled="!isParams" label="GetTo" @icon="onFunc('getTo')" @hover="onHover" @change="onChange('getTo', $event)" />
+              <VFunc :value="item.getTo" :args="item.args" :disabled="!isArgs" label="GetTo" @icon="onFunc('getTo')" @hover="onHover" @change="onChange('getTo', $event)" />
             </div>
           </template>
 
@@ -71,14 +77,15 @@
 
     <div class="flex gap-4 justify-end">
       <VButton class="px-4" color="blue" :disabled="isDisabled" @click="onButton(isNew ? 'add' : 'save')">{{ isNew ? $t('add') : $t('save') }}</VButton>
+
       <VButton class="px-4" color="red" outline @click="onButton('remove')">{{ $t('remove') }}</VButton>
     </div>
 
-    <v-dialog v-if="dialog" size="md" :title="$t('select')" @close="dialog = false">
+    <VDialog v-if="dialog" size="md" :title="$t('select')" @close="dialog = false">
       <div class="relative min-h-[200px] max-h-100dvh overflow-auto scrollbar">
-        <VListObject :items="object" :onlyValue="!isParams" @click="onAddParams" />
+        <VListObject :items="object" :onlyValue="!isArgs" @click="onAddParams" />
       </div>
-    </v-dialog>
+    </VDialog>
   </div>
 </template>
 
@@ -103,7 +110,7 @@ import VFunc from '@/components/ui/func/VFunc.vue';
 
 import ItemOptions from '@/components/dashboard/edit/ItemOptions.vue';
 
-const { item: data, object, listIcons, listDashboard } = defineProps<IItemEditProps>();
+const { item: data, object, listIcons, listDashboard, items } = defineProps<IItemEditProps>();
 
 const emit = defineEmits<IItemEditEmits>();
 
@@ -113,7 +120,7 @@ const item: Ref<IDashboardItem> = ref({
   id: '',
   name: '',
   type: 'button',
-  icon: 'Bulb',
+  icon: 'bulb',
   value: '',
   args: [],
   set: '',
@@ -123,17 +130,20 @@ const item: Ref<IDashboardItem> = ref({
 
 const dialog = ref(false);
 const isNew = computed(() => Boolean(!data?.id));
+const isFindId = computed(() => Boolean(items.filter((i) => i.id !== data?.id).find((i) => i.id === item?.value.id)));
 const isSet = computed(() => item.value.type === 'info');
-const isParams = computed(() => item.value.args?.length);
-const isParamsDisabled = computed(() => item.value.args.length > 3);
+const isArgs = computed(() => item.value.args?.length);
+const isArgsDisabled = computed(() => item.value.args.length > 3);
+
 const isDisabled = computed(() => {
+  if (isFindId.value) return true;
   const { id, args } = item.value;
   return !id || !args.length;
 });
 
-const onIcon = ({ value }: IListItem) => (item.value.icon = value as string);
+const onIcon = ({ value }: IListItem<string>) => (item.value.icon = value as string);
 
-const onType = ({ value }: IListItem) => {
+const onType = ({ value }: IListItem<string>) => {
   const type = value as string;
   item.value.type = type;
   delete item.value.opts;
@@ -171,7 +181,7 @@ const onButton = (key: string) => emit('button', key, item.value);
 const onRemoveParams = (value: string) => (item.value.args = item.value.args.filter((i: string) => i !== value));
 
 const onAddParams = ({ path }: VListObjectReturnData) => {
-  if (!item.value.args.length) item.value.id = path;
+  if (!item.value.args.length && !item.value.id) item.value.id = path;
   item.value.args.push(path);
   dialog.value = false;
 };
@@ -192,9 +202,7 @@ const onChange = <K extends keyof IDashboardItem>(event: K, value: string) => {
 };
 
 const onCheckId = () => {
-  if (!item.value.args.length && !data?.id) {
-    dialog.value = true;
-  }
+  dialog.value = true;
 };
 
 const onOptions = <K extends keyof IDashboardItemOptions>(key: K, value: IDashboardItemOptions[K]) => {

@@ -6,7 +6,7 @@ const { locales } = defineProps<IBlockServiceProps>();
 
 const emit = defineEmits<IBlockServiceEmit>();
 
-const onLocale = (item: IListItem) => emit('locale', item);
+const onLocale = (item: IListItem<string>) => emit('locale', item);
 
 const getValueLocale = (local: string) => locales.find((i) => i.value === local)?.name;
 </script>

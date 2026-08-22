@@ -27,6 +27,7 @@
     </TransitionGroup>
   </div>
 </template>
+
 <script setup lang="ts" generic="T extends { id: string | number }">
 import { IVDragDropProps, IVDragDropEmits } from '@/components/ui/drag-drop/types';
 import { ref } from 'vue';

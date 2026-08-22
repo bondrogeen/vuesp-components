@@ -12,20 +12,20 @@
   </VDropdown>
 </template>
 
-<script setup lang="ts">
-import type { IVAutocompleteProps, IVAutocompleteEmits, IListItem } from '@/components/ui/autocomplete/types';
+<script setup lang="ts" generic="T extends { name: string }">
+import type { IVAutocompleteProps, IVAutocompleteEmits } from '@/components/ui/autocomplete/types';
 
 import VTextField from '@/components/ui/text-field/VTextField.vue';
 import VDropdown from '@/components/ui/dropdown/VDropdown.vue';
 import VList from '@/components/ui/list/VList.vue';
 
-const { modelValue = '', items, message = '', name = '' } = defineProps<IVAutocompleteProps>();
+const { modelValue = '', items, message = '', name = '' } = defineProps<IVAutocompleteProps<T>>();
 
-const emit = defineEmits<IVAutocompleteEmits>();
+const emit = defineEmits<IVAutocompleteEmits<T>>();
 
 const onInput = (value: string) => emit('update:modelValue', value);
 
-const onChange = (on: { click: (e: Event) => void }, item: IListItem) => {
+const onChange = (on: { click: (e: Event) => void }, item: T) => {
   on.click(new Event('click'));
   emit('select', item);
 };
