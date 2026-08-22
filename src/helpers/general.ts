@@ -39,3 +39,5 @@ export const secToTime = (seconds: number) => {
 
 export const arrToStr = (v: number[]) => v.join('.');
 export const strToArr = (v: string) => v.split('.').map((i) => +i);
+
+export const randomString = (l = 6) => [...Array(l)].map(() => 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'[(Math.random() * 62) | 0]).join('');

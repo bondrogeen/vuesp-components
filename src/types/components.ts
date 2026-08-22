@@ -1,7 +1,7 @@
-export interface IListItem {
+export interface IListItem<T> {
   id?: number;
   name: string;
-  value: string | number;
+  value: T;
 }
 
 export interface IMenuItem {

@@ -1,46 +1,3 @@
-<template>
-  <div class="w-full relative">
-    <label class="relative w-full border border-gray-300 dark:border-gray-700 flex items-center rounded transition bg-white dark:bg-gray-800" :class="getClassSlot">
-      <span class="absolute left-4 transition-all rounded -translate-y-1/2 text-gray-600 dark:text-gray-400" :class="getClassLabel">
-        {{ label }}
-      </span>
-
-      <component
-        :is="component"
-        v-bind="$attrs"
-        :value="modelValue"
-        :disabled="Boolean(disabled)"
-        :type="type"
-        :readonly="readonly"
-        :rows="isInput ? null : '2'"
-        :wrap="isInput ? null : 'soft'"
-        :class="getClassComponent"
-        @focus="onFocus"
-        @blur="onBlur"
-        @input="onInput"
-        @click="onClick"
-        @keypress.enter="onEnter"
-      />
-
-      <button
-        v-if="$slots.icon"
-        :disabled="Boolean(disabled)"
-        :class="{ 'cursor-pointer': !disabled }"
-        class="flex-[0_0_50px] h-full flex items-center justify-center text-gray-400 border-l border-gray-300 dark:border-gray-700/50"
-        @click="onIcon"
-      >
-        <slot name="icon"></slot>
-      </button>
-    </label>
-
-    <div v-if="!hideMessage" class="text-red-400 h-[24px] px-2 text-xs">
-      <slot name="message">
-        {{ message }}
-      </slot>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import type { IVTextFieldProps, IVTextFieldEmits } from '@/components/ui/text-field/types';
 
@@ -89,3 +46,46 @@ const onIcon = (e: Event) => {
   emit('on-icon', e);
 };
 </script>
+
+<template>
+  <div class="w-full relative">
+    <label class="relative w-full border border-gray-300 dark:border-gray-700 flex items-center rounded transition bg-white dark:bg-gray-800" :class="getClassSlot">
+      <span class="absolute left-4 transition-all rounded -translate-y-1/2 text-gray-600 dark:text-gray-400" :class="getClassLabel">
+        {{ label }}
+      </span>
+
+      <component
+        :is="component"
+        v-bind="$attrs"
+        :value="modelValue"
+        :disabled="Boolean(disabled)"
+        :type="type"
+        :readonly="readonly"
+        :rows="isInput ? null : '2'"
+        :wrap="isInput ? null : 'soft'"
+        :class="getClassComponent"
+        @focus="onFocus"
+        @blur="onBlur"
+        @input="onInput"
+        @click="onClick"
+        @keypress.enter="onEnter"
+      />
+
+      <button
+        v-if="$slots.icon"
+        :disabled="Boolean(disabled)"
+        :class="{ 'cursor-pointer': !disabled }"
+        class="flex-[0_0_50px] h-full flex items-center justify-center text-gray-400 border-l border-gray-300 dark:border-gray-700/50"
+        @click="onIcon"
+      >
+        <slot name="icon"></slot>
+      </button>
+    </label>
+
+    <div v-if="!hideMessage" class="text-red-400 h-[24px] px-2 text-xs">
+      <slot name="message">
+        {{ message }}
+      </slot>
+    </div>
+  </div>
+</template>

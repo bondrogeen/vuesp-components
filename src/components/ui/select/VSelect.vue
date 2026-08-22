@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="T extends { name: string; value: string | number }">
+<script setup lang="ts" generic="T extends { name: string }">
 import type { IVSelectProps, IVSelectEmits } from './types';
 import type { IVDropdownOn } from '@/components/ui/dropdown/types';
 

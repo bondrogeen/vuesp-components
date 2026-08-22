@@ -14,7 +14,7 @@ export const renderMenu = (suggestions: ISuggestion[], selectedIndex: number, on
     fixed z-[10000] min-w-[250px] max-w-[400px] max-h-[250px] 
     overflow-y-auto p-1 rounded-lg shadow-lg border 
     border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 
-    text-sm font-mono scrollbar
+    text-sm font-mono scrollbar pointer-events-none
   `;
 
   suggestions.forEach((suggestion, index) => {
@@ -48,7 +48,7 @@ export const renderTooltip = (suggestion: ISuggestion, position: { left: number;
     min-w-[50px] min-h-[20px] rounded-lg shadow-lg border 
     pointer-events-none transition-opacity duration-150
     bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 
-    text-gray-700 dark:text-gray-300
+    text-gray-700 dark:text-gray-300 pointer-events-none
   `;
   tooltip.style.cssText = `
     left: ${position.left + 40}px; top: ${position.top - 10}px;

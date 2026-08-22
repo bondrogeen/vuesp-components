@@ -58,8 +58,8 @@ const { min = 0, max = 255, step = 1, type, items = [] } = defineProps<IItemOpti
 
 const emit = defineEmits<IItemOptionsEmits>();
 
-const listWithId = computed(() => items.map((i: IListItem, idx: number) => ({ ...i, id: ++idx })));
-const listItem: Ref<IListItem> = ref({ name: '', value: '' });
+const listWithId = computed(() => items.map((i: IListItem<string>, idx: number) => ({ ...i, id: ++idx })));
+const listItem: Ref<IListItem<string>> = ref({ name: '', value: '' });
 const listLength = computed(() => items.length + 1);
 const isDisabledList = computed(() => !listItem.value?.id);
 
@@ -67,24 +67,24 @@ const isType = (key: string) => type === key;
 
 const onUpdate = <K extends keyof IDashboardItemOptions>(key: K, value: TypeValueDashboardItemOptions) => emit('update', key, value);
 
-const clearListId = (list: IListItem[]) => list.map(({ name, value }) => ({ name, value }));
-const onSelect = ({ id, name, value }: IListItem) => (listItem.value = { id, name, value });
+const clearListId = (list: IListItem<string>[]) => list.map(({ name, value }) => ({ name, value }));
+const onSelect = ({ id, name, value }: IListItem<string>) => (listItem.value = { id, name, value });
 
 const onAdd = () => {
   const id = listLength.value;
-  listItem.value = { name: `New_${id}`, value: id, id };
+  listItem.value = { name: `New_${id}`, value: `${id}`, id };
   onUpdate('items', clearListId([...listWithId.value, listItem.value]));
 };
 
-const onRemove = (item: IListItem) => {
+const onRemove = (item: IListItem<string>) => {
   if (listItem.value.name === item.name) listItem.value = { name: '', value: '' };
-  onUpdate('items', clearListId(listWithId.value.filter((i: IListItem) => i.value !== item.value)));
+  onUpdate('items', clearListId(listWithId.value.filter((i: IListItem<string>) => i.value !== item.value)));
 };
 
 const onChangeList = useDebounceFn(() => {
   const item = listItem.value;
   if (!item.name || !item.value) return;
-  const items = listWithId.value.map((i: IListItem) => (i.id === item.id ? item : i));
+  const items = listWithId.value.map((i: IListItem<string>) => (i.id === item.id ? item : i));
   onUpdate('items', clearListId(items));
 }, 300);
 </script>

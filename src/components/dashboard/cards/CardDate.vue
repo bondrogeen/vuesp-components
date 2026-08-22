@@ -1,26 +1,3 @@
-<template>
-  <CardBase v-bind="props" @click="emit('click', $event)" @edit="emit('edit', $event)">
-    <template #icon="item">
-      <slot name="icon" v-bind="item"></slot>
-    </template>
-
-    <template #header="item">
-      <div>
-        <VButton type="icon" class="text-gray-500" @click.stop="onClick">
-          <icon-ri-time-line class="size-7" />
-        </VButton>
-        <VTextField ref="time" v-bind="getBind(item)" type="datetime-local" class="size-0" hidden @change="onChangeDate"></VTextField>
-      </div>
-    </template>
-
-    <template #dialog="item">
-      <div class="flex justify-center relative mx-2 my-6">
-        <VTextField v-bind="getBind(item)" type="datetime-local" @change="onChangeDate"></VTextField>
-      </div>
-    </template>
-  </CardBase>
-</template>
-
 <script setup lang="ts">
 import type { IDashboardItem } from '@/types';
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
@@ -57,3 +34,26 @@ const onClick = () => {
   }
 };
 </script>
+
+<template>
+  <CardBase v-bind="props" @click="emit('click', $event)" @edit="emit('edit', $event)" @clone="emit('clone', $event)">
+    <template #icon="item">
+      <slot name="icon" v-bind="item"></slot>
+    </template>
+
+    <template #header="item">
+      <div>
+        <VButton type="icon" class="text-gray-500" @click.stop="onClick">
+          <icon-ri-time-line class="size-7" />
+        </VButton>
+        <VTextField ref="time" v-bind="getBind(item)" type="datetime-local" class="size-0" hidden @change="onChangeDate"></VTextField>
+      </div>
+    </template>
+
+    <template #dialog="item">
+      <div class="flex justify-center relative mx-2 my-6">
+        <VTextField v-bind="getBind(item)" type="datetime-local" @change="onChangeDate"></VTextField>
+      </div>
+    </template>
+  </CardBase>
+</template>
