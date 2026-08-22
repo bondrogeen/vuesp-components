@@ -10,6 +10,7 @@
     }
   ],
   "compilerOptions": {
+    "ignoreDeprecations": "5.0",
     "plugins": [{ "name": "@vue/language-plugin-vue" }]
   }
 }

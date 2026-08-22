@@ -9,7 +9,22 @@ import * as app from '@/components/app';
 
 import '@/assets/tailwind.css';
 
-const components: Record<string, Component> = { ...app, ...dashboard, VButton, VLoader, VDropdown, VList, VTextField, VSelect, VWifiIcon, CardMain, VIconLogoMini, VIconLogo, VDialog, VPopup };
+const components: Record<string, Component> = {
+  ...app,
+  ...dashboard,
+  VButton,
+  VLoader,
+  VDropdown,
+  VList,
+  VTextField,
+  VSelect,
+  VWifiIcon,
+  CardMain,
+  VIconLogoMini,
+  VIconLogo,
+  VDialog,
+  VPopup,
+};
 
 export * from '@/components/';
 

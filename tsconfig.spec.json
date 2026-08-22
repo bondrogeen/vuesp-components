@@ -1,13 +1,11 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "outDir": "./out-tsc/vitest",
     "types": [
-      "vitest/globals",
-      "vitest/importMeta",
       "vite/client",
-      "node",
-      "vitest"
+      "node"
     ],
     "jsx": "preserve",
     "jsxImportSource": "vue",

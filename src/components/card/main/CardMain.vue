@@ -1,5 +1,5 @@
 <template>
-  <div class="relative rounded-md border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] sm:p-6 hover-effect" :class="{ 'overflow-hidden': loading }">
+  <div class="relative rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-white/[0.03] p-5 sm:p-6 hover-effect" :class="{ 'overflow-hidden': loading }">
     <div
       v-if="loading"
       class="loader-line w-full absolute top-0 left-0 h-[3px] bg-gray-100 dark:bg-gray-800 before:bg-blue-600 dark:before:bg-blue-800 before:h-1 rounded-xl z-20 before:absolute before:w-[40%] before:-left-1/2 before:content-[''] before:animate-[lineAnim_1s_linear_infinite]"
