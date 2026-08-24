@@ -1,4 +1,4 @@
-export const removeLBScript = (code: string) => {
+export const normalizeScript = (code: string) => {
   let result = '';
   let inString = false;
   let quote = '';
@@ -29,49 +29,73 @@ export const removeLBScript = (code: string) => {
   return result;
 };
 
-export const formatScript = (s: string) => {
-  let result = s;
-  result = lineBreak(result);
-  result = addIndent(result);
-  return result;
-};
-
-function lineBreak(s: string) {
-  let r = '';
-  for (let i = 0; i < s.length; i++) {
-    r += s[i];
-    if (s[i] === ';' || s[i].match(/(if|while):/)) r += '\n';
-  }
-  return r;
+interface Token {
+  type: 'command' | 'block_start' | 'block_end' | 'else';
+  value: string;
 }
 
-function addIndent(s: string) {
-  let r = '';
-  const lines = s.split('\n');
-  let indentLevel = 0;
-  const spaces = '    ';
+export function formatScript(codeString: string): string {
+  const tokens: Token[] = [];
+  let current = '';
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
+  for (let i = 0; i < codeString.length; i++) {
+    const char = codeString[i];
 
-    if (line.match(/^(if|while|else|on).*;/)) {
-      if (line.match(/^else;/)) {
-        indentLevel--;
-        if (indentLevel < 0) indentLevel = 0;
-        r += spaces.repeat(indentLevel) + line + '\n';
-        indentLevel++;
-      } else {
-        r += spaces.repeat(indentLevel) + line + '\n';
-        indentLevel++;
+    if (char === ';') {
+      if (current.trim()) {
+        const value = current.trim();
+        if (value.startsWith('while:') || value.startsWith('if:') || value.startsWith('on(')) {
+          tokens.push({ type: 'block_start', value });
+        } else if (value === 'else') {
+          tokens.push({ type: 'else', value });
+        } else if (value === 'end') {
+          tokens.push({ type: 'block_end', value });
+        } else {
+          tokens.push({ type: 'command', value });
+        }
+        current = '';
       }
-    } else if (line === 'end;') {
-      indentLevel--;
-      if (indentLevel < 0) indentLevel = 0;
-      r += spaces.repeat(indentLevel) + line + '\n';
     } else {
-      r += spaces.repeat(indentLevel) + line + '\n';
+      current += char;
     }
   }
 
-  return r;
+  if (current.trim()) {
+    const value = current.trim();
+    if (value.startsWith('while:') || value.startsWith('if:') || value.startsWith('on(')) {
+      tokens.push({ type: 'block_start', value });
+    } else if (value === 'else') {
+      tokens.push({ type: 'else', value });
+    } else if (value === 'end') {
+      tokens.push({ type: 'block_end', value });
+    } else {
+      tokens.push({ type: 'command', value });
+    }
+  }
+
+  const result: string[] = [];
+  let indent = 0;
+  const indentSize = 2;
+
+  for (const token of tokens) {
+    switch (token.type) {
+      case 'block_start':
+        result.push(' '.repeat(indent * indentSize) + token.value + ';');
+        indent++;
+        break;
+      case 'else':
+        indent--;
+        result.push(' '.repeat(indent * indentSize) + token.value + ';');
+        indent++;
+        break;
+      case 'block_end':
+        indent--;
+        result.push(' '.repeat(indent * indentSize) + token.value + ';');
+        break;
+      case 'command':
+        result.push(' '.repeat(indent * indentSize) + token.value + ';');
+        break;
+    }
+  }
+  return result.join('\n');
 }

@@ -1,7 +1,7 @@
 const escapeHtml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const FULL_TOKENS =
-  /(\/\/[^\n]*)|('[^'\n]*')|(\b\d+(?:\.\d+)?\b)|(\b(?:on|call|wait|while|log|if|else|end|set|get|len|ord|chr|read_temp|read_hum|read_motion)\b)|(\$[vifsp]\d+)|(\b(?:btn_\d+_\d+|btn_\d+)\b)|([;:(){}])/g;
+  /(\/\/[^\n]*)|('[^'\n]*')|(\b\d+(?:\.\d+)?\b)|(\b(?:on|call|wait|while|log|if|else|end|set|get|len|ord|chr|read_temp|read_hum|read_motion)\b)|(\$[vifspa]\d+)|(\b(?:btn_\d+_\d+|btn_\d+)\b)|([;:(){}])/g;
 
 export const fullHighlighter = (value: string) => {
   let html = '';

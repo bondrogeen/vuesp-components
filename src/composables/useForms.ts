@@ -18,6 +18,8 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     isSchemaFn ? schemaOrFn(initialValues) : schemaOrFn
   );
 
+  const isValid = ref(true);
+
   const updateSchema = (newSchema: ValidationSchema) => {
     currentSchema.value = newSchema;
     
@@ -43,6 +45,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     });
     
     collectDependencies();
+    validateForm();
   };
 
   const values = reactive<Record<string, unknown>>({});
@@ -59,6 +62,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
       touched[field] = false;
       dirty[field] = false;
     });
+    isValid.value = true;
   };
 
   const getSchema = (): ValidationSchema => {
@@ -98,6 +102,8 @@ export function useForm(options: UseFormOptions): UseFormReturn {
         }
       });
     }
+    
+    validateForm();
   };
 
   const collectDependencies = () => {
@@ -123,14 +129,15 @@ export function useForm(options: UseFormOptions): UseFormReturn {
 
   const validateForm = (): boolean => {
     const schema = getSchema();
-    let isValid = true;
+    let isValidResult = true;
     Object.keys(schema).forEach((field) => {
       const fieldValid = validateField(field, values[field]);
       if (!fieldValid) {
-        isValid = false;
+        isValidResult = false;
       }
     });
-    return isValid;
+    isValid.value = isValidResult;
+    return isValidResult;
   };
 
   const defineField = <T = unknown>(
@@ -192,8 +199,8 @@ export function useForm(options: UseFormOptions): UseFormReturn {
       Object.keys(schema).forEach((field) => {
         touched[field] = true;
       });
-      const isValid = validateForm();
-      if (isValid) {
+      const isValidResult = validateForm();
+      if (isValidResult) {
         await callback(values);
       }
     };
@@ -207,6 +214,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
       touched[field] = false;
       dirty[field] = false;
     });
+    isValid.value = true;
   };
 
   initializeFields();
@@ -239,5 +247,6 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     resetForm,
     validate: validateForm,
     updateSchema,
+    isValid,
   };
 }

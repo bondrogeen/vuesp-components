@@ -1,4 +1,3 @@
-// autocomplete.ts
 import type { Plugin } from 'yace';
 import { isKey } from 'yace/plugins/isKey';
 import type { ISuggestion, IAutocompleteOptions } from './types';
@@ -273,21 +272,21 @@ function insertSuggestion(props: { value: string; selectionStart: number; select
   const { value, selectionStart } = props;
   const start = findWordStart(value, selectionStart);
 
-  const insertText = suggestion.insertText || suggestion.label;
+  const insert = suggestion.insert || suggestion.label;
 
   const placeholderRegex = /\$\{([^}]*)\}/g;
-  let cleanText = insertText;
+  let cleanText = insert;
   const placeholders: { index: number; text: string; length: number }[] = [];
   let match;
 
-  while ((match = placeholderRegex.exec(insertText)) !== null) {
+  while ((match = placeholderRegex.exec(insert)) !== null) {
     const text = match[1];
     const index = match.index;
     const length = match[0].length;
     placeholders.push({ index, text, length });
   }
 
-  cleanText = insertText.replace(/\$\{([^}]*)\}/g, '$1');
+  cleanText = insert.replace(/\$\{([^}]*)\}/g, '$1');
 
   const firstPlaceholder = placeholders[0];
 
@@ -299,7 +298,7 @@ function insertSuggestion(props: { value: string; selectionStart: number; select
     let insertIndex = 0;
     let found = false;
 
-    while (insertIndex < insertText.length && !found) {
+    while (insertIndex < insert.length && !found) {
       const placeholder = placeholders.find((p) => p.index === insertIndex);
       if (placeholder) {
         cleanIndex += placeholder.text.length;
@@ -431,4 +430,4 @@ document.addEventListener('mousedown', (e) => {
   }
 });
 
-document.addEventListener('scroll', hideTooltip, true);
+// document.addEventListener('scroll', hideTooltip, true);
