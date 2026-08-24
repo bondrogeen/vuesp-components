@@ -36,6 +36,7 @@ export interface UseFormOptions {
 export interface UseFormReturn {
   values: Record<string, unknown>;
   errors: Record<string, string[]>;
+  isValid: Ref<boolean>;
   defineField: <T = unknown>(name: string, options?: DefineFieldOptions) => [Ref<T>, ComputedRef<Record<string, unknown>>];
   handleSubmit: (callback: (values: Record<string, unknown>) => void | Promise<void>) => (event?: Event) => Promise<void>;
   resetForm: () => void;

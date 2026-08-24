@@ -1,10 +1,9 @@
-// renderers/tailwind.ts
 import type { ISuggestion } from '../types';
 
 const TOKEN_COLORS: Record<string, string> = {
-  keyword: 'text-blue-600 dark:text-blue-400',
-  function: 'text-yellow-600 dark:text-yellow-400',
-  variable: 'text-cyan-600 dark:text-cyan-400',
+  word: 'text-blue-600 dark:text-blue-400',
+  func: 'text-yellow-600 dark:text-yellow-400',
+  var: 'text-cyan-600 dark:text-cyan-400',
   event: 'text-purple-600 dark:text-purple-400',
 };
 

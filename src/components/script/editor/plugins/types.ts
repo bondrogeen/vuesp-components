@@ -1,9 +1,9 @@
 // types.ts
 export interface ISuggestion {
   label: string;
-  type: 'keyword' | 'function' | 'variable' | 'event';
+  type: 'word' | 'func' | 'var' | 'event';
   description?: string;
-  insertText?: string;
+  insert?: string;
   detail?: string;
   cursorOffset?: number;
 }
