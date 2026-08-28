@@ -1,4 +1,4 @@
-import type { ISuggestion } from './types';
+import type { ISuggestion } from './plugins/types';
 
 export const DEFAULT_SUGGESTIONS: ISuggestion[] = [
   { label: 'if', type: 'word', insert: 'if:${$v0<10};\n\nelse;\n\nend;', detail: 'if:${$v0<10};else;end;' },
@@ -14,14 +14,17 @@ export const DEFAULT_SUGGESTIONS: ISuggestion[] = [
   { label: 'ord', type: 'func', insert: 'ord(${$s0});', detail: 'ord(char: string)' },
   { label: 'chr', type: 'func', insert: 'chr(${65});', detail: 'chr(v: number)' },
 
-  // { label: 'btn_13', type: 'event', detail: 'event name' },
-  // { label: 'btn_13_1', type: 'event', detail: 'event name' },
-  // { label: 'btn_13_0', type: 'event', detail: 'event name' },
+  { label: 'btn', type: 'event', detail: 'Change state ' },
+  { label: 'btn_c', type: 'event', detail: 'Count click button <br>$e0=gpio:number<br>$e1=value:number<br>$e2=type?:number' },
+  { label: 'btn_l', type: 'event', detail: 'Long press of the button <br>$e0=gpio:number<br>$e1=value:number' },
+  { label: 'btn_r', type: 'event', detail: 'Repeat while holding the button <br>$e0=gpio:number<br>$e1=value:number' },
 
-  { label: '$v', type: 'var', insert: '$v${0}', detail: 'var (uint) ' },
+  { label: '$u', type: 'var', insert: '$u${0}', detail: 'var (uint) ' },
   { label: '$i', type: 'var', insert: '$i${0}', detail: 'var (int)' },
   { label: '$f', type: 'var', insert: '$f${0}', detail: 'var (float)' },
   { label: '$s', type: 'var', insert: '$s${0}', detail: 'var (string)' },
   { label: '$a', type: 'var', insert: '$a${0}', detail: 'var (array)' },
+  { label: '$e', type: 'var', insert: '$e${0}', detail: 'var event' },
+  { label: '$c', type: 'var', insert: '$c${0}', detail: 'var call' },
   { label: '$p', type: 'var', insert: '$p${0}', detail: 'gpio' },
 ];

@@ -6,11 +6,14 @@ import { history, preserveIndent } from 'yace/plugins';
 import { autoSemicolon, autocomplete } from './plugins';
 import { fullHighlighter } from './highlighters';
 import { renderMenu, renderTooltip } from './plugins/render';
+import { DEFAULT_SUGGESTIONS } from './suggestions';
 
 const { modelValue, suggestions = [] } = defineProps<IScriptEditorProps>();
 const emit = defineEmits<IScriptEditorEmit>();
 
 let editor: Yace;
+
+const customSuggestions = [...DEFAULT_SUGGESTIONS, ...suggestions]
 
 watch(
   () => modelValue,
@@ -23,12 +26,12 @@ onMounted(() => {
   editor = new Yace('#editor', {
     value: modelValue,
     lineNumbers: true,
-    highlighters: [fullHighlighter],
+    highlighters: [fullHighlighter(customSuggestions)],
     plugins: [
       history(),
       preserveIndent(),
       autocomplete({
-        customSuggestions: suggestions,
+        customSuggestions,
         minPrefixLength: 1,
         maxSuggestions: 20,
         i18n: (item) => item,
@@ -60,28 +63,28 @@ onUnmounted(() => {
 </template>
 
 <style>
-.tok--string {
+.tok--str {
   color: #924c1e;
 }
-.dark .tok--string {
+.dark .tok--str {
   color: #c3865e;
 }
-.tok--number {
+.tok--num {
   color: #4c8513;
 }
-.dark .tok--number {
+.dark .tok--num {
   color: #abc88e;
 }
-.tok--keyword {
+.tok--word {
   color: #ad24be;
 }
-.dark .tok--keyword {
+.dark .tok--word {
   color: #b068b9;
 }
-.tok--variable {
+.tok--var {
   color: #279bd9;
 }
-.dark .tok--variable {
+.dark .tok--var {
   color: #9cdcfe;
 }
 .tok--event {
