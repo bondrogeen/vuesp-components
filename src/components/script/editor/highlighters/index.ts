@@ -1,9 +1,25 @@
+import { ISuggestion } from '../plugins/types';
+
 const escapeHtml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-const FULL_TOKENS =
-  /(\/\/[^\n]*)|('[^'\n]*')|(\b\d+(?:\.\d+)?\b)|(\b(?:on|call|wait|while|log|if|else|end|set|get|len|ord|chr|read_temp|read_hum|read_motion)\b)|(\$[vifspa]\d+)|(\b(?:btn_\d+_\d+|btn_\d+)\b)|([;:(){}])/g;
+const STATIC_KEYWORDS = ['else', 'end', 'call', 'fade'];
+const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-export const fullHighlighter = (value: string) => {
+const buildFullTokens = (suggestions: ISuggestion[]) => {
+  const dynamicLabels = suggestions.filter((s) => s.type !== 'var').map((s) => s.label);
+
+  const allKeywords = Array.from(new Set([...STATIC_KEYWORDS, ...dynamicLabels]));
+  const keywordsPattern = allKeywords.map(escapeRegex).join('|');
+  const variablePattern = '\\$[a-zA-Z_][a-zA-Z0-9_]*';
+  const eventPattern = 'btn_\\d+(?:_\\d+)?';
+
+  const pattern = `(\\/\\/[^\\n]*)|` + `('[^'\\n]*')|` + `(\\b\\d+(?:\\.\\d+)?\\b)|` + `(\\b(?:${keywordsPattern})\\b)|` + `(${variablePattern})|` + `(\\b(?:${eventPattern})\\b)|` + `([;:(){}])`;
+
+  return new RegExp(pattern, 'g');
+};
+
+export const fullHighlighter = (suggestions: ISuggestion[]) => (value: string) => {
+  const FULL_TOKENS = buildFullTokens(suggestions);
   let html = '';
   let last = 0;
 
@@ -12,10 +28,10 @@ export const fullHighlighter = (value: string) => {
 
     let type = '';
     if (comment) type = 'comment';
-    else if (string) type = 'string';
-    else if (number) type = 'number';
-    else if (keyword) type = 'keyword';
-    else if (variable) type = 'variable';
+    else if (string) type = 'str';
+    else if (number) type = 'num';
+    else if (keyword) type = 'word';
+    else if (variable) type = 'var';
     else if (event) type = 'event';
     else if (operator) type = 'operator';
 

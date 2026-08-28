@@ -1,7 +1,7 @@
 import type { Plugin } from 'yace';
 import { isKey } from 'yace/plugins/isKey';
 import type { ISuggestion, IAutocompleteOptions } from './types';
-import { DEFAULT_SUGGESTIONS } from './suggestions';
+
 
 let suggestions: ISuggestion[] = [];
 let menu: HTMLElement | null = null;
@@ -23,7 +23,7 @@ export const autocomplete = (options: IAutocompleteOptions): Plugin => {
     throw new Error('renderMenu and renderTooltip are required');
   }
 
-  suggestions = [...DEFAULT_SUGGESTIONS, ...customSuggestions].map((i) => i18n(i));
+  suggestions = [...customSuggestions].map((i) => i18n(i));
   renderMenuFn = renderMenu;
   renderTooltipFn = renderTooltip;
 
