@@ -43,6 +43,7 @@ export default defineConfig(() => ({
         plugins: path.resolve(__dirname, 'src/plugins/index.ts'),
         composables: path.resolve(__dirname, 'src/composables/index.ts'),
         helpers: path.resolve(__dirname, 'src/helpers/index.ts'),
+        validate: path.resolve(__dirname, 'src/validate/index.ts'),
       },
       fileName: (format, entryName) => {
         if (entryName === 'main') return `index.${format}.js`;

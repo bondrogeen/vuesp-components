@@ -1,5 +1,5 @@
 {
-  "version": "2.1.9",
+  "version": "2.2.0",
   "name": "vuesp-components",
   "type": "module",
   "main": "./dist/index.js",
@@ -30,6 +30,11 @@
       "types": "./dist/helpers/index.d.ts",
       "import": "./dist/helpers/index.es.js",
       "default": "./dist/helpers/index.es.js"
+    },
+    "./validate": {
+      "types": "./dist/validate/index.d.ts",
+      "import": "./dist/validate/index.es.js",
+      "default": "./dist/validate/index.es.js"
     },
     "./types": {
       "types": "./dist/types/index.d.ts"
