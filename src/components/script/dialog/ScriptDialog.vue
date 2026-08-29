@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { IScriptDialogProps, IScriptDialogEmits } from './types';
 import type { ValidationSchema } from '@/types';
-import { required, maxLen } from '@/helpers/validate';
+import { required, maxLen } from '@/validate/';
 
-import { useForm } from 'vuesp-components/composables';
+import { useForm } from '@/composables/';
 import { onMounted } from 'vue';
 
 const { idScript } = defineProps<IScriptDialogProps>();
