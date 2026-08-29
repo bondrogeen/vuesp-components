@@ -53,6 +53,7 @@ declare module 'vue' {
     IconRiTimeLine: typeof import('~icons/ri/time-line')['default']
     ItemEdit: typeof import('./src/components/dashboard/edit/ItemEdit.vue')['default']
     ItemOptions: typeof import('./src/components/dashboard/edit/ItemOptions.vue')['default']
+    ScriptDialog: typeof import('./src/components/script/dialog/ScriptDialog.vue')['default']
     ScriptEditor: typeof import('./src/components/script/editor/ScriptEditor.vue')['default']
     ScriptViewDocs: typeof import('./src/components/script/viewDocs/ScriptViewDocs.vue')['default']
     VAccordion: typeof import('./src/components/ui/accordion/VAccordion.vue')['default']
