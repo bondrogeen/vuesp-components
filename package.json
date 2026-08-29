@@ -1,5 +1,5 @@
 {
-  "version": "2.2.0",
+  "version": "2.2.1",
   "name": "vuesp-components",
   "type": "module",
   "main": "./dist/index.js",
@@ -10,6 +10,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.es.js",
       "default": "./dist/index.es.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.es.js",
+      "default": "./dist/components/index.es.js"
     },
     "./plugins": {
       "types": "./dist/plugins/index.d.ts",
@@ -39,9 +44,10 @@
     "./types": {
       "types": "./dist/types/index.d.ts"
     },
-    "./dist/style.css": {
+    "./style.css": {
       "import": "./dist/style.css",
-      "require": "./dist/style.css"
+      "require": "./dist/style.css",
+      "default": "./dist/style.css"
     }
   },
   "description": "vuesp-components",
