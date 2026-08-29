@@ -39,6 +39,7 @@ export default defineConfig(() => ({
     lib: {
       entry: {
         main: path.resolve(__dirname, 'src/index.ts'),
+        components: path.resolve(__dirname, 'src/components/index.ts'),
         dashboard: path.resolve(__dirname, 'src/dashboard/index.ts'),
         plugins: path.resolve(__dirname, 'src/plugins/index.ts'),
         composables: path.resolve(__dirname, 'src/composables/index.ts'),

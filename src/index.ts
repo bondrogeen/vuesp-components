@@ -21,8 +21,6 @@ const components: Record<string, Component> = {
   VDialog,
 };
 
-export * from '@/components/';
-
 const vuesp: Plugin = {
   install: (app: App) => {
     Object.keys(components).forEach((name) => {
@@ -33,5 +31,3 @@ const vuesp: Plugin = {
 };
 
 export default vuesp;
-
-export * from '@/dashboard';
