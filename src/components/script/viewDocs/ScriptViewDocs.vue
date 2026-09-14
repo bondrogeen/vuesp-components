@@ -32,6 +32,11 @@ let markedLib: MarkedLib | null = null;
 
 const loadMarked = (): Promise<MarkedLib> => {
   return new Promise((resolve, reject) => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      reject(new Error('Markdown loading is available only in a browser'));
+      return;
+    }
+
     if (window.marked) {
       window.marked.setOptions({
         gfm: true,

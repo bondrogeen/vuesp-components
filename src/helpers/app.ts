@@ -9,6 +9,8 @@ export const isNewVersion = (name = 'isShow') => {
 
 export const changeTheme = (value: string) => {
   localSet('theme', value);
+  if (typeof document === 'undefined') return;
+
   document.documentElement.classList.remove('dark');
   document.documentElement.classList.remove('light');
   document.documentElement.classList.add(value);

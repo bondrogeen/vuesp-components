@@ -2,7 +2,7 @@ import type { Plugin } from 'yace';
 
 export const autoSemicolon = (): Plugin => {
   return (props, event) => {
-    if (!(event instanceof KeyboardEvent) || event.key !== 'Enter') {
+    if (typeof KeyboardEvent === 'undefined' || !(event instanceof KeyboardEvent) || event.key !== 'Enter') {
       return;
     }
 

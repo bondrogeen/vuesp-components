@@ -1,6 +1,8 @@
 import { jsonString, jsonParse } from './general';
 
 export const createDownloadLink = (href: string, name = 'file') => {
+  if (typeof document === 'undefined') return;
+
   const link = document.createElement('a');
   link.setAttribute('download', name);
   link.href = href;
@@ -11,6 +13,11 @@ export const createDownloadLink = (href: string, name = 'file') => {
 
 export const loadScript = (src: string) => {
   return new Promise((resolve, reject) => {
+    if (typeof document === 'undefined') {
+      reject(new Error('Script loading is available only in a browser'));
+      return;
+    }
+
     const script = document.createElement('script');
     script.src = src;
     script.type = 'text/javascript';

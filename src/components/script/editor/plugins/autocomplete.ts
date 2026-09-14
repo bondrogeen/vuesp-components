@@ -28,7 +28,7 @@ export const autocomplete = (options: IAutocompleteOptions): Plugin => {
   renderTooltipFn = renderTooltip;
 
   return (props, event) => {
-    if (!(event instanceof KeyboardEvent)) {
+    if (typeof KeyboardEvent === 'undefined' || !(event instanceof KeyboardEvent)) {
       return;
     }
 
@@ -420,14 +420,16 @@ function hideTooltip() {
   }
 }
 
-document.addEventListener('mousedown', (e) => {
-  const target = e.target as Node;
-  if (menu && !menu.contains(target)) {
-    closeMenu();
-  }
-  if (tooltipElement && !tooltipElement.contains(target)) {
-    hideTooltip();
-  }
-});
+if (typeof document !== 'undefined') {
+  document.addEventListener('mousedown', (e) => {
+    const target = e.target as Node;
+    if (menu && !menu.contains(target)) {
+      closeMenu();
+    }
+    if (tooltipElement && !tooltipElement.contains(target)) {
+      hideTooltip();
+    }
+  });
+}
 
 // document.addEventListener('scroll', hideTooltip, true);
