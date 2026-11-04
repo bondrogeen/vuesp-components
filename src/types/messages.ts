@@ -127,6 +127,16 @@ export interface IMessageDiscovery {
   lastSeen: number;
 }
 
+export interface IMessageDevice {
+  key?: number;
+  command: number;
+  analog: number;
+  now: number;
+  list: number;
+  message: string;
+  pwm?: number;
+}
+
 export interface IMessageReboot {
   key?: number;
 }
@@ -201,6 +211,11 @@ interface IKeyMessageDiscovery {
   object?: IMessageDiscovery;
 }
 
+interface IKeyMessageDevice {
+  key: Extract<TypeKEYS, 'DEVICE'>;
+  object?: IMessageDevice;
+}
+
 export type TypeConstMessage =
   | IKeyMessageInit
   | IKeyMessageSettings
@@ -215,4 +230,5 @@ export type TypeConstMessage =
   | IKeyMessageMessage
   | IKeyMessageDallas
   | IKeyMessageBuffer
-  | IKeyMessageDiscovery;
+  | IKeyMessageDiscovery
+  | IKeyMessageDevice;

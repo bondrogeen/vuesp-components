@@ -1,24 +1,12 @@
-import type { IListItem } from '@/types';
-export interface IDashboardItemOptions {
-  disabled?: number;
-  min?: number;
-  max?: number;
-  step?: number;
-  items?: IListItem<string>[];
-}
+import type { DashboardItem, DashboardItemOptions } from 'vuesp-dashboard-core';
 
-export interface IDashboardItem {
-  id: string;
-  name: string;
-  type: string;
+export interface IDashboardItemOptions extends DashboardItemOptions {}
+
+export interface IDashboardItem extends DashboardItem {
   icon: string;
   value: string | number;
   valueTo?: string | number;
   opts?: IDashboardItemOptions;
-  args: string[];
-  set?: string;
-  get?: string;
-  getTo?: string;
 }
 
 export type GetTypeByPath<T, Path extends string> = Path extends keyof T ? T[Path] : Path extends `${infer K}.${infer R}` ? (K extends keyof T ? GetTypeByPath<T[K], R> : never) : never;

@@ -1,5 +1,5 @@
 {
-  "version": "2.2.2",
+  "version": "2.2.3",
   "name": "vuesp-components",
   "type": "module",
   "main": "./dist/index.js",
@@ -51,6 +51,9 @@
     }
   },
   "description": "vuesp-components",
+  "sideEffects": [
+    "**/*.css"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/bondrogeen/vuesp-components"
@@ -74,6 +77,7 @@
   "dependencies": {
     "@vueuse/core": "^13.9.0",
     "tslib": "^2.3.0",
+    "vuesp-dashboard-core": "^0.1.0",
     "yace": "1.1.0"
   },
   "devDependencies": {

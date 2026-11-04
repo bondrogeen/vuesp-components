@@ -4,6 +4,7 @@ import { ref, computed } from 'vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 import VPopup from '@/components/ui/dialog/VPopup.vue';
+import vOutside from '@/utils/directives/outside';
 
 const { top = 'calc(100% + 8px)', left = '', right = '0', bottom = '', height = '200px', hideOnClick = true, disabled = false, title = '' } = defineProps<IVDropdownProps>();
 

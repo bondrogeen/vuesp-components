@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="max-w-full">
+    <div class="max-w-full" :inert="disabled" :aria-disabled="disabled || undefined">
       <slot></slot>
     </div>
   </div>
@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { ICardMainProps } from '@/components/card/main/types';
 
-const { title, loading } = defineProps<ICardMainProps>();
+const { title, loading, disabled } = defineProps<ICardMainProps>();
 </script>
 
 <style>

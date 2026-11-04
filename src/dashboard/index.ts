@@ -1,59 +1,51 @@
+import {
+  buildDashboardCommands,
+  getDataValue as coreGetDataValue,
+  getParamsData as coreGetParamsData,
+  normalizeFunctionBody,
+  resolveDashboardItem,
+} from 'vuesp-dashboard-core';
+import type { DashboardEvaluator } from 'vuesp-dashboard-core';
+
 import type { TypeGetDataValue, TypeGetParamsData, IDashboardItem, GetTypeByPath } from '@/types';
 
 export const dashboardCards = ['button', 'info', 'dimmer', 'date', 'input', 'list'];
 
 export const getDataValue: TypeGetDataValue = <T extends string, S>(key: T, main: S) => {
-  const keys = key.split('.') as string[];
-  let current: unknown = main;
-
-  for (const k of keys) {
-    if (current !== null && typeof current === 'object' && k in current) {
-      current = (current as Record<string, unknown>)[k];
-    } else {
-      return undefined;
-    }
-  }
-  return current as GetTypeByPath<S, T> | undefined;
+  return coreGetDataValue(key, main) as GetTypeByPath<S, T> | undefined;
 };
 
-export const getParamsData: TypeGetParamsData = ({ args }, main) => {
-  return args.map((i: string) => getDataValue(i, main));
+export const getParamsData: TypeGetParamsData = (item, main) => {
+  return coreGetParamsData(item, main) as (GetTypeByPath<typeof main, string> | undefined)[];
 };
 
 export const getFunction = (body: string | undefined) => {
-  if (!body) return null;
-  body = body.includes('return') ? body : `return ${body}`;
-  return new Function('v', 'a', 'b', 'c', body);
+  const normalized = normalizeFunctionBody(body);
+  if (!normalized) return null;
+  return new Function('v', 'a', 'b', 'c', normalized);
 };
 
-export const setStateItem = <T>(item: IDashboardItem, value: unknown, object: T) => {
-  const [, ...args] = getParamsData(item, object);
-  let data = null;
-  try {
-    const setFunc = getFunction(item.set);
-    if (setFunc) data = setFunc(value, ...args);
-  } catch (error) {
-    console.warn(error);
-  }
-  return data;
+const browserEvaluator: DashboardEvaluator = (body, v, a, b, c) => {
+  const fn = new Function('v', 'a', 'b', 'c', body);
+  return fn(v, a, b, c);
 };
 
-export const getStateItem = <T>(item: IDashboardItem, object: T) => {
-  const args = getParamsData(item, object);
-  const [v, a, b, c] = args;
-  let value = v ?? '';
-  let valueTo = value;
-
+export const setStateItem = <T>(item: IDashboardItem, value: unknown, object: T): any => {
   try {
-    const getFunc = getFunction(item.get);
-    if (getFunc) value = getFunc(value, a, b, c);
-    const getToFunc = getFunction(item.getTo);
-    if (getToFunc) {
-      valueTo = getToFunc(value, a, b, c);
-    }
+    return buildDashboardCommands(item, value, object, browserEvaluator);
   } catch (error) {
     console.warn(error);
+    return null;
   }
+};
 
-  return { ...item, value, valueTo };
+export const getStateItem = <T>(item: IDashboardItem, object: T): IDashboardItem => {
+  try {
+    return resolveDashboardItem(item, object, browserEvaluator) as unknown as IDashboardItem;
+  } catch (error) {
+    console.warn(error);
+    const args = getParamsData(item, object);
+    const value = (args[0] ?? '') as string | number;
+    return { ...item, value, valueTo: value } as IDashboardItem;
+  }
 };
