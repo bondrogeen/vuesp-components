@@ -181,6 +181,29 @@ app.use(i18nPlugin, {
 
 ## License
 
+## Theme / Tailwind base
+
+`vuesp-components/style.css` contains the theme **and** component styles.
+
+If a project needs only the design tokens and glass utilities, use the separate entry:
+
+```css
+@import 'tailwindcss';
+@import 'vuesp-components/theme.css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+@source '../src/**/*.{vue,ts}';
+```
+
+`theme.css` contains:
+
+- `@theme` tokens: primary/secondary colors, vision palette, shadows, animations;
+- accent CSS variables (`--accent-blue`, `--accent-indigo`, …);
+- glass utilities: `.glass-panel`, `.glass-header`, `.glass-inset`, `.glass-popover`;
+- light/dark body background with the grid pattern.
+
+Important: import `theme.css` **inside the Tailwind entry** (the file that imports `tailwindcss`), not as a separate Nuxt/`<link>` CSS entry. Otherwise Tailwind will not generate utilities from `@theme`.
+
 ## 1.3.1 (2026-06-22)
 
 - (bondrogeen) Build fixes and documentation updates

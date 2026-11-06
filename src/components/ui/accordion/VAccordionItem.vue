@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<div @click="onClick">
+	<div class="glass-inset overflow-hidden rounded-md">
+		<div class="px-4 py-3" @click="onClick">
 			<slot name="activator" />
 		</div>
 
@@ -13,7 +13,7 @@
 					:class="getClassTransform"
 					style="transition: transform 0.2s ease, visibility 0.2s ease"
 				>
-					<div class="m-0">
+					<div class="m-0 px-4 pb-4">
 						<slot />
 					</div>
 				</div>

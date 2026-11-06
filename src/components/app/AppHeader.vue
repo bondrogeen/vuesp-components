@@ -1,5 +1,6 @@
 <template>
-  <header class="bg-white dark:bg-gray-900 border-b border-gray-300 dark:border-gray-700 left-0 w-full z-10 sticky top-0">
+  <header class="glass-header relative sticky top-0 left-0 z-10 w-full border-b shadow-[0_20px_60px_-35px_rgba(0,0,0,0.9)]">
+    <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"></div>
     <div class="px-4 py-4 sm:px-6 lg:px-8">
       <div class="container mx-auto flex flex-auto items-center">
         <VButton type="icon" @click="onSidebar">

@@ -1,9 +1,9 @@
 <template>
-  <ul class="bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800">
+  <ul class="glass-popover overflow-hidden rounded-md">
     <li
       v-for="item of items"
       :key="item.name"
-      class="whitespace-nowrap cursor-pointer flex items-center min-h-[40px] border-b last:border-b-0 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/30 w-full px-4"
+      class="flex min-h-[40px] w-full cursor-pointer items-center whitespace-nowrap border-b border-gray-100 px-4 last:border-b-0 hover:bg-primary/10 dark:border-white/5 dark:hover:bg-white/[0.06]"
       @click="onClick(item, $event)"
     >
       <slot :item="item">{{ item.name }}</slot>

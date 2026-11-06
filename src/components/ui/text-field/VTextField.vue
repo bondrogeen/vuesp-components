@@ -16,15 +16,15 @@ const isFocus = ref(false);
 
 const getClassSlot = computed(() => [
   component === 'input' ? 'h-[40px]' : 'min-h-[40px]',
-  message ? 'border-red-500 hover:border-red-400' : '',
-  disabled ? 'border-gray-400 opacity-40' : 'border-gray-300 hover:border-gray-400 dark:border-gray-700/50 hover:dark:border-gray-600/50',
+  message ? '!border-red-400/70 ring-1 ring-red-400/25 hover:!border-red-400' : '',
+  disabled ? 'border-gray-300 opacity-40 dark:border-gray-700' : 'border-gray-300/80 hover:border-gray-400/80 dark:border-white/10 dark:hover:border-white/20',
 ]);
 
 const getClassComponent = computed(() => componentClass[component]);
 
 const isValue = (value: number | string | null) => value || value === 0;
 
-const after = 'after:absolute after:h-1 after:w-full after:left-0 after:translate-y-[6px] after:-z-10 dark:after:bg-gray-800 after:bg-white after:transition-all';
+const after = 'after:absolute after:h-1 after:w-full after:left-0 after:translate-y-[6px] after:-z-10 after:bg-white dark:after:bg-[#0b1538] after:transition-all';
 
 const getClassLabel = computed(() => [after, isFocus.value || isValue(modelValue) || active ? 'top-0 left-3 text-xs' : 'top-1/2']);
 const isInput = computed(() => component === 'input');
@@ -49,8 +49,8 @@ const onIcon = (e: Event) => {
 
 <template>
   <div class="w-full relative">
-    <label class="relative w-full border border-gray-300 dark:border-gray-700 flex items-center rounded transition bg-white dark:bg-gray-800" :class="getClassSlot">
-      <span class="absolute left-4 transition-all rounded -translate-y-1/2 text-gray-600 dark:text-gray-400" :class="getClassLabel">
+    <label class="glass-inset relative flex w-full items-center rounded-md transition focus-within:border-primary/60 focus-within:ring-1 focus-within:ring-primary/20" :class="getClassSlot">
+      <span class="absolute left-3.5 -translate-y-1/2 rounded bg-white/80 px-1 text-gray-500 transition-all dark:bg-[#0b1538]/80 dark:text-gray-400" :class="getClassLabel">
         {{ label }}
       </span>
 
@@ -75,7 +75,7 @@ const onIcon = (e: Event) => {
         v-if="$slots.icon"
         :disabled="Boolean(disabled)"
         :class="{ 'cursor-pointer': !disabled }"
-        class="flex-[0_0_50px] h-full flex items-center justify-center text-gray-400 border-l border-gray-300 dark:border-gray-700/50"
+        class="flex h-full flex-[0_0_50px] items-center justify-center border-l border-gray-200/70 text-gray-400 dark:border-white/10"
         @click="onIcon"
       >
         <slot name="icon"></slot>

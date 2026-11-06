@@ -1,5 +1,5 @@
 {
-  "version": "2.2.3",
+  "version": "2.2.4",
   "name": "vuesp-components",
   "type": "module",
   "main": "./dist/index.js",
@@ -48,6 +48,9 @@
       "import": "./dist/style.css",
       "require": "./dist/style.css",
       "default": "./dist/style.css"
+    },
+    "./theme.css": {
+      "default": "./dist/theme.css"
     }
   },
   "description": "vuesp-components",
@@ -63,7 +66,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit && vite build && cp src/assets/theme.css dist/theme.css",
     "preview": "vite preview",
     "eslint": "eslint --fix"
   },
@@ -104,6 +107,6 @@
     "vue-tsc": "^2.2.8"
   },
   "peerDependencies": {
-    "vue": "3.5.41"
+    "vue": "^3.5.0"
   }
 }

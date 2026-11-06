@@ -1,6 +1,6 @@
 <template>
   <div class="flex w-full relative">
-    <div class="relative w-full min-h-[40px] border border-gray-300 dark:border-gray-700 flex items-center rounded transition bg-white dark:bg-gray-800" :class="getClass">
+    <div class="glass-inset relative flex min-h-[40px] w-full items-center rounded-md transition focus-within:border-primary/60" :class="getClass">
       <span class="absolute left-4 transition-all rounded -translate-y-1/2 text-gray-600 dark:text-gray-400" :class="getClassLabel">
         {{ label }}
       </span>

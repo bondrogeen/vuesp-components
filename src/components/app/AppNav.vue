@@ -6,7 +6,7 @@
           :is="item.path ? 'router-link' : 'span'"
           :to="item.path"
           class="flex gap-2 items-center px-3 py-2 rounded"
-          :class="isActive(item.path) ? 'bg-blue-500/10' : 'hover:bg-gray-500/10'"
+          :class="isActive(item.path) ? 'bg-primary/10 text-primary' : 'hover:bg-white/5'"
           @click.prevent.stop="onSelect(item)"
         >
           <div class="size-6 flex-[0_0_24px] opacity-60">
@@ -22,8 +22,8 @@
 
         <div v-if="item.children" class="translate transform overflow-hidden mt-2" :class="[isSidebar ? 'lg:hidden' : '', selected === item.name ? 'block' : 'hidden']">
           <ul class="flex flex-col gap-2">
-            <li v-for="{ name, path, icon } of item.children" :key="name">
-              <component :is="path ? 'router-link' : 'span'" :to="path" class="flex gap-2 items-center px-3 py-2 rounded" :class="isActive(path) ? 'bg-blue-500/10' : 'hover:bg-gray-500/10'">
+            <li v-for="{ name, path, icon, children } of item.children" :key="name">
+              <component :is="path ? 'router-link' : 'span'" :to="path" class="flex gap-2 items-center px-3 py-2 rounded" :class="isActive(path) ? 'bg-primary/10 text-primary' : 'hover:bg-white/5'">
                 <div class="flex gap-2 ms-8">
                   <div class="size-5 flex-[0_0_24px]">
                     <slot name="icon-children" :item="{ name, path, icon }"></slot>
@@ -32,6 +32,27 @@
                   <span class="flex-1 first-letter:uppercase text-sm">{{ name }}</span>
                 </div>
               </component>
+
+              <div v-if="children?.length && isActiveBranch(path)" class="mt-2">
+                <ul class="flex flex-col gap-2">
+                  <li v-for="child of children" :key="child.name">
+                    <component
+                      :is="child.path ? 'router-link' : 'span'"
+                      :to="child.path"
+                      class="flex gap-2 items-center px-3 py-2 rounded"
+                      :class="isActive(child.path) ? 'bg-primary/10 text-primary' : 'hover:bg-white/5'"
+                    >
+                      <div class="flex gap-2 ms-14">
+                        <div class="size-5 flex-[0_0_24px]">
+                          <slot name="icon-children" :item="child"></slot>
+                        </div>
+
+                        <span class="flex-1 first-letter:uppercase text-sm">{{ child.name }}</span>
+                      </div>
+                    </component>
+                  </li>
+                </ul>
+              </div>
             </li>
           </ul>
         </div>
@@ -62,8 +83,27 @@ const onSelect = ({ name }: IMenuItem) => {
 
 const isActive = (path: string | undefined) => fullPath === path;
 
+const isActiveBranch = (path: string | undefined) => {
+  if (!path) return false;
+  return fullPath === path || fullPath.startsWith(path);
+};
+
+const isMatch = (item: IMenuItem, path: string) => {
+  if (!item.path || path === '/' || item.path === '/') return false;
+  return item.path === path || path.includes(item.path);
+};
+
+const findBranch = (items: IMenuItem[] | null, path: string): IMenuItem | null =>
+  items?.find(
+    (item) =>
+      isMatch(item, path) ||
+      item.children?.some(
+        (child) => isMatch(child, path) || child.children?.some((grandchild) => isMatch(grandchild, path)),
+      ),
+  ) ?? null;
+
 watch(
   () => menu,
-  () => (selected.value = findMenuItem(menu, fullPath)?.name || '')
+  () => (selected.value = (findBranch(menu, fullPath) ?? findMenuItem(menu, fullPath))?.name || '')
 );
 </script>

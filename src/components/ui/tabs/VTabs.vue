@@ -1,16 +1,18 @@
 <template>
-  <div class="">
-    <div class="flex border-b border-gray-200 dark:border-gray-700">
-      <div v-for="(tab, i) in items" :key="i" class="relative flex-auto">
-        <button class="w-full" @click="setActiveTab(i)" >
-          <div :class="getClass(i)" class="font-medium text-lg transition cursor-pointer before:h-[2px] before:absolute before:w-full before:bg-blue-700 before:left-0 before:bottom-0">
-            <slot name="header" :tab="tab" :i="i">
-              <div class="px-4 py-2">
-                {{ tab.title }}
-              </div>
-            </slot>
-          </div>
-        </button>
+  <div>
+    <div class="glass-inset rounded-md p-1">
+      <div class="flex gap-1">
+        <div v-for="(tab, i) in items" :key="i" class="relative flex-auto">
+          <button type="button" class="w-full" @click="setActiveTab(i)">
+            <div :class="getClass(i)" class="rounded-md px-3 py-2 font-medium text-lg transition">
+              <slot name="header" :tab="tab" :i="i">
+                <div class="px-4 py-2">
+                  {{ tab.title }}
+                </div>
+              </slot>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -43,7 +45,11 @@ const emit = defineEmits<IVTabsEmit>();
 
 const activeTab = ref(value || 0);
 
-const getClass = (i: number) => [activeTab.value === i ? '' : 'before:hidden'];
+const getClass = (i: number) => [
+  activeTab.value === i
+    ? 'bg-primary/10 text-primary'
+    : 'text-gray-500 hover:bg-white/5 dark:text-white/50 dark:hover:bg-white/5',
+];
 
 const setActiveTab = (i: number) => {
   activeTab.value = i;
