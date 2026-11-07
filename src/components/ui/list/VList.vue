@@ -1,5 +1,5 @@
 <template>
-  <ul class="glass-popover overflow-hidden rounded-md">
+  <ul class="glass-popover rounded-md">
     <li
       v-for="item of items"
       :key="item.name"
