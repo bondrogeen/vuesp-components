@@ -1,7 +1,4 @@
 import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
-import VisionButton from '@/components/ui/vision/VisionButton.vue';
-import VisionCard from '@/components/ui/vision/VisionCard.vue';
-import VisionInput from '@/components/ui/vision/VisionInput.vue';
 import VisionSearch from '@/components/ui/vision/VisionSearch.vue';
 import VisionThemeToggle from '@/components/ui/vision/VisionThemeToggle.vue';
 import VAutocomplete from '@/components/ui/autocomplete/VAutocomplete.vue';
@@ -51,9 +48,6 @@ export {
   VTabs,
   VTooltip,
   VisionIcon,
-  VisionButton,
-  VisionCard,
-  VisionInput,
   VisionSearch,
   VisionThemeToggle,
 };

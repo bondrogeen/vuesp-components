@@ -1,5 +1,5 @@
 <template>
-  <div class="glass-inset overflow-hidden rounded-md">
+  <div class="glass-inset overflow-x-auto rounded-md">
     <table class="min-w-full">
     <thead class="border-y border-gray-200/70 py-3 dark:border-white/10">
       <tr class="bg-gray-100/70 dark:bg-white/[0.04]">

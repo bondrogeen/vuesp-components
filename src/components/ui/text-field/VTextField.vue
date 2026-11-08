@@ -2,21 +2,37 @@
 import type { IVTextFieldProps, IVTextFieldEmits } from '@/components/ui/text-field/types';
 
 import { ref, computed } from 'vue';
+import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
 
-const { modelValue = null, label = '', component = 'input', type = 'text', message = '', disabled = false, active = false, hideMessage = false } = defineProps<IVTextFieldProps>();
+const {
+  modelValue = null,
+  label = '',
+  placeholder = '',
+  component = 'input',
+  type = 'text',
+  message = '',
+  error = '',
+  icon = '',
+  readonly = false,
+  disabled = false,
+  active = false,
+  hideMessage = false,
+} = defineProps<IVTextFieldProps>();
 
 const emit = defineEmits<IVTextFieldEmits>();
 
 const componentClass: Record<string, string> = {
-  input: 'w-full h-full px-4 outline-none overflow-ellipsis flex-auto overflow-hidden w-[calc(100% - 20px)] bg-transparent',
+  input: 'w-full h-full px-4 outline-none overflow-ellipsis flex-auto overflow-hidden w-[calc(100% - 20px)] bg-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500',
   textarea: 'h-full w-full px-4 py-2 outline-none flex-auto bg-transparent',
 };
 
 const isFocus = ref(false);
 
+const effectiveMessage = computed(() => error || message);
+
 const getClassSlot = computed(() => [
   component === 'input' ? 'h-[40px]' : 'min-h-[40px]',
-  message ? '!border-red-400/70 ring-1 ring-red-400/25 hover:!border-red-400' : '',
+  error ? '!border-red-400/70 ring-1 ring-red-400/25 hover:!border-red-400' : '',
   disabled ? 'border-gray-300 opacity-40 dark:border-gray-700' : 'border-gray-300/80 hover:border-gray-400/80 dark:border-white/10 dark:hover:border-white/20',
 ]);
 
@@ -26,7 +42,17 @@ const isValue = (value: number | string | null) => value || value === 0;
 
 const after = 'after:absolute after:h-1 after:w-full after:left-0 after:translate-y-[6px] after:-z-10 after:bg-white dark:after:bg-[#0b1538] after:transition-all';
 
-const getClassLabel = computed(() => [after, isFocus.value || isValue(modelValue) || active ? 'top-0 left-3 text-xs' : 'top-1/2']);
+const isFloating = computed(() => isFocus.value || isValue(modelValue) || active);
+
+const labelLeft = computed(() => (icon ? 'left-11' : 'left-3.5'));
+
+const getClassLabel = computed(() => [
+  labelLeft.value,
+  isFloating.value ? after : '',
+  isFloating.value
+    ? 'top-0 bg-white/80 px-1 text-xs text-gray-500 dark:bg-[#0b1538]/80 dark:text-gray-400'
+    : 'top-1/2 bg-transparent px-0 text-gray-400 dark:text-gray-500',
+]);
 const isInput = computed(() => component === 'input');
 
 const onBlur = (e: Event) => {
@@ -50,7 +76,9 @@ const onIcon = (e: Event) => {
 <template>
   <div class="w-full relative">
     <label class="glass-inset relative flex w-full items-center rounded-md transition focus-within:border-primary/60 focus-within:ring-1 focus-within:ring-primary/20" :class="getClassSlot">
-      <span class="absolute left-3.5 -translate-y-1/2 rounded bg-white/80 px-1 text-gray-500 transition-all dark:bg-[#0b1538]/80 dark:text-gray-400" :class="getClassLabel">
+      <VisionIcon v-if="icon" :name="icon" :size="18" class="ml-3.5 shrink-0 text-gray-400 dark:text-gray-500" />
+
+      <span class="absolute -translate-y-1/2 rounded transition-all" :class="getClassLabel">
         {{ label }}
       </span>
 
@@ -58,12 +86,14 @@ const onIcon = (e: Event) => {
         :is="component"
         v-bind="$attrs"
         :value="modelValue"
+        :placeholder="isFloating ? placeholder : ''"
         :disabled="Boolean(disabled)"
         :type="type"
         :readonly="readonly"
         :rows="isInput ? null : '2'"
         :wrap="isInput ? null : 'soft'"
         :class="getClassComponent"
+        :aria-invalid="effectiveMessage ? true : undefined"
         @focus="onFocus"
         @blur="onBlur"
         @input="onInput"
@@ -82,9 +112,9 @@ const onIcon = (e: Event) => {
       </button>
     </label>
 
-    <div v-if="!hideMessage" class="text-red-400 h-[24px] px-2 text-xs">
+    <div v-if="!hideMessage" class="h-[24px] px-2 text-xs" :class="error ? 'text-red-400' : 'text-gray-500 dark:text-gray-400'">
       <slot name="message">
-        {{ message }}
+        {{ effectiveMessage }}
       </slot>
     </div>
   </div>

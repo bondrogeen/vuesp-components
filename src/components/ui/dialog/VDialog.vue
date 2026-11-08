@@ -53,20 +53,20 @@ defineExpose({
 
         <div class="flex-auto flex align-center overflow-y-auto overscroll-contain" :class="size === 'full' ? '' : ''">
           <div class="m-auto z-20 flex w-full flex-col overflow-auto overscroll-contain scrollbar bg-transparent shadow-lg" :class="getClass">
-            <div class="flex items-center min-h-14 ps-6 pe-3" :class="size === 'full' ? 'absolute top-0 right-4' : ''" @wheel.prevent @touchmove.prevent>
+            <div class="flex items-center min-h-14 border-b border-gray-200/70 bg-white/35 px-6 dark:border-white/10 dark:bg-white/[0.03]" :class="size === 'full' ? 'absolute top-0 right-4 border-0 bg-transparent px-0' : ''" @wheel.prevent @touchmove.prevent>
               <h4 class="text-title-md uppercase font-bold flex-auto">
                 {{ title }}
               </h4>
 
               <slot name="header-btn" :close="onClose"></slot>
-              <VButton color="transparent" size="md" @click="onClose">
+              <VButton color="transparent" type="icon" size="sm" @click="onClose">
                 <icon-ri-close-line />
               </VButton>
             </div>
 
             <div
               class="relative overflow-auto max-h-dvh scrollbar overflow-y-auto overscroll-contain min-h-0 max-md:flex-auto"
-              :class="size === 'full' ? 'flex-auto' : 'md:max-h-147.5 px-6 pb-6'"
+              :class="size === 'full' ? 'flex-auto' : 'md:max-h-147.5 px-6 pb-6 pt-5'"
               @close="onClose"
             >
               <slot name="default" :close="onClose" />

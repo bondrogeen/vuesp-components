@@ -1,15 +1,28 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+
+import type { ICardMainProps } from '@/components/card/main/types';
+
+const { title = '', loading = false, disabled = false, padded = true } = defineProps<ICardMainProps>();
+
+const paddingClass = computed(() => (padded ? 'p-5 sm:p-6' : ''));
+</script>
+
 <template>
-  <div class="glass-panel relative p-5 transition-all duration-300 hover:border-primary/25 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_0_60px_-18px_rgba(40,183,240,0.25)] sm:p-6" :class="{ 'overflow-hidden': loading }">
+  <div
+    class="glass-panel relative transition-all duration-300 hover:border-primary/25 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_0_60px_-18px_rgba(40,183,240,0.25)]"
+    :class="[paddingClass, { 'overflow-hidden': loading }]"
+  >
     <div
       v-if="loading"
       class="loader-line w-full absolute top-0 left-0 h-[3px] bg-gray-100 dark:bg-white/5 before:bg-primary before:h-1 rounded-xl z-20 before:absolute before:w-[40%] before:-left-1/2 before:content-[''] before:animate-[lineAnim_1s_linear_infinite]"
     ></div>
     <div v-if="loading" class="absolute top-0 left-0 w-full h-full bg-gray-50 dark:bg-[#060b28]/75 z-10 opacity-50"></div>
 
-    <div v-if="title" class="mb-4 flex items-center justify-between">
-      <h3 class="text-lg font-semibold text-gray-800 dark:text-white">{{ title }}</h3>
+    <div v-if="title || $slots.header" class="mb-4 flex items-center justify-between gap-3">
+      <h3 v-if="title" class="text-lg font-semibold text-gray-800 dark:text-white">{{ title }}</h3>
 
-      <div>
+      <div class="ml-auto">
         <slot name="header"></slot>
       </div>
     </div>
@@ -19,12 +32,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ICardMainProps } from '@/components/card/main/types';
-
-const { title, loading, disabled } = defineProps<ICardMainProps>();
-</script>
 
 <style>
 @keyframes lineAnim {

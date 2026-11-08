@@ -1,9 +1,12 @@
 export interface IVTextFieldProps {
   modelValue?: number | string;
   label?: string;
+  placeholder?: string;
   component?: string;
   type?: string;
   message?: string;
+  error?: string;
+  icon?: string;
   readonly?: boolean;
   disabled?: boolean | number;
   active?: boolean;

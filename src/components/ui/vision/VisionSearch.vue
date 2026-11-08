@@ -10,10 +10,21 @@ export interface SearchItem {
 	group?: string;
 }
 
-const props = defineProps<{
-	items: SearchItem[];
-	placeholder?: string;
-}>();
+const props = withDefaults(
+	defineProps<{
+		items: SearchItem[];
+		placeholder?: string;
+		label?: string;
+		dialogLabel?: string;
+		emptyText?: string;
+	}>(),
+	{
+		placeholder: 'Поиск по документации и страницам…',
+		label: 'Поиск',
+		dialogLabel: 'Поиск',
+		emptyText: 'Ничего не найдено. Попробуйте другой запрос.',
+	}
+);
 
 const open = ref(false);
 const query = ref('');
@@ -67,24 +78,24 @@ onUnmounted(() => {
 	<button
 		type="button"
 		class="inline-flex h-9 items-center gap-2 rounded-md px-2.5 text-xs text-gray-500 transition-colors hover:bg-white/50 hover:text-[var(--app-accent)] dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-white"
-		aria-label="Поиск"
+		:aria-label="label"
 		@click="show"
 	>
 		<VisionIcon name="search" :size="17" />
-		<span class="hidden lg:inline">Поиск</span>
+		<span class="hidden lg:inline">{{ label }}</span>
 		<kbd class="hidden rounded border border-gray-300/60 px-1.5 py-0.5 font-mono text-[10px] text-gray-400 dark:border-white/10 dark:text-gray-500 lg:inline">⌘K</kbd>
 	</button>
 
 	<Teleport to="body">
 		<div v-if="open" class="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-slate-900/40 px-4 pt-[12vh] backdrop-blur-sm dark:bg-black/60" @click.self="hide">
-			<div class="glass-panel w-full max-w-2xl overflow-hidden rounded-[12px] border border-gray-200/70 bg-white/95 dark:border-white/10 dark:bg-[#0b1235]/95" role="dialog" aria-modal="true" aria-label="Поиск">
+			<div class="glass-panel w-full max-w-2xl overflow-hidden rounded-[12px] border border-gray-200/70 bg-white/95 dark:border-white/10 dark:bg-[#0b1235]/95" role="dialog" aria-modal="true" :aria-label="dialogLabel">
 				<div class="flex items-center gap-3 border-b border-gray-200/70 px-4 dark:border-white/10">
 					<VisionIcon name="search" :size="18" class="shrink-0 text-gray-400" />
 					<input
 						ref="input"
 						v-model="query"
 						type="search"
-						:placeholder="placeholder ?? 'Поиск по документации и страницам…'"
+						:placeholder="placeholder"
 						class="h-14 min-w-0 flex-1 bg-transparent text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none dark:text-white dark:placeholder:text-gray-500"
 					>
 					<kbd class="hidden rounded border border-gray-300/60 px-1.5 py-0.5 font-mono text-[10px] text-gray-400 dark:border-white/10 dark:text-gray-500 sm:inline">Esc</kbd>
@@ -109,7 +120,7 @@ onUnmounted(() => {
 					</a>
 
 					<p v-if="!results.length" class="px-4 py-10 text-center text-sm text-gray-500 dark:text-gray-400">
-						Ничего не найдено. Попробуйте другой запрос.
+						{{ emptyText }}
 					</p>
 				</div>
 			</div>

@@ -4,9 +4,9 @@
       <div class="flex gap-1">
         <div v-for="(tab, i) in items" :key="i" class="relative flex-auto">
           <button type="button" class="w-full" @click="setActiveTab(i)">
-            <div :class="getClass(i)" class="rounded-md px-3 py-2 font-medium text-lg transition">
+            <div :class="[getClass(i), size === 'sm' ? 'px-2 py-1 text-xs' : 'px-3 py-2 text-sm']" class="rounded-md font-medium transition">
               <slot name="header" :tab="tab" :i="i">
-                <div class="px-4 py-2">
+                <div :class="size === 'sm' ? 'px-2 py-0.5' : 'px-3 py-1'">
                   {{ tab.title }}
                 </div>
               </slot>
@@ -39,7 +39,7 @@
 import type { IVTabsProps, IVTabsEmit } from '@/components/ui/tabs/types';
 import { ref } from 'vue';
 
-const { items, value } = defineProps<IVTabsProps>();
+const { items, value, size = 'md' } = defineProps<IVTabsProps>();
 
 const emit = defineEmits<IVTabsEmit>();
 

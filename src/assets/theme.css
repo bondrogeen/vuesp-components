@@ -43,6 +43,18 @@
   }
 }
 
+@layer base {
+  html {
+    scroll-padding-top: 5rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 @layer components {
   .glass-panel {
     border-radius: 10px;

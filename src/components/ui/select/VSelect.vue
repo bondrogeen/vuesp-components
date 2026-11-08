@@ -26,14 +26,14 @@ function onSelect(item: T, on: IVDropdownOn) {
       <slot name="activator" v-bind="{ on, isShow }">
         <VTextField :model-value="modelValue" :disabled="disabled" :label="label" readonly hideMessage active @click="on.click" @on-icon="on.click">
           <template #icon>
-            <icon-ri-arrow-up-s-line class="transition duration-300" :class="isShow ? 'rotate-x-180' : ''" />
+            <icon-ri-arrow-down-s-line class="transition duration-300" :class="isShow ? 'rotate-180' : ''" />
           </template>
         </VTextField>
       </slot>
     </template>
 
     <template #default="{ on }">
-      <div class="glass-popover min-w-50 rounded-md pb-6 transition-all duration-300 lg:pb-0">
+      <div class="glass-popover min-w-50 w-full rounded-md pb-6 transition-all duration-300 lg:pb-0">
         <h4 v-if="label" class="lg:hidden text-title-md font-bold mb-4 uppercase px-4 sticky top-0">
           {{ label }}
         </h4>
