@@ -2,6 +2,8 @@ import type { VListObjectReturnData } from '@/types/components';
 
 export interface IVListProps<T> {
   items: T[];
+  /** Render without the glass surface when the parent already provides one. */
+  plain?: boolean;
 }
 export interface IVListEmits<T> {
   (e: 'click', value: T, event: Event): void;

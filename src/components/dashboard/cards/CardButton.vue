@@ -13,7 +13,7 @@ const emit = defineEmits<ICardBaseEmits>();
 
 const getBind = ({ opts = {} }: IDashboardItem) => {
   const { disabled } = opts;
-  return { disabled };
+  return { disabled: Boolean(disabled) };
 };
 
 const setState = () => emit('setState', !props.value);

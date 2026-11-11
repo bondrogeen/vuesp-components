@@ -4,7 +4,7 @@
       type="checkbox"
       :checked="Boolean(modelValue)"
       :disabled="disabled"
-      class="peer size-5 appearance-none rounded-md border border-gray-300/80 bg-white/50 transition-all checked:border-[var(--accent-blue)] checked:bg-blue-50 dark:checked:border-[var(--accent-blue)] dark:checked:bg-[var(--accent-blue)] disabled:opacity-40 not-disabled:cursor-pointer dark:border-white/15 dark:bg-white/[0.04]"
+      class="peer size-5 appearance-none rounded-md border border-gray-300/80 bg-transparent transition-all checked:border-[var(--accent-blue)] disabled:opacity-40 not-disabled:cursor-pointer dark:border-white/15"
       @change="onChange"
     />
 

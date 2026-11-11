@@ -65,13 +65,13 @@ const on: IVDropdownOn = { click: onClick, open: onShow, set: onSet };
       leave-to-class="transform opacity-0 -translate-y-2"
     >
       <div v-if="isShow" class="z-30 min-w-full absolute" :style="getStyle">
-        <slot :on="on" :show="onShow" :hide="onHide" :is-show="isShow" />
+        <slot :on="on" :show="onShow" :hide="onHide" :is-show="isShow" :is-lg-or-larger="isLgOrLarger" />
       </div>
     </transition>
 
     <VPopup v-if="!isLgOrLarger && isShow" :title="title" @close="onClose">
       <template #default="{ on }">
-        <slot :on="on" :show="onShow" :hide="onHide" :is-show="isShow" />
+        <slot :on="on" :show="onShow" :hide="onHide" :is-show="isShow" :is-lg-or-larger="isLgOrLarger" />
       </template>
     </VPopup>
   </div>

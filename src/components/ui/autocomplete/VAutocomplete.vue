@@ -4,8 +4,8 @@
       <VTextField :model-value="modelValue" :name="name" :message="message" :label="label" @update:model-value="onInput" @click="on.open" />
     </template>
 
-    <template #default="{ on }">
-      <VList v-slot="{ item }" :items="items" @click="onChange(on, $event)">
+    <template #default="{ on, isLgOrLarger }">
+      <VList v-slot="{ item }" :items="items" :plain="!isLgOrLarger" @click="onChange(on, $event)">
         <slot :item="item">{{ item.name }}</slot>
       </VList>
     </template>

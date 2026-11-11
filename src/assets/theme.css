@@ -234,13 +234,13 @@
   }
 
   .scrollbar::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 3px;
+    height: 3px;
   }
 
   .scrollbar::-webkit-scrollbar-track {
     border-radius: 100vh;
-    background-color: #e5e7eb;
+    background-color: transparent;
   }
 
   .scrollbar::-webkit-scrollbar-thumb {
@@ -262,6 +262,16 @@
 
   .dark .scrollbar::-webkit-scrollbar-thumb:hover {
     background-color: #4a5565;
+  }
+
+  @media (max-width: 1023px) {
+    .mobile-hide-scrollbar {
+      scrollbar-width: none;
+    }
+
+    .mobile-hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 

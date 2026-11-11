@@ -76,7 +76,7 @@ const getSizeContent = computed(() => ({
             </v-button>
           </div>
 
-          <div class="overflow-y-auto max-h-[calc(100dvh-24px-16px)] overscroll-contain scrollbar" :class="getSizeContent[size]">
+          <div class="overflow-y-auto max-h-[calc(100dvh-24px-16px)] overscroll-contain no-scrollbar" :class="getSizeContent[size]">
             <slot :close="onClose" :on="on" />
           </div>
         </div>

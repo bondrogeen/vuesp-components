@@ -1,5 +1,5 @@
 <template>
-  <ul class="glass-popover rounded-md">
+  <ul :class="plain ? '' : 'glass-popover rounded-md'">
     <li
       v-for="item of items"
       :key="item.name"
@@ -14,7 +14,7 @@
 <script setup lang="ts" generic="T extends { name: string }">
 import type { IVListProps, IVListEmits } from '@/components/ui/list/types';
 
-const { items } = defineProps<IVListProps<T>>();
+const { items, plain = false } = defineProps<IVListProps<T>>();
 
 const emit = defineEmits<IVListEmits<T>>();
 

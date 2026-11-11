@@ -32,19 +32,24 @@ function onSelect(item: T, on: IVDropdownOn) {
       </slot>
     </template>
 
-    <template #default="{ on }">
-      <div class="glass-popover min-w-50 w-full rounded-md pb-6 transition-all duration-300 lg:pb-0">
+    <template #default="{ on, isLgOrLarger }">
+      <div class="min-w-50 w-full rounded-md pb-6 transition-all duration-300 lg:pb-0">
         <h4 v-if="label" class="lg:hidden text-title-md font-bold mb-4 uppercase px-4 sticky top-0">
           {{ label }}
         </h4>
 
-        <div class="h-full h-hull lg:max-h-44 lg:overflow-auto scrollbar lg:overscroll-contain">
-          <VList v-slot="{ item }" :items="items" @click="onSelect($event, on)">
-            <slot name="item" :item="item">
-              {{ item.name }}
-            </slot>
-          </VList>
-        </div>
+        <VList
+          v-slot="{ item }"
+          :items="items"
+          :plain="!isLgOrLarger"
+          class="lg:max-h-50 lg:overflow-y-auto lg:overscroll-contain"
+          :class="{ scrollbar: isLgOrLarger }"
+          @click="onSelect($event, on)"
+        >
+          <slot name="item" :item="item">
+            {{ item.name }}
+          </slot>
+        </VList>
       </div>
     </template>
   </VDropdown>
