@@ -3,8 +3,15 @@
     <template v-if="value">
       <div class="flex gap-1 text-amber-500 self-start text-nowrap select-none">
         (
+        <template v-for="(param, i) of prefix" :key="`prefix-${i}`">
+          <span class="text-blue-400/80" :title="prefixTitles?.[i]">{{ param }}</span>
+          <span class="last:hidden">,</span>
+        </template>
+
         <template v-for="(param, i) of args" :key="param">
-          <span class="text-blue-400/80" :title="param" @mouseenter="emit('hover', 'enter', i)" @mouseleave="emit('hover', 'leave', i)">{{ params[i] }}</span>
+          <span class="text-blue-400/80" :title="argumentTitle ? `${argumentTitle}: ${param}` : param">
+            {{ paramLabel(i) }}
+          </span>
           <span class="last:hidden">,</span>
         </template>
         ) =>
@@ -30,11 +37,12 @@ import { useDebounceFn } from '@vueuse/core';
 
 import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
 
-const { args, value, disabled = false, hideIcon = false } = defineProps<IVFunkProps>();
+const { args, value, params, prefix = [], prefixTitles = [], argumentTitle = '', disabled = false, hideIcon = false } = defineProps<IVFunkProps>();
 
 const emit = defineEmits<IVFunkEmits>();
 
-const params = ['v', 'a', 'b', 'c'];
+const defaultParams = ['a', 'b', 'c', 'd'];
+const paramLabel = (index: number): string => params?.[index] ?? defaultParams[index] ?? '';
 const input = ref(value || '');
 
 const validateJS = (code: string) => {
@@ -56,8 +64,9 @@ const onClickIcon = (e: Event) => emit('icon', e);
 
 watch(
   () => value,
-  () => {
-    if (value) input.value = value;
+  (next) => {
+    const normalized = next ?? '';
+    if (normalized !== input.value) input.value = normalized;
   }
 );
 </script>

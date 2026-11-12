@@ -41,6 +41,13 @@
       opacity: 1;
     }
   }
+
+  --animate-energy-flow: energy-flow 1.1s linear infinite;
+  @keyframes energy-flow {
+    to {
+      stroke-dashoffset: -36;
+    }
+  }
 }
 
 @layer base {

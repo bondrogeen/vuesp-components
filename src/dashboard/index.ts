@@ -19,17 +19,20 @@ export const getParamsData: TypeGetParamsData = (item, main) => {
   return coreGetParamsData(item, main) as (GetTypeByPath<typeof main, string> | undefined)[];
 };
 
-export const getFunction = (body: string | undefined) => {
+export const getFunction = (body: string | undefined, params: string[] = ['v', 'a', 'b', 'c', 'd']) => {
   const normalized = normalizeFunctionBody(body);
   if (!normalized) return null;
-  return new Function('v', 'a', 'b', 'c', normalized);
+  return new Function(...params, normalized);
 };
 
-const browserEvaluator: DashboardEvaluator = (body, v, a, b, c) => {
-  const fn = new Function('v', 'a', 'b', 'c', body);
-  return fn(v, a, b, c);
+const browserEvaluator: DashboardEvaluator = (body, scope) => {
+  const fn = new Function(...Object.keys(scope), body);
+
+  return fn(...Object.values(scope));
 };
 
+// The dashboard page consumes the command result as an untyped payload.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setStateItem = <T>(item: IDashboardItem, value: unknown, object: T): any => {
   try {
     return buildDashboardCommands(item, value, object, browserEvaluator);

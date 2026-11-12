@@ -38,27 +38,48 @@
                   <div v-for="(arg, i) of item.args" :key="arg" class="flex items-center rounded-full bg-gray-200 dark:bg-gray-900/50 px-2 py-[2px] text-xs">
                     <div class="relative group">
                       <span class="select-none">{{ arg }}</span>
-
-                      <div
-                        class="fixed left-1/2 top-1/2 p-4 text-white bg-gray-900 rounded-md group-hover:visible invisible opacity-0 group-hover:opacity-100 z-50 transition-all -translate-1/2"
-                        :class="isHover(i) ? 'visible opacity-100' : ''"
-                      >
-                        <pre>{{ getDataValue(arg, object) }}</pre>
-                      </div>
                     </div>
 
-                    <button v-if="i ? true : Boolean(item.args.length < 2)" class="cursor-pointer ms-1" @click="onRemoveParams(arg)">
+                    <button v-if="i ? true : Boolean(item.args.length < 2)" class="ms-1 shrink-0 cursor-pointer text-gray-400 transition hover:text-rose-500" @click="onRemoveParams(arg)">
                       <icon-ri-close-line class="size-5" />
                     </button>
                   </div>
                 </div>
               </VTextWrapper>
 
-              <VFunc :value="item.set" :args="item.args" :disabled="!isArgs || isSet" label="Set" @icon="onFunc('set')" @hover="onHover" @change="onChange('set', $event)" />
+              <VFunc
+                :value="item.set"
+                :args="item.args"
+                :prefix="['v']"
+                :prefix-titles="[$t('dashboard.newValue')]"
+                :argument-title="$t('dashboard.argument')"
+                :disabled="!isArgs || isSet"
+                label="Set"
+                @icon="onFunc('set')"
+                @change="onChange('set', $event)"
+              />
 
-              <VFunc :value="item.get" :args="item.args" :disabled="!isArgs" label="Get" @icon="onFunc('get')" @hover="onHover" @change="onChange('get', $event)" />
+              <VFunc
+                :value="item.get"
+                :args="item.args"
+                :argument-title="$t('dashboard.argument')"
+                :disabled="!isArgs"
+                label="Get"
+                @icon="onFunc('get')"
+                @change="onChange('get', $event)"
+              />
 
-              <VFunc :value="item.getTo" :args="item.args" :disabled="!isArgs" label="GetTo" @icon="onFunc('getTo')" @hover="onHover" @change="onChange('getTo', $event)" />
+              <VFunc
+                :value="item.getTo"
+                :args="item.args"
+                :prefix="['v']"
+                :prefix-titles="[$t('dashboard.getResult')]"
+                :argument-title="$t('dashboard.argument')"
+                :disabled="!isArgs"
+                label="GetTo"
+                @icon="onFunc('getTo')"
+                @change="onChange('getTo', $event)"
+              />
             </div>
           </template>
 
@@ -68,7 +89,7 @@
         </VTabs>
       </div>
 
-      <div class="flex justify-center order-0 md:order-1 md:mt-11">
+      <div class="flex justify-center order-0 md:order-1">
         <div class="flex-[0_0_130px] size-[130px]">
           <slot name="default" :item="item"></slot>
         </div>
@@ -96,7 +117,6 @@ import type { IItemEditProps, IItemEditEmits } from '@/components/dashboard/edit
 
 import { computed, onMounted, ref } from 'vue';
 
-import { getDataValue } from '@/dashboard/index';
 import { clone } from '@/helpers/';
 
 import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
@@ -154,18 +174,18 @@ const onType = ({ value }: IListItem<string>) => {
 };
 
 const onFunc = (key: string) => {
-  if (key === 'get') {
-    if (item.value.get) {
-      delete item.value.get;
-    } else {
-      item.value.get = 'v';
-    }
-  }
   if (key === 'set') {
     if (item.value.set) {
       delete item.value.set;
     } else {
       item.value.set = 'v';
+    }
+  }
+  if (key === 'get') {
+    if (item.value.get) {
+      delete item.value.get;
+    } else {
+      item.value.get = 'a';
     }
   }
   if (key === 'getTo') {
@@ -184,14 +204,6 @@ const onAddParams = ({ path }: VListObjectReturnData) => {
   if (!item.value.args.length && !item.value.id) item.value.id = path;
   item.value.args.push(path);
   dialog.value = false;
-};
-
-const index = ref(-1);
-
-const isHover = (i: number) => index.value === i;
-const onHover = (event: string, i: number) => {
-  if (event === 'enter') index.value = i;
-  if (event === 'leave') index.value = -1;
 };
 
 const onChange = <K extends keyof IDashboardItem>(event: K, value: string) => {
