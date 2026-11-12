@@ -15,7 +15,7 @@ import BlockDataHelp from './BlockDataHelp.vue';
 import BlockFieldCard from './BlockFieldCard.vue';
 import BlockMetricCard from './BlockMetricCard.vue';
 import BlockMetricStyleDialog from './BlockMetricStyleDialog.vue';
-import { MAX_METRIC_ARGS, MAX_METRICS, resolveBlockBindings, resolveMetricArgValues } from './resolver';
+import { MAX_METRIC_ARGS, MAX_METRICS, resolveBlockBindings } from './resolver';
 
 const { definition, config, context } = defineProps<{
   definition: IBlockDefinition;
@@ -135,8 +135,6 @@ const activeGroupArgs = computed<string[]>(() => {
 
   return draft.value.metricArgs?.[activeBlock.value as BlockMetricGroup] ?? [];
 });
-
-const activeGroupArgValues = computed<unknown[]>(() => resolveMetricArgValues(activeGroupArgs.value, context, resolved.value));
 
 const activeMetrics = computed<IBlockMetric[]>(() => {
   if (!hasMetrics.value) return [];
@@ -277,16 +275,6 @@ const removeGroupArg = (argIndex: number) => {
     ...(draft.value.metricArgs ?? {}),
     [activeBlock.value]: activeGroupArgs.value.filter((_, index) => index !== argIndex),
   };
-};
-
-const formatArgValue = (index: number): string => {
-  const value = activeGroupArgValues.value[index];
-
-  if (value === undefined || value === null || value === '') return '—';
-  if (typeof value === 'boolean') return value ? 'да' : 'нет';
-  if (typeof value === 'number') return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
-
-  return String(value);
 };
 
 const onArgHover = (event: string, index: number) => {
