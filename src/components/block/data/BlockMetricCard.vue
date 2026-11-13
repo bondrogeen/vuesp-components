@@ -56,7 +56,7 @@ const onHover = (event: string, index: number) => emit('hover', event, index);
 
       <span
         draggable="true"
-        class="-me-1 grid size-8 shrink-0 cursor-grab place-items-center rounded-md text-gray-400 transition hover:bg-white/5 hover:text-white active:cursor-grabbing"
+        class="-me-1 grid size-8 shrink-0 cursor-grab place-items-center rounded-md text-gray-main transition hover:bg-white/5 hover:text-white active:cursor-grabbing"
         title="Перетащить показатель"
         @dragstart="emit('dragstart', $event, index)"
         @dragend="emit('dragend')"

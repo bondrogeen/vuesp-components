@@ -47,8 +47,8 @@ const activeTab = ref(value || 0);
 
 const getClass = (i: number) => [
   activeTab.value === i
-    ? 'bg-primary/10 text-primary'
-    : 'text-gray-500 hover:bg-white/5 dark:text-white/50 dark:hover:bg-white/5',
+    ? 'bg-cyan-main/10 text-cyan-main'
+    : 'text-gray-dark-25 hover:bg-white/5 dark:text-white/50 dark:hover:bg-white/5',
 ];
 
 const setActiveTab = (i: number) => {

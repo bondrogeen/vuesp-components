@@ -44,17 +44,17 @@ onUnmounted(() => {
 <template>
   <div class="grid grid-cols-1 gap-4 lg:max-w-[360px] min-w-[250px]">
     <div class="flex flex-col w-full items-center gap-2">
-      <div class="relative block h-4 w-full select-none overflow-hidden rounded-md bg-gray-200/70 dark:bg-white/10" :title="`${percent}%`">
-        <div class="absolute left-[110px] top-1/2 -translate-1/2 text-center text-sm font-bold leading-none text-gray-900 dark:text-white">{{ percent }}%</div>
+      <div class="relative block h-4 w-full select-none overflow-hidden rounded-md bg-gray-light-10/70 dark:bg-white/10" :title="`${percent}%`">
+        <div class="absolute left-[110px] top-1/2 -translate-1/2 text-center text-sm font-bold leading-none text-gray-dark-40 dark:text-white">{{ percent }}%</div>
 
-        <div class="relative h-4 overflow-hidden rounded-md bg-primary transition-all duration-500" :style="`width: ${percent}%`">
+        <div class="relative h-4 overflow-hidden rounded-md bg-cyan-main transition-all duration-500" :style="`width: ${percent}%`">
           <div class="absolute left-[110px] top-1/2 -translate-1/2 text-sm font-bold text-white text-center leading-none">{{ percent }}%</div>
         </div>
       </div>
 
       <div class="flex justify-between w-full text-xs">
         <div v-for="item of store" :key="item.name" class="flex-auto">
-          <div class="text-gray-500 dark:text-white/50"><slot name="name" :item="item"></slot></div>
+          <div class="text-gray-dark-25 dark:text-white/50"><slot name="name" :item="item"></slot></div>
 
           <div>{{ item.value }}</div>
         </div>
@@ -63,7 +63,7 @@ onUnmounted(() => {
 
     <div class="text-sm">
       <div v-for="item of date" :key="item.name" class="flex justify-between items-center">
-        <div class="text-gray-500 dark:text-white/50 text-left">
+        <div class="text-gray-dark-25 dark:text-white/50 text-left">
           <slot name="name" :item="item"></slot>
         </div>
 

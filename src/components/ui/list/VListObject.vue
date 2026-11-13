@@ -6,13 +6,13 @@
           <icon-ri-folder-6-line class="size-5" />
         </div>
 
-        <div class="dark:text-gray-300">{{ key }}</div>
+        <div class="dark:text-gray-light-10">{{ key }}</div>
 
         <VButton v-if="isSupported" class="opacity-20 hover:opacity-70 transition-all" color="transparent" size="sm" @click.stop="copy(getPath(key))">
           <icon-ri-file-copy-line class="size-5" />
         </VButton>
 
-        <span v-if="text === getPath(key)" class="text-gray-500 transition-all duration-1000 text-sm" :class="copied ? 'opacity-100' : 'opacity-0'">{{ $t('copied') }}</span>
+        <span v-if="text === getPath(key)" class="text-gray-dark-25 transition-all duration-1000 text-sm" :class="copied ? 'opacity-100' : 'opacity-0'">{{ $t('copied') }}</span>
 
         <template v-if="!onlyValue && isObject(item)">
           <div class="flex-auto"></div>
@@ -32,7 +32,7 @@
       <template v-else>
         <div class="flex-auto gap-3"></div>
 
-        <div class="font-medium dark:text-gray-300">
+        <div class="font-medium dark:text-gray-light-10">
           {{ item }}
         </div>
 
@@ -59,7 +59,7 @@ const { items = {}, path = '', onlyValue = false } = defineProps<IVListObjectPro
 
 const emit = defineEmits<IVListObjectEmits>();
 
-const getClass = () => `before:absolute before:w-full before:h-8 before:t-0 before:left-0 before:border-b before:border-gray-200 dark:before:border-gray-800/50  hover:before:bg-gray-400/10`;
+const getClass = () => `before:absolute before:w-full before:h-8 before:t-0 before:left-0 before:border-b before:border-gray-light-10 dark:before:border-gray-dark-30/50  hover:before:bg-gray-main/10`;
 
 const show: Ref<{ [index: string]: boolean }> = ref({});
 

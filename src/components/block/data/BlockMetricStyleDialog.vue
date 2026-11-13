@@ -50,13 +50,13 @@ const setAlign = (item: { value: MetricAlign; name: string }) => update({ align:
 <template>
   <VDialog title="Стиль показателя" size="md" @close="emit('close')">
     <div class="flex min-h-96 flex-col gap-4">
-      <p class="text-sm text-gray-500 dark:text-gray-400">
+      <p class="text-sm text-gray-dark-25 dark:text-gray-main">
         Показатель:
-        <span class="font-medium text-gray-900 dark:text-white">{{ label }}</span>
+        <span class="font-medium text-gray-dark-40 dark:text-white">{{ label }}</span>
       </p>
 
       <div class="glass-inset rounded-md p-3">
-        <span class="block text-xs text-gray-500 dark:text-gray-400">Предпросмотр</span>
+        <span class="block text-xs text-gray-dark-25 dark:text-gray-main">Предпросмотр</span>
         <span class="mt-1 block whitespace-pre" :class="metricClasses(resolved)">{{ preview || '1 234 кВт·ч' }}</span>
       </div>
 

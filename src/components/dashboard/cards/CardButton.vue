@@ -27,7 +27,7 @@ const setState = () => emit('setState', !props.value);
 
     <template #header="item">
       <div class="flex justify-end">
-        <VButton v-bind="getBind(item)" type="icon" :class="props.value ? 'text-amber-500' : 'text-gray-500'" @click.stop="setState">
+        <VButton v-bind="getBind(item)" type="icon" :class="props.value ? 'text-amber-500' : 'text-gray-dark-25'" @click.stop="setState">
           <icon-ri-shut-down-line class="size-8" />
         </VButton>
       </div>
@@ -35,7 +35,7 @@ const setState = () => emit('setState', !props.value);
 
     <template #dialog="item">
       <div class="flex justify-center py-4">
-        <VButton v-bind="getBind(item)" type="icon" class="size-18" :class="props.value ? 'text-amber-500' : 'text-gray-500'" @click.stop="setState">
+        <VButton v-bind="getBind(item)" type="icon" class="size-18" :class="props.value ? 'text-amber-500' : 'text-gray-dark-25'" @click.stop="setState">
           <icon-ri-shut-down-line class="size-16" />
         </VButton>
       </div>

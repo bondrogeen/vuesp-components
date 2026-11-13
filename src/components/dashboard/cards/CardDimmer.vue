@@ -43,7 +43,7 @@ const setState = ({ value }: IDashboardItem) => {
           <VButton v-bind="getBind(item)" type="icon" @click.stop="setState(item)">
             <div :class="'text-blue-600 dark:text-blue-400'">
               <svg width="30" height="30" viewBox="-7.5 -7.5 75 75" version="1.1" style="transform: rotate(-90deg)">
-                <circle class="stroke-gray-300 dark:stroke-gray-700" r="30" cx="30" cy="30" fill="transparent" stroke-width="10"></circle>
+                <circle class="stroke-gray-light-10 dark:stroke-gray-dark-30" r="30" cx="30" cy="30" fill="transparent" stroke-width="10"></circle>
 
                 <circle
                   r="30"
@@ -65,7 +65,7 @@ const setState = ({ value }: IDashboardItem) => {
 
     <template #dialog="item">
       <div class="flex justify-center relative mx-2 my-6" :class="getBind(item).disabled ? 'opacity-40' : ''">
-        <div class="absolute h-10 w-full top-0 left-0 bg-gray-400 dark:bg-gray-700 z-0 rounded-md"></div>
+        <div class="absolute h-10 w-full top-0 left-0 bg-gray-main dark:bg-gray-dark-30 z-0 rounded-md"></div>
 
         <div class="absolute h-10 top-0 left-0 bg-blue-600 dark:bg-blue-400 z-0 rounded-md transition-[width_0.3s_linear]" :style="`width: ${getPercent(item)}%`"></div>
 

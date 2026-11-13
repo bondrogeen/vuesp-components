@@ -6,7 +6,7 @@
           :is="item.path ? 'router-link' : 'span'"
           :to="item.path"
           class="flex gap-2 items-center px-3 py-2 rounded"
-          :class="isActive(item.path) ? 'bg-primary/10 text-primary' : 'hover:bg-white/5'"
+          :class="isActive(item.path) ? 'bg-cyan-main/10 text-cyan-main' : 'hover:bg-white/5'"
           @click.prevent.stop="onSelect(item)"
         >
           <div class="size-6 flex-[0_0_24px] opacity-60">
@@ -23,7 +23,7 @@
         <div v-if="item.children" class="translate transform overflow-hidden mt-2" :class="[isSidebar ? 'lg:hidden' : '', selected === item.name ? 'block' : 'hidden']">
           <ul class="flex flex-col gap-2">
             <li v-for="{ name, path, icon, children } of item.children" :key="name">
-              <component :is="path ? 'router-link' : 'span'" :to="path" class="flex gap-2 items-center px-3 py-2 rounded" :class="isActive(path) ? 'bg-primary/10 text-primary' : 'hover:bg-white/5'">
+              <component :is="path ? 'router-link' : 'span'" :to="path" class="flex gap-2 items-center px-3 py-2 rounded" :class="isActive(path) ? 'bg-cyan-main/10 text-cyan-main' : 'hover:bg-white/5'">
                 <div class="flex gap-2 ms-8">
                   <div class="size-5 flex-[0_0_24px]">
                     <slot name="icon-children" :item="{ name, path, icon }"></slot>
@@ -40,7 +40,7 @@
                       :is="child.path ? 'router-link' : 'span'"
                       :to="child.path"
                       class="flex gap-2 items-center px-3 py-2 rounded"
-                      :class="isActive(child.path) ? 'bg-primary/10 text-primary' : 'hover:bg-white/5'"
+                      :class="isActive(child.path) ? 'bg-cyan-main/10 text-cyan-main' : 'hover:bg-white/5'"
                     >
                       <div class="flex gap-2 ms-14">
                         <div class="size-5 flex-[0_0_24px]">

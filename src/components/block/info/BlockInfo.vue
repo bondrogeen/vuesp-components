@@ -1,17 +1,17 @@
 <template>
   <div>
-    <p class="my-4 text-gray-700 dark:text-gray-400">{{ pkg?.description }}</p>
+    <p class="my-4 text-gray-dark-30 dark:text-gray-main">{{ pkg?.description }}</p>
 
     <div class="flex flex-col md:flex-row flex-wrap md:gap-4 text-sm">
       <div class="flex gap-2">
         Firmware (hw):
-        <span class="text-gray-700 dark:text-gray-400">{{ getFirmware }}</span>
+        <span class="text-gray-dark-30 dark:text-gray-main">{{ getFirmware }}</span>
       </div>
 
       <div class="flex gap-2">
         <div class="flex gap-2">
           Version (web):
-          <span class="text-gray-700 dark:text-gray-400">{{ pkg?.version }}</span>
+          <span class="text-gray-dark-30 dark:text-gray-main">{{ pkg?.version }}</span>
         </div>
       </div>
 
@@ -19,11 +19,11 @@
 
       <div class="flex gap-2">
         ID:
-        <span class="text-gray-700 dark:text-gray-400">{{ id.toString(16) }}</span>
+        <span class="text-gray-dark-30 dark:text-gray-main">{{ id.toString(16) }}</span>
       </div>
     </div>
 
-    <hr class="dark:text-gray-700 text-gray-200 my-2" />
+    <hr class="dark:text-gray-dark-30 text-gray-light-10 my-2" />
 
     <div class="flex flex-col gap-4 text-sm">
       <div class="flex gap-4">

@@ -57,7 +57,7 @@ const submit = () => {
 <template>
   <VDialog title="Импорт блока" size="md" @close="emit('close')">
     <div class="flex flex-col gap-3">
-      <p class="text-sm text-gray-500 dark:text-gray-400">
+      <p class="text-sm text-gray-dark-25 dark:text-gray-main">
         Вставь JSON, который был скопирован кнопкой «Экспорт».
       </p>
 

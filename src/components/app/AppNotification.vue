@@ -3,7 +3,7 @@
 
   <aside
     :class="props.value ? 'translate-x-0 ' : 'translate-x-full'"
-    class="overflow-x-hidden fixed top-[73px] right-0 flex h-[calc(100%-73px)] w-[290px] md:w-80 border-l border-gray-200/70 flex-col overflow-y-auto transition-all duration-350 dark:border-white/10 bg-white/90 backdrop-blur-2xl dark:bg-[#07112c]/80"
+    class="overflow-x-hidden fixed top-[73px] right-0 flex h-[calc(100%-73px)] w-[290px] md:w-80 border-l border-gray-light-10/70 flex-col overflow-y-auto transition-all duration-350 dark:border-white/10 bg-white/90 backdrop-blur-2xl dark:bg-night-main/80"
   >
     <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear h-full">
       <slot name="header" :isNew="isNew"></slot>
@@ -19,7 +19,12 @@
         >
           <div v-for="item of props.notifications" :key="item.date" class="relative">
             <slot name="card" :item="item">
-              <CardNotification v-bind="item" class="rounded-md border border-gray-200/60 bg-white/50 dark:border-white/5 dark:bg-white/[0.03]" @remove="onRemove(item)" @read="onRead(item)"></CardNotification>
+              <CardNotification
+                v-bind="item"
+                class="rounded-md border border-gray-light-10/60 bg-white/50 dark:border-white/5 dark:bg-white/[0.03]"
+                @remove="onRemove(item)"
+                @read="onRead(item)"
+              ></CardNotification>
             </slot>
           </div>
         </TransitionGroup>

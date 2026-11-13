@@ -1,6 +1,6 @@
 <template>
   <div
-    class="glass-panel relative flex aspect-square cursor-pointer flex-col p-2 transition-all hover:border-primary/25 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_0_50px_-18px_rgba(40,183,240,0.25)]"
+    class="glass-panel relative flex aspect-square cursor-pointer flex-col p-2 transition-all hover:border-cyan-main/25 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_0_50px_-18px_rgba(40,183,240,0.25)]"
     @click="onClick"
   >
     <div class="flex-auto flex justify-between">
@@ -12,7 +12,7 @@
 
     <div>
       <slot name="body" v-bind="props">
-        <h6 class="text-sm text-gray-500 font-medium line-clamp-2 overflow-hidden">
+        <h6 class="text-sm text-gray-dark-25 font-medium line-clamp-2 overflow-hidden">
           <slot name="name" v-bind="props">
             {{ props.name }}
           </slot>
@@ -26,7 +26,7 @@
       </slot>
     </div>
 
-    <div v-if="props.icon" class="absolute left-1/2 top-1/2 size-[calc(50%)] text-gray-200/30 dark:text-gray-800/30 -translate-1/2">
+    <div v-if="props.icon" class="absolute left-1/2 top-1/2 size-[calc(50%)] text-gray-light-10/30 dark:text-gray-dark-30/30 -translate-1/2">
       <slot name="icon" v-bind="props"></slot>
     </div>
 
@@ -37,7 +37,7 @@
         </VButton>
 
         <VButton color="transparent" @click="onClone">
-          <icon-ri-file-copy-2-line class="size-4 text-gray-500" />
+          <icon-ri-file-copy-2-line class="size-4 text-gray-dark-25" />
         </VButton>
       </template>
 
@@ -77,8 +77,8 @@ const emit = defineEmits<ICardBaseEmits>();
 const dialog = ref(false);
 
 const getColorValue = computed(() => {
-  if (['button', 'dimmer'].includes(props.type || '')) return props.value ? 'text-amber-500' : 'text-gray-400';
-  return 'text-gray-400';
+  if (['button', 'dimmer'].includes(props.type || '')) return props.value ? 'text-amber-500' : 'text-gray-main';
+  return 'text-gray-main';
 });
 
 const onEdit = (e: Event) => emit('edit', e);

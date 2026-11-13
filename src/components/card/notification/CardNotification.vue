@@ -13,7 +13,7 @@
     <div class="flex-auto text-xs">
       <div>{{ props.text }}</div>
 
-      <div class="text-gray-500 dark:text-gray-400 mt-1">{{ dateUtcToString(props.date) }} ({{ timeUtcToString(props.date) }})</div>
+      <div class="text-gray-dark-25 dark:text-gray-main mt-1">{{ dateUtcToString(props.date) }} ({{ timeUtcToString(props.date) }})</div>
     </div>
 
     <VButton class="shrink-0" type="icon" size="sm" @click="onRemove">

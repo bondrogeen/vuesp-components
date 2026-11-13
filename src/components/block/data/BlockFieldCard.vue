@@ -82,6 +82,6 @@ const emit = defineEmits<{
       </VButton>
     </div>
 
-    <p v-if="field.hint" class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">{{ field.hint }}</p>
+    <p v-if="field.hint" class="mt-1.5 text-xs text-gray-dark-25 dark:text-gray-main">{{ field.hint }}</p>
   </div>
 </template>

@@ -23,13 +23,13 @@ const onScan = (e: Event) => emit('scan', e);
         <div>
           <div class="text-sm">{{ item.ssid }}</div>
 
-          <div class="text-gray-400 text-xs">{{ $t('security') }} : {{ listEncryption[item.encryptionType] || 'unknown' }}</div>
+          <div class="text-gray-main text-xs">{{ $t('security') }} : {{ listEncryption[item.encryptionType] || 'unknown' }}</div>
         </div>
       </div>
     </v-list>
 
     <div v-if="!items.length" class="flex justify-center">
-      <v-loader class="text-primary"></v-loader>
+      <v-loader class="text-cyan-main"></v-loader>
     </div>
 
     <div class="flex justify-end mt-4">

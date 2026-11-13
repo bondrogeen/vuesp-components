@@ -428,14 +428,14 @@ onUnmounted(flush);
           :key="block.key"
           type="button"
           class="flex items-center gap-2 rounded-md px-3 py-2 text-left transition"
-          :class="activeBlock === block.key ? 'bg-primary/10 text-primary' : 'hover:bg-white/5'"
+          :class="activeBlock === block.key ? 'bg-cyan-main/10 text-cyan-main' : 'hover:bg-white/5'"
           @click="activeBlock = block.key"
         >
-          <span class="grid size-8 shrink-0 place-items-center rounded-md border border-gray-300/50 dark:border-white/10">
+          <span class="grid size-8 shrink-0 place-items-center rounded-md border border-gray-light-10/50 dark:border-white/10">
             <VisionIcon :name="block.icon" :size="16" />
           </span>
           <span class="min-w-0 flex-1 truncate text-sm font-medium">{{ block.label }}</span>
-          <span class="text-xs text-gray-500 dark:text-gray-400">{{ block.count }}</span>
+          <span class="text-xs text-gray-dark-25 dark:text-gray-main">{{ block.count }}</span>
         </button>
       </nav>
 
@@ -475,12 +475,12 @@ onUnmounted(flush);
           <section v-if="hasMetrics" class="glass-inset rounded-xl p-3">
             <VTextWrapper :active="Boolean(activeGroupArgs.length)" :icon-disabled="activeGroupArgs.length >= MAX_METRIC_ARGS" label="Аргументы" icon-label="Добавить аргумент" @icon="openGroupArg()">
               <div v-if="activeGroupArgs.length" class="flex gap-2 flex-wrap flex-auto px-2 py-1">
-                <div v-for="(arg, i) of activeGroupArgs" :key="arg" class="flex items-center rounded-full bg-gray-200 dark:bg-gray-900/50 px-2 py-[2px] text-xs">
+                <div v-for="(arg, i) of activeGroupArgs" :key="arg" class="flex items-center rounded-full bg-gray-light-10 dark:bg-gray-dark-40/50 px-2 py-[2px] text-xs">
                   <div class="relative group">
                     <span class="select-none">{{ arg }}</span>
                   </div>
 
-                  <button v-if="i ? true : Boolean(activeGroupArgs.length < 2)" type="button" class="ms-1 shrink-0 cursor-pointer text-gray-400 transition hover:text-rose-500" @click="removeGroupArg(i)">
+                  <button v-if="i ? true : Boolean(activeGroupArgs.length < 2)" type="button" class="ms-1 shrink-0 cursor-pointer text-gray-main transition hover:text-rose-500" @click="removeGroupArg(i)">
                      <icon-ri-close-line class="size-5" />
                   </button>
                 </div>
@@ -497,14 +497,14 @@ onUnmounted(flush);
               </VButton>
             </div>
 
-            <p v-if="!activeMetrics.length" class="glass-inset rounded-xl p-3 text-sm text-gray-500 dark:text-gray-400">Показателей нет. Добавьте первый.</p>
+            <p v-if="!activeMetrics.length" class="glass-inset rounded-xl p-3 text-sm text-gray-dark-25 dark:text-gray-main">Показателей нет. Добавьте первый.</p>
 
             <div v-else class="flex flex-col gap-2">
               <div
                 v-for="(metric, index) of activeMetrics"
                 :key="metric.id"
                 class="rounded-xl transition"
-                :class="{ 'ring-1 ring-primary/50': dragOverIndex === index }"
+                :class="{ 'ring-1 ring-cyan-main/50': dragOverIndex === index }"
                 @dragover.prevent="onDragOver(index)"
                 @drop.prevent="onDrop(index)"
               >

@@ -12,7 +12,7 @@ export const renderMenu = (suggestions: ISuggestion[], selectedIndex: number, on
   container.className = `
     fixed z-[10000] min-w-[250px] max-w-[400px] max-h-[250px] 
     overflow-y-auto p-1 rounded-lg shadow-lg border 
-    border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 
+    border-gray-light-10 dark:border-gray-dark-30 bg-white dark:bg-gray-dark-30 
     text-sm font-mono scrollbar pointer-events-none
   `;
 
@@ -22,16 +22,16 @@ export const renderMenu = (suggestions: ISuggestion[], selectedIndex: number, on
     item.className = `
       flex items-center justify-between gap-2 px-3 py-1.5 cursor-pointer 
       rounded transition-colors duration-100 border-l-2 
-      ${isSelected ? 'border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'border-transparent hover:bg-gray-100 dark:hover:bg-gray-700'}
+      ${isSelected ? 'border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/30' : 'border-transparent hover:bg-gray-light-30 dark:hover:bg-gray-dark-30'}
     `;
 
-    const colorClass = TOKEN_COLORS[suggestion.type] || 'text-gray-700 dark:text-gray-300';
+    const colorClass = TOKEN_COLORS[suggestion.type] || 'text-gray-dark-30 dark:text-gray-light-10';
     item.innerHTML = `
       <div class="flex items-center gap-2 flex-1">
         <span class="${colorClass} font-medium">${suggestion.label}</span>
-        ${suggestion.detail ? `<span class="text-xs text-gray-500 dark:text-gray-400 ml-2">${suggestion.detail}</span>` : ''}
+        ${suggestion.detail ? `<span class="text-xs text-gray-dark-25 dark:text-gray-main ml-2">${suggestion.detail}</span>` : ''}
       </div>
-      ${suggestion.description ? `<span class="text-xs text-gray-400 dark:text-gray-500">${suggestion.description}</span>` : ''}
+      ${suggestion.description ? `<span class="text-xs text-gray-main dark:text-gray-dark-25">${suggestion.description}</span>` : ''}
     `;
     item.addEventListener('click', () => onSelect(index));
     container.appendChild(item);
@@ -46,29 +46,29 @@ export const renderTooltip = (suggestion: ISuggestion, position: { left: number;
     fixed z-[10001] px-3 py-2 font-mono text-sm max-w-[300px] 
     min-w-[50px] min-h-[20px] rounded-lg shadow-lg border 
     pointer-events-none transition-opacity duration-150
-    bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 
-    text-gray-700 dark:text-gray-300 pointer-events-none
+    bg-white dark:bg-gray-dark-30 border-gray-light-10 dark:border-gray-dark-30 
+    text-gray-dark-30 dark:text-gray-light-10 pointer-events-none
   `;
   tooltip.style.cssText = `
     left: ${position.left + 40}px; top: ${position.top - 10}px;
     transform: translateX(-50%) translateY(-100%); opacity: 0;
   `;
 
-  const colorClass = TOKEN_COLORS[suggestion.type] || 'text-gray-700 dark:text-gray-300';
+  const colorClass = TOKEN_COLORS[suggestion.type] || 'text-gray-dark-30 dark:text-gray-light-10';
   let content = `<div class="font-medium ${colorClass}">${suggestion.label}</div>`;
 
   if (suggestion.detail) {
-    content += `<div class="text-gray-500 dark:text-gray-400 mt-0.5 text-xs">${suggestion.detail}</div>`;
+    content += `<div class="text-gray-dark-25 dark:text-gray-main mt-0.5 text-xs">${suggestion.detail}</div>`;
   }
   if (suggestion.description) {
-    content += `<div class="text-gray-400 dark:text-gray-500 text-xs mt-1 pt-1 border-t border-gray-200 dark:border-gray-700">${suggestion.description}</div>`;
+    content += `<div class="text-gray-main dark:text-gray-dark-25 text-xs mt-1 pt-1 border-t border-gray-light-10 dark:border-gray-dark-30">${suggestion.description}</div>`;
   }
   tooltip.innerHTML = content;
 
   const arrow = document.createElement('div');
   arrow.className = `
     absolute bottom-[-6px] left-1/2 w-2.5 h-2.5 -translate-x-1/2 rotate-45
-    bg-white dark:bg-gray-800 border-r border-b border-gray-200 dark:border-gray-700
+    bg-white dark:bg-gray-dark-30 border-r border-b border-gray-light-10 dark:border-gray-dark-30
   `;
   tooltip.appendChild(arrow);
 

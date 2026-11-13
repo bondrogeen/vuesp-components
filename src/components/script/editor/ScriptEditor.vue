@@ -13,7 +13,7 @@ const emit = defineEmits<IScriptEditorEmit>();
 
 let editor: Yace;
 
-const customSuggestions = [...DEFAULT_SUGGESTIONS, ...suggestions]
+const customSuggestions = [...DEFAULT_SUGGESTIONS, ...suggestions];
 
 watch(
   () => modelValue,
@@ -64,39 +64,39 @@ onUnmounted(() => {
 
 <style>
 .tok--str {
-  color: #924c1e;
+  color: var(--color-amber-dark-75);
 }
 .dark .tok--str {
-  color: #c3865e;
+  color: var(--color-amber-dark-35);
 }
 .tok--num {
-  color: #4c8513;
+  color: var(--color-green-dark-55);
 }
 .dark .tok--num {
-  color: #abc88e;
+  color: var(--color-green-light-25);
 }
 .tok--word {
-  color: #ad24be;
+  color: var(--color-purple-main);
 }
 .dark .tok--word {
-  color: #b068b9;
+  color: var(--color-purple-light-30);
 }
 .tok--var {
-  color: #279bd9;
+  color: var(--color-cyan-dark-30);
 }
 .dark .tok--var {
-  color: #9cdcfe;
+  color: var(--color-cyan-light-40);
 }
 .tok--event {
-  color: #924c1e;
+  color: var(--color-amber-dark-75);
 }
 .dark .tok--event {
-  color: #dcdcaa;
+  color: var(--color-amber-light-45);
 }
 .tok--operator {
-  color: #99901a;
+  color: var(--color-amber-dark-40);
 }
 .dark .tok--operator {
-  color: #dbcb04;
+  color: var(--color-amber-dark-40);
 }
 </style>

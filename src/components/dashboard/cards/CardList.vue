@@ -35,7 +35,7 @@ const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
       <div @click.prevent.stop>
         <VSelect v-bind="getBind(item)" is-popup top="0" left="-115px" @change="setState">
           <template #activator="{ on }">
-            <VButton type="icon" class="text-gray-500" @click.stop="on.click">
+            <VButton type="icon" class="text-gray-dark-25" @click.stop="on.click">
               <icon-ri-list-check class="size-6" />
             </VButton>
           </template>

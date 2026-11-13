@@ -65,7 +65,7 @@ const getSizeContent = computed(() => ({
 
         <div class="glass-popover relative w-full rounded-t-lg border-t shadow-nav" :class="getSize[size]" :style="{ transform }">
           <div ref="target" class="flex justify-center py-3 md:pb-6" @wheel.prevent @touchmove.prevent>
-            <div class="self-end h-1 w-12 bg-gray-400" />
+            <div class="self-end h-1 w-12 bg-gray-main" />
           </div>
 
           <div class="flex items-center absolute right-3 top-5 z-10">

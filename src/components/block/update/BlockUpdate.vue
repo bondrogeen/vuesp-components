@@ -45,7 +45,7 @@ const onUpdate = (name: string, files: FileList | null) => {
     <div v-for="(file, key) in files" :key="key" class="mb-4 flex items-center">
       <VFile accept=".bin" @change="files[key] = $event" class="flex-auto">
         <div class="md:flex">
-          <h6 class="text-gray-600 bg:text-gray-400 first-letter:uppercase min-w-19">{{ key }}:</h6>
+          <h6 class="text-gray-dark-25 bg:text-gray-main first-letter:uppercase min-w-19">{{ key }}:</h6>
           <slot :file="getFileNames(file)"></slot>
         </div>
       </VFile>

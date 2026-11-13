@@ -131,9 +131,9 @@ const nodes = computed(() => [
     icon: 'plug',
     label: displayText(gridTitle),
     metrics: groupMetrics('grid'),
-    tone: 'text-primary',
-    surface: 'bg-primary/10',
-    card: 'border-primary/25 bg-primary/[0.04]',
+    tone: 'text-cyan-main',
+    surface: 'bg-cyan-main/10',
+    card: 'border-cyan-main/25 bg-cyan-main/[0.04]',
   },
   {
     key: 'home',
@@ -146,7 +146,6 @@ const nodes = computed(() => [
     card: 'border-violet-500/25 bg-violet-500/[0.04]',
   },
 ]);
-
 
 type Side = 'left' | 'right' | 'top' | 'bottom';
 
@@ -311,9 +310,9 @@ onUnmounted(() => {
       <div class="flex items-center gap-2">
         <span
           class="inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-xs font-medium"
-          :class="online ? 'border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'border-gray-300/60 bg-gray-500/10 text-gray-500 dark:border-white/10 dark:text-gray-400'"
+          :class="online ? 'border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'border-gray-light-10/60 bg-gray-dark-25/10 text-gray-dark-25 dark:border-white/10 dark:text-gray-main'"
         >
-          <span class="size-1.5 rounded-full" :class="online ? 'animate-pulse bg-emerald-500' : 'bg-gray-400'" />
+          <span class="size-1.5 rounded-full" :class="online ? 'animate-pulse bg-emerald-500' : 'bg-gray-main'" />
           {{ online ? 'Онлайн' : 'Не в сети' }}
         </span>
 
@@ -328,27 +327,22 @@ onUnmounted(() => {
     </template>
 
     <div ref="containerRef" class="relative min-h-120 lg:min-h-104">
-      <svg
-        v-if="geometry"
-        class="pointer-events-none absolute inset-0 size-full"
-        :viewBox="`0 0 ${geometry.width} ${geometry.height}`"
-        aria-hidden="true"
-      >
+      <svg v-if="geometry" class="pointer-events-none absolute inset-0 size-full" :viewBox="`0 0 ${geometry.width} ${geometry.height}`" aria-hidden="true">
         <path
           v-for="link of links"
           :id="`energy-path-${link.id}`"
           :key="`rail-${link.id}`"
-          class="stroke-current text-gray-400 dark:text-white/20 [stroke-width:1.5] [stroke-linecap:round] [stroke-dasharray:2_6] opacity-45"
+          class="stroke-current text-gray-main dark:text-white/20 [stroke-width:1.5] [stroke-linecap:round] [stroke-dasharray:2_6] opacity-45"
           :d="geometry.paths[link.id]"
           fill="none"
         />
 
         <g v-for="link of activeLinks" :key="`flow-${link.id}`">
-          <path class="stroke-[var(--color-primary)] [stroke-width:2.5] [stroke-linecap:round] opacity-55" :d="geometry.paths[link.id]" fill="none" />
-          <path class="stroke-[var(--color-primary)] [stroke-width:10] [stroke-linecap:round] opacity-20 blur-[6px]" :d="geometry.paths[link.id]" fill="none" />
+          <path class="stroke-[var(--color-cyan-main)] [stroke-width:2.5] [stroke-linecap:round] opacity-55" :d="geometry.paths[link.id]" fill="none" />
+          <path class="stroke-[var(--color-cyan-main)] [stroke-width:10] [stroke-linecap:round] opacity-20 blur-[6px]" :d="geometry.paths[link.id]" fill="none" />
 
           <path
-            class="animate-energy-flow stroke-[#d6f6ff] [stroke-width:2] [stroke-linecap:round] [stroke-dasharray:16_22] opacity-75 drop-shadow-[0_0_4px_rgba(40,183,240,0.55)] motion-reduce:animate-none motion-reduce:[stroke-dasharray:none]"
+            class="animate-energy-flow stroke-[var(--color-gray-light-30)] [stroke-width:2] [stroke-linecap:round] [stroke-dasharray:16_22] opacity-75 drop-shadow-[var(--shadow-cyan-glow-xs)] motion-reduce:animate-none motion-reduce:[stroke-dasharray:none]"
             :class="{ '[animation-direction:reverse]': link.reverse }"
             :d="geometry.paths[link.id]"
             :style="{ animationDuration: `${link.speed}s` }"
@@ -356,49 +350,20 @@ onUnmounted(() => {
           />
 
           <template v-if="!isStatic">
-            <circle
-              v-for="(dot, index) of [0, 1, 2]"
-              :key="`dot-${link.id}-${dot}`"
-              r="2.6"
-              fill="#d6f6ff"
-              opacity="0"
-              class="drop-shadow-[0_0_5px_rgba(40,183,240,0.9)]"
-            >
-              <animateMotion
-                :dur="`${link.speed}s`"
-                :begin="`${(index * link.speed) / 3}s`"
-                repeatCount="indefinite"
-                calcMode="linear"
-                keyTimes="0;1"
-                :keyPoints="link.reverse ? '1;0' : '0;1'"
-              >
+            <circle v-for="(dot, index) of [0, 1, 2]" :key="`dot-${link.id}-${dot}`" r="2.6" fill="var(--color-gray-light-30)" opacity="0" class="drop-shadow-[var(--shadow-cyan-glow-dot)]">
+              <animateMotion :dur="`${link.speed}s`" :begin="`${(index * link.speed) / 3}s`" repeatCount="indefinite" calcMode="linear" keyTimes="0;1" :keyPoints="link.reverse ? '1;0' : '0;1'">
                 <mpath :href="`#energy-path-${link.id}`" />
               </animateMotion>
 
-              <animate
-                attributeName="opacity"
-                values="0;1;1;0"
-                keyTimes="0;0.15;0.85;1"
-                :dur="`${link.speed}s`"
-                :begin="`${(index * link.speed) / 3}s`"
-                repeatCount="indefinite"
-              />
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" :dur="`${link.speed}s`" :begin="`${(index * link.speed) / 3}s`" repeatCount="indefinite" />
             </circle>
           </template>
         </g>
       </svg>
 
       <div class="relative grid h-full grid-cols-2 grid-rows-3 gap-3 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
-        <div
-          v-for="node of nodes"
-          :key="node.key"
-          :ref="(el) => setNodeRef(node.key, el)"
-          :class="node.wrapper"
-        >
-          <div
-            class="relative flex w-full max-w-none flex-col gap-3 rounded-2xl border p-4 shadow-[0_0_60px_-40px_rgba(40,183,240,0.35)] lg:max-w-56"
-            :class="node.card"
-          >
+        <div v-for="node of nodes" :key="node.key" :ref="(el) => setNodeRef(node.key, el)" :class="node.wrapper">
+          <div class="relative flex w-full max-w-none flex-col gap-3 rounded-2xl border p-4 shadow-[var(--shadow-cyan-glow-soft)] lg:max-w-56" :class="node.card">
             <div class="flex items-center gap-2">
               <span class="grid size-8 shrink-0 place-items-center rounded-lg" :class="node.surface">
                 <VisionIcon :name="node.icon" :size="16" :class="node.tone" />
@@ -409,7 +374,7 @@ onUnmounted(() => {
 
             <div v-if="node.metrics.length" class="flex flex-col gap-2">
               <div v-for="metric of node.metrics" :key="metric.id" class="glass-inset rounded-lg px-3 py-2">
-                <span class="block text-xs text-gray-500 dark:text-gray-400">{{ metric.label }}</span>
+                <span class="block text-xs text-gray-dark-25 dark:text-gray-main">{{ metric.label }}</span>
                 <span class="mt-0.5 block whitespace-pre" :class="metricClasses(metric.style)">{{ metric.value }}</span>
               </div>
             </div>
@@ -417,39 +382,36 @@ onUnmounted(() => {
         </div>
 
         <div class="col-span-2 row-start-2 grid place-items-center lg:col-span-1 lg:col-start-2 lg:row-span-3 lg:self-center">
-          <div
-            ref="inverterRef"
-            class="relative w-full max-w-72 rounded-2xl border border-primary/30 bg-primary/10 p-4 text-primary shadow-[0_0_70px_-24px_rgba(40,183,240,0.9)]"
-          >
-            <span class="absolute -inset-2 rounded-3xl border border-primary/15" />
+          <div ref="inverterRef" class="relative w-full max-w-72 rounded-2xl border border-cyan-main/30 bg-cyan-main/10 p-4 text-cyan-main shadow-[var(--shadow-cyan-glow)]">
+            <span class="absolute -inset-2 rounded-3xl border border-cyan-main/15" />
 
             <div class="relative">
               <div class="flex items-center gap-2">
-                <span class="grid size-9 place-items-center rounded-lg bg-primary/15">
+                <span class="grid size-9 place-items-center rounded-lg bg-cyan-main/15">
                   <VisionIcon name="inverter" :size="20" />
                 </span>
-                <span class="text-sm font-semibold text-gray-800 dark:text-white">{{ inverterTitle }}</span>
+                <span class="text-sm font-semibold text-gray-dark-30 dark:text-white">{{ inverterTitle }}</span>
               </div>
 
               <div class="mt-3">
-                <span class="whitespace-pre-line text-2xl font-bold text-gray-900 dark:text-white">{{ loadPowerDisplay }}</span>
-                <span class="ml-1 text-xs text-gray-500 dark:text-gray-400">{{ loadLabel }}</span>
+                <span class="whitespace-pre-line text-2xl font-bold text-gray-dark-40 dark:text-white">{{ loadPowerDisplay }}</span>
+                <span class="ml-1 text-xs text-gray-dark-25 dark:text-gray-main">{{ loadLabel }}</span>
               </div>
 
               <dl class="mt-3 grid grid-cols-2 gap-2">
                 <div v-for="metric of inverterMetrics" :key="metric.id" class="glass-inset rounded-md px-3 py-2">
-                  <dt class="min-w-0 truncate text-xs text-gray-500 dark:text-gray-400">{{ metric.label }}</dt>
+                  <dt class="min-w-0 truncate text-xs text-gray-dark-25 dark:text-gray-main">{{ metric.label }}</dt>
                   <dd class="mt-0.5 whitespace-pre" :class="metricClasses(metric.style)">{{ metric.value }}</dd>
                 </div>
               </dl>
 
               <div class="glass-inset mt-2 rounded-md px-3 py-2">
                 <div class="flex items-center justify-between gap-2 text-xs">
-                  <span class="text-gray-500 dark:text-gray-400">Батарея</span>
+                  <span class="text-gray-dark-25 dark:text-gray-main">Батарея</span>
                   <span class="whitespace-pre-line font-semibold">{{ batterySocValue }} %</span>
                 </div>
 
-                <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-gray-200/70 dark:bg-white/10">
+                <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-gray-light-10/70 dark:bg-white/10">
                   <div class="h-full rounded-full bg-emerald-500 transition-all duration-500" :style="{ width: `${batterySocValue}%` }" />
                 </div>
               </div>

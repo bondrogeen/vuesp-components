@@ -35,12 +35,12 @@
             <div class="flex flex-col gap-4">
               <VTextWrapper :active="Boolean(item.args.length)" :disabled="isArgsDisabled" label="Arguments" @icon="dialog = true">
                 <div class="flex gap-2 flex-wrap flex-auto px-2 py-1">
-                  <div v-for="(arg, i) of item.args" :key="arg" class="flex items-center rounded-full bg-gray-200 dark:bg-gray-900/50 px-2 py-[2px] text-xs">
+                  <div v-for="(arg, i) of item.args" :key="arg" class="flex items-center rounded-full bg-gray-light-10 dark:bg-gray-dark-40/50 px-2 py-[2px] text-xs">
                     <div class="relative group">
                       <span class="select-none">{{ arg }}</span>
                     </div>
 
-                    <button v-if="i ? true : Boolean(item.args.length < 2)" class="ms-1 shrink-0 cursor-pointer text-gray-400 transition hover:text-rose-500" @click="onRemoveParams(arg)">
+                    <button v-if="i ? true : Boolean(item.args.length < 2)" class="ms-1 shrink-0 cursor-pointer text-gray-main transition hover:text-rose-500" @click="onRemoveParams(arg)">
                       <icon-ri-close-line class="size-5" />
                     </button>
                   </div>

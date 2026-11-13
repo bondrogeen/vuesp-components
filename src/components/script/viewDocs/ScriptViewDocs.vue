@@ -142,7 +142,7 @@ onMounted(async () => {
 <template>
   <div class="max-w-4xl mx-auto">
     <div class="text-sm" v-if="isLoading || error">
-      <span v-if="isLoading" class="text-gray-500">⏳</span>
+      <span v-if="isLoading" class="text-gray-dark-25">⏳</span>
       <span v-if="error" class="text-red-600">❌ {{ error }}</span>
     </div>
 

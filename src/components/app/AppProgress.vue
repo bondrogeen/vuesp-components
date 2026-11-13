@@ -15,14 +15,14 @@
           <span v-if="isDone" class="text-green-600">Done</span>
         </slot>
 
-        <button class="cursor-pointer transition text-gray-700 dark:text-gray-400 self-start hover:text-gray-600" @click="isShow = false">
+        <button class="cursor-pointer transition text-gray-dark-30 dark:text-gray-main self-start hover:text-gray-dark-25" @click="isShow = false">
           <icon-ri-close-line class="size-4" />
         </button>
       </div>
 
       <div v-if="isProgress" class="h-[2px] fixed top-0 left-0 w-full bg-blue-600 transition-all duration-500" :style="`width: ${getPercent}%`"></div>
 
-      <div v-if="isProgress" class="relative mt-2 block h-4 w-full select-none overflow-hidden rounded-md bg-gray-200/70 dark:bg-white/10">
+      <div v-if="isProgress" class="relative mt-2 block h-4 w-full select-none overflow-hidden rounded-md bg-gray-light-10/70 dark:bg-white/10">
         <div class="absolute left-[140px] top-1/2 -translate-1/2 text-sm font-bold text-black dark:text-white text-center leading-none">{{ getPercent }}%</div>
 
         <div class="bg-blue-600 rounded h-4 overflow-hidden relative transition-all duration-500" :style="`width: ${getPercent}%`">

@@ -1,24 +1,91 @@
 @source './**/*.js';
 
 @theme {
-  --color-primary: #28b7f0;
-  --color-secondary: #66d3f1;
+  /* Cyan */
+  --color-cyan-main: #28b7f0;
+  --color-cyan-light-40: #9cdcfe;
+  --color-cyan-dark-30: #279bd9;
+
+  /* Blue */
+  --color-blue-main: #0075ff;
+  --color-blue-light-30: #4c9eff;
+  --color-blue-dark-25: #0058bf;
+
+  /* Indigo */
+  --color-indigo-main: #6366f1;
+  --color-indigo-light-30: #9294f5;
+  --color-indigo-dark-25: #4a4cb5;
+
+  /* Violet */
+  --color-violet-main: #8b5cf6;
+  --color-violet-light-30: #ae8df9;
+  --color-violet-dark-25: #6845b8;
+
+  /* Purple */
+  --color-purple-main: #ad24be;
+  --color-purple-light-30: #c666d2;
+  --color-purple-dark-25: #821b8e;
+
+  /* Amber */
+  --color-amber-main: #f59e0b;
+  --color-amber-light-45: #dcdcaa;
+  --color-amber-dark-35: #c3865e;
+  --color-amber-dark-40: #99901a;
+  --color-amber-dark-75: #924c1e;
+
+  /* Green */
+  --color-green-main: #01b574;
+  --color-green-light-25: #abc88e;
+  --color-green-dark-55: #2e7d32;
+
+  /* Red */
+  --color-red-main: #fc3f1d;
+  --color-red-light-30: #fd7961;
+  --color-red-dark-25: #bd2f16;
+
+  /* Slate */
+  --color-slate-main: #8f9bba;
+  --color-slate-light-30: #b1b9cf;
+  --color-slate-dark-25: #6b748c;
+
+  /* Night (тёмные поверхности) */
+  --color-night-dark-5: #05081f;
+  --color-night-main: #060b28;
+  --color-night-light-10: #0b1538;
+
+  /* Gray */
+  --color-gray-light-30: #f5f5f5;
+  --color-gray-light-10: #cccccc;
+  --color-gray-main: #999999;
+  --color-gray-dark-10: #808080;
+  --color-gray-dark-25: #4d4d4d;
+  --color-gray-dark-30: #333333;
+  --color-gray-dark-40: #1f1f1f;
 
   --shadow-nav: 0px 7px 16px 0px #0000001a;
   --shadow-nav-white: 0px 7px 16px 0px #ffffff0a;
 
-  --color-vision-bg: #060b28;
-  --color-vision-bg-soft: #0a1235;
-  --color-vision-card: #0b1538;
-  --color-vision-card-2: #0f1b44;
-  --color-vision-border: rgba(255, 255, 255, 0.1);
-  --color-vision-muted: #8f9bba;
-  --color-vision-primary: #0075ff;
-  --color-vision-primary-soft: #2196f3;
-  --color-vision-success: #01b574;
-  --color-vision-danger: #f56565;
-  --color-vision-warning: #ffb547;
-  --color-vision-purple: #7551ff;
+  /* Свечения на основе основных цветов палитры */
+  --shadow-cyan-glow: 0 0 70px -24px color-mix(in srgb, var(--color-cyan-main) 90%, transparent);
+  --shadow-cyan-glow-soft: 0 0 60px -40px color-mix(in srgb, var(--color-cyan-main) 35%, transparent);
+  --shadow-cyan-glow-xs: 0 0 4px color-mix(in srgb, var(--color-cyan-main) 55%, transparent);
+  --shadow-cyan-glow-dot: 0 0 6px color-mix(in srgb, var(--color-cyan-main) 90%, transparent);
+  --shadow-cyan-glow-bar: 0 0 8px color-mix(in srgb, var(--color-cyan-main) 90%, transparent);
+  --shadow-cyan-glow-md: 0 12px 32px -14px color-mix(in srgb, var(--color-cyan-main) 90%, transparent);
+
+  --shadow-blue-glow: 0 8px 24px -12px color-mix(in srgb, var(--color-blue-main) 90%, transparent);
+  --shadow-indigo-glow: 0 8px 24px -12px color-mix(in srgb, var(--color-indigo-main) 90%, transparent);
+  --shadow-violet-glow: 0 8px 24px -12px color-mix(in srgb, var(--color-violet-main) 90%, transparent);
+  --shadow-violet-glow-lg: 0 0 50px -18px color-mix(in srgb, var(--color-violet-main) 35%, transparent);
+  --shadow-amber-glow: 0 8px 24px -12px color-mix(in srgb, var(--color-amber-main) 90%, transparent);
+  --shadow-green-glow: 0 8px 24px -12px color-mix(in srgb, var(--color-green-main) 90%, transparent);
+  --shadow-green-ring: 0 0 0 4px color-mix(in srgb, var(--color-green-main) 13%, transparent);
+  --shadow-red-glow: 0 8px 24px -12px color-mix(in srgb, var(--color-red-main) 90%, transparent);
+  --shadow-red-glow-lg: 0 12px 32px -14px color-mix(in srgb, var(--color-red-main) 90%, transparent);
+  --shadow-slate-glow: 0 8px 24px -12px color-mix(in srgb, var(--color-slate-main) 90%, transparent);
+
+  --shadow-card: 0 24px 60px -40px rgb(0 0 0 / 0.8);
+  --shadow-card-strong: 0 24px 80px -40px rgb(0 0 0 / 0.9);
 
   --animate-shake: shake 0.2s ease-in-out;
   --animate-opacity: opacity 0.3s ease-in;
@@ -143,12 +210,10 @@
 
   .vision-glow {
     background:
-      radial-gradient(circle at 18% -10%, rgba(0, 117, 255, 0.22), transparent 34%),
-      radial-gradient(circle at 82% 0%, rgba(117, 81, 255, 0.16), transparent 30%),
+      radial-gradient(circle at 18% -10%, rgba(0, 117, 255, 0.22), transparent 34%), radial-gradient(circle at 82% 0%, rgba(117, 81, 255, 0.16), transparent 30%),
       radial-gradient(circle at 50% 100%, rgba(0, 117, 255, 0.08), transparent 42%);
   }
 }
-
 
 @layer base {
   html {
@@ -167,7 +232,7 @@
   body {
     min-height: 100dvh;
     min-width: 320px;
-    color: #101828;
+    color: var(--color-gray-dark-30);
     transition:
       color 0.15s,
       background-color 0.15s,
@@ -175,7 +240,7 @@
   }
 
   .dark body {
-    color: #ffffff;
+    color: var(--color-gray-light-30);
   }
 
   input {
@@ -252,23 +317,23 @@
 
   .scrollbar::-webkit-scrollbar-thumb {
     border-radius: 100vh;
-    background-color: #99a1af;
+    background-color: var(--color-slate-main);
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #99a1af;
+    background-color: var(--color-slate-main);
   }
 
   .dark .scrollbar::-webkit-scrollbar-track {
-    background-color: #1e2939;
+    background-color: var(--color-night-light-10);
   }
 
   .dark .scrollbar::-webkit-scrollbar-thumb {
-    background-color: #4a5565;
+    background-color: var(--color-slate-main);
   }
 
   .dark .scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #4a5565;
+    background-color: var(--color-slate-main);
   }
 
   @media (max-width: 1023px) {
@@ -283,36 +348,30 @@
 }
 
 body {
-  background-color: #e3effa;
+  background-color: var(--color-gray-light-30);
   background-image:
-    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
-    radial-gradient(circle at 12% -5%, rgba(40, 183, 240, 0.18), transparent 32%),
-    radial-gradient(circle at 88% -5%, rgba(117, 81, 255, 0.1), transparent 30%);
-  background-size: 56px 56px, 56px 56px, auto, auto;
+    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 12% -5%, rgba(40, 183, 240, 0.18), transparent 32%), radial-gradient(circle at 88% -5%, rgba(117, 81, 255, 0.1), transparent 30%);
+  background-size:
+    56px 56px,
+    56px 56px,
+    auto,
+    auto;
   background-attachment: fixed;
 }
 
 .dark body {
-  background-color: #060b28;
+  background-color: var(--color-night-main);
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    radial-gradient(circle at 12% -5%, rgba(40, 183, 240, 0.18), transparent 32%),
-    radial-gradient(circle at 88% -5%, rgba(117, 81, 255, 0.14), transparent 30%),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 12% -5%, rgba(40, 183, 240, 0.18), transparent 32%), radial-gradient(circle at 88% -5%, rgba(117, 81, 255, 0.14), transparent 30%),
     radial-gradient(circle at 50% 105%, rgba(40, 183, 240, 0.06), transparent 42%);
-  background-size: 56px 56px, 56px 56px, auto, auto, auto;
+  background-size:
+    56px 56px,
+    56px 56px,
+    auto,
+    auto,
+    auto;
   background-attachment: fixed;
 }
 
-:root {
-  --accent-blue: #2563eb;
-  --accent-blue-hover: #1d4ed8;
-  --accent-indigo: #6366f1;
-  --accent-violet: #8b5cf6;
-  --accent-emerald: #10b981;
-  --accent-amber: #f59e0b;
-  --accent-rose: #f43f5e;
-  --accent-slate: #475569;
-  --accent: var(--accent-blue);
-}

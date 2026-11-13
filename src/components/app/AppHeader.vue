@@ -11,7 +11,7 @@
 
         <div class="lg:hidden h-[30px]">
           <router-link to="/">
-            <VIconLogo class="h-[30px] text-primary"></VIconLogo>
+            <VIconLogo class="h-[30px] text-cyan-main"></VIconLogo>
           </router-link>
         </div>
 

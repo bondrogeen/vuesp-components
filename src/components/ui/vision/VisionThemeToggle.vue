@@ -39,7 +39,7 @@ onMounted(async () => {
 <template>
 	<button
 		type="button"
-		class="grid size-9 place-items-center rounded-md text-gray-600 transition-colors hover:bg-white/50 hover:text-[var(--app-accent)] dark:text-gray-300 dark:hover:bg-white/5 dark:hover:text-white"
+		class="grid size-9 place-items-center rounded-md text-gray-dark-25 transition-colors hover:bg-white/50 hover:text-[var(--app-accent)] dark:text-gray-light-10 dark:hover:bg-white/5 dark:hover:text-white"
 		:aria-label="theme === 'dark' ? labelLight : labelDark"
 		:title="theme === 'dark' ? titleLight : titleDark"
 		@click="apply(theme === 'dark' ? 'light' : 'dark')"

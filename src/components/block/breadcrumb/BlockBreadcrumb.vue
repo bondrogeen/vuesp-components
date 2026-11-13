@@ -1,7 +1,7 @@
 <template>
   <nav>
     <ol class="flex items-center gap-1.5">
-      <li v-for="(item, i) of items" :key="i" class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400" :class="item.path ? '' : 'text-gray-800 dark:text-white/90'">
+      <li v-for="(item, i) of items" :key="i" class="inline-flex items-center gap-1.5 text-sm text-gray-dark-25 dark:text-gray-main" :class="item.path ? '' : 'text-gray-dark-30 dark:text-white/90'">
         <slot :item="item">
           <component :is="item.path ? 'a' : 'span'" :href="item.path" @click="onClick(item)">
             {{ item.name }}

@@ -4,14 +4,14 @@
       <div class="text-2xl font-bold mb-4">{{ 'disconn' }}</div>
 
       <div class="flex justify-center">
-        <v-loader class="text-primary"></v-loader>
+        <v-loader class="text-cyan-main"></v-loader>
       </div>
     </app-overlay>
 
     <div class="flex h-screen overflow-hidden">
       <app-aside v-if="!isIframe" :isSidebar="isSidebar" @sidebar="onSidebar">
         <h3 class="mb-4 text-xs h-5 uppercase flex items-center gap-2 justify-between" :class="isSidebar ? 'lg:hidden' : ''">
-          <span v-if="false" class="text-gray-400 text-nowrap">{{ 12 }}</span>
+          <span v-if="false" class="text-gray-main text-nowrap">{{ 12 }}</span>
         </h3>
 
         <app-nav :menu="[]" :isSidebar="isSidebar" :fullPath="'/'" @sidebar="onSidebar" />
@@ -30,7 +30,7 @@
 
         <app-notification :value="isSidebarRight" :notifications="[]" @close="isSidebarRight = false">
           <template #header="{ isNew }">
-            <div class="flex items-center justify-between py-4 sticky top-0 z-20 bg-gray-50 dark:bg-gray-900 px-2">
+            <div class="flex items-center justify-between py-4 sticky top-0 z-20 bg-gray-light-30 dark:bg-gray-dark-40 px-2">
               <h5>{{ 'List' }}</h5>
 
               <v-button class="text-sm" :disabled="!isNew">{{ 'All' }}</v-button>

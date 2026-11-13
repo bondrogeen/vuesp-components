@@ -22,7 +22,7 @@ const {
 const emit = defineEmits<IVTextFieldEmits>();
 
 const componentClass: Record<string, string> = {
-  input: 'w-full h-full px-4 outline-none overflow-ellipsis flex-auto overflow-hidden w-[calc(100% - 20px)] bg-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500',
+  input: 'w-full h-full px-4 outline-none overflow-ellipsis flex-auto overflow-hidden w-[calc(100% - 20px)] bg-transparent placeholder:text-gray-main dark:placeholder:text-gray-dark-25',
   textarea: 'h-full w-full px-4 py-2 outline-none flex-auto bg-transparent',
 };
 
@@ -33,14 +33,14 @@ const effectiveMessage = computed(() => error || message);
 const getClassSlot = computed(() => [
   component === 'input' ? 'h-[40px]' : 'min-h-[40px]',
   error ? '!border-red-400/70 ring-1 ring-red-400/25 hover:!border-red-400' : '',
-  disabled ? 'border-gray-300 opacity-40 dark:border-gray-700' : 'border-gray-300/80 hover:border-gray-400/80 dark:border-white/10 dark:hover:border-white/20',
+  disabled ? 'border-gray-light-10 opacity-40 dark:border-gray-dark-30' : 'border-gray-light-10/80 hover:border-gray-main/80 dark:border-white/10 dark:hover:border-white/20',
 ]);
 
 const getClassComponent = computed(() => componentClass[component]);
 
 const isValue = (value: number | string | null) => value || value === 0;
 
-const after = 'after:absolute after:h-1 after:w-full after:left-0 after:translate-y-[6px] after:-z-10 after:bg-white dark:after:bg-[#0b1538] after:transition-all';
+const after = 'after:absolute after:h-1 after:w-full after:left-0 after:translate-y-[6px] after:-z-10 after:bg-white dark:after:bg-night-light-10 after:transition-all';
 
 const isFloating = computed(() => isFocus.value || isValue(modelValue) || active);
 
@@ -49,9 +49,7 @@ const labelLeft = computed(() => (icon ? 'left-11' : 'left-3.5'));
 const getClassLabel = computed(() => [
   labelLeft.value,
   isFloating.value ? after : '',
-  isFloating.value
-    ? 'top-0 bg-white/80 px-1 text-xs text-gray-500 dark:bg-[#0b1538]/80 dark:text-gray-400'
-    : 'top-1/2 bg-transparent px-0 text-gray-400 dark:text-gray-500',
+  isFloating.value ? 'top-0 bg-white/80 px-1 text-xs text-gray-dark-25 dark:bg-night-light-10/80 dark:text-gray-main' : 'top-1/2 bg-transparent px-0 text-gray-main dark:text-gray-dark-25',
 ]);
 const isInput = computed(() => component === 'input');
 
@@ -75,8 +73,8 @@ const onIcon = (e: Event) => {
 
 <template>
   <div class="w-full relative">
-    <label class="glass-inset relative flex w-full items-center rounded-md transition focus-within:border-primary/60 focus-within:ring-1 focus-within:ring-primary/20" :class="getClassSlot">
-      <VisionIcon v-if="icon" :name="icon" :size="18" class="ml-3.5 shrink-0 text-gray-400 dark:text-gray-500" />
+    <label class="glass-inset relative flex w-full items-center rounded-md transition focus-within:border-cyan-main/60 focus-within:ring-1 focus-within:ring-cyan-main/20" :class="getClassSlot">
+      <VisionIcon v-if="icon" :name="icon" :size="18" class="ml-3.5 shrink-0 text-gray-main dark:text-gray-dark-25" />
 
       <span class="absolute -translate-y-1/2 rounded transition-all" :class="getClassLabel">
         {{ label }}
@@ -105,14 +103,14 @@ const onIcon = (e: Event) => {
         v-if="$slots.icon"
         :disabled="Boolean(disabled)"
         :class="{ 'cursor-pointer': !disabled }"
-        class="flex h-full flex-[0_0_50px] items-center justify-center border-l border-gray-200/70 text-gray-400 dark:border-white/10"
+        class="flex h-full flex-[0_0_50px] items-center justify-center border-l border-gray-light-10/70 text-gray-main dark:border-white/10"
         @click="onIcon"
       >
         <slot name="icon"></slot>
       </button>
     </label>
 
-    <div v-if="!hideMessage" class="h-[24px] px-2 text-xs" :class="error ? 'text-red-400' : 'text-gray-500 dark:text-gray-400'">
+    <div v-if="!hideMessage" class="h-[24px] px-2 text-xs" :class="error ? 'text-red-400' : 'text-gray-dark-25 dark:text-gray-main'">
       <slot name="message">
         {{ effectiveMessage }}
       </slot>

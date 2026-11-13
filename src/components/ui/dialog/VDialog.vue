@@ -53,7 +53,7 @@ defineExpose({
 
         <div class="flex-auto flex align-center overflow-y-auto overscroll-contain" :class="size === 'full' ? '' : ''">
           <div class="m-auto z-20 flex w-full flex-col overflow-auto overscroll-contain scrollbar bg-transparent shadow-lg" :class="getClass">
-            <div class="flex items-center min-h-14 border-b border-gray-200/70 bg-white/35 px-6 dark:border-white/10 dark:bg-white/[0.03]" :class="size === 'full' ? 'absolute top-0 right-4 border-0 bg-transparent px-0' : ''" @wheel.prevent @touchmove.prevent>
+            <div class="flex items-center min-h-14 border-b border-gray-light-10/70 bg-white/35 px-6 dark:border-white/10 dark:bg-white/[0.03]" :class="size === 'full' ? 'absolute top-0 right-4 border-0 bg-transparent px-0' : ''" @wheel.prevent @touchmove.prevent>
               <h4 class="text-title-md uppercase font-bold flex-auto">
                 {{ title }}
               </h4>

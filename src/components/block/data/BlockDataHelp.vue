@@ -8,9 +8,9 @@ const emit = defineEmits<{
 
 <template>
   <VDialog title="Как настроить блок" size="md" @close="emit('close')">
-    <div class="flex flex-col gap-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+    <div class="flex flex-col gap-4 text-sm leading-relaxed text-gray-dark-25 dark:text-gray-light-10">
       <section>
-        <h5 class="mb-1 text-base font-semibold text-gray-900 dark:text-white">Блоки и данные</h5>
+        <h5 class="mb-1 text-base font-semibold text-gray-dark-40 dark:text-white">Блоки и данные</h5>
         <p>
           Слева выбери блок: «Солнце», «Сеть», «Батарея», «Дом», «Инвертор» или «Основное».
           Справа появятся его аргументы, показатели и направление.
@@ -23,7 +23,7 @@ const emit = defineEmits<{
       </section>
 
       <section>
-        <h5 class="mb-1 text-base font-semibold text-gray-900 dark:text-white">Аргументы группы</h5>
+        <h5 class="mb-1 text-base font-semibold text-gray-dark-40 dark:text-white">Аргументы группы</h5>
         <p>
           Сначала добавь аргументы группы — до четырёх:
           <code class="rounded bg-white/5 px-1.5 py-0.5">a</code>,
@@ -35,7 +35,7 @@ const emit = defineEmits<{
           в выражении — появится его текущее значение.
         </p>
 
-        <h5 class="mb-1 mt-4 text-base font-semibold text-gray-900 dark:text-white">Показатели</h5>
+        <h5 class="mb-1 mt-4 text-base font-semibold text-gray-dark-40 dark:text-white">Показатели</h5>
         <p>
           Кнопка «+» добавляет показатель. У показателя есть название, значение и формат.
           В значении используй аргументы группы, в формате —
@@ -54,7 +54,7 @@ a + ' Вт'</pre>
       </section>
 
       <section>
-        <h5 class="mb-1 text-base font-semibold text-gray-900 dark:text-white">Направление</h5>
+        <h5 class="mb-1 text-base font-semibold text-gray-dark-40 dark:text-white">Направление</h5>
         <p>
           У солнца, сети, батареи и дома есть отдельное поле «Направление».
           У солнца и дома — прямое, обратное или нет потока; у сети — импорт,
@@ -63,7 +63,7 @@ a + ' Вт'</pre>
       </section>
 
       <section>
-        <h5 class="mb-1 text-base font-semibold text-gray-900 dark:text-white">Выражения</h5>
+        <h5 class="mb-1 text-base font-semibold text-gray-dark-40 dark:text-white">Выражения</h5>
         <p>
           Вместо готового пути можно написать выражение. Доступны корни
           <code class="rounded bg-white/5 px-1.5 py-0.5">device</code>,
@@ -85,7 +85,7 @@ solarPower + gridPower - batteryPower</pre>
       </section>
 
       <section>
-        <h5 class="mb-1 text-base font-semibold text-gray-900 dark:text-white">Значение и формат</h5>
+        <h5 class="mb-1 text-base font-semibold text-gray-dark-40 dark:text-white">Значение и формат</h5>
         <p>
           В значении собери число из аргументов, а в формате добавь единицу, текст и перенос строки.
           В формате <code class="rounded bg-white/5 px-1.5 py-0.5">v</code> — уже вычисленное значение.
@@ -104,7 +104,7 @@ v + ' кВт·ч&lt;br&gt;выработка за день'</pre>
       </section>
 
       <section>
-        <h5 class="mb-1 text-base font-semibold text-gray-900 dark:text-white">Сохранение и перенос</h5>
+        <h5 class="mb-1 text-base font-semibold text-gray-dark-40 dark:text-white">Сохранение и перенос</h5>
         <p>
           Изменения сохраняются автоматически. Крестик просто закрывает окно.
           Иконки в шапке: справка, импорт JSON и экспорт JSON.
@@ -112,7 +112,7 @@ v + ' кВт·ч&lt;br&gt;выработка за день'</pre>
       </section>
 
       <section>
-        <h5 class="mb-1 text-base font-semibold text-gray-900 dark:text-white">Где хранится настройка</h5>
+        <h5 class="mb-1 text-base font-semibold text-gray-dark-40 dark:text-white">Где хранится настройка</h5>
         <p>
           Конфиг блока хранится на самом устройстве или в хабе, а не в браузере.
           Поэтому настройки одинаковы на компьютере и телефоне.

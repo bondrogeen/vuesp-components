@@ -28,45 +28,46 @@ const component = computed(() => (to ? RouterLink : href ? 'a' : 'button'));
 const nativeType = computed(() => (type === 'submit' || type === 'reset' ? type : 'button'));
 const isIcon = computed(() => type === 'icon');
 
-const baseClass = 'relative inline-flex justify-center items-center gap-2 transition not-disabled:cursor-pointer not-disabled:hover:opacity-90 disabled:pointer-events-none disabled:opacity-40 rounded-md font-medium';
+const baseClass =
+  'relative inline-flex justify-center items-center gap-2 transition not-disabled:cursor-pointer not-disabled:hover:opacity-90 disabled:pointer-events-none disabled:opacity-40 rounded-md font-medium';
 
 const solidColors: Record<ButtonColor, string> = {
   green: 'border border-green-500/20 bg-green-500/10 text-green-600 dark:text-green-400',
   red: 'border border-red-500/20 bg-red-500/10 text-red-600 dark:text-red-400',
-  gray: 'border border-gray-200/70 bg-white/50 text-gray-700 dark:border-white/10 dark:bg-white/[0.05] dark:text-white/70',
-  blue: 'bg-[var(--accent-blue)] text-white shadow-[0_8px_24px_-12px_rgba(37,99,235,0.9)] hover:brightness-110',
-  indigo: 'bg-[var(--accent-indigo)] text-white shadow-[0_8px_24px_-12px_rgba(99,102,241,0.9)] hover:brightness-110',
-  violet: 'bg-[var(--accent-violet)] text-white shadow-[0_8px_24px_-12px_rgba(139,92,246,0.9)] hover:brightness-110',
-  emerald: 'bg-[var(--accent-emerald)] text-white shadow-[0_8px_24px_-12px_rgba(16,185,129,0.9)] hover:brightness-110',
-  amber: 'bg-[var(--accent-amber)] text-[#231400] shadow-[0_8px_24px_-12px_rgba(245,158,11,0.9)] hover:brightness-110',
-  rose: 'bg-[var(--accent-rose)] text-white shadow-[0_8px_24px_-12px_rgba(244,63,94,0.9)] hover:brightness-110',
-  slate: 'bg-[var(--accent-slate)] text-white shadow-[0_8px_24px_-12px_rgba(71,85,105,0.9)] hover:brightness-110',
+  gray: 'border border-gray-light-10/70 bg-white/50 text-gray-dark-30 dark:border-white/10 dark:bg-white/[0.05] dark:text-white/70',
+  blue: 'bg-[var(--color-blue-main)] text-white shadow-[var(--shadow-blue-glow)] hover:brightness-110',
+  indigo: 'bg-[var(--color-indigo-main)] text-white shadow-[var(--shadow-indigo-glow)] hover:brightness-110',
+  violet: 'bg-[var(--color-violet-main)] text-white shadow-[var(--shadow-violet-glow)] hover:brightness-110',
+  emerald: 'bg-[var(--color-green-main)] text-white shadow-[var(--shadow-green-glow)] hover:brightness-110',
+  amber: 'bg-[var(--color-amber-main)] text-night-dark-5 shadow-[var(--shadow-amber-glow)] hover:brightness-110',
+  rose: 'bg-[var(--color-red-main)] text-white shadow-[var(--shadow-red-glow)] hover:brightness-110',
+  slate: 'bg-[var(--color-night-light-10)] text-white shadow-[var(--shadow-slate-glow)] hover:brightness-110',
   transparent: '',
 };
 
 const outlineColors: Record<ButtonColor, string> = {
   green: 'border border-green-500/30 text-green-600 dark:text-green-400',
   red: 'border border-red-500/30 text-red-600 dark:text-red-400',
-  gray: 'border border-gray-300/70 text-gray-700 dark:border-white/15 dark:text-white/70',
-  blue: 'border border-[var(--accent-blue)] text-[var(--accent-blue)]',
-  indigo: 'border border-[var(--accent-indigo)] text-[var(--accent-indigo)]',
-  violet: 'border border-[var(--accent-violet)] text-[var(--accent-violet)]',
-  emerald: 'border border-[var(--accent-emerald)] text-[var(--accent-emerald)]',
-  amber: 'border border-[var(--accent-amber)] text-[var(--accent-amber)]',
-  rose: 'border border-[var(--accent-rose)] text-[var(--accent-rose)]',
-  slate: 'border border-[var(--accent-slate)] text-[var(--accent-slate)]',
+  gray: 'border border-gray-light-10/70 text-gray-dark-30 dark:border-white/15 dark:text-white/70',
+  blue: 'border border-[var(--color-blue-main)] text-[var(--color-blue-main)]',
+  indigo: 'border border-[var(--color-indigo-main)] text-[var(--color-indigo-main)]',
+  violet: 'border border-[var(--color-violet-main)] text-[var(--color-violet-main)]',
+  emerald: 'border border-[var(--color-green-main)] text-[var(--color-green-main)]',
+  amber: 'border border-[var(--color-amber-main)] text-[var(--color-amber-main)]',
+  rose: 'border border-[var(--color-red-main)] text-[var(--color-red-main)]',
+  slate: 'border border-[var(--color-night-light-10)] text-[var(--color-night-light-10)]',
   transparent: '',
 };
 
 const variants: Record<ButtonVariant, string> = {
-  primary: 'bg-vision-primary text-white shadow-[0_12px_32px_-14px_var(--app-accent-shadow,rgba(37,99,235,0.9))] hover:brightness-110',
-  cyan: 'bg-[#28b7f0] text-[#03111f] shadow-[0_12px_32px_-14px_rgba(40,183,240,0.9)] hover:bg-[#66d3f1]',
+  primary: 'bg-blue-main text-white shadow-[0_12px_32px_-14px_var(--app-accent-shadow,var(--shadow-blue-glow))] hover:brightness-110',
+  cyan: 'bg-cyan-main text-night-dark-5 shadow-[var(--shadow-cyan-glow-md)] hover:brightness-110',
   outline: 'border border-white/15 bg-transparent text-white hover:border-white/25 hover:bg-white/5',
-  ghost: 'bg-transparent text-vision-muted hover:bg-white/5 hover:text-white',
-  dark: 'border border-white/10 bg-vision-card-2 text-white hover:bg-white/5',
-  danger: 'border border-vision-danger/25 bg-vision-danger/10 text-vision-danger hover:bg-vision-danger/15',
-  success: 'border border-vision-success/25 bg-vision-success/10 text-vision-success hover:bg-vision-success/15',
-  white: 'bg-white text-[#060b28] hover:bg-white/90',
+  ghost: 'bg-transparent text-slate-main hover:bg-white/5 hover:text-white',
+  dark: 'border border-white/10 bg-night-light-10 text-white hover:bg-white/5',
+  danger: 'border border-red-main/25 bg-red-main/10 text-red-main hover:bg-red-main/15',
+  success: 'border border-green-main/25 bg-green-main/10 text-green-main hover:bg-green-main/15',
+  white: 'bg-white text-night-main hover:bg-white/90',
 };
 
 const sizes = {
@@ -94,7 +95,7 @@ const getClass = computed(() => {
   const classes = [baseClass];
 
   if (isIcon.value) {
-    classes.push('border border-gray-200/70 dark:border-white/10', iconSizes[size]);
+    classes.push('border border-gray-light-10/70 dark:border-white/10', iconSizes[size]);
   } else if (variant) {
     classes.push(variants[variant], variantSizes[size]);
   } else {
