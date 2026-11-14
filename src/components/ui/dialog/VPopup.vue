@@ -3,10 +3,13 @@ import type { IVPopupProps, IVDialogEmits } from './types';
 import type { IVDropdownOn } from '../dropdown/types';
 import { computed, shallowRef } from 'vue';
 
+import VButton from '@/components/ui/button/VButton.vue';
+import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
+import { useFocusTrap } from '@/composables/useFocusTrap';
 import { useSwipeDown } from '@/composables/useSwipeDown';
 import { useDialog } from '@/composables/useDialog';
 
-const { size = 'auto' } = defineProps<IVPopupProps>();
+const { size = 'auto', trapFocus = false, ariaLabel = '' } = defineProps<IVPopupProps>();
 
 const emit = defineEmits<IVDialogEmits>();
 
@@ -16,6 +19,8 @@ const target = shallowRef<HTMLElement | null>(null);
 const container = shallowRef<HTMLElement | null>(null);
 
 const { opacity, transform } = useSwipeDown(target, container, onClose);
+
+useFocusTrap(container, () => show.value && trapFocus);
 
 const onSet = (value: boolean) => {
   if (value) {
@@ -53,7 +58,15 @@ const getSizeContent = computed(() => ({
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="transform opacity-0 translate-y-full xl:-translate-y-2"
     >
-      <div v-if="show" ref="container" class="fixed bottom-0 left-0 w-full z-15">
+      <div
+        v-if="show"
+        ref="container"
+        class="fixed bottom-0 left-0 w-full z-15"
+        tabindex="-1"
+        :role="trapFocus ? 'dialog' : undefined"
+        :aria-modal="trapFocus ? 'true' : undefined"
+        :aria-label="trapFocus ? ariaLabel || undefined : undefined"
+      >
         <div
           v-if="overlay"
           class="fixed h-full w-full top-0 left-0 bg-black/40 bg-blur xl:hidden animate-opacity overscroll-contain"
@@ -71,9 +84,16 @@ const getSizeContent = computed(() => ({
           <div class="flex items-center absolute right-3 top-5 z-10">
             <slot name="button" :close="onClose"></slot>
 
-            <v-button class="size-5 md:size-6" color="transparent" size="none" icon aria-label="Close" @click="onClose">
-              <icon-ri-close-line class="size-5" />
-            </v-button>
+            <VButton
+              type="icon"
+              size="sm"
+              color="gray"
+              aria-label="Close"
+              title="Close"
+              @click="onClose"
+            >
+              <VisionIcon name="close" :size="16" />
+            </VButton>
           </div>
 
           <div class="overflow-y-auto max-h-[calc(100dvh-24px-16px)] overscroll-contain no-scrollbar" :class="getSizeContent[size]">

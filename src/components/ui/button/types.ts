@@ -1,22 +1,22 @@
 export type ButtonColor =
-  | 'green'
-  | 'red'
-  | 'gray'
+  | 'cyan'
   | 'blue'
   | 'indigo'
   | 'violet'
-  | 'emerald'
+  | 'purple'
   | 'amber'
-  | 'rose'
+  | 'green'
+  | 'red'
   | 'slate'
+  | 'gray'
   | 'transparent';
 
-export type ButtonVariant = 'primary' | 'cyan' | 'outline' | 'ghost' | 'dark' | 'danger' | 'success' | 'white';
+export type ButtonVariant = 'default' | 'soft' | 'outline' | 'white';
 
 export interface IVButtonProps {
-  outline?: boolean;
   color?: ButtonColor;
   variant?: ButtonVariant;
+  invert?: boolean;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   type?: 'button' | 'icon' | 'submit' | 'reset';
   block?: boolean;

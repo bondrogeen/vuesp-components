@@ -1,63 +1,62 @@
 @source './**/*.js';
 
 @theme {
-  /* Cyan */
+  
   --color-cyan-main: #28b7f0;
   --color-cyan-light-40: #9cdcfe;
   --color-cyan-dark-30: #279bd9;
 
-  /* Blue */
+  
   --color-blue-main: #0075ff;
   --color-blue-light-30: #4c9eff;
   --color-blue-dark-25: #0058bf;
 
-  /* Indigo */
+  
   --color-indigo-main: #6366f1;
   --color-indigo-light-30: #9294f5;
   --color-indigo-dark-25: #4a4cb5;
 
-  /* Violet */
+  
   --color-violet-main: #8b5cf6;
   --color-violet-light-30: #ae8df9;
   --color-violet-dark-25: #6845b8;
 
-  /* Purple */
+  
   --color-purple-main: #ad24be;
   --color-purple-light-30: #c666d2;
   --color-purple-dark-25: #821b8e;
 
-  /* Amber */
+  
   --color-amber-main: #f59e0b;
   --color-amber-light-45: #dcdcaa;
   --color-amber-dark-35: #c3865e;
   --color-amber-dark-40: #99901a;
   --color-amber-dark-75: #924c1e;
 
-  /* Green */
+  
   --color-green-main: #01b574;
   --color-green-light-25: #abc88e;
   --color-green-dark-55: #2e7d32;
 
-  /* Red */
+  
   --color-red-main: #fc3f1d;
   --color-red-light-30: #fd7961;
   --color-red-dark-25: #bd2f16;
 
-  /* Slate */
+  
   --color-slate-main: #8f9bba;
   --color-slate-light-30: #b1b9cf;
   --color-slate-dark-25: #6b748c;
 
-  /* Night (тёмные поверхности) */
+  
   --color-night-dark-5: #05081f;
   --color-night-main: #060b28;
   --color-night-light-10: #0b1538;
 
-  /* Gray */
+  
   --color-gray-light-30: #f5f5f5;
   --color-gray-light-10: #cccccc;
   --color-gray-main: #999999;
-  --color-gray-dark-10: #808080;
   --color-gray-dark-25: #4d4d4d;
   --color-gray-dark-30: #333333;
   --color-gray-dark-40: #1f1f1f;
@@ -65,8 +64,8 @@
   --shadow-nav: 0px 7px 16px 0px #0000001a;
   --shadow-nav-white: 0px 7px 16px 0px #ffffff0a;
 
-  /* Свечения на основе основных цветов палитры */
-  --shadow-cyan-glow: 0 0 70px -24px color-mix(in srgb, var(--color-cyan-main) 90%, transparent);
+  
+  --shadow-cyan-glow: 0 8px 24px -12px color-mix(in srgb, var(--color-cyan-main) 90%, transparent);
   --shadow-cyan-glow-soft: 0 0 60px -40px color-mix(in srgb, var(--color-cyan-main) 35%, transparent);
   --shadow-cyan-glow-xs: 0 0 4px color-mix(in srgb, var(--color-cyan-main) 55%, transparent);
   --shadow-cyan-glow-dot: 0 0 6px color-mix(in srgb, var(--color-cyan-main) 90%, transparent);
@@ -130,24 +129,6 @@
 }
 
 @layer components {
-  .glass-panel {
-    border-radius: 10px;
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(240, 248, 255, 0.56));
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.9),
-      0 20px 60px -40px rgba(15, 23, 42, 0.28);
-    backdrop-filter: blur(18px);
-  }
-
-  .dark .glass-panel {
-    border-color: rgba(255, 255, 255, 0.1);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.14),
-      0 24px 80px -40px rgba(0, 0, 0, 0.85);
-  }
-
   .glass-header {
     border-color: rgba(15, 23, 42, 0.1);
     background: rgba(235, 247, 255, 0.72);
@@ -375,3 +356,140 @@ body {
   background-attachment: fixed;
 }
 
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    line-height: 140%;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  h5 {
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  @media (min-width: 48rem) {
+    h1 {
+      font-size: 1.875rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+    }
+
+    h4 {
+      font-size: 1.125rem;
+    }
+
+    h5 {
+      font-size: 1rem;
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .container {
+    max-width: calc(var(--spacing) * 480) !important;
+    margin-inline: auto;
+    padding-inline: calc(var(--spacing) * 4);
+  }
+
+  @media (min-width: 48rem) {
+    .container {
+      padding-inline: calc(var(--spacing) * 6);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .container {
+      padding-inline: calc(var(--spacing) * 10);
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .container {
+      padding-inline: calc(var(--spacing) * 14);
+    }
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+*:not(textarea):not(.no-scrollbar) {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-blue-main) 50%, transparent) transparent;
+}
+
+*:not(textarea):not(.no-scrollbar)::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*:not(textarea):not(.no-scrollbar)::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*:not(textarea):not(.no-scrollbar)::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-blue-main) 50%, transparent);
+  border-radius: 999px;
+}
+
+*:not(textarea):not(.no-scrollbar)::-webkit-scrollbar-thumb:hover {
+  background: var(--color-blue-main);
+}
+
+*:not(textarea):not(.no-scrollbar)::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+@layer base {
+  :where(a, button, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-cyan-main);
+    outline-offset: 2px;
+  }
+
+  :where(input, textarea, select):focus-visible {
+    outline: 2px solid var(--color-cyan-main);
+    outline-offset: 1px;
+  }
+}

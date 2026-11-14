@@ -12,7 +12,7 @@ export const useDialog = (emit: IVDialogEmits, timeout?: number) => {
 
   if (keys?.escape) {
     watch(keys.escape, () => {
-      onClose(new Event('close'));
+      if (show.value) onClose(new Event('close'));
     });
   }
 

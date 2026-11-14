@@ -8,7 +8,7 @@ import VButton from '@/components/ui/button/VButton.vue';
 import VDialog from '@/components/ui/dialog/VDialog.vue';
 import VListObject from '@/components/ui/list/VListObject.vue';
 import VSelect from '@/components/ui/select/VSelect.vue';
-import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
+import VTextWrapper from '@/components/ui/text-field/VTextWrapper.vue';
 import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
 
 import BlockDataHelp from './BlockDataHelp.vue';

@@ -15,8 +15,6 @@
 <script setup lang="ts">
 import type { IVWifiIconProps } from '@/components/ui/wifiIcon/types';
 
-
-
 const { rssi = 0, channel = 0 } = defineProps<IVWifiIconProps>();
 
 const quality = 2 * (rssi + 100);

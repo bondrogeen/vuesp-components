@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type { IVDialogProps, IVDialogEmits } from './types';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
+import { useFocusTrap } from '@/composables/useFocusTrap';
 
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import VPopup from '@/components/ui/dialog/VPopup.vue';
+import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
 
 const { popupSize = 'auto', size = 'md', color = 'white', timeout, isOnlyDialog } = defineProps<IVDialogProps>();
 
@@ -15,6 +17,7 @@ const breakpoints = useBreakpoints(breakpointsTailwind);
 import VButton from '@/components/ui/button/VButton.vue';
 
 const { show, onClose, onOpen } = useDialog(emit, timeout);
+const dialogRef = ref<HTMLElement | null>(null);
 
 const sizes = {
   sm: 'max-w-full md:max-w-[330px] max-md:h-full',
@@ -25,12 +28,15 @@ const sizes = {
 
 const colors = {
   none: '',
-  white: 'glass-panel',
+  white: 'glass-inset rounded-[10px]',
   gray: '',
 };
 
 const getClass = computed(() => [sizes[size], colors[color]]);
 const isLgOrLarger = breakpoints.greaterOrEqual('lg');
+const trapActive = computed(() => show.value && (Boolean(isOnlyDialog) || isLgOrLarger.value));
+
+useFocusTrap(dialogRef, trapActive);
 defineExpose({
   show,
   onClose,
@@ -48,7 +54,16 @@ defineExpose({
       leave-to-class="transform opacity-0 -translate-y-2"
       @after-enter="onOpen"
     >
-      <div v-if="show" class="z-20 fixed top-0 h-dvh w-full left-0 flex flex-col" @wheel.stop>
+      <div
+        v-if="show"
+        ref="dialogRef"
+        class="z-20 fixed top-0 h-dvh w-full left-0 flex flex-col"
+        tabindex="-1"
+        role="dialog"
+        aria-modal="true"
+        :aria-label="title || undefined"
+        @wheel.stop
+      >
         <div class="absolute h-full w-full top-0 left-0 bg-black/40 bg-blur" @click="onClose" />
 
         <div class="flex-auto flex align-center overflow-y-auto overscroll-contain" :class="size === 'full' ? '' : ''">
@@ -59,8 +74,15 @@ defineExpose({
               </h4>
 
               <slot name="header-btn" :close="onClose"></slot>
-              <VButton color="transparent" type="icon" size="sm" @click="onClose">
-                <icon-ri-close-line />
+              <VButton
+                color="transparent"
+                type="icon"
+                size="sm"
+                aria-label="Close"
+                title="Close"
+                @click="onClose"
+              >
+                <VisionIcon name="close" :size="18" />
               </VButton>
             </div>
 
@@ -77,7 +99,7 @@ defineExpose({
     </transition>
   </Teleport>
 
-  <VPopup v-else :size="popupSize" @close="onClose">
+  <VPopup v-else :size="popupSize" trap-focus :aria-label="title || 'Dialog'" @close="onClose">
     <template #button>
       <slot name="header-btn" :close="onClose"></slot>
     </template>

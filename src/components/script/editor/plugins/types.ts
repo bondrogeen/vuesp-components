@@ -1,4 +1,4 @@
-// types.ts
+
 export interface ISuggestion {
   label: string;
   type: 'word' | 'func' | 'var' | 'event';

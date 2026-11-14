@@ -7,7 +7,7 @@
     leave-from-class="opacity-100 translate-y-0"
     leave-to-class="transform opacity-0 -translate-y-8"
   >
-    <div v-if="isShow" class="glass-panel w-full min-w-[260px] max-w-xs p-4 shadow-lg" role="alert">
+    <div v-if="isShow" class="glass-inset w-full min-w-[260px] max-w-xs rounded-[10px] p-4 shadow-lg" role="alert">
       <div class="flex items-center gap-4 text-sm">
         <slot :isDone="isDone">
           <div class="flex-auto">Progress...</div>

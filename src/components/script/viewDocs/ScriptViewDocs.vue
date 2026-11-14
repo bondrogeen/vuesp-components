@@ -14,7 +14,7 @@ interface MetaData {
 
 interface MarkedLib {
   parse: (markdown: string) => string;
-  setOptions: (options: Record<string, any>) => void;
+  setOptions: (options: Record<string, unknown>) => void;
 }
 
 declare global {

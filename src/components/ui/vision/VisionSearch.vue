@@ -75,19 +75,19 @@ onUnmounted(() => {
 <template>
   <button
     type="button"
-    class="inline-flex h-9 items-center gap-2 rounded-md px-2.5 text-xs text-gray-dark-25 transition-colors hover:bg-white/50 hover:text-[var(--app-accent)] dark:text-gray-main dark:hover:bg-white/5 dark:hover:text-white"
+    class="inline-flex h-9 items-center gap-2 rounded-md px-2.5 text-xs text-gray-dark-25 transition-colors hover:bg-white/50 hover:text-violet-main dark:text-gray-main dark:hover:bg-white/5 dark:hover:text-white"
     :aria-label="label"
     @click="show"
   >
     <VisionIcon name="search" :size="17" />
     <span class="hidden lg:inline">{{ label }}</span>
-    <kbd class="hidden rounded border border-gray-light-10/60 px-1.5 py-0.5 font-mono text-[10px] text-gray-main dark:border-white/10 dark:text-gray-dark-25 lg:inline">⌘K</kbd>
+    <kbd class="hidden rounded border border-gray-light-10/60 px-1.5 py-0.5 font-mono text-xs text-gray-main dark:border-white/10 dark:text-gray-dark-25 lg:inline">⌘K</kbd>
   </button>
 
   <Teleport to="body">
     <div v-if="open" class="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-slate-900/40 px-4 pt-[12vh] backdrop-blur-sm dark:bg-black/60" @click.self="hide">
       <div
-        class="glass-panel w-full max-w-2xl overflow-hidden rounded-[12px] border border-gray-light-10/70 bg-white/95 dark:border-white/10 dark:bg-night-light-10/95"
+        class="glass-inset w-full max-w-2xl overflow-hidden rounded-[12px] border border-gray-light-10/70 bg-white/95 dark:border-white/10 dark:bg-night-light-10/95"
         role="dialog"
         aria-modal="true"
         :aria-label="dialogLabel"
@@ -99,9 +99,9 @@ onUnmounted(() => {
             v-model="query"
             type="search"
             :placeholder="placeholder"
-            class="h-14 min-w-0 flex-1 bg-transparent text-sm text-gray-dark-40 placeholder:text-gray-main focus:outline-none dark:text-white dark:placeholder:text-gray-dark-25"
+            class="h-14 min-w-0 flex-1 bg-transparent text-sm text-gray-dark-40 placeholder:text-gray-main focus:outline-none dark:text-white dark:placeholder:text-gray-main"
           />
-          <kbd class="hidden rounded border border-gray-light-10/60 px-1.5 py-0.5 font-mono text-[10px] text-gray-main dark:border-white/10 dark:text-gray-dark-25 sm:inline">Esc</kbd>
+          <kbd class="hidden rounded border border-gray-light-10/60 px-1.5 py-0.5 font-mono text-xs text-gray-main dark:border-white/10 dark:text-gray-dark-25 sm:inline">Esc</kbd>
         </div>
 
         <div class="max-h-[55vh] overflow-y-auto p-2">
@@ -116,7 +116,7 @@ onUnmounted(() => {
             <span class="min-w-0">
               <span class="flex flex-wrap items-baseline gap-2">
                 <span class="text-sm font-medium text-gray-dark-40 dark:text-white">{{ item.title }}</span>
-                <span v-if="item.group" class="text-[10px] uppercase tracking-wider text-gray-main">{{ item.group }}</span>
+                <span v-if="item.group" class="text-xs uppercase tracking-wider text-gray-main">{{ item.group }}</span>
               </span>
               <span v-if="item.description" class="mt-0.5 block truncate text-xs text-gray-dark-25 dark:text-gray-main">{{ item.description }}</span>
             </span>

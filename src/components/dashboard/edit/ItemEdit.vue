@@ -55,7 +55,7 @@
                 :argument-title="$t('dashboard.argument')"
                 :disabled="!isArgs || isSet"
                 label="Set"
-                @icon="onFunc('set')"
+                @on-icon="onFunc('set')"
                 @change="onChange('set', $event)"
               />
 
@@ -65,7 +65,7 @@
                 :argument-title="$t('dashboard.argument')"
                 :disabled="!isArgs"
                 label="Get"
-                @icon="onFunc('get')"
+                @on-icon="onFunc('get')"
                 @change="onChange('get', $event)"
               />
 
@@ -77,7 +77,7 @@
                 :argument-title="$t('dashboard.argument')"
                 :disabled="!isArgs"
                 label="GetTo"
-                @icon="onFunc('getTo')"
+                @on-icon="onFunc('getTo')"
                 @change="onChange('getTo', $event)"
               />
             </div>
@@ -99,7 +99,7 @@
     <div class="flex gap-4 justify-end">
       <VButton class="px-4" color="blue" :disabled="isDisabled" @click="onButton(isNew ? 'add' : 'save')">{{ isNew ? $t('add') : $t('save') }}</VButton>
 
-      <VButton class="px-4" color="red" outline @click="onButton('remove')">{{ $t('remove') }}</VButton>
+      <VButton class="px-4" color="red" variant="outline" @click="onButton('remove')">{{ $t('remove') }}</VButton>
     </div>
 
     <VDialog v-if="dialog" size="md" :title="$t('select')" @close="dialog = false">
@@ -119,10 +119,10 @@ import { computed, onMounted, ref } from 'vue';
 
 import { clone } from '@/helpers/';
 
-import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
 import VButton from '@/components/ui/button/VButton.vue';
 import VSelect from '@/components/ui/select/VSelect.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
+import VTextWrapper from '@/components/ui/text-field/VTextWrapper.vue';
 import VListObject from '@/components/ui/list/VListObject.vue';
 import VDialog from '@/components/ui/dialog/VDialog.vue';
 import VTabs from '@/components/ui/tabs/VTabs.vue';

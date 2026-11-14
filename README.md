@@ -199,7 +199,7 @@ If a project needs only the design tokens and glass utilities, use the separate 
 
 - `@theme` tokens: primary/secondary colors, vision palette, shadows, animations;
 - accent CSS variables (`--accent-blue`, `--accent-indigo`, …);
-- glass utilities: `.glass-panel`, `.glass-header`, `.glass-inset`, `.glass-popover`;
+- glass utilities: `.glass-inset`, `.glass-header`, `.glass-popover`;
 - light/dark body background with the grid pattern.
 
 Important: import `theme.css` **inside the Tailwind entry** (the file that imports `tailwindcss`), not as a separate Nuxt/`<link>` CSS entry. Otherwise Tailwind will not generate utilities from `@theme`.

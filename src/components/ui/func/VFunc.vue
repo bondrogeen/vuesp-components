@@ -35,7 +35,7 @@ import type { IVFunkProps, IVFunkEmits } from '@/components/ui/func/types';
 import { ref, watch } from 'vue';
 import { useDebounceFn } from '@vueuse/core';
 
-import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
+import VTextWrapper from '@/components/ui/text-field/VTextWrapper.vue';
 
 const { args, value, params, prefix = [], prefixTitles = [], argumentTitle = '', disabled = false, hideIcon = false } = defineProps<IVFunkProps>();
 

@@ -55,31 +55,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-// import { useWebSocketStore } from '@/stores/WebSocketStore';
-
-// import { useFrame } from '@/composables/useFrame';
-// import { useSocket } from '@/composables/useSocket';
-// import { useStore } from '@/composables/useStore';
-// import { useLocale } from '@/composables/useLocale';
-
 import VDialog from '@/components/ui/dialog/VDialog.vue';
 
-// const { $t, setLocale } = useLocale();
-
-// setLocale(localGet('locale') || navigator?.language);
-
 const isIframe = false;
-// const { isConnect } = useSocket();
-// const { pkg, menu, dialog, dialogInfo, main, notifications, progress, changeTheme } = useStore();
-
-// const webSocketStore = useWebSocketStore();
 
 const isSidebar = ref(false);
 const isSidebarRight = ref(false);
-
-// const getMenu = computed(() => menu.value.map((i) => ({ ...i, name: $t(i.name) })));
-// const info = computed(() => main.value.info);
-// const nameDevice = computed(() => info.value?.name || '');
 
 const onSidebar = (value: boolean) => (isSidebar.value = value);
 </script>

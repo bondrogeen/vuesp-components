@@ -91,7 +91,7 @@ const setAlign = (item: { value: MetricAlign; name: string }) => update({ align:
       </div>
 
       <div class="mt-auto flex justify-end">
-        <VButton variant="primary" @click="emit('close')">Готово</VButton>
+        <VButton color="blue" @click="emit('close')">Готово</VButton>
       </div>
     </div>
   </VDialog>

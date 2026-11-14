@@ -28,8 +28,8 @@ export const timeUtcToString = (value: string | number | Date, options: Intl.Dat
 export const addZero = (value: number) => (value >= 10 ? value : `0${value}`);
 
 export const secToTime = (seconds: number) => {
-  // let y = Math.floor(seconds / 31536000);
-  // let mo = Math.floor((seconds % 31536000) / 2628000);
+  
+  
   const d = Math.floor(((seconds % 31536000) % 2628000) / 86400);
   const h = Math.floor((seconds % (3600 * 24)) / 3600);
   const m = Math.floor((seconds % 3600) / 60);

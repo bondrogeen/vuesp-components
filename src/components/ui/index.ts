@@ -10,6 +10,7 @@ import VExpansion from '@/components/ui/expansion/VExpansion.vue';
 import VList from '@/components/ui/list/VList.vue';
 import VSelect from '@/components/ui/select/VSelect.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
+import VTextWrapper from '@/components/ui/text-field/VTextWrapper.vue';
 import VFile from '@/components/ui/file/VFile.vue';
 import VIconLogo from '@/components/ui/icon/VIconLogo.vue';
 import VIconLogoMini from '@/components/ui/icon/VIconLogoMini.vue';
@@ -17,7 +18,6 @@ import VWifiIcon from '@/components/ui/wifiIcon/VWifiIcon.vue';
 import VListObject from '@/components/ui/list/VListObject.vue';
 import VDragDrop from '@/components/ui/drag-drop/VDragDrop.vue';
 import VFunc from '@/components/ui/func/VFunc.vue';
-import VTextWrapper from '@/components/ui/text-wrapper/VTextWrapper.vue';
 import VTable from '@/components/ui/table/VTable.vue';
 import VTabs from '@/components/ui/tabs/VTabs.vue';
 import VDialog from '@/components/ui/dialog/VDialog.vue';
@@ -34,11 +34,11 @@ export {
   VList,
   VSelect,
   VTextField,
+  VTextWrapper,
   VFile,
   VWifiIcon,
   VListObject,
   VDragDrop,
-  VTextWrapper,
   VFunc,
   VTable,
   VIconLogoMini,

@@ -31,9 +31,7 @@ const browserEvaluator: DashboardEvaluator = (body, scope) => {
   return fn(...Object.values(scope));
 };
 
-// The dashboard page consumes the command result as an untyped payload.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const setStateItem = <T>(item: IDashboardItem, value: unknown, object: T): any => {
+export const setStateItem = <T>(item: IDashboardItem, value: unknown, object: T): unknown => {
   try {
     return buildDashboardCommands(item, value, object, browserEvaluator);
   } catch (error) {

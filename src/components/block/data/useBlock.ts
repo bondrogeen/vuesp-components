@@ -52,7 +52,7 @@ export const useBlock = (
         bindings: { ...config.value.bindings, ...saved.bindings },
       };
     } catch {
-      // Keep defaults if storage is unavailable.
+      void 0;
     }
   };
 
@@ -65,7 +65,7 @@ export const useBlock = (
       const all = await options.storage.read();
       await options.storage.write([...all.filter((block) => block.id !== next.id), next]);
     } catch {
-      // The block still works with the in-memory config.
+      void 0;
     }
   };
 

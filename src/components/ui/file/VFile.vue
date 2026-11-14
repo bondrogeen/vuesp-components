@@ -7,7 +7,6 @@
 
 <script setup lang="ts">
 
-
 import type { IVFileEmits } from '@/components/ui/file/types';
 
 const emit = defineEmits<IVFileEmits>();

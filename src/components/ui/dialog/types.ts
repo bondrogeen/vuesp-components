@@ -17,4 +17,6 @@ export interface IVDialogEmits {
 export interface IVPopupProps {
   hiddenCloser?: boolean;
   size?: 'auto' | 'full' | 'screen';
+  trapFocus?: boolean;
+  ariaLabel?: string;
 }

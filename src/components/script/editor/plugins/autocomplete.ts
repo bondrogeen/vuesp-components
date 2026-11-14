@@ -2,7 +2,6 @@ import type { Plugin } from 'yace';
 import { isKey } from 'yace/plugins/isKey';
 import type { ISuggestion, IAutocompleteOptions } from './types';
 
-
 let suggestions: ISuggestion[] = [];
 let menu: HTMLElement | null = null;
 let selectedIndex = 0;
@@ -432,4 +431,3 @@ if (typeof document !== 'undefined') {
   });
 }
 
-// document.addEventListener('scroll', hideTooltip, true);

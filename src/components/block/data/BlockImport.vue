@@ -71,8 +71,8 @@ const submit = () => {
       <p v-if="error" class="text-sm text-red-500">{{ error }}</p>
 
       <div class="flex justify-end gap-2">
-        <VButton color="gray" outline @click="emit('close')">Отмена</VButton>
-        <VButton variant="primary" @click="submit">Добавить</VButton>
+        <VButton color="gray" variant="outline" @click="emit('close')">Отмена</VButton>
+        <VButton color="blue" @click="submit">Добавить</VButton>
       </div>
     </div>
   </VDialog>

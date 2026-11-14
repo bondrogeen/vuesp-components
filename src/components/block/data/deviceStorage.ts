@@ -222,7 +222,7 @@ const legacyBlocks = (): IBlockConfig[] => {
       const decoded = decodeBlocks(JSON.parse(raw) as unknown);
       if (decoded.length) return decoded;
     } catch {
-      // Ignore broken legacy settings.
+      void 0;
     }
   }
 
@@ -234,15 +234,11 @@ const clearLegacy = () => {
     try {
       localStorage.removeItem(key);
     } catch {
-      // Ignore storage errors.
+      void 0;
     }
   }
 };
 
-/**
- * Block settings stored on a vuesp device via the /fs endpoint.
- * The compact format is designed for LittleFS: short keys and hard limits.
- */
 export const createDeviceBlockStorage = (filePath = DEFAULT_FILE_PATH): IBlockStorage => {
   const write = async (blocks: IBlockConfig[]): Promise<void> => {
     const body = new FormData();
@@ -262,7 +258,7 @@ export const createDeviceBlockStorage = (filePath = DEFAULT_FILE_PATH): IBlockSt
         if (decoded.length) return decoded;
       }
     } catch {
-      // Fall back to legacy localStorage settings.
+      void 0;
     }
 
     const legacy = legacyBlocks();
@@ -271,7 +267,7 @@ export const createDeviceBlockStorage = (filePath = DEFAULT_FILE_PATH): IBlockSt
         await write(legacy);
         clearLegacy();
       } catch {
-        // Keep legacy settings in memory even if the device is unavailable.
+        void 0;
       }
     }
 

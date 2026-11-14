@@ -16,10 +16,6 @@ export const createBlockContext = (
   get: (path: string) => getDataValue(path, roots),
 });
 
-/**
- * vuesp device state: main from the WebSocket store.
- * The same roots are used by the hub, so block configs can be shared.
- */
 export const createDeviceContext = (main: Record<string, unknown>): IBlockContext => {
   const context = createBlockContext('device', {
     device: main.device ?? {},

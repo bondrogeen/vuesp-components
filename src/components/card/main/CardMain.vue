@@ -10,7 +10,7 @@ const paddingClass = computed(() => (padded ? 'p-5 sm:p-6' : ''));
 
 <template>
   <div
-    class="glass-panel relative transition-all duration-300 hover:border-cyan-main/25 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_0_60px_-18px_rgba(40,183,240,0.25)]"
+    class="glass-inset relative rounded-[10px] transition-all duration-300 hover:border-cyan-main/25 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_0_60px_-18px_rgba(40,183,240,0.25)]"
     :class="[paddingClass, { 'overflow-hidden': loading }]"
   >
     <div

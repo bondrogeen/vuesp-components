@@ -1,6 +1,6 @@
 import type { DashboardItem, DashboardItemOptions } from 'vuesp-dashboard-core';
 
-export interface IDashboardItemOptions extends DashboardItemOptions {}
+export type IDashboardItemOptions = DashboardItemOptions;
 
 export interface IDashboardItem extends DashboardItem {
   icon: string;
@@ -17,4 +17,3 @@ export type TypeGetParamsData = <S>(item: IDashboardItem, main: S) => (GetTypeBy
 
 export type TypeValueDashboardItemOptions = IDashboardItemOptions[keyof IDashboardItemOptions];
 
-// export type TypeGetBind = <S>(item: IDashboardItem, main: S) => IDashboardItem;

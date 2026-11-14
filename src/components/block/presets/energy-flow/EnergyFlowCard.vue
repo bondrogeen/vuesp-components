@@ -338,11 +338,11 @@ onUnmounted(() => {
         />
 
         <g v-for="link of activeLinks" :key="`flow-${link.id}`">
-          <path class="stroke-[var(--color-cyan-main)] [stroke-width:2.5] [stroke-linecap:round] opacity-55" :d="geometry.paths[link.id]" fill="none" />
-          <path class="stroke-[var(--color-cyan-main)] [stroke-width:10] [stroke-linecap:round] opacity-20 blur-[6px]" :d="geometry.paths[link.id]" fill="none" />
+          <path class="stroke-cyan-main [stroke-width:2.5] [stroke-linecap:round] opacity-55" :d="geometry.paths[link.id]" fill="none" />
+          <path class="stroke-cyan-main [stroke-width:10] [stroke-linecap:round] opacity-20 blur-[6px]" :d="geometry.paths[link.id]" fill="none" />
 
           <path
-            class="animate-energy-flow stroke-[var(--color-gray-light-30)] [stroke-width:2] [stroke-linecap:round] [stroke-dasharray:16_22] opacity-75 drop-shadow-[var(--shadow-cyan-glow-xs)] motion-reduce:animate-none motion-reduce:[stroke-dasharray:none]"
+            class="animate-energy-flow stroke-gray-light-30 [stroke-width:2] [stroke-linecap:round] [stroke-dasharray:16_22] opacity-75 drop-shadow-[var(--shadow-cyan-glow-xs)] motion-reduce:animate-none motion-reduce:[stroke-dasharray:none]"
             :class="{ '[animation-direction:reverse]': link.reverse }"
             :d="geometry.paths[link.id]"
             :style="{ animationDuration: `${link.speed}s` }"
@@ -363,7 +363,7 @@ onUnmounted(() => {
 
       <div class="relative grid h-full grid-cols-2 grid-rows-3 gap-3 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
         <div v-for="node of nodes" :key="node.key" :ref="(el) => setNodeRef(node.key, el)" :class="node.wrapper">
-          <div class="relative flex w-full max-w-none flex-col gap-3 rounded-2xl border p-4 shadow-[var(--shadow-cyan-glow-soft)] lg:max-w-56" :class="node.card">
+          <div class="relative flex w-full max-w-none flex-col gap-3 rounded-2xl border p-4 shadow-cyan-glow-soft lg:max-w-56" :class="node.card">
             <div class="flex items-center gap-2">
               <span class="grid size-8 shrink-0 place-items-center rounded-lg" :class="node.surface">
                 <VisionIcon :name="node.icon" :size="16" :class="node.tone" />
@@ -382,7 +382,7 @@ onUnmounted(() => {
         </div>
 
         <div class="col-span-2 row-start-2 grid place-items-center lg:col-span-1 lg:col-start-2 lg:row-span-3 lg:self-center">
-          <div ref="inverterRef" class="relative w-full max-w-72 rounded-2xl border border-cyan-main/30 bg-cyan-main/10 p-4 text-cyan-main shadow-[var(--shadow-cyan-glow)]">
+          <div ref="inverterRef" class="relative w-full max-w-72 rounded-2xl border border-cyan-main/30 bg-cyan-main/10 p-4 text-cyan-main shadow-cyan-glow">
             <span class="absolute -inset-2 rounded-3xl border border-cyan-main/15" />
 
             <div class="relative">
