@@ -44,7 +44,7 @@ const onClick = () => {
 
     <template #header="item">
       <div>
-        <VButton type="icon" class="text-gray-dark-25" @click.stop="onClick">
+        <VButton type="icon" class="text-gray-dark-25 dark:text-gray-light-10" @click.stop="onClick">
           <VIcon name="clock" class="size-7" />
         </VButton>
         <VTextField ref="time" v-bind="getBind(item)" type="datetime-local" class="size-0" hidden @change="onChangeDate"></VTextField>

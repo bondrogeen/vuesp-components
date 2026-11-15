@@ -12,7 +12,7 @@
 
     <div>
       <slot name="body" v-bind="props">
-        <h6 class="text-sm text-gray-dark-25 font-medium line-clamp-2 overflow-hidden">
+        <h6 class="text-sm text-gray-dark-25 font-medium line-clamp-2 overflow-hidden dark:text-gray-light-10">
           <slot name="name" v-bind="props">
             {{ props.name }}
           </slot>
@@ -26,7 +26,7 @@
       </slot>
     </div>
 
-    <div v-if="props.icon" class="absolute left-1/2 top-1/2 size-1/2 text-gray-light-10/30 dark:text-gray-dark-30/30 -translate-1/2">
+    <div v-if="props.icon" class="absolute left-1/2 top-1/2 size-1/2 text-gray-light-10/30 dark:text-white/10 -translate-1/2">
       <slot name="icon" v-bind="props"></slot>
     </div>
 
@@ -37,7 +37,7 @@
         </VButton>
 
         <VButton color="transparent" @click="onClone">
-          <VIcon name="copy" class="size-4 text-gray-dark-25" />
+          <VIcon name="copy" class="size-4 text-gray-dark-25 dark:text-gray-light-10" />
         </VButton>
       </template>
 
@@ -78,8 +78,8 @@ const emit = defineEmits<ICardBaseEmits>();
 const dialog = ref(false);
 
 const getColorValue = computed(() => {
-  if (['button', 'dimmer'].includes(props.type || '')) return props.value ? 'text-amber-500' : 'text-gray-main';
-  return 'text-gray-main';
+  if (['button', 'dimmer'].includes(props.type || '')) return props.value ? 'text-amber-500' : 'text-gray-main dark:text-gray-light-10';
+  return 'text-gray-main dark:text-gray-light-10';
 });
 
 const onEdit = (e: Event) => emit('edit', e);

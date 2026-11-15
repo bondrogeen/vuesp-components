@@ -8,7 +8,7 @@
           </component>
         </slot>
 
-        <VIcon name="chevron-right" v-if="item.path" class="rotate-270" />
+        <VIcon name="chevron-right" v-if="item.path" :size="14" class="shrink-0" />
       </li>
     </ol>
   </nav>

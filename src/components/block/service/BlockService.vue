@@ -13,7 +13,7 @@ const getValueLocale = (local: string) => locales.find((i) => i.value === local)
 
 <template>
   <div class="md:flex items-center mb-4">
-    <div class="flex-auto text-gray-dark-25 bg:text-gray-main mb-2">{{ $t('selectLang') }}</div>
+    <div class="flex-auto text-gray-dark-25 dark:text-gray-light-10 mb-2">{{ $t('selectLang') }}</div>
 
     <div class="md:max-w-50">
       <v-select :model-value="getValueLocale(locale)" :label="$t('lang')" :items="locales" @change="onLocale" />
@@ -21,13 +21,13 @@ const getValueLocale = (local: string) => locales.find((i) => i.value === local)
   </div>
 
   <div class="flex items-center mb-4">
-    <div class="flex-auto text-gray-dark-25 bg:text-gray-main">{{ $t('rebootDev') }}</div>
+    <div class="flex-auto text-gray-dark-25 dark:text-gray-light-10">{{ $t('rebootDev') }}</div>
 
     <v-button class="min-w-24" color="red" variant="outline" @click="emit('reboot', $event)">{{ $t('reboot') }}</v-button>
   </div>
 
   <div class="flex items-center mb-4">
-    <div class="flex-auto text-gray-dark-25 bg:text-gray-main">{{ $t('resetConf') }}</div>
+    <div class="flex-auto text-gray-dark-25 dark:text-gray-light-10">{{ $t('resetConf') }}</div>
 
     <v-button class="min-w-24" color="red" @click="emit('reset', $event)">{{ $t('reset') }}</v-button>
   </div>

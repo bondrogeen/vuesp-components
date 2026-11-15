@@ -8,7 +8,7 @@
 
         <div class="dark:text-gray-light-10">{{ key }}</div>
 
-        <VButton v-if="isSupported" class="opacity-20 hover:opacity-70 transition-all" color="transparent" size="sm" @click.stop="copy(getPath(key))">
+        <VButton v-if="isSupported" :class="actionClass" color="transparent" size="sm" @click.stop="copy(getPath(key))">
           <VIcon name="copy" class="size-5" />
         </VButton>
 
@@ -17,8 +17,8 @@
         <template v-if="!onlyValue && isObject(item)">
           <div class="flex-auto"></div>
 
-          <div class="flex gap-3 items-center z-10">
-            <VButton class="opacity-20 hover:opacity-70 transition-all" color="transparent" size="sm" :title="$t('add')" @click.stop="onGetKey(key, isObject(item))">
+          <div class="flex items-center z-10">
+            <VButton :class="actionClass" color="transparent" size="sm" :title="$t('add')" @click.stop="onGetKey(key, isObject(item))">
               <VIcon name="add" class="size-5" />
             </VButton>
           </div>
@@ -36,7 +36,7 @@
           {{ item }}
         </div>
 
-        <VButton class="opacity-20 hover:opacity-70 transition-all" color="gray" size="sm" :title="$t('add')" @click.stop="onGetKey(key, isObject(item))">
+        <VButton :class="actionClass" color="transparent" size="sm" :title="$t('add')" @click.stop="onGetKey(key, isObject(item))">
           <VIcon name="add" class="size-5" />
         </VButton>
       </template>
@@ -63,6 +63,9 @@ const emit = defineEmits<IVListObjectEmits>();
 const getClass = () => `before:absolute before:w-full before:h-8 before:t-0 before:left-0 before:border-b before:border-gray-light-10 dark:before:border-gray-dark-30/50  hover:before:bg-gray-main/10`;
 
 const show: Ref<{ [index: string]: boolean }> = ref({});
+
+/** Единый вид кнопок-иконок: копирование и добавление. */
+const actionClass = 'ms-2 opacity-20 transition-all hover:opacity-70';
 
 const { text, copy, copied, isSupported } = useClipboard();
 
