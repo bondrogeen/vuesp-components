@@ -61,9 +61,22 @@ export const setStateItem = <T>(item: IDashboardItem, value: unknown, object: T)
   }
 };
 
+/**
+ * График ждёт объект буфера ({ data, head, tail, count }), а старые dashboard.json
+ * брали его через `get: "a"`, который теперь указывает на значение, а не на сущность.
+ * Если для chart получилось не объект — берём сущность из args[1].
+ */
+const withLegacyChartEntity = (data: IDashboardItem, item: IDashboardItem, object: unknown): IDashboardItem => {
+  if (item.type !== 'chart' || isRecord(data.value)) return data;
+  const entity = getParamsData(item, object)[1];
+  if (!isRecord(entity)) return data;
+  return { ...data, value: entity } as IDashboardItem;
+};
+
 export const getStateItem = <T>(item: IDashboardItem, object: T): IDashboardItem => {
   try {
-    return resolveDashboardItem(item, object, browserEvaluator) as unknown as IDashboardItem;
+    const data = resolveDashboardItem(item, object, browserEvaluator) as unknown as IDashboardItem;
+    return withLegacyChartEntity(data, item, object);
   } catch (error) {
     console.warn(error);
     const args = getParamsData(item, object);

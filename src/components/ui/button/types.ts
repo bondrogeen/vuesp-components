@@ -17,7 +17,7 @@ export interface IVButtonProps {
   color?: ButtonColor;
   variant?: ButtonVariant;
   invert?: boolean;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   type?: 'button' | 'icon' | 'submit' | 'reset';
   block?: boolean;
   disabled?: boolean;

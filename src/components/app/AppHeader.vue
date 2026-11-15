@@ -1,7 +1,7 @@
 <template>
   <header class="glass-header relative sticky top-0 left-0 z-10 w-full border-b shadow-card">
     <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"></div>
-    <div class="px-4 py-4 sm:px-6 lg:px-8">
+    <div class="py-4">
       <div class="container mx-auto flex flex-auto items-center">
         <VButton type="icon" @click="onSidebar">
           <VIcon name="menu" class="size-5" />

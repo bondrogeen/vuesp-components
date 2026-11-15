@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="glass-inset relative flex aspect-square rounded-xl cursor-pointer flex-col p-2 transition-all hover:border-cyan-main/25 hover:shadow-cyan-glow"
-    @click="onClick"
-  >
+  <div class="glass-inset relative flex aspect-square rounded-xl cursor-pointer flex-col p-2 transition-all hover:border-cyan-main/25 hover:shadow-cyan-glow" @click="onClick">
     <div class="flex-auto flex justify-between">
       <div :class="getColorValue" class="size-8 animate-shake">
         <slot name="icon" v-bind="props"></slot>
@@ -32,12 +29,12 @@
 
     <VDialog v-if="dialog" :size="props.size || 'sm'" :title="name" @close="closeDialog" @open="openDialog">
       <template #header-btn>
-        <VButton color="transparent" @click="onEdit">
-          <VIcon name="more" class="size-5" />
+        <VButton class="size-8" color="transparent" variant="soft" invert size="none" @click="onEdit">
+          <VIcon name="more" class="size-4" />
         </VButton>
 
-        <VButton color="transparent" @click="onClone">
-          <VIcon name="copy" class="size-4 text-gray-dark-25 dark:text-gray-light-10" />
+        <VButton class="size-8" color="transparent" variant="soft" invert size="none" @click="onClone">
+          <VIcon name="copy" class="size-4" />
         </VButton>
       </template>
 

@@ -2,6 +2,17 @@ import { ISuggestion } from '../plugins/types';
 
 const escapeHtml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+/** Цвета подсветки — утилиты UI-кита, без собственных классов. */
+const TOKEN_CLASSES: Record<string, string> = {
+  comment: 'text-gray-dark-25 dark:text-gray-main',
+  str: 'text-amber-dark-75 dark:text-amber-dark-35',
+  num: 'text-green-dark-55 dark:text-green-light-25',
+  word: 'text-purple-main dark:text-purple-light-30',
+  var: 'text-cyan-dark-30 dark:text-cyan-light-40',
+  event: 'text-amber-dark-75 dark:text-amber-light-45',
+  operator: 'text-amber-dark-40',
+};
+
 const STATIC_KEYWORDS = ['else', 'end', 'call', 'fade'];
 const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -36,7 +47,7 @@ export const fullHighlighter = (suggestions: ISuggestion[]) => (value: string) =
     else if (operator) type = 'operator';
 
     html += escapeHtml(value.slice(last, match.index));
-    html += `<span class="tok--${type}">${escapeHtml(fullMatch)}</span>`;
+    html += `<span class="${TOKEN_CLASSES[type] ?? ''}">${escapeHtml(fullMatch)}</span>`;
     last = match.index + fullMatch.length;
   }
 
