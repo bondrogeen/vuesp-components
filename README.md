@@ -204,6 +204,27 @@ If a project needs only the design tokens and glass utilities, use the separate 
 
 Important: import `theme.css` **inside the Tailwind entry** (the file that imports `tailwindcss`), not as a separate Nuxt/`<link>` CSS entry. Otherwise Tailwind will not generate utilities from `@theme`.
 
+## Публикация
+
+Автоматически: подними `version` в `package.json`, закоммить и запушь в `master`.
+Workflow `.github/workflows/publish.yml` соберёт пакет и опубликует его, если такой
+версии ещё нет на npm. Пуши без изменения версии ничего не публикуют — шаг
+пропускается.
+
+Для работы нужен секрет репозитория `NPM_TOKEN` — npm-токен с правом публикации
+и обходом 2FA (classic **Automation** или granular token с «Bypass 2FA»).
+Обычный токен без обхода 2FA не подойдёт: CI не сможет ввести OTP.
+
+Вручную:
+
+```bash
+npm version patch --no-git-tag-version   # или minor / major
+npm publish
+```
+
+`prepublishOnly` пересобирает `dist` перед публикацией, поэтому отдельный
+`npm run build` не нужен.
+
 ## 1.3.1 (2026-06-22)
 
 - (bondrogeen) Build fixes and documentation updates

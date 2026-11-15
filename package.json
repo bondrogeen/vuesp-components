@@ -69,7 +69,9 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build && cp src/assets/theme.css dist/theme.css",
     "preview": "vite preview",
-    "eslint": "eslint --fix"
+    "eslint": "eslint --fix",
+    "lint": "eslint src",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "vue",

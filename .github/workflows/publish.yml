@@ -1,0 +1,65 @@
+name: Publish to npm
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+# Публикуем только по одному разу за раз: параллельные запуски перетирают версию.
+concurrency:
+  group: publish-npm
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Build and publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Read package version
+        id: version
+        run: echo "value=$(node -p 'require("./package.json").version')" >> "$GITHUB_OUTPUT"
+
+      - name: Check if version is already published
+        id: check
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if npm view "vuesp-components@${{ steps.version.outputs.value }}" version > /dev/null 2>&1; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Skip::vuesp-components@${{ steps.version.outputs.value }} уже на npm — публикация не нужна"
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Publish::Будет опубликована версия ${{ steps.version.outputs.value }}"
+          fi
+
+      - name: Install dependencies
+        if: steps.check.outputs.published == 'false'
+        run: npm ci
+
+      - name: Lint
+        if: steps.check.outputs.published == 'false'
+        run: npm run lint
+
+      - name: Build and publish
+        if: steps.check.outputs.published == 'false'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Summary
+        if: steps.check.outputs.published == 'false'
+        run: echo "### Опубликован vuesp-components@${{ steps.version.outputs.value }}" >> "$GITHUB_STEP_SUMMARY"
