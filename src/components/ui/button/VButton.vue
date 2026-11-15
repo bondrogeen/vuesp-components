@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, resolveComponent } from 'vue';
 
-import type { ButtonVariant, IVButtonEmits, IVButtonProps } from '@/components/ui/button/types';
+import type { ButtonColor, IVButtonEmits, IVButtonProps } from '@/components/ui/button/types';
 import VLoader from '@/components/ui/loader/VLoader.vue';
 
 const {
@@ -23,8 +23,8 @@ const onClick = (e: Event) => {
   if (!disabled) emit('click', e);
 };
 
-const RouterLink = resolveComponent('RouterLink');
-const component = computed(() => (to ? RouterLink : href ? 'a' : 'button'));
+const RouterLink = computed(() => (to ? resolveComponent('RouterLink') : null));
+const component = computed(() => (to ? RouterLink.value : href ? 'a' : 'button'));
 const nativeType = computed(() => (type === 'submit' || type === 'reset' ? type : 'button'));
 const isIcon = computed(() => type === 'icon');
 
@@ -33,41 +33,110 @@ const baseClass =
 
 const isTransparent = computed(() => color === 'transparent');
 
-const colorValue = computed(() =>
-  isTransparent.value ? 'var(--color-violet-main)' : `var(--color-${color}-main)`
-);
+interface IColorClasses {
+  solid: string;
+  soft: string;
+  outline: string;
+  ghost: string;
+  invertedOutline: string;
+}
 
-const onColor = computed(() =>
-  ['cyan', 'amber', 'green', 'slate', 'gray'].includes(color) ? 'var(--color-night-dark-5)' : '#fff'
-);
-
-const glowValue = computed(() => {
-  if (color === 'purple') return 'var(--shadow-violet-glow)';
-  if (color === 'gray' || isTransparent.value) return '0 0 #0000';
-  return `var(--shadow-${color}-glow)`;
-});
-
-const variantClass = computed(() => {
-  if (isTransparent.value && variant === 'default') return ghostClass;
-  if (variant === 'soft' && invert) return ghostClass;
-  if (variant === 'outline' && invert) return invertedOutline;
-  return variants[variant];
-});
-
-const ghostClass = 'bg-transparent text-gray-main hover:bg-[var(--btn-color)]/10 hover:text-[var(--btn-color)]';
-
-const invertedOutline =
-  'border border-gray-main text-gray-main hover:border-[var(--btn-color)] hover:bg-[var(--btn-color)]/10 hover:text-[var(--btn-color)]';
-
-const variants: Record<ButtonVariant, string> = {
-  default: 'bg-[var(--btn-color)] text-[var(--btn-on)] shadow-[var(--btn-glow)] hover:brightness-110',
-  soft: 'border border-[var(--btn-color)]/25 bg-[var(--btn-color)]/10 text-[var(--btn-color)] hover:bg-[var(--btn-color)]/20',
-  outline:
-    'border border-[var(--btn-color)] text-[var(--btn-color)] hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
-  white: 'bg-white text-night-main hover:bg-white/90',
+const colorClasses: Record<ButtonColor, IColorClasses> = {
+  cyan: {
+    solid: 'bg-cyan-main text-night-dark-5 shadow-cyan-glow hover:brightness-110',
+    soft: 'border border-cyan-main/25 bg-cyan-main/10 text-cyan-main hover:bg-cyan-main/20',
+    outline: 'border border-cyan-main text-cyan-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
+    ghost: 'bg-transparent text-gray-main hover:bg-cyan-main/10 hover:text-cyan-main',
+    invertedOutline: 'border border-gray-main text-gray-main hover:border-cyan-main hover:bg-cyan-main/10 hover:text-cyan-main',
+  },
+  blue: {
+    solid: 'bg-blue-main text-white shadow-blue-glow hover:brightness-110',
+    soft: 'border border-blue-main/25 bg-blue-main/10 text-blue-main hover:bg-blue-main/20',
+    outline: 'border border-blue-main text-blue-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
+    ghost: 'bg-transparent text-gray-main hover:bg-blue-main/10 hover:text-blue-main',
+    invertedOutline: 'border border-gray-main text-gray-main hover:border-blue-main hover:bg-blue-main/10 hover:text-blue-main',
+  },
+  indigo: {
+    solid: 'bg-indigo-main text-white shadow-indigo-glow hover:brightness-110',
+    soft: 'border border-indigo-main/25 bg-indigo-main/10 text-indigo-main hover:bg-indigo-main/20',
+    outline: 'border border-indigo-main text-indigo-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
+    ghost: 'bg-transparent text-gray-main hover:bg-indigo-main/10 hover:text-indigo-main',
+    invertedOutline: 'border border-gray-main text-gray-main hover:border-indigo-main hover:bg-indigo-main/10 hover:text-indigo-main',
+  },
+  violet: {
+    solid: 'bg-violet-main text-white shadow-violet-glow hover:brightness-110',
+    soft: 'border border-violet-main/25 bg-violet-main/10 text-violet-main hover:bg-violet-main/20',
+    outline: 'border border-violet-main text-violet-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
+    ghost: 'bg-transparent text-gray-main hover:bg-violet-main/10 hover:text-violet-main',
+    invertedOutline: 'border border-gray-main text-gray-main hover:border-violet-main hover:bg-violet-main/10 hover:text-violet-main',
+  },
+  purple: {
+    solid: 'bg-purple-main text-white shadow-violet-glow hover:brightness-110',
+    soft: 'border border-purple-main/25 bg-purple-main/10 text-purple-main hover:bg-purple-main/20',
+    outline: 'border border-purple-main text-purple-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
+    ghost: 'bg-transparent text-gray-main hover:bg-purple-main/10 hover:text-purple-main',
+    invertedOutline: 'border border-gray-main text-gray-main hover:border-purple-main hover:bg-purple-main/10 hover:text-purple-main',
+  },
+  amber: {
+    solid: 'bg-amber-main text-night-dark-5 shadow-amber-glow hover:brightness-110',
+    soft: 'border border-amber-main/25 bg-amber-main/10 text-amber-main hover:bg-amber-main/20',
+    outline: 'border border-amber-main text-amber-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
+    ghost: 'bg-transparent text-gray-main hover:bg-amber-main/10 hover:text-amber-main',
+    invertedOutline: 'border border-gray-main text-gray-main hover:border-amber-main hover:bg-amber-main/10 hover:text-amber-main',
+  },
+  green: {
+    solid: 'bg-green-main text-night-dark-5 shadow-green-glow hover:brightness-110',
+    soft: 'border border-green-main/25 bg-green-main/10 text-green-main hover:bg-green-main/20',
+    outline: 'border border-green-main text-green-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
+    ghost: 'bg-transparent text-gray-main hover:bg-green-main/10 hover:text-green-main',
+    invertedOutline: 'border border-gray-main text-gray-main hover:border-green-main hover:bg-green-main/10 hover:text-green-main',
+  },
+  red: {
+    solid: 'bg-red-main text-white shadow-red-glow hover:brightness-110',
+    soft: 'border border-red-main/25 bg-red-main/10 text-red-main hover:bg-red-main/20',
+    outline: 'border border-red-main text-red-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
+    ghost: 'bg-transparent text-gray-main hover:bg-red-main/10 hover:text-red-main',
+    invertedOutline: 'border border-gray-main text-gray-main hover:border-red-main hover:bg-red-main/10 hover:text-red-main',
+  },
+  slate: {
+    solid: 'bg-slate-main text-night-dark-5 shadow-slate-glow hover:brightness-110',
+    soft: 'border border-slate-main/25 bg-slate-main/10 text-slate-main hover:bg-slate-main/20',
+    outline: 'border border-slate-main text-slate-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
+    ghost: 'bg-transparent text-gray-main hover:bg-slate-main/10 hover:text-slate-main',
+    invertedOutline: 'border border-gray-main text-gray-main hover:border-slate-main hover:bg-slate-main/10 hover:text-slate-main',
+  },
+  gray: {
+    solid: 'bg-gray-main text-night-dark-5 hover:brightness-110',
+    soft: 'border border-gray-main/25 bg-gray-main/10 text-gray-main hover:bg-gray-main/20',
+    outline: 'border border-gray-main text-gray-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
+    ghost: 'bg-transparent text-gray-main hover:bg-gray-main/10 hover:text-gray-main',
+    invertedOutline: 'border border-gray-main text-gray-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-main',
+  },
+  transparent: {
+    solid: 'bg-violet-main text-white shadow-violet-glow hover:brightness-110',
+    soft: 'border border-violet-main/25 bg-violet-main/10 text-violet-main hover:bg-violet-main/20',
+    outline: 'border border-violet-main text-violet-main hover:border-gray-main hover:bg-gray-main/10 hover:text-gray-dark-30 dark:hover:text-gray-light-10',
+    ghost: 'bg-transparent text-gray-main hover:bg-violet-main/10 hover:text-violet-main',
+    invertedOutline: 'border border-gray-main text-gray-main hover:border-violet-main hover:bg-violet-main/10 hover:text-violet-main',
+  },
 };
 
+const variantClass = computed(() => {
+  if (!color) return '';
+
+  const palette = colorClasses[color] ?? colorClasses.transparent;
+
+  if (isTransparent.value && variant === 'default') return palette.ghost;
+  if (variant === 'soft' && invert) return palette.ghost;
+  if (variant === 'outline' && invert) return palette.invertedOutline;
+  if (variant === 'white') return 'bg-white text-night-main hover:bg-white/90';
+  if (variant === 'soft') return palette.soft;
+  if (variant === 'outline') return palette.outline;
+  return palette.solid;
+});
+
 const sizes = {
+  none: '',
   sm: 'h-8 px-3 text-xs',
   md: 'h-10 px-3 text-sm',
   lg: 'h-12 px-4 text-sm',
@@ -75,6 +144,7 @@ const sizes = {
 };
 
 const iconSizes = {
+  none: '',
   sm: 'size-8',
   md: 'size-10',
   lg: 'size-12',
@@ -107,7 +177,6 @@ const getClass = computed(() => {
     :disabled="component === 'button' ? disabled : undefined"
     :aria-disabled="disabled || undefined"
     :class="getClass"
-    :style="{ '--btn-color': colorValue, '--btn-on': onColor, '--btn-glow': glowValue }"
     @click="onClick"
   >
     <span :class="loading ? 'opacity-0' : ''">

@@ -30,7 +30,7 @@
 
 	const emit = defineEmits<IVAccordionItemEmits>();
 
-	const getClassTransform = computed(() => (isOpen ? 'visible  transform-[translateY(0)] ' : 'invisible transform-[translateY(-100%)]'));
+	const getClassTransform = computed(() => (isOpen ? 'visible translate-y-0' : 'invisible -translate-y-full'));
 
 	const onClick = () => emit('click', value);
 </script>

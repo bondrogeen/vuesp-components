@@ -1,17 +1,17 @@
 <template>
-  <header class="glass-header relative sticky top-0 left-0 z-10 w-full border-b shadow-[0_20px_60px_-35px_rgba(0,0,0,0.9)]">
+  <header class="glass-header relative sticky top-0 left-0 z-10 w-full border-b shadow-card">
     <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"></div>
     <div class="px-4 py-4 sm:px-6 lg:px-8">
       <div class="container mx-auto flex flex-auto items-center">
         <VButton type="icon" @click="onSidebar">
-          <icon-ri-menu-line class="size-5" />
+          <VIcon name="menu" class="size-5" />
         </VButton>
 
         <div class="lg:hidden flex-auto"></div>
 
-        <div class="lg:hidden h-[30px]">
+        <div class="lg:hidden h-7">
           <router-link to="/">
-            <VIconLogo class="h-[30px] text-cyan-main"></VIconLogo>
+            <VIconLogo class="h-7 text-cyan-main"></VIconLogo>
           </router-link>
         </div>
 
@@ -19,8 +19,8 @@
 
         <div class="gap-4 hidden lg:flex">
           <VButton type="icon" @click="onChangeTheme">
-            <icon-ri-sun-line class="dark:hidden" />
-            <icon-ri-moon-line class="hidden dark:flex" />
+            <VIcon name="sun" class="dark:hidden" />
+            <VIcon name="moon" class="hidden dark:flex" />
           </VButton>
 
           <VButton type="icon" @click="onNotif">
@@ -28,11 +28,11 @@
               <span class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
             </span>
 
-            <icon-ri-notification-line class="size-5" />
+            <VIcon name="noti" class="size-5" />
           </VButton>
 
           <VButton type="icon" @click.prevent="onLogout">
-            <icon-ri-logout-box-line class="size-5" />
+            <VIcon name="logout" class="size-5" />
           </VButton>
         </div>
 
@@ -40,7 +40,7 @@
           <VDropdown left="unset" right="0" top="0">
             <template #activator="{ on }">
               <VButton type="icon" class="flex" @click="on.click">
-                <icon-ri-more-line />
+                <VIcon name="more"  />
               </VButton>
             </template>
 
@@ -55,6 +55,7 @@
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IAppHeaderProps, IAppHeaderEmits } from '@/components/app/types';
 import type { IListItem, INotification } from '@/types';
 

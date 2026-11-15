@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IBlockDefinition } from './types';
 
 import VDialog from '@/components/ui/dialog/VDialog.vue';
-import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
 
 const { definitions } = defineProps<{
   definitions: IBlockDefinition[];
@@ -25,7 +25,7 @@ const emit = defineEmits<{
         @click="emit('select', definition.type)"
       >
         <span class="grid size-10 place-items-center rounded-lg border border-cyan-main/20 bg-cyan-main/10 text-cyan-main">
-          <VisionIcon :name="definition.icon ?? 'box'" :size="20" />
+          <VIcon :name="definition.icon ?? 'box'" :size="20" />
         </span>
 
         <span class="mt-3 block text-base font-semibold">{{ definition.name }}</span>

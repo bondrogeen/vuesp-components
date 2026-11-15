@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IVTextWrapperProps, IVTextWrapperEmits } from '@/components/ui/text-field/types';
 
 import { useTextField } from '@/components/ui/text-field/useTextField';
@@ -34,7 +35,7 @@ const { labelClass, borderClass, contentClass, slotClass } = useTextField(props,
 				@click="emit('icon', $event)"
 			>
 				<slot name="icon">
-					<icon-ri-add-line class="size-4" />
+					<VIcon name="add" class="size-4" />
 				</slot>
 			</button>
 		</div>

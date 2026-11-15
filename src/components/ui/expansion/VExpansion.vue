@@ -1,10 +1,10 @@
 <template>
   <div ref="root" class="glass-inset mb-2 overflow-hidden rounded-md">
-    <div class="cursor-pointer min-h-[60px] px-4 flex items-center justify-between" @click="onActive">
+    <div class="cursor-pointer min-h-16 px-4 flex items-center justify-between" @click="onActive">
       <h4>{{ label }}</h4>
 
       <div class="transition text-gray-main" :class="{ 'rotate-x-180': isActive }">
-        <icon-ri-arrow-drop-down-line class="size-6" />
+        <VIcon name="chevron-down" class="size-6" />
       </div>
     </div>
 
@@ -16,6 +16,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IVExpansionProps } from '@/components/ui/expansion/types';
 import type { Ref } from 'vue';
 

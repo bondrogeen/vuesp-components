@@ -1,5 +1,5 @@
 {
-  "version": "2.5.2",
+  "version": "3.0.0",
   "name": "vuesp-components",
   "type": "module",
   "main": "./dist/index.js",
@@ -62,7 +62,8 @@
     "url": "https://github.com/bondrogeen/vuesp-components"
   },
   "files": [
-    "dist"
+    "dist",
+    "THIRD_PARTY_LICENSES.md"
   ],
   "scripts": {
     "dev": "vite",
@@ -85,7 +86,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
-    "@iconify-json/ri": "^1.2.10",
     "@tailwindcss/vite": "4.1.6",
     "@types/node": "^18.11.18",
     "@typescript-eslint/parser": "^8.46.3",
@@ -99,7 +99,6 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.46.3",
-    "unplugin-icons": "^23.0.1",
     "unplugin-vue-components": "^32.1.0",
     "vite": "^5.0.0",
     "vite-plugin-dts": "~4.5.0",

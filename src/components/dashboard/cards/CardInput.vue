@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 import type { IDashboardItem } from '@/types';
 
@@ -38,7 +39,7 @@ watch(
       <div class="flex justify-center relative mx-2 my-6">
         <VTextField v-model="input" v-bind="getBind(item)" @enter="onChange" @blur="onChange">
           <template #icon>
-            <icon-ri-arrow-drop-right-line class="size-8" />
+            <VIcon name="chevron-right" class="size-8" />
           </template>
         </VTextField>
       </div>

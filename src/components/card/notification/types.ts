@@ -1,6 +1,6 @@
 import type { INotification } from '@/types';
 
-export interface ICardNotificationProps extends INotification {
+export interface ICardNotificationProps extends Omit<INotification, 'key'> {
   empty?: string;
 }
 

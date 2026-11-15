@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IDashboardItem } from '@/types';
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
@@ -44,7 +45,7 @@ const onClick = () => {
     <template #header="item">
       <div>
         <VButton type="icon" class="text-gray-dark-25" @click.stop="onClick">
-          <icon-ri-time-line class="size-7" />
+          <VIcon name="clock" class="size-7" />
         </VButton>
         <VTextField ref="time" v-bind="getBind(item)" type="datetime-local" class="size-0" hidden @change="onChangeDate"></VTextField>
       </div>

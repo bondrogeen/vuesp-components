@@ -10,7 +10,7 @@ const TOKEN_COLORS: Record<string, string> = {
 export const renderMenu = (suggestions: ISuggestion[], selectedIndex: number, onSelect: (index: number) => void): HTMLElement => {
   const container = document.createElement('div');
   container.className = `
-    fixed z-[10000] min-w-[250px] max-w-[400px] max-h-[250px] 
+    fixed z-[10000] min-w-64 max-w-100 max-h-64 
     overflow-y-auto p-1 rounded-lg shadow-lg border 
     border-gray-light-10 dark:border-gray-dark-30 bg-white dark:bg-gray-dark-30 
     text-sm font-mono scrollbar pointer-events-none
@@ -43,8 +43,8 @@ export const renderMenu = (suggestions: ISuggestion[], selectedIndex: number, on
 export const renderTooltip = (suggestion: ISuggestion, position: { left: number; top: number }): HTMLElement => {
   const tooltip = document.createElement('div');
   tooltip.className = `
-    fixed z-[10001] px-3 py-2 font-mono text-sm max-w-[300px] 
-    min-w-[50px] min-h-[20px] rounded-lg shadow-lg border 
+    fixed z-[10001] px-3 py-2 font-mono text-sm max-w-75 
+    min-w-12 min-h-5 rounded-lg shadow-lg border 
     pointer-events-none transition-opacity duration-150
     bg-white dark:bg-gray-dark-30 border-gray-light-10 dark:border-gray-dark-30 
     text-gray-dark-30 dark:text-gray-light-10 pointer-events-none
@@ -67,7 +67,7 @@ export const renderTooltip = (suggestion: ISuggestion, position: { left: number;
 
   const arrow = document.createElement('div');
   arrow.className = `
-    absolute bottom-[-6px] left-1/2 w-2.5 h-2.5 -translate-x-1/2 rotate-45
+    absolute -bottom-1 left-1/2 w-2.5 h-2.5 -translate-x-1/2 rotate-45
     bg-white dark:bg-gray-dark-30 border-r border-b border-gray-light-10 dark:border-gray-dark-30
   `;
   tooltip.appendChild(arrow);

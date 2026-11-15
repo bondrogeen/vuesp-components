@@ -2,7 +2,7 @@
 import { nextTick, onMounted, ref } from 'vue';
 import { changeTheme, localGet } from '@/helpers';
 
-import VisionIcon from './VisionIcon.vue';
+import VIcon from '@/components/ui/icon/VIcon.vue';
 
 type Theme = 'dark' | 'light';
 
@@ -44,6 +44,6 @@ onMounted(async () => {
 		:title="theme === 'dark' ? titleLight : titleDark"
 		@click="apply(theme === 'dark' ? 'light' : 'dark')"
 	>
-		<VisionIcon :name="theme === 'dark' ? 'sun' : 'moon'" :size="18" />
+		<VIcon :name="theme === 'dark' ? 'sun' : 'moon'" :size="18" />
 	</button>
 </template>

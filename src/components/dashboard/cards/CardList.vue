@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
 import type { IDashboardItem, IListItem } from '@/types';
@@ -36,7 +37,7 @@ const getBind = ({ name, value, opts = {} }: IDashboardItem) => {
         <VSelect v-bind="getBind(item)" is-popup top="0" left="-115px" @change="setState">
           <template #activator="{ on }">
             <VButton type="icon" class="text-gray-dark-25" @click.stop="on.click">
-              <icon-ri-list-check class="size-6" />
+              <VIcon name="list-check" class="size-6" />
             </VButton>
           </template>
         </VSelect>

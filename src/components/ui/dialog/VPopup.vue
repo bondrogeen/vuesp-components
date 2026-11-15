@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IVPopupProps, IVDialogEmits } from './types';
 import type { IVDropdownOn } from '../dropdown/types';
 import { computed, shallowRef } from 'vue';
 
 import VButton from '@/components/ui/button/VButton.vue';
-import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
 import { useFocusTrap } from '@/composables/useFocusTrap';
 import { useSwipeDown } from '@/composables/useSwipeDown';
 import { useDialog } from '@/composables/useDialog';
@@ -36,15 +36,15 @@ const onClick = (e: Event) => {
 
 const on: IVDropdownOn = { click: onClick, open: onOpen, set: onSet };
 const getSize = computed(() => ({
-  auto: 'max-h-[calc(100dvh-50px)]',
-  full: 'h-[calc(100dvh-24px)] md:h-[calc(100dvh-100px)]',
+  auto: 'max-h-[calc(100dvh-3rem)]',
+  full: 'h-[calc(100dvh-1.5rem)] md:h-[calc(100dvh-6rem)]',
   screen: 'h-dvh',
 }));
 
 const getSizeContent = computed(() => ({
-  auto: 'max-h-[calc(100dvh-50px-16px)]',
-  full: 'h-[calc(100dvh-24px-16px)] md:h-[calc(100dvh-100px-16px)]',
-  screen: 'h-[calc(100dvh-16px)]',
+  auto: 'max-h-[calc(100dvh-4rem)]',
+  full: 'h-[calc(100dvh-2.5rem)] md:h-[calc(100dvh-7rem)]',
+  screen: 'h-[calc(100dvh-1rem)]',
 }));
 </script>
 
@@ -92,11 +92,11 @@ const getSizeContent = computed(() => ({
               title="Close"
               @click="onClose"
             >
-              <VisionIcon name="close" :size="16" />
+              <VIcon name="close" :size="16" />
             </VButton>
           </div>
 
-          <div class="overflow-y-auto max-h-[calc(100dvh-24px-16px)] overscroll-contain no-scrollbar" :class="getSizeContent[size]">
+          <div class="overflow-y-auto max-h-[calc(100dvh-2.5rem)] overscroll-contain no-scrollbar" :class="getSizeContent[size]">
             <slot :close="onClose" :on="on" />
           </div>
         </div>

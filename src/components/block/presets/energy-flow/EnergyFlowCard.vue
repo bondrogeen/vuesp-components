@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
+import VCard from '@/components/ui/card/VCard.vue';
 import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
 import { usePreferredReducedMotion } from '@vueuse/core';
 
 import type { IBlockResolvedMetric } from '@/components/block/data/types';
 
-import CardMain from '@/components/card/main/CardMain.vue';
 import VButton from '@/components/ui/button/VButton.vue';
-import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
 
 import { metricClasses } from '@/components/block/data/metricStyles';
 
@@ -305,7 +305,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <CardMain :title="title">
+  <VCard :title="title" hover>
     <template #header>
       <div class="flex items-center gap-2">
         <span
@@ -317,11 +317,11 @@ onUnmounted(() => {
         </span>
 
         <VButton v-if="editable" type="icon" size="sm" aria-label="Настроить блок" title="Настроить блок" @click="emit('settings')">
-          <VisionIcon name="settings" :size="16" />
+          <VIcon name="settings" :size="16" />
         </VButton>
 
         <VButton type="icon" size="sm" aria-label="Обновить данные" title="Обновить данные" @click="emit('refresh')">
-          <VisionIcon name="refresh" :size="16" />
+          <VIcon name="refresh" :size="16" />
         </VButton>
       </div>
     </template>
@@ -339,10 +339,10 @@ onUnmounted(() => {
 
         <g v-for="link of activeLinks" :key="`flow-${link.id}`">
           <path class="stroke-cyan-main [stroke-width:2.5] [stroke-linecap:round] opacity-55" :d="geometry.paths[link.id]" fill="none" />
-          <path class="stroke-cyan-main [stroke-width:10] [stroke-linecap:round] opacity-20 blur-[6px]" :d="geometry.paths[link.id]" fill="none" />
+          <path class="stroke-cyan-main [stroke-width:10] [stroke-linecap:round] opacity-20 blur-sm" :d="geometry.paths[link.id]" fill="none" />
 
           <path
-            class="animate-energy-flow stroke-gray-light-30 [stroke-width:2] [stroke-linecap:round] [stroke-dasharray:16_22] opacity-75 drop-shadow-[var(--shadow-cyan-glow-xs)] motion-reduce:animate-none motion-reduce:[stroke-dasharray:none]"
+            class="animate-energy-flow stroke-gray-light-30 stroke-2 [stroke-linecap:round] [stroke-dasharray:16_22] opacity-75 drop-shadow-cyan-glow-xs motion-reduce:animate-none motion-reduce:[stroke-dasharray:none]"
             :class="{ '[animation-direction:reverse]': link.reverse }"
             :d="geometry.paths[link.id]"
             :style="{ animationDuration: `${link.speed}s` }"
@@ -350,7 +350,7 @@ onUnmounted(() => {
           />
 
           <template v-if="!isStatic">
-            <circle v-for="(dot, index) of [0, 1, 2]" :key="`dot-${link.id}-${dot}`" r="2.6" fill="var(--color-gray-light-30)" opacity="0" class="drop-shadow-[var(--shadow-cyan-glow-dot)]">
+            <circle v-for="(dot, index) of [0, 1, 2]" :key="`dot-${link.id}-${dot}`" r="2.6" opacity="0" class="fill-gray-light-30 drop-shadow-cyan-glow-dot">
               <animateMotion :dur="`${link.speed}s`" :begin="`${(index * link.speed) / 3}s`" repeatCount="indefinite" calcMode="linear" keyTimes="0;1" :keyPoints="link.reverse ? '1;0' : '0;1'">
                 <mpath :href="`#energy-path-${link.id}`" />
               </animateMotion>
@@ -366,7 +366,7 @@ onUnmounted(() => {
           <div class="relative flex w-full max-w-none flex-col gap-3 rounded-2xl border p-4 shadow-cyan-glow-soft lg:max-w-56" :class="node.card">
             <div class="flex items-center gap-2">
               <span class="grid size-8 shrink-0 place-items-center rounded-lg" :class="node.surface">
-                <VisionIcon :name="node.icon" :size="16" :class="node.tone" />
+                <VIcon :name="node.icon" :size="16" :class="node.tone" />
               </span>
 
               <span class="min-w-0 flex-1 truncate text-sm font-semibold">{{ node.label }}</span>
@@ -388,7 +388,7 @@ onUnmounted(() => {
             <div class="relative">
               <div class="flex items-center gap-2">
                 <span class="grid size-9 place-items-center rounded-lg bg-cyan-main/15">
-                  <VisionIcon name="inverter" :size="20" />
+                  <VIcon name="inverter" :size="20" />
                 </span>
                 <span class="text-sm font-semibold text-gray-dark-30 dark:text-white">{{ inverterTitle }}</span>
               </div>
@@ -420,5 +420,5 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-  </CardMain>
+  </VCard>
 </template>

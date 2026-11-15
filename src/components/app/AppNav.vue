@@ -16,7 +16,7 @@
           <span class="flex-1 first-letter:uppercase text-sm" :class="isSidebar ? 'lg:hidden' : ''">{{ item.name }}</span>
 
           <button class="cursor-pointer" :class="[isSidebar ? 'lg:hidden' : '']" @click.prevent.stop="onSelect(item)">
-            <icon-ri-arrow-right-s-line v-if="item.children" />
+            <VIcon name="arrow-right" v-if="item.children" />
           </button>
         </component>
 
@@ -62,6 +62,7 @@
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IAppNavProps, IAppNavEmits } from '@/components/app/types';
 import type { IMenuItem } from '@/types';
 

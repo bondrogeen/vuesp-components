@@ -7,7 +7,7 @@
     leave-from-class="opacity-100 translate-y-0"
     leave-to-class="transform opacity-0 -translate-y-8"
   >
-    <div v-if="isShow" class="glass-inset w-full min-w-[260px] max-w-xs rounded-[10px] p-4 shadow-lg" role="alert">
+    <div v-if="isShow" class="glass-inset w-full min-w-64 max-w-xs rounded-xl p-4 shadow-lg" role="alert">
       <div class="flex items-center gap-4 text-sm">
         <slot :isDone="isDone">
           <div class="flex-auto">Progress...</div>
@@ -16,17 +16,17 @@
         </slot>
 
         <button class="cursor-pointer transition text-gray-dark-30 dark:text-gray-main self-start hover:text-gray-dark-25" @click="isShow = false">
-          <icon-ri-close-line class="size-4" />
+          <VIcon name="close" class="size-4" />
         </button>
       </div>
 
-      <div v-if="isProgress" class="h-[2px] fixed top-0 left-0 w-full bg-blue-600 transition-all duration-500" :style="`width: ${getPercent}%`"></div>
+      <div v-if="isProgress" class="h-0.5 fixed top-0 left-0 w-full bg-blue-600 transition-all duration-500" :style="`width: ${getPercent}%`"></div>
 
       <div v-if="isProgress" class="relative mt-2 block h-4 w-full select-none overflow-hidden rounded-md bg-gray-light-10/70 dark:bg-white/10">
-        <div class="absolute left-[140px] top-1/2 -translate-1/2 text-sm font-bold text-black dark:text-white text-center leading-none">{{ getPercent }}%</div>
+        <div class="absolute left-36 top-1/2 -translate-1/2 text-sm font-bold text-black dark:text-white text-center leading-none">{{ getPercent }}%</div>
 
         <div class="bg-blue-600 rounded h-4 overflow-hidden relative transition-all duration-500" :style="`width: ${getPercent}%`">
-          <div class="absolute left-[140px] top-1/2 -translate-1/2 text-sm font-bold text-white text-center leading-none">{{ getPercent }}%</div>
+          <div class="absolute left-36 top-1/2 -translate-1/2 text-sm font-bold text-white text-center leading-none">{{ getPercent }}%</div>
         </div>
       </div>
     </div>
@@ -34,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IAppProgressProps } from '@/components/app/types';
 
 import { computed, watch, ref } from 'vue';

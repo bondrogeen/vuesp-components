@@ -1,12 +1,15 @@
 import { computed, ref } from 'vue';
+import type { Ref } from 'vue';
 import type { IFieldStateProps } from './types.ts';
 
-export const useTextField = (props: IFieldStateProps, mode: 'field' | 'wrapper' = 'field') => {
+export const useTextField = (props: IFieldStateProps, mode: 'field' | 'wrapper' = 'field', autofilled?: Ref<boolean>) => {
   const isFocus = ref(false);
 
   const hasValue = computed(() => props.modelValue !== null && props.modelValue !== undefined && props.modelValue !== '');
 
-  const isFloating = computed(() => (mode === 'wrapper' ? Boolean(props.active) : isFocus.value || hasValue.value || Boolean(props.active)));
+  const isFloating = computed(() =>
+    mode === 'wrapper' ? Boolean(props.active) : isFocus.value || hasValue.value || Boolean(props.active) || Boolean(autofilled?.value)
+  );
 
   const labelClass = computed(() => {
     const position = props.icon && mode === 'field' ? 'left-11' : 'left-3.5';
@@ -32,7 +35,7 @@ export const useTextField = (props: IFieldStateProps, mode: 'field' | 'wrapper' 
       : 'w-full h-full flex-auto overflow-ellipsis overflow-hidden px-4 outline-none bg-transparent placeholder:text-gray-main';
   });
 
-  const slotClass = computed(() => (mode === 'wrapper' || props.component === 'textarea' ? 'min-h-[40px]' : 'h-[40px]'));
+  const slotClass = computed(() => (mode === 'wrapper' || props.component === 'textarea' ? 'min-h-10' : 'h-10'));
 
   return { isFocus, isFloating, labelClass, borderClass, contentClass, slotClass };
 };

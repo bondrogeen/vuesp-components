@@ -12,7 +12,7 @@
       <VTextField :modelValue="step" label="Step" @update:modelValue="onUpdate('step', +$event)" />
     </div>
 
-    <div v-if="isType('list')" class="">
+    <div v-if="isType('list')">
       <div class="flex flex-col md:flex-row gap-4">
         <VTextField v-model="listItem.name" :disabled="isDisabledList" label="Name" @update:model-value="onChangeList" />
 
@@ -26,14 +26,14 @@
               <span>{{ item.name }}</span>
 
               <button class="cursor-pointer size-4" @click.prevent.stop="onRemove(item)">
-                <icon-ri-close-line />
+                <VIcon name="close"  />
               </button>
             </div>
           </template>
         </VSelect>
 
         <VButton class="px-4" color="blue" @click="onAdd">
-          <icon-ri-add-line />
+          <VIcon name="add"  />
         </VButton>
       </div>
     </div>
@@ -41,6 +41,7 @@
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { Ref } from 'vue';
 import type { IListItem, IDashboardItemOptions, TypeValueDashboardItemOptions } from '@/types';
 import type { IItemOptionsProps, IItemOptionsEmits } from '@/components/dashboard/edit/types';

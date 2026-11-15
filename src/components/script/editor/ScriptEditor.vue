@@ -58,7 +58,7 @@ onUnmounted(() => {
 
 <template>
   <div>
-    <div class="" id="editor"></div>
+    <div id="editor"></div>
   </div>
 </template>
 

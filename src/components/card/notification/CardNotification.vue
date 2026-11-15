@@ -1,13 +1,13 @@
 <template>
   <div class="relative flex items-center gap-2 w-full p-2 overflow-hidden">
-    <div class="absolute left-0 top-0 w-[3px] h-full" :class="getColor(props.color)"></div>
+    <div class="absolute left-0 top-0 w-1 h-full" :class="getColor(props.color)"></div>
 
     <VButton class="shrink-0" type="icon" @click="onRead">
       <span :class="props.isNew ? 'flex' : 'hidden'" class="absolute right-0 top-0.5 z-1 h-2 w-2 rounded-full bg-orange-400">
         <span class="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75"></span>
       </span>
 
-      <icon-ri-notification-line class="size-5" />
+      <VIcon name="noti" class="size-5" />
     </VButton>
 
     <div class="flex-auto text-xs">
@@ -17,12 +17,13 @@
     </div>
 
     <VButton class="shrink-0" type="icon" size="sm" @click="onRemove">
-      <icon-ri-close-line class="size-4" />
+      <VIcon name="close" class="size-4" />
     </VButton>
   </div>
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { ICardNotificationProps, ICardNotificationEmits } from '@/components/card/notification/types';
 
 import { dateUtcToString, timeUtcToString } from '@/helpers/';

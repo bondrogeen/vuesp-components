@@ -3,13 +3,13 @@
     <li v-for="(item, key) of items" :key="key" :class="isObject(item) ? '' : `flex items-center ${getClass()}`">
       <div class="flex items-center cursor-pointer ps-2 h-8" :class="isObject(item) ? `${getClass()}` : ''" @click="onClick(key)">
         <div v-if="isObject(item)" class="me-1">
-          <icon-ri-folder-6-line class="size-5" />
+          <VIcon name="folder" class="size-5" />
         </div>
 
         <div class="dark:text-gray-light-10">{{ key }}</div>
 
         <VButton v-if="isSupported" class="opacity-20 hover:opacity-70 transition-all" color="transparent" size="sm" @click.stop="copy(getPath(key))">
-          <icon-ri-file-copy-line class="size-5" />
+          <VIcon name="copy" class="size-5" />
         </VButton>
 
         <span v-if="text === getPath(key)" class="text-gray-dark-25 transition-all duration-1000 text-sm" :class="copied ? 'opacity-100' : 'opacity-0'">{{ $t('copied') }}</span>
@@ -19,7 +19,7 @@
 
           <div class="flex gap-3 items-center z-10">
             <VButton class="opacity-20 hover:opacity-70 transition-all" color="transparent" size="sm" :title="$t('add')" @click.stop="onGetKey(key, isObject(item))">
-              <icon-ri-add-line class="size-5" />
+              <VIcon name="add" class="size-5" />
             </VButton>
           </div>
         </template>
@@ -37,7 +37,7 @@
         </div>
 
         <VButton class="opacity-20 hover:opacity-70 transition-all" color="gray" size="sm" :title="$t('add')" @click.stop="onGetKey(key, isObject(item))">
-          <icon-ri-add-line class="size-5" />
+          <VIcon name="add" class="size-5" />
         </VButton>
       </template>
     </li>
@@ -45,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { Ref } from 'vue';
 import type { IVListObjectProps, IVListObjectEmits } from '@/components/ui/list/types';
 

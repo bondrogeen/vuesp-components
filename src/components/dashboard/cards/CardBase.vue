@@ -1,6 +1,6 @@
 <template>
   <div
-    class="glass-inset relative flex aspect-square rounded-[10px] cursor-pointer flex-col p-2 transition-all hover:border-cyan-main/25 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_0_50px_-18px_rgba(40,183,240,0.25)]"
+    class="glass-inset relative flex aspect-square rounded-xl cursor-pointer flex-col p-2 transition-all hover:border-cyan-main/25 hover:shadow-cyan-glow"
     @click="onClick"
   >
     <div class="flex-auto flex justify-between">
@@ -26,18 +26,18 @@
       </slot>
     </div>
 
-    <div v-if="props.icon" class="absolute left-1/2 top-1/2 size-[calc(50%)] text-gray-light-10/30 dark:text-gray-dark-30/30 -translate-1/2">
+    <div v-if="props.icon" class="absolute left-1/2 top-1/2 size-1/2 text-gray-light-10/30 dark:text-gray-dark-30/30 -translate-1/2">
       <slot name="icon" v-bind="props"></slot>
     </div>
 
     <VDialog v-if="dialog" :size="props.size || 'sm'" :title="name" @close="closeDialog" @open="openDialog">
       <template #header-btn>
         <VButton color="transparent" @click="onEdit">
-          <icon-ri-more-line />
+          <VIcon name="more"  />
         </VButton>
 
         <VButton color="transparent" @click="onClone">
-          <icon-ri-file-copy-2-line class="size-4 text-gray-dark-25" />
+          <VIcon name="copy" class="size-4 text-gray-dark-25" />
         </VButton>
       </template>
 
@@ -63,6 +63,7 @@
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { ICardBaseProps, ICardBaseEmits } from '@/components/dashboard/cards/types';
 
 import { ref, computed } from 'vue';

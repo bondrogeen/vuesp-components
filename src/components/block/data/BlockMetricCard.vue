@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IBlockMetric } from './types';
 
 import VButton from '@/components/ui/button/VButton.vue';
 import VFunc from '@/components/ui/func/VFunc.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
-import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
 
 import { METRIC_ARG_LABELS } from './resolver';
 
@@ -47,11 +47,11 @@ const onHover = (event: string, index: number) => emit('hover', event, index);
         title="Стиль показателя"
         @click="emit('open-style')"
       >
-        <VisionIcon name="palette" :size="18" />
+        <VIcon name="palette" :size="18" />
       </VButton>
 
       <VButton type="icon" size="sm" aria-label="Удалить показатель" title="Удалить показатель" @click="emit('remove')">
-        <VisionIcon name="trash" :size="14" />
+        <VIcon name="trash" :size="14" />
       </VButton>
 
       <span
@@ -61,7 +61,7 @@ const onHover = (event: string, index: number) => emit('hover', event, index);
         @dragstart="emit('dragstart', $event, index)"
         @dragend="emit('dragend')"
       >
-        <VisionIcon name="grip" :size="16" />
+        <VIcon name="grip" :size="16" />
       </span>
     </div>
 

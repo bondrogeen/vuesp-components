@@ -3,7 +3,7 @@
 
   <aside
     :class="props.value ? 'translate-x-0 ' : 'translate-x-full'"
-    class="overflow-x-hidden fixed top-[73px] right-0 flex h-[calc(100%-73px)] w-[290px] md:w-80 border-l border-gray-light-10/70 flex-col overflow-y-auto transition-all duration-350 dark:border-white/10 bg-white/90 backdrop-blur-2xl dark:bg-night-main/80"
+    class="overflow-x-hidden fixed top-18 bottom-0 right-0 flex w-72 md:w-80 border-l border-gray-light-10/70 flex-col overflow-y-auto transition-all duration-350 dark:border-white/10 bg-white/90 backdrop-blur-2xl dark:bg-night-main/80"
   >
     <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear h-full">
       <slot name="header" :isNew="isNew"></slot>

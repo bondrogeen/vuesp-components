@@ -8,13 +8,14 @@
           </component>
         </slot>
 
-        <icon-ri-arrow-drop-right-line v-if="item.path" class="rotate-270" />
+        <VIcon name="chevron-right" v-if="item.path" class="rotate-270" />
       </li>
     </ol>
   </nav>
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IBlockBreadcrumbProps, IBlockBreadcrumbEmits, IBreadcrumb } from '@/components/block/breadcrumb/types';
 
 const { items = [] } = defineProps<IBlockBreadcrumbProps>();

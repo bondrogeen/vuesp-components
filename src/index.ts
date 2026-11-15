@@ -3,7 +3,7 @@ import { App, Plugin, Component } from 'vue';
 import directives from '@/utils/directives';
 import type { ItemDirective } from '@/utils/directives';
 
-import { VButton, VSelect, VLoader, VDropdown, VList, VTextField, VWifiIcon, CardMain, VIconLogoMini, VIconLogo, VDialog } from '@/components/';
+import { VButton, VSelect, VLoader, VDropdown, VList, VTextField, VWifiIcon, VIconLogoMini, VIconLogo, VDialog } from '@/components/';
 
 import '@/assets/tailwind.css';
 
@@ -15,7 +15,6 @@ const components: Record<string, Component> = {
   VTextField,
   VSelect,
   VWifiIcon,
-  CardMain,
   VIconLogoMini,
   VIconLogo,
   VDialog,

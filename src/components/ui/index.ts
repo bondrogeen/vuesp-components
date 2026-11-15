@@ -1,8 +1,8 @@
-import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
 import VisionSearch from '@/components/ui/vision/VisionSearch.vue';
 import VisionThemeToggle from '@/components/ui/vision/VisionThemeToggle.vue';
 import VAutocomplete from '@/components/ui/autocomplete/VAutocomplete.vue';
 import VButton from '@/components/ui/button/VButton.vue';
+import VCard from '@/components/ui/card/VCard.vue';
 import VLoader from '@/components/ui/loader/VLoader.vue';
 import VCheckbox from '@/components/ui/checkbox/VCheckbox.vue';
 import VDropdown from '@/components/ui/dropdown/VDropdown.vue';
@@ -12,6 +12,7 @@ import VSelect from '@/components/ui/select/VSelect.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
 import VTextWrapper from '@/components/ui/text-field/VTextWrapper.vue';
 import VFile from '@/components/ui/file/VFile.vue';
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import VIconLogo from '@/components/ui/icon/VIconLogo.vue';
 import VIconLogoMini from '@/components/ui/icon/VIconLogoMini.vue';
 import VWifiIcon from '@/components/ui/wifiIcon/VWifiIcon.vue';
@@ -27,6 +28,8 @@ import VTooltip from '@/components/ui/tooltip/VTooltip.vue';
 export {
   VAutocomplete,
   VButton,
+  VCard,
+  VIcon,
   VLoader,
   VCheckbox,
   VDropdown,
@@ -47,7 +50,9 @@ export {
   VPopup,
   VTabs,
   VTooltip,
-  VisionIcon,
   VisionSearch,
   VisionThemeToggle,
 };
+
+export { ICONS, ICON_NAMES } from '@/components/ui/icon/icons';
+export type { IIconData } from '@/components/ui/icon/types';

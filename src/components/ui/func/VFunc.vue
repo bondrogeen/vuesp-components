@@ -23,13 +23,14 @@
     </template>
 
     <template #icon>
-      <icon-ri-close-line v-if="value" class="size-4" />
-      <icon-ri-add-line v-else class="size-4" />
+      <VIcon name="close" v-if="value" class="size-4" />
+      <VIcon name="add" v-else class="size-4" />
     </template>
   </VTextWrapper>
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IVFunkProps, IVFunkEmits } from '@/components/ui/func/types';
 
 import { ref, watch } from 'vue';

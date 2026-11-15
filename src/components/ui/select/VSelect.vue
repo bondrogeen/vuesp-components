@@ -1,4 +1,5 @@
 <script setup lang="ts" generic="T extends { name: string }">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IVSelectProps, IVSelectEmits } from './types';
 import type { IVDropdownOn } from '@/components/ui/dropdown/types';
 
@@ -26,7 +27,7 @@ function onSelect(item: T, on: IVDropdownOn) {
       <slot name="activator" v-bind="{ on, isShow }">
         <VTextField :model-value="modelValue" :disabled="disabled" :label="label" readonly hideMessage active @click="on.click" @on-icon="on.click">
           <template #icon>
-            <icon-ri-arrow-down-s-line class="transition duration-300" :class="isShow ? 'rotate-180' : ''" />
+            <VIcon name="chevron-down" class="transition duration-300" :class="isShow ? 'rotate-180' : ''" />
           </template>
         </VTextField>
       </slot>

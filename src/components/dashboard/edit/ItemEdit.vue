@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <div class="flex flex-col md:flex-row gap-6 min-h-[300px]">
+    <div class="flex flex-col md:flex-row gap-6 min-h-72">
       <div class="flex-auto order-1">
         <VTabs class="flex-auto min-h-75" :value="0" :items="tabs">
           <template #tab-0>
@@ -8,7 +8,7 @@
               <VTextField v-model="item.id" label="ID" :message="isFindId ? $t('used') : ''">
                 <template v-if="!isArgs" #icon>
                   <VButton color="transparent" @click="onCheckId">
-                    <icon-ri-menu-search-line />
+                    <VIcon name="menu-search"  />
                   </VButton>
                 </template>
               </VTextField>
@@ -35,13 +35,13 @@
             <div class="flex flex-col gap-4">
               <VTextWrapper :active="Boolean(item.args.length)" :disabled="isArgsDisabled" label="Arguments" @icon="dialog = true">
                 <div class="flex gap-2 flex-wrap flex-auto px-2 py-1">
-                  <div v-for="(arg, i) of item.args" :key="arg" class="flex items-center rounded-full bg-gray-light-10 dark:bg-gray-dark-40/50 px-2 py-[2px] text-xs">
+                  <div v-for="(arg, i) of item.args" :key="arg" class="flex items-center rounded-full bg-gray-light-10 dark:bg-gray-dark-40/50 px-2 py-1 text-xs">
                     <div class="relative group">
                       <span class="select-none">{{ arg }}</span>
                     </div>
 
                     <button v-if="i ? true : Boolean(item.args.length < 2)" class="ms-1 shrink-0 cursor-pointer text-gray-main transition hover:text-rose-500" @click="onRemoveParams(arg)">
-                      <icon-ri-close-line class="size-5" />
+                      <VIcon name="close" class="size-5" />
                     </button>
                   </div>
                 </div>
@@ -90,7 +90,7 @@
       </div>
 
       <div class="flex justify-center order-0 md:order-1">
-        <div class="flex-[0_0_130px] size-[130px]">
+        <div class="size-32 shrink-0">
           <slot name="default" :item="item"></slot>
         </div>
       </div>
@@ -103,7 +103,7 @@
     </div>
 
     <VDialog v-if="dialog" size="md" :title="$t('select')" @close="dialog = false">
-      <div class="relative min-h-[200px] max-h-100dvh overflow-auto scrollbar">
+      <div class="relative min-h-52 max-h-100dvh overflow-auto scrollbar">
         <VListObject :items="object" :onlyValue="!isArgs" @click="onAddParams" />
       </div>
     </VDialog>
@@ -111,6 +111,7 @@
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { Ref } from 'vue';
 import type { IDashboardItem, IDashboardItemOptions, IListItem, VListObjectReturnData } from '@/types';
 import type { IItemEditProps, IItemEditEmits } from '@/components/dashboard/edit/types';

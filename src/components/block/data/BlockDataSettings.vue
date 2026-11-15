@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { VListObjectReturnData } from '@/types';
 import type { BlockMetricGroup, IBlockConfig, IBlockContext, IBlockDefinition, IBlockField, IBlockMetric, IBlockResolvedMetric, IMetricStyle } from './types';
 
@@ -9,7 +10,6 @@ import VDialog from '@/components/ui/dialog/VDialog.vue';
 import VListObject from '@/components/ui/list/VListObject.vue';
 import VSelect from '@/components/ui/select/VSelect.vue';
 import VTextWrapper from '@/components/ui/text-field/VTextWrapper.vue';
-import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
 
 import BlockDataHelp from './BlockDataHelp.vue';
 import BlockFieldCard from './BlockFieldCard.vue';
@@ -406,15 +406,15 @@ onUnmounted(flush);
     <template #header-btn>
       <div class="me-2 flex items-center gap-2">
         <VButton type="icon" size="sm" aria-label="Справка" title="Справка" @click="help = true">
-          <VisionIcon name="help" :size="16" />
+          <VIcon name="help" :size="16" />
         </VButton>
 
         <VButton type="icon" size="sm" aria-label="Импорт" title="Импорт" @click="openImport">
-          <VisionIcon name="upload" :size="16" />
+          <VIcon name="upload" :size="16" />
         </VButton>
 
         <VButton type="icon" size="sm" aria-label="Экспорт" title="Экспорт" @click="exportConfig">
-          <VisionIcon name="download" :size="16" />
+          <VIcon name="download" :size="16" />
         </VButton>
       </div>
     </template>
@@ -432,7 +432,7 @@ onUnmounted(flush);
           @click="activeBlock = block.key"
         >
           <span class="grid size-8 shrink-0 place-items-center rounded-md border border-gray-light-10/50 dark:border-white/10">
-            <VisionIcon :name="block.icon" :size="16" />
+            <VIcon :name="block.icon" :size="16" />
           </span>
           <span class="min-w-0 flex-1 truncate text-sm font-medium">{{ block.label }}</span>
           <span class="text-xs text-gray-dark-25 dark:text-gray-main">{{ block.count }}</span>
@@ -475,13 +475,13 @@ onUnmounted(flush);
           <section v-if="hasMetrics" class="glass-inset rounded-xl p-3">
             <VTextWrapper :active="Boolean(activeGroupArgs.length)" :icon-disabled="activeGroupArgs.length >= MAX_METRIC_ARGS" label="Аргументы" icon-label="Добавить аргумент" @icon="openGroupArg()">
               <div v-if="activeGroupArgs.length" class="flex gap-2 flex-wrap flex-auto px-2 py-1">
-                <div v-for="(arg, i) of activeGroupArgs" :key="arg" class="flex items-center rounded-full bg-gray-light-10 dark:bg-gray-dark-40/50 px-2 py-[2px] text-xs">
+                <div v-for="(arg, i) of activeGroupArgs" :key="arg" class="flex items-center rounded-full bg-gray-light-10 dark:bg-gray-dark-40/50 px-2 py-1 text-xs">
                   <div class="relative group">
                     <span class="select-none">{{ arg }}</span>
                   </div>
 
                   <button v-if="i ? true : Boolean(activeGroupArgs.length < 2)" type="button" class="ms-1 shrink-0 cursor-pointer text-gray-main transition hover:text-rose-500" @click="removeGroupArg(i)">
-                     <icon-ri-close-line class="size-5" />
+                     <VIcon name="close" class="size-5" />
                   </button>
                 </div>
               </div>
@@ -493,7 +493,7 @@ onUnmounted(flush);
               <h4 class="text-sm font-semibold">Показатели</h4>
 
               <VButton type="icon" size="sm" aria-label="Добавить показатель" title="Добавить показатель" :disabled="activeMetrics.length >= MAX_METRICS" @click="addMetric">
-                <VisionIcon name="plus" :size="14" />
+                <VIcon name="add" :size="14" />
               </VButton>
             </div>
 

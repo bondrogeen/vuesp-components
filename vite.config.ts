@@ -5,8 +5,6 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 import tailwindcss from '@tailwindcss/vite';
 
-import Icons from 'unplugin-icons/vite';
-import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -16,8 +14,7 @@ export default defineConfig(() => ({
   plugins: [
     vue(),
     tailwindcss(),
-    Icons({ autoInstall: true }),
-    Components({ resolvers: [IconsResolver({ prefix: 'icon', enabledCollections: ['ri'] })] }),
+    Components(),
     dts({
       entryRoot: 'src',
       tsconfigPath: path.join(__dirname, 'tsconfig.lib.json'),

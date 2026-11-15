@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IVDialogProps, IVDialogEmits } from './types';
 import { computed, ref } from 'vue';
 import { useDialog } from '@/composables/useDialog';
@@ -6,7 +7,6 @@ import { useFocusTrap } from '@/composables/useFocusTrap';
 
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import VPopup from '@/components/ui/dialog/VPopup.vue';
-import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
 
 const { popupSize = 'auto', size = 'md', color = 'white', timeout, isOnlyDialog } = defineProps<IVDialogProps>();
 
@@ -20,15 +20,15 @@ const { show, onClose, onOpen } = useDialog(emit, timeout);
 const dialogRef = ref<HTMLElement | null>(null);
 
 const sizes = {
-  sm: 'max-w-full md:max-w-[330px] max-md:h-full',
-  md: 'max-w-full md:max-w-[672px] max-md:h-full',
-  lg: 'max-w-full md:max-w-[960px] max-md:h-full',
+  sm: 'max-w-full md:max-w-80 max-md:h-full',
+  md: 'max-w-full md:max-w-2xl max-md:h-full',
+  lg: 'max-w-full md:max-w-5xl max-md:h-full',
   full: 'relative max-w-full w-full h-3/4 ',
 };
 
 const colors = {
   none: '',
-  white: 'glass-inset rounded-[10px]',
+  white: 'glass-inset rounded-xl',
   gray: '',
 };
 
@@ -82,7 +82,7 @@ defineExpose({
                 title="Close"
                 @click="onClose"
               >
-                <VisionIcon name="close" :size="18" />
+                <VIcon name="close" :size="18" />
               </VButton>
             </div>
 

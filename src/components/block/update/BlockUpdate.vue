@@ -50,7 +50,7 @@ const onUpdate = (name: string, files: FileList | null) => {
         </div>
       </VFile>
 
-      <v-button class="min-w-[100px]" color="blue" :disabled="Boolean(!file)" @click="onUpdate(`${key}.bin`, file)">{{ $t('btnUpdate') }}</v-button>
+      <v-button class="min-w-24" color="blue" :disabled="Boolean(!file)" @click="onUpdate(`${key}.bin`, file)">{{ $t('btnUpdate') }}</v-button>
     </div>
   </div>
 </template>

@@ -1,66 +1,27 @@
 <template>
-  <div class="h-[100dvh] min-h-full flex flex-col">
-    <app-overlay v-if="false">
-      <div class="text-2xl font-bold mb-4">{{ 'disconn' }}</div>
+  <div class="h-dvh overflow-y-auto scrollbar">
+    <header class="glass-header sticky top-0 z-30 border-b">
+      <div class="container mx-auto flex items-center gap-3 py-3">
+        <VIconLogo class="h-7 shrink-0 text-cyan-main" />
 
-      <div class="flex justify-center">
-        <v-loader class="text-cyan-main"></v-loader>
+        <div class="min-w-0 flex-auto">
+          <h1 class="text-lg font-semibold uppercase text-gray-dark-40 dark:text-white">Vuesp Components</h1>
+          <p class="text-xs text-gray-dark-25 dark:text-gray-main">Каталог компонентов кита</p>
+        </div>
+
+        <VisionThemeToggle />
       </div>
-    </app-overlay>
+    </header>
 
-    <div class="flex h-screen overflow-hidden">
-      <app-aside v-if="!isIframe" :isSidebar="isSidebar" @sidebar="onSidebar">
-        <h3 class="mb-4 text-xs h-5 uppercase flex items-center gap-2 justify-between" :class="isSidebar ? 'lg:hidden' : ''">
-          <span v-if="false" class="text-gray-main text-nowrap">{{ 12 }}</span>
-        </h3>
-
-        <app-nav :menu="[]" :isSidebar="isSidebar" :fullPath="'/'" @sidebar="onSidebar" />
-
-        <div class="flex-auto"></div>
-      </app-aside>
-
-      <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden scrollbar">
-        <app-header v-if="!isIframe" :change-theme="false" :notifications="[]" @sidebar="isSidebar = !isSidebar" @notif="isSidebarRight = !isSidebarRight"></app-header>
-
-        <main :class="isIframe ? 'no-scrollbar' : 'px-4 py-6 sm:px-6 lg:px-8 flex-auto'">
-          <div :class="isIframe ? '' : 'container mx-auto h-full'">
-            <router-view />
-          </div>
-        </main>
-
-        <app-notification :value="isSidebarRight" :notifications="[]" @close="isSidebarRight = false">
-          <template #header="{ isNew }">
-            <div class="flex items-center justify-between py-4 sticky top-0 z-20 bg-gray-light-30 dark:bg-gray-dark-40 px-2">
-              <h5>{{ 'List' }}</h5>
-
-              <v-button class="text-sm" :disabled="!isNew">{{ 'All' }}</v-button>
-            </div>
-          </template>
-          
-          <template #empty>
-            <p class="text-center py-10">{{ 'All' }}</p>
-          </template>
-        </app-notification>
-      </div>
-    </div>
-    <VDialog title="Dialog">
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores sint voluptas aliquam voluptate ipsa excepturi beatae porro, nesciunt debitis vero, enim molestias quia autem architecto, fugiat
-      accusantium inventore provident quam! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores sint voluptas aliquam voluptate ipsa excepturi beatae porro, nesciunt debitis vero, enim
-      molestias quia autem architecto, fugiat accusantium inventore provident quam! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores sint voluptas aliquam voluptate ipsa excepturi
-      beatae porro, nesciunt debitis vero, enim molestias quia autem architecto, fugiat accusantium inventore provident quam!
-    </VDialog>
+    <main class="container mx-auto py-6 sm:py-8">
+      <KitShowcase />
+    </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import VIconLogo from '@/components/ui/icon/VIconLogo.vue';
+import VisionThemeToggle from '@/components/ui/vision/VisionThemeToggle.vue';
 
-import VDialog from '@/components/ui/dialog/VDialog.vue';
-
-const isIframe = false;
-
-const isSidebar = ref(false);
-const isSidebarRight = ref(false);
-
-const onSidebar = (value: boolean) => (isSidebar.value = value);
+import KitShowcase from '@/pages/kit/KitShowcase.vue';
 </script>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
-import VisionIcon from './VisionIcon.vue';
+import VIcon from '@/components/ui/icon/VIcon.vue';
 
 export interface SearchItem {
   title: string;
@@ -79,7 +79,7 @@ onUnmounted(() => {
     :aria-label="label"
     @click="show"
   >
-    <VisionIcon name="search" :size="17" />
+    <VIcon name="search" :size="17" />
     <span class="hidden lg:inline">{{ label }}</span>
     <kbd class="hidden rounded border border-gray-light-10/60 px-1.5 py-0.5 font-mono text-xs text-gray-main dark:border-white/10 dark:text-gray-dark-25 lg:inline">⌘K</kbd>
   </button>
@@ -87,13 +87,13 @@ onUnmounted(() => {
   <Teleport to="body">
     <div v-if="open" class="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-slate-900/40 px-4 pt-[12vh] backdrop-blur-sm dark:bg-black/60" @click.self="hide">
       <div
-        class="glass-inset w-full max-w-2xl overflow-hidden rounded-[12px] border border-gray-light-10/70 bg-white/95 dark:border-white/10 dark:bg-night-light-10/95"
+        class="glass-inset w-full max-w-2xl overflow-hidden rounded-xl border border-gray-light-10/70 bg-white/95 dark:border-white/10 dark:bg-night-light-10/95"
         role="dialog"
         aria-modal="true"
         :aria-label="dialogLabel"
       >
         <div class="flex items-center gap-3 border-b border-gray-light-10/70 px-4 dark:border-white/10">
-          <VisionIcon name="search" :size="18" class="shrink-0 text-gray-main" />
+          <VIcon name="search" :size="18" class="shrink-0 text-gray-main" />
           <input
             ref="input"
             v-model="query"
@@ -112,7 +112,7 @@ onUnmounted(() => {
             class="flex items-start gap-3 rounded-md px-3 py-2.5 transition-colors hover:bg-white/50 dark:hover:bg-white/5"
             @click="hide"
           >
-            <VisionIcon name="arrowRight" :size="16" class="mt-0.5 shrink-0 text-gray-main" />
+            <VIcon name="arrow-right" :size="16" class="mt-0.5 shrink-0 text-gray-main" />
             <span class="min-w-0">
               <span class="flex flex-wrap items-baseline gap-2">
                 <span class="text-sm font-medium text-gray-dark-40 dark:text-white">{{ item.title }}</span>

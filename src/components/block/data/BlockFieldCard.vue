@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { IBlockField } from './types';
 
 import VButton from '@/components/ui/button/VButton.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
-import VisionIcon from '@/components/ui/vision/VisionIcon.vue';
 
 const {
   field,
@@ -55,7 +55,7 @@ const emit = defineEmits<{
           @on-icon="emit('pick')"
         >
           <template #icon>
-            <VisionIcon name="search" :size="16" />
+            <VIcon name="search" :size="16" />
           </template>
         </VTextField>
 
@@ -78,7 +78,7 @@ const emit = defineEmits<{
         title="Сбросить поле"
         @click="emit('reset')"
       >
-        <VisionIcon name="refresh" :size="14" />
+        <VIcon name="refresh" :size="14" />
       </VButton>
     </div>
 

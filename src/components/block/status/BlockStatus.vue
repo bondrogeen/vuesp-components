@@ -42,13 +42,13 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 gap-4 lg:max-w-[360px] min-w-[250px]">
+  <div class="grid grid-cols-1 gap-4 lg:max-w-90 min-w-64">
     <div class="flex flex-col w-full items-center gap-2">
       <div class="relative block h-4 w-full select-none overflow-hidden rounded-md bg-gray-light-10/70 dark:bg-white/10" :title="`${percent}%`">
-        <div class="absolute left-[110px] top-1/2 -translate-1/2 text-center text-sm font-bold leading-none text-gray-dark-40 dark:text-white">{{ percent }}%</div>
+        <div class="absolute left-28 top-1/2 -translate-1/2 text-center text-sm font-bold leading-none text-gray-dark-40 dark:text-white">{{ percent }}%</div>
 
         <div class="relative h-4 overflow-hidden rounded-md bg-cyan-main transition-all duration-500" :style="`width: ${percent}%`">
-          <div class="absolute left-[110px] top-1/2 -translate-1/2 text-sm font-bold text-white text-center leading-none">{{ percent }}%</div>
+          <div class="absolute left-28 top-1/2 -translate-1/2 text-sm font-bold text-white text-center leading-none">{{ percent }}%</div>
         </div>
       </div>
 
