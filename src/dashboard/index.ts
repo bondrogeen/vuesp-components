@@ -31,9 +31,30 @@ const browserEvaluator: DashboardEvaluator = (body, scope) => {
   return fn(...Object.values(scope));
 };
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  value !== null && typeof value === 'object' && !Array.isArray(value);
+
+/**
+ * Старые dashboard.json писали `set` как `({ ...a, value: v, command: 2 })`,
+ * где `a` был объектом сущности. Ядро теперь передаёт `a` = args[0] (значение),
+ * поэтому команда выходит без `key` и не уходит на устройство.
+ * Возвращаем сущность из args[1], не переписывая пользовательские выражения.
+ */
+const withLegacyEntity = (data: unknown, item: IDashboardItem, object: unknown): unknown => {
+  const entity = getParamsData(item, object)[1];
+  if (!isRecord(entity) || !('key' in entity)) return data;
+
+  const merge = (command: unknown) => {
+    if (!isRecord(command) || 'key' in command) return command;
+    return { ...entity, ...command };
+  };
+
+  return Array.isArray(data) ? data.map(merge) : merge(data);
+};
+
 export const setStateItem = <T>(item: IDashboardItem, value: unknown, object: T): unknown => {
   try {
-    return buildDashboardCommands(item, value, object, browserEvaluator);
+    return withLegacyEntity(buildDashboardCommands(item, value, object, browserEvaluator), item, object);
   } catch (error) {
     console.warn(error);
     return null;

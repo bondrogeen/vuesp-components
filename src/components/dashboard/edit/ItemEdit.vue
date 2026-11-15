@@ -8,7 +8,7 @@
               <VTextField v-model="item.id" label="ID" :message="isFindId ? $t('used') : ''">
                 <template v-if="!isArgs" #icon>
                   <VButton color="transparent" @click="onCheckId">
-                    <VIcon name="menu-search"  />
+                    <VIcon name="search" class="size-5" />
                   </VButton>
                 </template>
               </VTextField>

@@ -26,14 +26,14 @@
       </slot>
     </div>
 
-    <div v-if="props.icon" class="absolute left-1/2 top-1/2 size-1/2 text-gray-light-10/30 dark:text-white/10 -translate-1/2">
+    <div v-if="props.icon" class="absolute left-1/2 top-1/2 size-1/2 text-gray-light-10/10 dark:text-white/2 -translate-1/2">
       <slot name="icon" v-bind="props"></slot>
     </div>
 
     <VDialog v-if="dialog" :size="props.size || 'sm'" :title="name" @close="closeDialog" @open="openDialog">
       <template #header-btn>
         <VButton color="transparent" @click="onEdit">
-          <VIcon name="more"  />
+          <VIcon name="more" class="size-5" />
         </VButton>
 
         <VButton color="transparent" @click="onClone">

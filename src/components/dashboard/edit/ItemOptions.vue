@@ -26,14 +26,14 @@
               <span>{{ item.name }}</span>
 
               <button class="cursor-pointer size-4" @click.prevent.stop="onRemove(item)">
-                <VIcon name="close"  />
+                <VIcon name="close" class="size-5" />
               </button>
             </div>
           </template>
         </VSelect>
 
         <VButton class="px-4" color="blue" @click="onAdd">
-          <VIcon name="add"  />
+          <VIcon name="add" class="size-5" />
         </VButton>
       </div>
     </div>

@@ -27,7 +27,7 @@ function onSelect(item: T, on: IVDropdownOn) {
       <slot name="activator" v-bind="{ on, isShow }">
         <VTextField :model-value="modelValue" :disabled="disabled" :label="label" readonly hideMessage active @click="on.click" @on-icon="on.click">
           <template #icon>
-            <VIcon name="chevron-down" class="transition duration-300" :class="isShow ? 'rotate-180' : ''" />
+            <VIcon name="chevron-down" class="size-5 transition duration-300" :class="isShow ? 'rotate-180' : ''" />
           </template>
         </VTextField>
       </slot>

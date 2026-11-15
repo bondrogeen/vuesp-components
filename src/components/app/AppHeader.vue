@@ -19,8 +19,8 @@
 
         <div class="gap-4 hidden lg:flex">
           <VButton type="icon" @click="onChangeTheme">
-            <VIcon name="sun" class="dark:hidden" />
-            <VIcon name="moon" class="hidden dark:flex" />
+            <VIcon name="sun" class="size-5 dark:hidden" />
+            <VIcon name="moon" class="hidden size-5 dark:flex" />
           </VButton>
 
           <VButton type="icon" @click="onNotif">
@@ -40,7 +40,7 @@
           <VDropdown left="unset" right="0" top="0">
             <template #activator="{ on }">
               <VButton type="icon" class="flex" @click="on.click">
-                <VIcon name="more"  />
+                <VIcon name="more" class="size-5" />
               </VButton>
             </template>
 

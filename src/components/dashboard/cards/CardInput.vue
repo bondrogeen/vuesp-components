@@ -39,7 +39,7 @@ watch(
       <div class="flex justify-center relative mx-2 my-6">
         <VTextField v-model="input" v-bind="getBind(item)" @enter="onChange" @blur="onChange">
           <template #icon>
-            <VIcon name="chevron-right" class="size-8" />
+            <VIcon name="chevron-down" class="size-8 -rotate-90" />
           </template>
         </VTextField>
       </div>

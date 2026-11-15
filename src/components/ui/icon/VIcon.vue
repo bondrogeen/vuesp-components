@@ -25,7 +25,7 @@ const isStroke = computed(() => (icon.value.mode ?? 'fill') === 'stroke');
 		:viewBox="icon.viewBox"
 		:fill="isStroke ? 'none' : 'currentColor'"
 		:stroke="isStroke ? 'currentColor' : undefined"
-		:stroke-width="isStroke ? (icon.strokeWidth ?? 1.8) : undefined"
+		:stroke-width="isStroke ? (icon.strokeWidth ?? 1.2) : undefined"
 		:stroke-linecap="isStroke ? (icon.strokeLinecap ?? 'round') : undefined"
 		:stroke-linejoin="isStroke ? (icon.strokeLinejoin ?? 'round') : undefined"
 		:stroke-miterlimit="isStroke ? (icon.strokeMiterlimit ?? 4) : undefined"

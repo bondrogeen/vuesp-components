@@ -4,7 +4,7 @@
       <h4>{{ label }}</h4>
 
       <div class="transition text-gray-main" :class="{ 'rotate-x-180': isActive }">
-        <VIcon name="chevron-down" class="size-6" />
+        <VIcon name="chevron-down" class="size-5" />
       </div>
     </div>
 
