@@ -6,23 +6,23 @@ export interface ILocales {
   [locale: string]: ILocaleMessages;
 }
 
-export type I18nPluralRule = (count: number, forms: string[]) => string;
+export type TI18nPluralRule = (count: number, forms: string[]) => string;
 
-export interface I18nState {
+export interface II18nState {
   locale: string;
 }
 
-export type I18nGet = (key: string, params?: Record<string, string | number>) => string;
+export type TI18nGet = (key: string, params?: Record<string, string | number>) => string;
 
-export interface I18nInstance {
-  state: Readonly<I18nState>;
-  $t: I18nGet;
+export interface II18nInstance {
+  state: Readonly<II18nState>;
+  $t: TI18nGet;
   setLocale(locale: string): void;
   getLocale(): string;
   getListLocales(): string[];
 }
 
-export interface I18nOptions {
+export interface II18nOptions {
   defaultLocale?: string;
   locales?: ILocales;
   pluralize: (locale: string, count: number, forms: string[]) => string;
@@ -30,14 +30,14 @@ export interface I18nOptions {
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $i18n: I18nInstance;
-    $t: I18nGet;
+    $i18n: II18nInstance;
+    $t: TI18nGet;
   }
 }
 
 declare global {
   interface Window {
-    $i18n?: I18nInstance;
+    $i18n?: II18nInstance;
   }
 }
 

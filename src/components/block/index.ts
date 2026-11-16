@@ -30,9 +30,9 @@ export { useBlock } from '@/components/block/data/useBlock';
 export type { IBlockProvider } from '@/components/block/data/provider';
 export type { IUseBlockOptions } from '@/components/block/data/useBlock';
 export type {
-  BlockBinding,
-  BlockFieldType,
-  BlockMetricGroup,
+  TBlockBinding,
+  TBlockFieldType,
+  TBlockMetricGroup,
   IBlockBindingExpression,
   IBlockBindings,
   IBlockConfig,
@@ -45,8 +45,8 @@ export type {
   IBlockField,
   IBlockResolvedData,
   IMetricStyle,
-  MetricAlign,
-  MetricColor,
-  MetricSize,
-  MetricWeight,
+  TMetricAlign,
+  TMetricColor,
+  TMetricSize,
+  TMetricWeight,
 } from '@/components/block/data/types';

@@ -1,10 +1,10 @@
 import { reactive, readonly, App, Plugin } from 'vue';
-import type { I18nInstance, I18nState, I18nOptions, ILocales, ILocaleMessages, I18nPluralRule } from '@/plugins/i18n/types';
+import type { II18nInstance, II18nState, II18nOptions, ILocales, ILocaleMessages, TI18nPluralRule } from '@/plugins/i18n/types';
 
 const locales = { en: {} };
 const defaultLocale = 'en';
 
-export function i18nPluralizer(rules: Record<string, I18nPluralRule>) {
+export function i18nPluralizer(rules: Record<string, TI18nPluralRule>) {
   return function pluralize(locale: string, count: number, forms: string[]): string {
     const rule = rules[locale] || rules.en || rules.ru;
     if (!forms || forms.length === 0) return '';
@@ -14,7 +14,7 @@ export function i18nPluralizer(rules: Record<string, I18nPluralRule>) {
 }
 
 export const i18nPlugin: Plugin = {
-  install(app: App, options: I18nOptions) {
+  install(app: App, options: II18nOptions) {
     if (!options?.pluralize) {
       console.warn('[i18n-plugin] pluralize function is required. Please provide it in options.');
       const fallbackPluralize = (locale: string, count: number, forms: string[]): string => {
@@ -27,11 +27,11 @@ export const i18nPlugin: Plugin = {
     const finalDefaultLocale = options?.defaultLocale || defaultLocale;
     const pluralize = options.pluralize;
 
-    const state: I18nState = reactive({
+    const state: II18nState = reactive({
       locale: finalDefaultLocale,
     });
 
-    const i18n: I18nInstance = {
+    const i18n: II18nInstance = {
       state: readonly(state),
 
       $t(key: string, params: Record<string, string | number> | undefined = {}): string {

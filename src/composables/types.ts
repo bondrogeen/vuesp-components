@@ -1,45 +1,45 @@
 import type { Ref, ComputedRef } from 'vue';
 
-export type Validator = (value: string, values?: Record<string, unknown>) => true | string;
-export type ValidationSchema = Record<string, Validator[]>;
-export type ValidationSchemaFn = (values: Record<string, unknown>) => ValidationSchema;
+export type TValidator = (value: string, values?: Record<string, unknown>) => true | string;
+export type TValidationSchema = Record<string, TValidator[]>;
+export type TValidationSchemaFn = (values: Record<string, unknown>) => TValidationSchema;
 
-export interface FieldState {
+export interface IFieldState {
   value: string | number;
   errors: string[];
   touched: boolean;
   dirty: boolean;
 }
 
-export interface FormState {
+export interface IFormState {
   values: Record<string, unknown>;
   errors: Record<string, string[]>;
   touched: Record<string, boolean>;
   dirty: Record<string, boolean>;
 }
 
-export interface DefineFieldOptions {
-  props?: (context: FieldContext) => Record<string, unknown>;
+export interface IDefineFieldOptions {
+  props?: (context: IFieldContext) => Record<string, unknown>;
 }
 
-export interface FieldContext {
+export interface IFieldContext {
   errors: string[];
   touched: boolean;
   dirty: boolean;
 }
 
-export interface UseFormOptions {
-  validationSchema: ValidationSchema | ValidationSchemaFn;
+export interface IUseFormOptions {
+  validationSchema: TValidationSchema | TValidationSchemaFn;
   initialValues?: Record<string, unknown>;
 }
 
-export interface UseFormReturn {
+export interface IUseFormReturn {
   values: Record<string, unknown>;
   errors: Record<string, string[]>;
   isValid: Ref<boolean>;
-  defineField: <T = unknown>(name: string, options?: DefineFieldOptions) => [Ref<T>, ComputedRef<Record<string, unknown>>];
+  defineField: <T = unknown>(name: string, options?: IDefineFieldOptions) => [Ref<T>, ComputedRef<Record<string, unknown>>];
   handleSubmit: (callback: (values: Record<string, unknown>) => void | Promise<void>) => (event?: Event) => Promise<void>;
   resetForm: () => void;
   validate: () => boolean;
-  updateSchema: (newSchema: ValidationSchema) => void;
+  updateSchema: (newSchema: TValidationSchema) => void;
 }

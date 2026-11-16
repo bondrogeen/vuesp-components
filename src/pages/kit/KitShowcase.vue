@@ -4,8 +4,8 @@ import { reactive, ref } from 'vue';
 import KitRow from './KitRow.vue';
 import KitSection from './KitSection.vue';
 
-import type { ButtonColor, ButtonVariant } from '@/components/ui/button/types';
-import type { IDashboardItem, IListItem, IMessageScan, INotification, IPackage } from '@/types';
+import type { TButtonColor, TButtonVariant } from '@/components/ui/button/types';
+import type { IDashboardItem, IListItem, INotification, IPackage } from '@/types';
 
 import VAccordion from '@/components/ui/accordion/VAccordion.vue';
 import VAccordionItem from '@/components/ui/accordion/VAccordionItem.vue';
@@ -17,8 +17,8 @@ import { CardButton, CardDate, CardDimmer, CardInfo, CardInput, CardList } from 
 import { BlockBreadcrumb, BlockInfo, BlockScan, BlockService, BlockStatus, BlockUpdate } from '@/components/block';
 
 /* Buttons */
-const buttonColors: ButtonColor[] = ['cyan', 'blue', 'indigo', 'violet', 'purple', 'amber', 'green', 'red', 'slate', 'gray', 'transparent'];
-const buttonVariants: ButtonVariant[] = ['default', 'soft', 'outline', 'white'];
+const buttonColors: TButtonColor[] = ['cyan', 'blue', 'indigo', 'violet', 'purple', 'amber', 'green', 'red', 'slate', 'gray', 'transparent'];
+const buttonVariants: TButtonVariant[] = ['default', 'soft', 'outline', 'white'];
 const buttonSizes = ['sm', 'md', 'lg', 'xl'] as const;
 
 const cardVariants = ['glass', 'solid', 'outline', 'ghost'] as const;
@@ -177,7 +177,7 @@ const scanItems = [
   { name: 'Home', ssid: 'Home', channel: 6, rssi: -45, encryptionType: 3, isHidden: 0, id: 1 },
   { name: 'Office', ssid: 'Office', channel: 11, rssi: -68, encryptionType: 4, isHidden: 0, id: 2 },
   { name: 'Guest', ssid: 'Guest', channel: 1, rssi: -82, encryptionType: 0, isHidden: 0, id: 3 },
-] as Array<Partial<IMessageScan> & { name: string }>;
+] as Array<{ name: string; ssid: string; channel: number; rssi: number; encryptionType: number; isHidden: number; id: number }>;
 const breadcrumbs = [{ name: 'Home', path: '#kit' }, { name: 'Devices', path: '#kit' }, { name: 'Kitchen' }];
 </script>
 

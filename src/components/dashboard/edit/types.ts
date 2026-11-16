@@ -1,4 +1,4 @@
-import type { IDashboardItem, IListItem, IDashboardItemOptions, TypeValueDashboardItemOptions } from '@/types';
+import type { IDashboardItem, IListItem, IDashboardItemOptions, TValueDashboardItemOptions } from '@/types';
 
 export interface IItemEditProps {
   items: IDashboardItem[];
@@ -22,5 +22,5 @@ export interface IItemOptionsProps {
   type: string;
 }
 export interface IItemOptionsEmits {
-  (e: 'update', key: keyof IDashboardItemOptions, value: TypeValueDashboardItemOptions): void;
+  (e: 'update', key: keyof IDashboardItemOptions, value: TValueDashboardItemOptions): void;
 }

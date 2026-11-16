@@ -1,4 +1,4 @@
-import type { IMenuItem, INotification, IMessageProgress } from '@/types';
+import type { IMenuItem, INotification } from '@/types';
 
 export interface IAppAsideProps {
   isSidebar?: boolean;
@@ -33,6 +33,10 @@ export interface IAppNotificationEmits {
   (e: 'remove' | 'read', item: INotification): void;
 }
 
-export interface IAppProgressProps extends IMessageProgress {
+export interface IAppProgressProps {
+  status?: number;
+  empty?: number;
+  size?: number;
+  length?: number;
   timeout?: number;
 }

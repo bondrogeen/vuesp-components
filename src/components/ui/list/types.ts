@@ -1,4 +1,4 @@
-import type { VListObjectReturnData } from '@/types/components';
+import type { IVListObjectReturnData } from '@/types/components';
 
 export interface IVListProps<T> {
   items: T[];
@@ -15,5 +15,5 @@ export interface IVListObjectProps {
   onlyValue?: boolean;
 }
 export interface IVListObjectEmits {
-  (e: 'click', data: VListObjectReturnData): void;
+  (e: 'click', data: IVListObjectReturnData): void;
 }

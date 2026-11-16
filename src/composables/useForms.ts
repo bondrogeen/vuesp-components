@@ -1,26 +1,26 @@
 import type { Ref, ComputedRef } from 'vue';
 import type { 
-  UseFormOptions, 
-  UseFormReturn, 
-  DefineFieldOptions, 
-  FieldContext,
-  ValidationSchema,
-  ValidationSchemaFn 
+  IUseFormOptions, 
+  IUseFormReturn, 
+  IDefineFieldOptions, 
+  IFieldContext,
+  TValidationSchema,
+  TValidationSchemaFn 
 } from '@/composables/types';
 import { reactive, computed, ref, watch } from 'vue';
 
-export function useForm(options: UseFormOptions): UseFormReturn {
+export function useForm(options: IUseFormOptions): IUseFormReturn {
   const { validationSchema: schemaOrFn, initialValues = {} } = options;
 
   const isSchemaFn = typeof schemaOrFn === 'function';
   
-  const currentSchema = ref<ValidationSchema>(
+  const currentSchema = ref<TValidationSchema>(
     isSchemaFn ? schemaOrFn(initialValues) : schemaOrFn
   );
 
   const isValid = ref(true);
 
-  const updateSchema = (newSchema: ValidationSchema) => {
+  const updateSchema = (newSchema: TValidationSchema) => {
     currentSchema.value = newSchema;
     
     const schemaFields = Object.keys(newSchema);
@@ -65,9 +65,9 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     isValid.value = true;
   };
 
-  const getSchema = (): ValidationSchema => {
+  const getSchema = (): TValidationSchema => {
     if (isSchemaFn) {
-      return (schemaOrFn as ValidationSchemaFn)(values);
+      return (schemaOrFn as TValidationSchemaFn)(values);
     }
     return currentSchema.value;
   };
@@ -142,7 +142,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
 
   const defineField = <T = unknown>(
     fieldName: string, 
-    options: DefineFieldOptions = {}
+    options: IDefineFieldOptions = {}
   ): [Ref<T>, ComputedRef<Record<string, unknown>>] => {
     const schema = getSchema();
     
@@ -160,7 +160,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     });
 
     const attrs = computed<Record<string, unknown>>(() => {
-      const fieldContext: FieldContext = {
+      const fieldContext: IFieldContext = {
         errors: errors[fieldName] || [],
         touched: touched[fieldName] || false,
         dirty: dirty[fieldName] || false,
@@ -224,7 +224,7 @@ export function useForm(options: UseFormOptions): UseFormReturn {
     watch(
       () => values,
       () => {
-        const newSchema = (schemaOrFn as ValidationSchemaFn)(values);
+        const newSchema = (schemaOrFn as TValidationSchemaFn)(values);
         const oldSchema = currentSchema.value;
         
         const newKeys = Object.keys(newSchema);

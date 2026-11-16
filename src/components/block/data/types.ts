@@ -1,11 +1,11 @@
 import type { Component } from 'vue';
 
-export type BlockFieldType = 'number' | 'string' | 'boolean';
+export type TBlockFieldType = 'number' | 'string' | 'boolean';
 
 export interface IBlockField {
   key: string;
   label: string;
-  type: BlockFieldType;
+  type: TBlockFieldType;
   group?: string;
   block?: string;
   advanced?: boolean;
@@ -17,21 +17,21 @@ export interface IBlockField {
   hint?: string;
 }
 
-export type BlockMetricGroup = 'solar' | 'grid' | 'battery' | 'house' | 'inverter';
+export type TBlockMetricGroup = 'solar' | 'grid' | 'battery' | 'house' | 'inverter';
 
-export type MetricSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl';
+export type TMetricSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl';
 
-export type MetricColor = 'default' | 'muted' | 'primary' | 'success' | 'warning' | 'danger';
+export type TMetricColor = 'default' | 'muted' | 'primary' | 'success' | 'warning' | 'danger';
 
-export type MetricWeight = 'normal' | 'medium' | 'semibold';
+export type TMetricWeight = 'normal' | 'medium' | 'semibold';
 
-export type MetricAlign = 'left' | 'right';
+export type TMetricAlign = 'left' | 'right';
 
 export interface IMetricStyle {
-  size?: MetricSize;
-  color?: MetricColor;
-  weight?: MetricWeight;
-  align?: MetricAlign;
+  size?: TMetricSize;
+  color?: TMetricColor;
+  weight?: TMetricWeight;
+  align?: TMetricAlign;
 }
 
 export interface IBlockMetric {
@@ -55,10 +55,10 @@ export interface IBlockBindingExpression {
   fallback?: string | number | boolean;
 }
 
-export type BlockBinding = string | IBlockBindingExpression;
+export type TBlockBinding = string | IBlockBindingExpression;
 
 export interface IBlockBindings {
-  [key: string]: BlockBinding;
+  [key: string]: TBlockBinding;
 }
 
 export interface IBlockConfig {
@@ -68,8 +68,8 @@ export interface IBlockConfig {
   title?: string;
   bindings: IBlockBindings;
   units?: Record<string, string>;
-  metricArgs?: Partial<Record<BlockMetricGroup, string[]>>;
-  metrics?: Partial<Record<BlockMetricGroup, IBlockMetric[]>>;
+  metricArgs?: Partial<Record<TBlockMetricGroup, string[]>>;
+  metrics?: Partial<Record<TBlockMetricGroup, IBlockMetric[]>>;
 }
 
 export interface IBlockContext {
@@ -91,8 +91,8 @@ export interface IBlockDefinition {
   component: Component;
   fields: IBlockField[];
   defaults?: IBlockBindings;
-  metricArgs?: Partial<Record<BlockMetricGroup, string[]>>;
-  metrics?: Partial<Record<BlockMetricGroup, IBlockMetric[]>>;
+  metricArgs?: Partial<Record<TBlockMetricGroup, string[]>>;
+  metrics?: Partial<Record<TBlockMetricGroup, IBlockMetric[]>>;
 }
 
 export interface IBlockResolvedData {

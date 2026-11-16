@@ -1,4 +1,4 @@
-import type { IMetricStyle, MetricAlign, MetricColor, MetricSize, MetricWeight } from './types';
+import type { IMetricStyle, TMetricAlign, TMetricColor, TMetricSize, TMetricWeight } from './types';
 
 export const DEFAULT_METRIC_STYLE: Required<IMetricStyle> = {
   size: 'sm',
@@ -7,7 +7,7 @@ export const DEFAULT_METRIC_STYLE: Required<IMetricStyle> = {
   align: 'right',
 };
 
-export const METRIC_SIZE_CLASS: Record<MetricSize, string> = {
+export const METRIC_SIZE_CLASS: Record<TMetricSize, string> = {
   xs: 'text-xs',
   sm: 'text-sm',
   base: 'text-base',
@@ -15,7 +15,7 @@ export const METRIC_SIZE_CLASS: Record<MetricSize, string> = {
   xl: 'text-xl',
 };
 
-export const METRIC_COLOR_CLASS: Record<MetricColor, string> = {
+export const METRIC_COLOR_CLASS: Record<TMetricColor, string> = {
   default: 'text-gray-dark-40 dark:text-white',
   muted: 'text-gray-dark-25 dark:text-gray-main',
   primary: 'text-cyan-main',
@@ -24,18 +24,18 @@ export const METRIC_COLOR_CLASS: Record<MetricColor, string> = {
   danger: 'text-rose-600 dark:text-rose-400',
 };
 
-export const METRIC_WEIGHT_CLASS: Record<MetricWeight, string> = {
+export const METRIC_WEIGHT_CLASS: Record<TMetricWeight, string> = {
   normal: 'font-normal',
   medium: 'font-medium',
   semibold: 'font-semibold',
 };
 
-export const METRIC_ALIGN_CLASS: Record<MetricAlign, string> = {
+export const METRIC_ALIGN_CLASS: Record<TMetricAlign, string> = {
   left: 'text-left',
   right: 'text-right',
 };
 
-export const METRIC_SIZE_OPTIONS: Array<{ value: MetricSize; name: string }> = [
+export const METRIC_SIZE_OPTIONS: Array<{ value: TMetricSize; name: string }> = [
   { value: 'xs', name: 'Мелкий' },
   { value: 'sm', name: 'Обычный' },
   { value: 'base', name: 'Средний' },
@@ -43,7 +43,7 @@ export const METRIC_SIZE_OPTIONS: Array<{ value: MetricSize; name: string }> = [
   { value: 'xl', name: 'Очень крупный' },
 ];
 
-export const METRIC_COLOR_OPTIONS: Array<{ value: MetricColor; name: string }> = [
+export const METRIC_COLOR_OPTIONS: Array<{ value: TMetricColor; name: string }> = [
   { value: 'default', name: 'Основной' },
   { value: 'muted', name: 'Приглушённый' },
   { value: 'primary', name: 'Акцент' },
@@ -52,13 +52,13 @@ export const METRIC_COLOR_OPTIONS: Array<{ value: MetricColor; name: string }> =
   { value: 'danger', name: 'Опасность' },
 ];
 
-export const METRIC_WEIGHT_OPTIONS: Array<{ value: MetricWeight; name: string }> = [
+export const METRIC_WEIGHT_OPTIONS: Array<{ value: TMetricWeight; name: string }> = [
   { value: 'normal', name: 'Обычное' },
   { value: 'medium', name: 'Среднее' },
   { value: 'semibold', name: 'Полужирное' },
 ];
 
-export const METRIC_ALIGN_OPTIONS: Array<{ value: MetricAlign; name: string }> = [
+export const METRIC_ALIGN_OPTIONS: Array<{ value: TMetricAlign; name: string }> = [
   { value: 'left', name: 'Слева' },
   { value: 'right', name: 'Справа' },
 ];

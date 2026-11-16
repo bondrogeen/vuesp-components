@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { IMessageScan } from '@/types';
-import type { IBlockScanProps, IBlockScanEmit } from './types';
+import type { IBlockScanProps, IBlockScanEmit, IScanItem } from './types';
 
 const { items = [] } = defineProps<IBlockScanProps>();
 
@@ -8,7 +7,7 @@ const emit = defineEmits<IBlockScanEmit>();
 
 const listEncryption: string[] = ['OPEN', 'WEP', 'WPA_PSK', 'WPA2_PSK', 'WPA_WPA2_PSK', 'MAX', '', 'NO', 'AUTO'];
 
-const onSelect = (item: IMessageScan) => emit('select', item);
+const onSelect = (item: IScanItem) => emit('select', item);
 const onScan = (e: Event) => emit('scan', e);
 </script>
 

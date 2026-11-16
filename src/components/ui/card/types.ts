@@ -1,11 +1,11 @@
-export type CardVariant = 'glass' | 'solid' | 'outline' | 'ghost';
-export type CardPadding = 'none' | 'lg';
-export type CardTone = 'default' | 'info' | 'success' | 'warning' | 'danger' | 'accent';
+export type TCardVariant = 'glass' | 'solid' | 'outline' | 'ghost';
+export type TCardPadding = 'none' | 'lg';
+export type TCardTone = 'default' | 'info' | 'success' | 'warning' | 'danger' | 'accent';
 
 export interface ICardProps {
-  variant?: CardVariant;
-  padding?: CardPadding;
-  tone?: CardTone;
+  variant?: TCardVariant;
+  padding?: TCardPadding;
+  tone?: TCardTone;
   title?: string;
   subtitle?: string;
   hover?: boolean;

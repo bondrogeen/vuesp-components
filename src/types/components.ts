@@ -18,7 +18,7 @@ export interface IDialog {
   callback?: () => void;
 }
 
-export interface VListObjectReturnData {
+export interface IVListObjectReturnData {
   key: string;
   path: string;
   isObject: boolean;

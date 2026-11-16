@@ -1,6 +1,6 @@
 import type {
-  BlockFieldType,
-  BlockMetricGroup,
+  TBlockFieldType,
+  TBlockMetricGroup,
   IBlockConfig,
   IBlockContext,
   IBlockDefinition,
@@ -61,7 +61,7 @@ const displayLineBreaks = (value: string): string => value.replace(/<br\s*\/?>/g
 const normalizeNumber = (value: unknown): unknown =>
   typeof value === 'number' && !Number.isFinite(value) ? undefined : value;
 
-const coerce = (value: unknown, type: BlockFieldType): unknown => {
+const coerce = (value: unknown, type: TBlockFieldType): unknown => {
   if (value === undefined || value === null || value === '') return undefined;
 
   if (type === 'number') {
@@ -148,9 +148,9 @@ export const resolveBlockMetrics = (
   context: IBlockContext,
   data: IBlockResolvedData,
 ): Record<string, IBlockResolvedMetric[]> => {
-  const groups = new Set<BlockMetricGroup>([
-    ...(Object.keys(definition.metrics ?? {}) as BlockMetricGroup[]),
-    ...(Object.keys(config.metrics ?? {}) as BlockMetricGroup[]),
+  const groups = new Set<TBlockMetricGroup>([
+    ...(Object.keys(definition.metrics ?? {}) as TBlockMetricGroup[]),
+    ...(Object.keys(config.metrics ?? {}) as TBlockMetricGroup[]),
   ]);
   const result: Record<string, IBlockResolvedMetric[]> = {};
 

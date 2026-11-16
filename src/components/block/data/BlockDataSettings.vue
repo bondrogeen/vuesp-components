@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VIcon from '@/components/ui/icon/VIcon.vue';
-import type { VListObjectReturnData } from '@/types';
-import type { BlockMetricGroup, IBlockConfig, IBlockContext, IBlockDefinition, IBlockField, IBlockMetric, IBlockResolvedMetric, IMetricStyle } from './types';
+import type { IVListObjectReturnData } from '@/types';
+import type { TBlockMetricGroup, IBlockConfig, IBlockContext, IBlockDefinition, IBlockField, IBlockMetric, IBlockResolvedMetric, IMetricStyle } from './types';
 
 import { computed, onUnmounted, ref, watch } from 'vue';
 
@@ -69,8 +69,8 @@ const clone = (value: IBlockConfig): IBlockConfig => {
   next.metrics = { ...(next.metrics ?? {}) };
 
   for (const [group, metrics] of Object.entries(definition.metrics ?? {})) {
-    if (!next.metrics[group as BlockMetricGroup]) {
-      next.metrics[group as BlockMetricGroup] = JSON.parse(JSON.stringify(metrics)) as IBlockMetric[];
+    if (!next.metrics[group as TBlockMetricGroup]) {
+      next.metrics[group as TBlockMetricGroup] = JSON.parse(JSON.stringify(metrics)) as IBlockMetric[];
     }
   }
 
@@ -101,8 +101,8 @@ const blocks = computed(() =>
   })).filter((block) => block.count > 0)
 );
 
-const metricGroups = computed(() => Object.keys(definition.metrics ?? {}) as BlockMetricGroup[]);
-const hasMetrics = computed(() => metricGroups.value.includes(activeBlock.value as BlockMetricGroup));
+const metricGroups = computed(() => Object.keys(definition.metrics ?? {}) as TBlockMetricGroup[]);
+const hasMetrics = computed(() => metricGroups.value.includes(activeBlock.value as TBlockMetricGroup));
 
 const blockFields = computed<IBlockField[]>(() => definition.fields.filter((field) => (field.block ?? 'general') === activeBlock.value && !field.formatFor));
 
@@ -133,13 +133,13 @@ const generalFields = computed<IBlockField[]>(() => (isGeneral.value ? blockFiel
 const activeGroupArgs = computed<string[]>(() => {
   if (!hasMetrics.value) return [];
 
-  return draft.value.metricArgs?.[activeBlock.value as BlockMetricGroup] ?? [];
+  return draft.value.metricArgs?.[activeBlock.value as TBlockMetricGroup] ?? [];
 });
 
 const activeMetrics = computed<IBlockMetric[]>(() => {
   if (!hasMetrics.value) return [];
 
-  return draft.value.metrics?.[activeBlock.value as BlockMetricGroup] ?? [];
+  return draft.value.metrics?.[activeBlock.value as TBlockMetricGroup] ?? [];
 });
 
 watch(blocks, (value) => {
@@ -247,7 +247,7 @@ const openGroupArg = (argIndex?: number) => {
   treeOpen.value = true;
 };
 
-const onSelectPath = ({ path }: VListObjectReturnData) => {
+const onSelectPath = ({ path }: IVListObjectReturnData) => {
   const target = treeTarget.value;
 
   if (!target) return;
@@ -284,7 +284,7 @@ const onArgHover = (event: string, index: number) => {
 const createMetricId = (): string => `metric-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
 
 const addMetric = () => {
-  const metrics = draft.value.metrics?.[activeBlock.value as BlockMetricGroup];
+  const metrics = draft.value.metrics?.[activeBlock.value as TBlockMetricGroup];
 
   if (!hasMetrics.value || !metrics || metrics.length >= MAX_METRICS) return;
 
@@ -292,7 +292,7 @@ const addMetric = () => {
 };
 
 const removeMetric = (id: string) => {
-  const metrics = draft.value.metrics?.[activeBlock.value as BlockMetricGroup];
+  const metrics = draft.value.metrics?.[activeBlock.value as TBlockMetricGroup];
 
   if (!metrics) return;
 

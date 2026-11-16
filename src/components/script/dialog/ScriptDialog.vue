@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IScriptDialogProps, IScriptDialogEmits } from './types';
-import type { ValidationSchema } from '@/types';
+import type { TValidationSchema } from '@/types';
 import { required, maxLen } from '@/validate/';
 
 import { useForm } from '@/composables/';
@@ -13,7 +13,7 @@ const { defineField, handleSubmit, isValid } = useForm({
   validationSchema: () =>
     ({
       name: [required, maxLen(8)],
-    }) as ValidationSchema,
+    }) as TValidationSchema,
 });
 const [name, nameProps] = defineField<string>('name');
 

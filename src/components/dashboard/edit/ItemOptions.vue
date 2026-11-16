@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { Ref } from 'vue';
-import type { IListItem, IDashboardItemOptions, TypeValueDashboardItemOptions } from '@/types';
+import type { IListItem, IDashboardItemOptions, TValueDashboardItemOptions } from '@/types';
 import type { IItemOptionsProps, IItemOptionsEmits } from '@/components/dashboard/edit/types';
 
 import { ref, computed } from 'vue';
@@ -66,7 +66,7 @@ const isDisabledList = computed(() => !listItem.value?.id);
 
 const isType = (key: string) => type === key;
 
-const onUpdate = <K extends keyof IDashboardItemOptions>(key: K, value: TypeValueDashboardItemOptions) => emit('update', key, value);
+const onUpdate = <K extends keyof IDashboardItemOptions>(key: K, value: TValueDashboardItemOptions) => emit('update', key, value);
 
 const clearListId = (list: IListItem<string>[]) => list.map(({ name, value }) => ({ name, value }));
 const onSelect = ({ id, name, value }: IListItem<string>) => (listItem.value = { id, name, value });

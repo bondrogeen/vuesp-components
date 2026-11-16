@@ -1,4 +1,4 @@
-import type { BlockMetricGroup, IBlockConfig, IBlockMetric, IBlockStorage, IMetricStyle } from './types';
+import type { TBlockMetricGroup, IBlockConfig, IBlockMetric, IBlockStorage, IMetricStyle } from './types';
 
 const DEFAULT_FILE_PATH = '/tmp/blocks.json';
 const FS_PATH = '/fs';
@@ -30,8 +30,8 @@ interface IStoredBlock {
   p?: string;
   m: IBlockConfig['bindings'];
   u?: Record<string, string>;
-  A?: Partial<Record<BlockMetricGroup, string[]>>;
-  g?: Partial<Record<BlockMetricGroup, IStoredMetric[]>>;
+  A?: Partial<Record<TBlockMetricGroup, string[]>>;
+  g?: Partial<Record<TBlockMetricGroup, IStoredMetric[]>>;
 }
 
 interface IStoredFile {
@@ -69,12 +69,12 @@ const decodeMetric = (value: unknown): IBlockMetric | null => {
 const decodeMetricArgs = (value: unknown): IBlockConfig['metricArgs'] => {
   if (!isRecord(value)) return undefined;
 
-  const result: Partial<Record<BlockMetricGroup, string[]>> = {};
+  const result: Partial<Record<TBlockMetricGroup, string[]>> = {};
 
   for (const [group, list] of Object.entries(value)) {
     if (!Array.isArray(list)) continue;
 
-    result[group as BlockMetricGroup] = list
+    result[group as TBlockMetricGroup] = list
       .filter((arg): arg is string => typeof arg === 'string')
       .slice(0, MAX_METRIC_ARGS);
   }
@@ -85,7 +85,7 @@ const decodeMetricArgs = (value: unknown): IBlockConfig['metricArgs'] => {
 const decodeMetrics = (value: unknown): IBlockConfig['metrics'] => {
   if (!isRecord(value)) return undefined;
 
-  const result: Partial<Record<BlockMetricGroup, IBlockMetric[]>> = {};
+  const result: Partial<Record<TBlockMetricGroup, IBlockMetric[]>> = {};
 
   for (const [group, list] of Object.entries(value)) {
     if (!Array.isArray(list)) continue;
@@ -95,21 +95,21 @@ const decodeMetrics = (value: unknown): IBlockConfig['metrics'] => {
       .filter((metric): metric is IBlockMetric => metric !== null)
       .slice(0, MAX_METRICS);
 
-    if (metrics.length || Array.isArray(list)) result[group as BlockMetricGroup] = metrics;
+    if (metrics.length || Array.isArray(list)) result[group as TBlockMetricGroup] = metrics;
   }
 
   return Object.keys(result).length ? result : undefined;
 };
 
-const encodeMetrics = (metrics: IBlockConfig['metrics']): Partial<Record<BlockMetricGroup, IStoredMetric[]>> | undefined => {
+const encodeMetrics = (metrics: IBlockConfig['metrics']): Partial<Record<TBlockMetricGroup, IStoredMetric[]>> | undefined => {
   if (!metrics) return undefined;
 
-  const result: Partial<Record<BlockMetricGroup, IStoredMetric[]>> = {};
+  const result: Partial<Record<TBlockMetricGroup, IStoredMetric[]>> = {};
 
   for (const [group, list] of Object.entries(metrics)) {
     if (!list) continue;
 
-    result[group as BlockMetricGroup] = list.map((metric) => ({
+    result[group as TBlockMetricGroup] = list.map((metric) => ({
       i: metric.id,
       l: metric.label,
       v: metric.value,
@@ -132,12 +132,12 @@ const sanitizeMetric = (metric: IBlockMetric): IBlockMetric => ({
 const sanitizeMetricArgs = (args: IBlockConfig['metricArgs']): IBlockConfig['metricArgs'] => {
   if (!args) return undefined;
 
-  const result: Partial<Record<BlockMetricGroup, string[]>> = {};
+  const result: Partial<Record<TBlockMetricGroup, string[]>> = {};
 
   for (const [group, list] of Object.entries(args)) {
     if (!Array.isArray(list)) continue;
 
-    result[group as BlockMetricGroup] = list
+    result[group as TBlockMetricGroup] = list
       .slice(0, MAX_METRIC_ARGS)
       .map((arg) => String(arg).slice(0, MAX_EXPRESSION));
   }
@@ -148,12 +148,12 @@ const sanitizeMetricArgs = (args: IBlockConfig['metricArgs']): IBlockConfig['met
 const sanitizeMetrics = (metrics: IBlockConfig['metrics']): IBlockConfig['metrics'] => {
   if (!metrics) return undefined;
 
-  const result: Partial<Record<BlockMetricGroup, IBlockMetric[]>> = {};
+  const result: Partial<Record<TBlockMetricGroup, IBlockMetric[]>> = {};
 
   for (const [group, list] of Object.entries(metrics)) {
     if (!list) continue;
 
-    result[group as BlockMetricGroup] = list.slice(0, MAX_METRICS).map(sanitizeMetric);
+    result[group as TBlockMetricGroup] = list.slice(0, MAX_METRICS).map(sanitizeMetric);
   }
 
   return Object.keys(result).length ? result : undefined;

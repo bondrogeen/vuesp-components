@@ -113,7 +113,7 @@
 <script setup lang="ts">
 import VIcon from '@/components/ui/icon/VIcon.vue';
 import type { Ref } from 'vue';
-import type { IDashboardItem, IDashboardItemOptions, IListItem, VListObjectReturnData } from '@/types';
+import type { IDashboardItem, IDashboardItemOptions, IListItem, IVListObjectReturnData } from '@/types';
 import type { IItemEditProps, IItemEditEmits } from '@/components/dashboard/edit/types';
 
 import { computed, onMounted, ref } from 'vue';
@@ -201,7 +201,7 @@ const onFunc = (key: string) => {
 const onButton = (key: string) => emit('button', key, item.value);
 const onRemoveParams = (value: string) => (item.value.args = item.value.args.filter((i: string) => i !== value));
 
-const onAddParams = ({ path }: VListObjectReturnData) => {
+const onAddParams = ({ path }: IVListObjectReturnData) => {
   if (!item.value.args.length && !item.value.id) item.value.id = path;
   item.value.args.push(path);
   dialog.value = false;

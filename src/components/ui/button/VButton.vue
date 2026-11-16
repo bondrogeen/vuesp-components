@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, resolveComponent } from 'vue';
 
-import type { ButtonColor, IVButtonEmits, IVButtonProps } from '@/components/ui/button/types';
+import type { TButtonColor, IVButtonEmits, IVButtonProps } from '@/components/ui/button/types';
 import VLoader from '@/components/ui/loader/VLoader.vue';
 
 const {
@@ -41,7 +41,7 @@ interface IColorClasses {
   invertedOutline: string;
 }
 
-const colorClasses: Record<ButtonColor, IColorClasses> = {
+const colorClasses: Record<TButtonColor, IColorClasses> = {
   cyan: {
     solid: 'bg-cyan-main text-night-dark-5 shadow-cyan-glow hover:brightness-110',
     soft: 'bg-cyan-main/10 text-cyan-main hover:bg-cyan-main/20',

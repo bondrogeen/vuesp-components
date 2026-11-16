@@ -1,4 +1,4 @@
-export type ButtonColor =
+export type TButtonColor =
   | 'cyan'
   | 'blue'
   | 'indigo'
@@ -11,11 +11,11 @@ export type ButtonColor =
   | 'gray'
   | 'transparent';
 
-export type ButtonVariant = 'default' | 'soft' | 'outline' | 'white';
+export type TButtonVariant = 'default' | 'soft' | 'outline' | 'white';
 
 export interface IVButtonProps {
-  color?: ButtonColor;
-  variant?: ButtonVariant;
+  color?: TButtonColor;
+  variant?: TButtonVariant;
   invert?: boolean;
   size?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   type?: 'button' | 'icon' | 'submit' | 'reset';

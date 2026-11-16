@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IMetricStyle, MetricAlign, MetricColor, MetricSize, MetricWeight } from './types';
+import type { IMetricStyle, TMetricAlign, TMetricColor, TMetricSize, TMetricWeight } from './types';
 
 import { computed } from 'vue';
 
@@ -41,10 +41,10 @@ const update = (patch: Partial<IMetricStyle>) => {
   emit('update', { ...resolved.value, ...patch });
 };
 
-const setSize = (item: { value: MetricSize; name: string }) => update({ size: item.value });
-const setColor = (item: { value: MetricColor; name: string }) => update({ color: item.value });
-const setWeight = (item: { value: MetricWeight; name: string }) => update({ weight: item.value });
-const setAlign = (item: { value: MetricAlign; name: string }) => update({ align: item.value });
+const setSize = (item: { value: TMetricSize; name: string }) => update({ size: item.value });
+const setColor = (item: { value: TMetricColor; name: string }) => update({ color: item.value });
+const setWeight = (item: { value: TMetricWeight; name: string }) => update({ weight: item.value });
+const setAlign = (item: { value: TMetricAlign; name: string }) => update({ align: item.value });
 </script>
 
 <template>
