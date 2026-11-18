@@ -20,7 +20,7 @@ export const findMenuItem = (items: IMenuItem[] | null, path: string): IMenuItem
   if (!items) return null;
   for (const item of items) {
     if (path === '/' || item.path === '/') continue;
-    if (item.path === path || path.includes(item.path)) return item;
+    if (item.path && (item.path === path || path.includes(item.path))) return item;
   }
   return null;
 };

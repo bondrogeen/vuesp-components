@@ -15,9 +15,13 @@
           </router-link>
         </div>
 
+        <slot name="status"></slot>
+
         <div class="flex-auto"></div>
 
-        <div class="gap-4 hidden lg:flex">
+        <div class="gap-4 hidden items-center lg:flex">
+          <slot name="actions"></slot>
+
           <VButton type="icon" @click="onChangeTheme">
             <VIcon name="sun" class="size-5 dark:hidden" />
             <VIcon name="moon" class="hidden size-5 dark:flex" />
@@ -31,9 +35,11 @@
             <VIcon name="noti" class="size-5" />
           </VButton>
 
-          <VButton type="icon" @click.prevent="onLogout">
-            <VIcon name="logout" class="size-5" />
-          </VButton>
+          <slot name="account">
+            <VButton v-if="showLogout" type="icon" @click.prevent="onLogout">
+              <VIcon name="logout" class="size-5" />
+            </VButton>
+          </slot>
         </div>
 
         <div class="lg:hidden flex gap-4">
@@ -66,7 +72,7 @@ import VDropdown from '@/components/ui/dropdown/VDropdown.vue';
 import VList from '@/components/ui/list/VList.vue';
 import VIconLogo from '@/components/ui/icon/VIconLogo.vue';
 
-const { changeTheme, notifications } = defineProps<IAppHeaderProps>();
+const { changeTheme, notifications, showLogout = true } = defineProps<IAppHeaderProps>();
 
 const emit = defineEmits<IAppHeaderEmits>();
 

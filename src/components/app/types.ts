@@ -10,15 +10,24 @@ export interface IAppAsideEmits {
 export interface IAppHeaderProps {
   changeTheme?: (value?: string) => void;
   notifications: INotification[];
+  showLogout?: boolean;
 }
 export interface IAppHeaderEmits {
   (e: 'sidebar' | 'notif', value: Event): void;
 }
 
+export interface IAppMenuGroup {
+  key?: string;
+  title: string;
+  items: IMenuItem[];
+}
+
 export interface IAppNavProps {
   menu?: IMenuItem[];
+  groups?: IAppMenuGroup[];
   fullPath?: string;
   isSidebar?: boolean;
+  storageKey?: string;
 }
 export interface IAppNavEmits {
   (e: 'sidebar', value: boolean): void;

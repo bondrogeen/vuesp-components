@@ -14,6 +14,7 @@ declare module 'vue' {
     AppAside: typeof import('./src/components/app/AppAside.vue')['default']
     AppHeader: typeof import('./src/components/app/AppHeader.vue')['default']
     AppNav: typeof import('./src/components/app/AppNav.vue')['default']
+    AppNavItem: typeof import('./src/components/app/AppNavItem.vue')['default']
     AppNotification: typeof import('./src/components/app/AppNotification.vue')['default']
     AppOverlay: typeof import('./src/components/app/AppOverlay.vue')['default']
     AppProgress: typeof import('./src/components/app/AppProgress.vue')['default']

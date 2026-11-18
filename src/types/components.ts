@@ -6,8 +6,8 @@ export interface IListItem<T> {
 
 export interface IMenuItem {
   name: string;
-  icon: string;
-  path: string;
+  icon?: string;
+  path?: string;
   children?: IMenuItem[];
 }
 
