@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.1 — 2026-11-21
+
+### Fixed
+
+- Dashboard cards now update when a referenced value (a port, a device field, etc.) appears after the first render. `vuesp-dashboard-core` path resolution no longer returns early through a non-reactive `hasOwnProperty` check for a missing key.
+
 ## 5.0.0 — 2026-11-21
 
 ### Breaking
