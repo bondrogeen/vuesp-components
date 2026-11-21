@@ -17,6 +17,8 @@ export interface IFieldStateProps {
 }
 
 export interface IVTextFieldProps {
+  id?: string;
+  name?: string;
   modelValue?: number | string | null;
   label?: string;
   placeholder?: string;

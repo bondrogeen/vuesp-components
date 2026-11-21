@@ -31,20 +31,16 @@ Import the components and styles in your Vue app:
 ```typescript
 import { createApp } from 'vue'
 import App from './App.vue'
-import * as components from 'vuesp-components'
-import 'vuesp-components/dist/style.css'
+import vuesp from 'vuesp-components'
+import 'vuesp-components/theme.css'
 
 const app = createApp(App)
 
-// Register all components globally
-Object.entries(components).forEach(([name, component]) => {
-  if (typeof component === 'object' && component.name) {
-    app.component(component.name, component)
-  }
-})
-
+app.use(vuesp)
 app.mount('#app')
 ```
+
+`theme.css` contains the design tokens and base styles. If you do not build Tailwind yourself, import the compiled styles instead: `import 'vuesp-components/style.css'`.
 
 ### Using Components
 
@@ -53,7 +49,7 @@ app.mount('#app')
 ```vue
 <template>
   <div>
-    <VButton color="primary" @click="handleClick">Click me</VButton>
+    <VButton variant="soft" color="blue" @click="handleClick">Click me</VButton>
     <VTextField v-model="text" label="Input text" />
     <VSelect :model-value="select" :items="options" />
     <VCheckbox v-model="checked" />
@@ -75,6 +71,38 @@ const handleClick = () => {
   console.log('Button clicked')
 }
 </script>
+```
+
+#### Buttons
+
+`VButton` has two independent axes: `variant` (look) and `color` (palette).
+
+| `variant` | Look |
+| --- | --- |
+| `solid` | filled with the color (default) |
+| `soft` | tinted background |
+| `outline` | colored border and text |
+| `ghost` | no background, color on hover |
+| `muted` | neutral border, color on hover |
+| `none` | no styles, for custom classes |
+
+Sizes: `xs`, `sm`, `md`, `lg`, `xl`, and `none` for custom sizing.
+Colors: `cyan`, `blue`, `indigo`, `violet`, `purple`, `amber`, `green`, `red`, `slate`, `gray`, `white`.
+
+```vue
+<template>
+  <div class="flex flex-wrap gap-2">
+    <VButton>Save</VButton>
+    <VButton variant="soft" color="red">Delete</VButton>
+    <VButton variant="outline" color="gray" size="sm">Cancel</VButton>
+    <VButton variant="ghost" color="blue" size="xs">More</VButton>
+    <VButton variant="muted" color="red">Reset</VButton>
+
+    <VButton type="icon" size="sm" aria-label="Settings" title="Settings">
+      <VIcon name="settings" />
+    </VButton>
+  </div>
+</template>
 ```
 
 #### App Layout Components
@@ -146,7 +174,7 @@ app.use(i18nPlugin, {
 ## Components
 
 ### UI Components
-- `VButton` - Button component
+- `VButton` - Button with `solid` / `soft` / `outline` / `ghost` / `muted` / `none` variants
 - `VCheckbox` - Checkbox component
 - `VTextField` - Text input field
 - `VSelect` - Select dropdown

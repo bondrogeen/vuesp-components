@@ -23,12 +23,12 @@ const getValueLocale = (local: string) => locales.find((i) => i.value === local)
   <div class="flex items-center mb-4">
     <div class="flex-auto text-gray-dark-25 dark:text-gray-light-10">{{ $t('rebootDev') }}</div>
 
-    <v-button class="min-w-24" color="red" variant="soft" invert @click="emit('reboot', $event)">{{ $t('reboot') }}</v-button>
+    <v-button class="min-w-24" color="red" variant="ghost" @click="emit('reboot', $event)">{{ $t('reboot') }}</v-button>
   </div>
 
   <div class="flex items-center mb-4">
     <div class="flex-auto text-gray-dark-25 dark:text-gray-light-10">{{ $t('resetConf') }}</div>
 
-    <v-button class="min-w-24" color="red" variant="outline" invert @click="emit('reset', $event)">{{ $t('reset') }}</v-button>
+    <v-button class="min-w-24" color="red" variant="muted" @click="emit('reset', $event)">{{ $t('reset') }}</v-button>
   </div>
 </template>

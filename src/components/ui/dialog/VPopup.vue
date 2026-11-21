@@ -87,7 +87,6 @@ const getSizeContent = computed(() => ({
             <VButton
               type="icon"
               size="sm"
-              color="gray"
               aria-label="Close"
               title="Close"
               @click="onClose"

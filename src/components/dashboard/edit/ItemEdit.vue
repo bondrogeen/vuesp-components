@@ -7,7 +7,7 @@
             <div class="flex-auto gap-x-2 order-1">
               <VTextField v-model="item.id" label="ID" :message="isFindId ? $t('used') : ''">
                 <template v-if="!isArgs" #icon>
-                  <VButton color="transparent" @click="onCheckId">
+                  <VButton variant="ghost" @click="onCheckId">
                     <VIcon name="search" class="size-5" />
                   </VButton>
                 </template>

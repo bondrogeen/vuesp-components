@@ -75,7 +75,6 @@ defineExpose({
 
               <slot name="header-btn" :close="onClose"></slot>
               <VButton
-                color="transparent"
                 type="icon"
                 size="sm"
                 aria-label="Close"

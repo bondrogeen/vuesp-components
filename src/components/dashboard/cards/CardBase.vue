@@ -29,11 +29,11 @@
 
     <VDialog v-if="dialog" :size="props.size || 'sm'" :title="name" @close="closeDialog" @open="openDialog">
       <template #header-btn>
-        <VButton class="size-8" color="transparent" variant="soft" invert size="none" @click="onEdit">
+        <VButton class="size-8" variant="ghost" size="none" @click="onEdit">
           <VIcon name="more" class="size-4" />
         </VButton>
 
-        <VButton class="size-8" color="transparent" variant="soft" invert size="none" @click="onClone">
+        <VButton class="size-8" variant="ghost" size="none" @click="onClone">
           <VIcon name="copy" class="size-4" />
         </VButton>
       </template>

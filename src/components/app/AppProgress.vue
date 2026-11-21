@@ -15,12 +15,10 @@
           <span v-if="isDone" class="text-green-600">Done</span>
         </slot>
 
-        <button class="cursor-pointer transition text-gray-dark-30 dark:text-gray-main self-start hover:text-gray-dark-25" @click="isShow = false">
+        <button class="cursor-pointer transition text-gray-dark-30 dark:text-gray-main self-start hover:text-gray-dark-25" @click="close">
           <VIcon name="close" class="size-4" />
         </button>
       </div>
-
-      <div v-if="isProgress" class="h-0.5 fixed top-0 left-0 w-full bg-blue-600 transition-all duration-500" :style="`width: ${getPercent}%`"></div>
 
       <div v-if="isProgress" class="relative mt-2 block h-4 w-full select-none overflow-hidden rounded-md bg-gray-light-10/70 dark:bg-white/10">
         <div class="absolute left-36 top-1/2 -translate-1/2 text-sm font-bold text-black dark:text-white text-center leading-none">{{ getPercent }}%</div>
@@ -42,7 +40,14 @@ import { useDebounceFn } from '@vueuse/core';
 
 const { length = 0, size = 0, status = 0, timeout = 5000 } = defineProps<IAppProgressProps>();
 
+const emit = defineEmits<{ (e: 'close'): void }>();
+
 const isShow = ref(false);
+
+const close = () => {
+  isShow.value = false;
+  emit('close');
+};
 
 const isProgress = computed(() => Boolean(length));
 const isDone = computed(() => Boolean(isProgress.value && getPercent.value === 100 && !status));

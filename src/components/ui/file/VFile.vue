@@ -1,13 +1,15 @@
 <template>
   <label class="flex items-center cursor-pointer">
-    <input type="file" class="hidden" v-bind="$attrs" @change="onChange" />
+    <input type="file" class="hidden" v-bind="$attrs" :multiple="Boolean(multiple)" :accept="accept || undefined" @change="onChange" />
     <slot></slot>
   </label>
 </template>
 
 <script setup lang="ts">
 
-import type { IVFileEmits } from '@/components/ui/file/types';
+import type { IVFileEmits, IVFileProps } from '@/components/ui/file/types';
+
+const { multiple = false, accept = '' } = defineProps<IVFileProps>();
 
 const emit = defineEmits<IVFileEmits>();
 

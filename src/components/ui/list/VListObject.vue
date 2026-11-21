@@ -8,7 +8,7 @@
 
         <div class="dark:text-gray-light-10">{{ key }}</div>
 
-        <VButton v-if="isSupported" :class="actionClass" color="transparent" size="sm" @click.stop="copy(getPath(key))">
+        <VButton v-if="isSupported" :class="actionClass" variant="ghost" size="sm" @click.stop="copy(getPath(key))">
           <VIcon name="copy" class="size-5" />
         </VButton>
 
@@ -18,7 +18,7 @@
           <div class="flex-auto"></div>
 
           <div class="flex items-center z-10">
-            <VButton :class="actionClass" color="transparent" size="sm" :title="$t('add')" @click.stop="onGetKey(key, isObject(item))">
+            <VButton :class="actionClass" variant="ghost" size="sm" :title="$t('add')" @click.stop="onGetKey(key, isObject(item))">
               <VIcon name="add" class="size-5" />
             </VButton>
           </div>
@@ -36,7 +36,7 @@
           {{ item }}
         </div>
 
-        <VButton :class="actionClass" color="transparent" size="sm" :title="$t('add')" @click.stop="onGetKey(key, isObject(item))">
+        <VButton :class="actionClass" variant="ghost" size="sm" :title="$t('add')" @click.stop="onGetKey(key, isObject(item))">
           <VIcon name="add" class="size-5" />
         </VButton>
       </template>

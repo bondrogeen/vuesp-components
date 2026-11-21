@@ -82,6 +82,8 @@ const onIcon = (e: Event) => {
 				ref="inputRef"
 				:is="props.component ?? 'input'"
 				v-bind="$attrs"
+				:id="props.id"
+				:name="props.name"
 				:value="props.modelValue"
 				:placeholder="isFloating ? props.placeholder : ''"
 				:disabled="Boolean(props.disabled)"

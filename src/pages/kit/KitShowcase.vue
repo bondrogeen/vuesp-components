@@ -17,9 +17,10 @@ import { CardButton, CardDate, CardDimmer, CardInfo, CardInput, CardList } from 
 import { BlockBreadcrumb, BlockInfo, BlockScan, BlockService, BlockStatus, BlockUpdate } from '@/components/block';
 
 /* Buttons */
-const buttonColors: TButtonColor[] = ['cyan', 'blue', 'indigo', 'violet', 'purple', 'amber', 'green', 'red', 'slate', 'gray', 'transparent'];
-const buttonVariants: TButtonVariant[] = ['default', 'soft', 'outline', 'white'];
-const buttonSizes = ['sm', 'md', 'lg', 'xl'] as const;
+const buttonColors: TButtonColor[] = ['cyan', 'blue', 'indigo', 'violet', 'purple', 'amber', 'green', 'red', 'slate', 'gray', 'white'];
+const buttonVariants: TButtonVariant[] = ['solid', 'soft', 'outline', 'ghost', 'muted', 'none'];
+const buttonSizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+const buttonIconSizes: Record<(typeof buttonSizes)[number], number> = { xs: 14, sm: 16, md: 20, lg: 24, xl: 28 };
 
 const cardVariants = ['glass', 'solid', 'outline', 'ghost'] as const;
 const cardPaddings = ['none', 'lg'] as const;
@@ -216,7 +217,7 @@ const breadcrumbs = [{ name: 'Home', path: '#kit' }, { name: 'Devices', path: '#
       </div>
     </KitSection>
 
-    <KitSection title="VButton — размеры и состояния" description="Размеры, иконки, invert, disabled, loading и block.">
+    <KitSection title="VButton — размеры и состояния" description="Размеры, иконки, ghost и muted, disabled, loading и block.">
       <div class="space-y-4">
         <KitRow label="sizes">
           <div class="flex flex-wrap items-center gap-2">
@@ -227,15 +228,15 @@ const breadcrumbs = [{ name: 'Home', path: '#kit' }, { name: 'Devices', path: '#
         <KitRow label="icon">
           <div class="flex flex-wrap items-center gap-2">
             <VButton v-for="size in buttonSizes" :key="size" type="icon" :size="size" :aria-label="`Icon ${size}`" :title="`Icon ${size}`">
-              <VIcon name="settings" :size="size === 'sm' ? 16 : size === 'md' ? 20 : size === 'lg' ? 24 : 28" />
+              <VIcon name="settings" :size="buttonIconSizes[size]" />
             </VButton>
           </div>
         </KitRow>
 
-        <KitRow label="invert">
+        <KitRow label="ghost / muted">
           <div class="flex flex-wrap items-center gap-2">
-            <VButton color="slate" variant="outline" invert>outline invert</VButton>
-            <VButton color="slate" variant="soft" invert>soft invert</VButton>
+            <VButton color="slate" variant="ghost">ghost</VButton>
+            <VButton color="slate" variant="muted">muted</VButton>
           </div>
         </KitRow>
 
