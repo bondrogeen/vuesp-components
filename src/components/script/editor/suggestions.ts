@@ -5,6 +5,8 @@ export const DEFAULT_SUGGESTIONS: ISuggestion[] = [
   { label: 'while', type: 'word', insert: '$v0=0;\nwhile:${$v0<10};\nlog($v0);\n$v0=$v0+1;\nwait(1s);\nend;', detail: 'while:${$v0<2}; end;' },
 
   { label: 'udp', type: 'func', insert: "udp(${},'call(1)')", detail: 'udp(id:number, text:string)' },
+  { label: 'fade', type: 'func', insert: 'fade(${0}, ${1}, ${2})', detail: 'fade(gpio:number, value:number, time:number) => boolean' },
+  { label: 'http', type: 'func', insert: "http('${0}', '${1}')", detail: 'http(method:string, url:string, count?:number, num?:number, data?:number[]) => status:number' },
   { label: 'on', type: 'func', insert: "on('${event}');\n\nend;", detail: 'event(name: string)' },
   { label: 'wait', type: 'func', insert: 'wait(${1s});', detail: 'wait(10ms | 1s | 1m | 1h)' },
   { label: 'log', type: 'func', insert: "log(${});", detail: 'log(text: string | number)' },

@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.1.0 — 2026-11-22
+
+### Added
+
+- Script editor suggestions for the common `fade()` and `http()` functions, so all devices get autocomplete and highlighting without duplicating them in every `suggestions.json`.
+- TypeScript-like signatures in the suggestion `detail` line.
+
 ## 5.0.1 — 2026-11-21
 
 ### Fixed
