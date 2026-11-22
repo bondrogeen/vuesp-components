@@ -23,17 +23,17 @@
       </slot>
     </div>
 
-    <div v-if="props.icon" class="absolute left-1/2 top-1/2 size-1/2 text-gray-light-10/10 dark:text-white/2 -translate-1/2">
+    <div v-if="props.icon" class="pointer-events-none absolute left-1/2 top-1/2 size-1/2 text-gray-light-10/10 dark:text-white/2 -translate-1/2">
       <slot name="icon" v-bind="props"></slot>
     </div>
 
     <VDialog v-if="dialog" :size="props.size || 'sm'" :title="name" @close="closeDialog" @open="openDialog">
       <template #header-btn>
-        <VButton class="size-8" variant="ghost" size="none" @click="onEdit">
+        <VButton class="size-8" variant="ghost" size="none" title="Edit" aria-label="Edit" @click="onEdit">
           <VIcon name="more" class="size-4" />
         </VButton>
 
-        <VButton class="size-8" variant="ghost" size="none" @click="onClone">
+        <VButton class="size-8" variant="ghost" size="none" title="Copy" aria-label="Copy" @click="onClone">
           <VIcon name="copy" class="size-4" />
         </VButton>
       </template>

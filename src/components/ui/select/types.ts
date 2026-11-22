@@ -4,6 +4,7 @@ export interface IVSelectProps<T> extends IVDropdownProps {
   modelValue?: string | number;
   label?: string;
   disabled?: boolean;
+  hideMessage?: boolean;
   items: T[];
 }
 

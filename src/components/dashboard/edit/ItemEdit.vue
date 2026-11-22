@@ -55,7 +55,7 @@
                 :argument-title="$t('dashboard.argument')"
                 :disabled="!isArgs || isSet"
                 label="Set"
-                @on-icon="onFunc('set')"
+                @icon="onFunc('set')"
                 @change="onChange('set', $event)"
               />
 
@@ -65,7 +65,7 @@
                 :argument-title="$t('dashboard.argument')"
                 :disabled="!isArgs"
                 label="Get"
-                @on-icon="onFunc('get')"
+                @icon="onFunc('get')"
                 @change="onChange('get', $event)"
               />
 
@@ -77,7 +77,7 @@
                 :argument-title="$t('dashboard.argument')"
                 :disabled="!isArgs"
                 label="GetTo"
-                @on-icon="onFunc('getTo')"
+                @icon="onFunc('getTo')"
                 @change="onChange('getTo', $event)"
               />
             </div>

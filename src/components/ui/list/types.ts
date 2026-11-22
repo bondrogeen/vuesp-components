@@ -13,6 +13,7 @@ export interface IVListObjectProps {
   items: object;
   path?: string;
   onlyValue?: boolean;
+  canAdd?: (path: string) => boolean;
 }
 export interface IVListObjectEmits {
   (e: 'click', data: IVListObjectReturnData): void;

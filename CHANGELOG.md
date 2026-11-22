@@ -1,5 +1,22 @@
 # Changelog
 
+## 5.2.0 — 2026-11-22
+
+### Added
+
+- `VListObject`: optional `canAdd(path)` callback. When it returns false, the add button is hidden for that value while the row stays visible.
+- `VSelect`: optional `hideMessage` prop. By default a select now reserves the same message area as `VTextField`; pass `hide-message` for compact rows.
+
+### Changed
+
+- `VListObject`: clicking a scalar row now selects it when the row is addable; object rows still expand/collapse.
+- `VListObject`: row separators are positioned relative to their own row and no longer intercept pointer events.
+
+### Fixed
+
+- `ItemEdit`: the `+` buttons for Set / Get / GetTo now open the expression editor. The component listened to `on-icon` while `VFunc` emits `icon`.
+- `CardBase`: Edit and Copy buttons in the tile dialog now have `title` and `aria-label`; the decorative background icon no longer blocks clicks.
+
 ## 5.1.0 — 2026-11-22
 
 ### Added

@@ -7,7 +7,7 @@ import VDropdown from '@/components/ui/dropdown/VDropdown.vue';
 import VList from '@/components/ui/list/VList.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
 
-const { modelValue, label, items, disabled, ...attrs } = defineProps<IVSelectProps<T>>();
+const { modelValue, label, items, hideMessage, disabled, ...attrs } = defineProps<IVSelectProps<T>>();
 
 const emit = defineEmits<IVSelectEmits<T>>();
 
@@ -22,10 +22,10 @@ function onSelect(item: T, on: IVDropdownOn) {
 </script>
 
 <template>
-  <VDropdown v-bind="attrs" :hide-on-click="false" class="relative">
+  <VDropdown v-bind="attrs" :top="attrs.top || hideMessage ? 'calc(100% + 8px)' : 'calc(100% - 16px)'" :hide-on-click="false" class="relative">
     <template #activator="{ on, isShow }">
       <slot name="activator" v-bind="{ on, isShow }">
-        <VTextField :model-value="modelValue" :disabled="disabled" :label="label" readonly hideMessage active @click="on.click" @on-icon="on.click">
+        <VTextField :model-value="modelValue" :disabled="disabled" :label="label" readonly :hideMessage="hideMessage" active @click="on.click" @on-icon="on.click">
           <template #icon>
             <VIcon name="chevron-down" class="size-5 transition duration-300" :class="isShow ? 'rotate-180' : ''" />
           </template>
@@ -39,14 +39,7 @@ function onSelect(item: T, on: IVDropdownOn) {
           {{ label }}
         </h4>
 
-        <VList
-          v-slot="{ item }"
-          :items="items"
-          :plain="!isLgOrLarger"
-          class="lg:max-h-50 lg:overflow-y-auto lg:overscroll-contain"
-          :class="{ scrollbar: isLgOrLarger }"
-          @click="onSelect($event, on)"
-        >
+        <VList v-slot="{ item }" :items="items" :plain="!isLgOrLarger" class="lg:max-h-50 lg:overflow-y-auto lg:overscroll-contain" :class="{ scrollbar: isLgOrLarger }" @click="onSelect($event, on)">
           <slot name="item" :item="item">
             {{ item.name }}
           </slot>
