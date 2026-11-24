@@ -111,6 +111,17 @@ export interface ISerialConsoleLabels {
   megaShort: string;
   perSecond: string;
   shortcuts: string;
+  apply: string;
+  reset: string;
+  unsaved: string;
+}
+
+export interface ISerialConsoleNoReplyHint {
+  text: string;
+  actionLabel?: string;
+  delay?: number;
+  resend?: boolean;
+  onAction?: () => void | Promise<void>;
 }
 
 export interface ISerialConsoleProps {
@@ -126,4 +137,8 @@ export interface ISerialConsoleProps {
   initialLineEnding?: TSerialConsoleLineEnding;
   storageKey?: string;
   compact?: boolean;
+  dirty?: boolean;
+  onApply?: () => void;
+  onReset?: () => void;
+  noReplyHint?: ISerialConsoleNoReplyHint;
 }

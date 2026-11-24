@@ -23,7 +23,17 @@
     <div v-if="settingsOpen" class="border-b border-gray-light-10/70 px-3 py-3 dark:border-white/10">
       <slot name="settings" />
 
-      <div v-if="caps.encoding || caps.framing" class="grid gap-3 sm:grid-cols-3" :class="$slots.settings ? 'mt-3' : ''">
+      <div v-if="$slots['settings-actions'] || onApply || onReset" class="mt-3">
+        <slot name="settings-actions">
+          <div class="flex flex-wrap items-center gap-3">
+            <VButton v-if="onApply" color="blue" @click="onApply">{{ labels.apply }}</VButton>
+            <VButton v-if="onReset" variant="outline" color="gray" @click="onReset">{{ labels.reset }}</VButton>
+            <span v-if="dirty" class="text-xs text-amber-600 dark:text-amber-400">{{ labels.unsaved }}</span>
+          </div>
+        </slot>
+      </div>
+
+      <div v-if="caps.encoding || caps.framing" class="mt-3 grid gap-3 sm:grid-cols-3">
         <VSelect
           v-if="caps.encoding"
           :model-value="selectName(encodingItems, view.encoding)"
@@ -85,6 +95,10 @@
             {{ labels.quickAddButton }}
           </VButton>
         </div>
+      </div>
+
+      <div v-if="$slots['settings-extra']" class="mt-3">
+        <slot name="settings-extra" />
       </div>
     </div>
 
@@ -153,6 +167,7 @@
         >
           <VIcon name="download" :size="16" />
         </VButton>
+        <slot name="toolbar-extra" />
       </div>
     </div>
 
@@ -249,12 +264,23 @@
         </div>
       </div>
 
+      <div v-if="showNoReply && noReplyHint" class="mt-2 flex flex-wrap items-center gap-2 text-[11px]">
+        <span class="text-amber-main">{{ noReplyHint.text }}</span>
+        <VButton v-if="noReplyHint.actionLabel && noReplyHint.onAction" size="xs" variant="soft" color="gray" @click="applyHintAction">
+          {{ noReplyHint.actionLabel }}
+        </VButton>
+      </div>
+
       <p v-if="hexSend" class="mt-1 text-[11px]" :class="hexError ? 'text-red-main' : 'text-gray-dark-25 dark:text-gray-main'">
         {{ hexError || `${hexBytes.length} ${labels.bytes} · ${labels.hexHint}` }}
       </p>
 
       <p v-if="!compact" class="mt-2 text-[11px] text-gray-dark-25 dark:text-gray-main">{{ labels.shortcuts }}</p>
       <p v-if="error" class="mt-1 text-xs text-red-main">{{ labels.error }}: {{ error }}</p>
+    </div>
+
+    <div v-if="$slots.footer" class="border-t border-gray-light-10/70 px-3 py-2 dark:border-white/10">
+      <slot name="footer" />
     </div>
   </VCard>
 </template>
@@ -288,6 +314,7 @@ const props = withDefaults(defineProps<ISerialConsoleProps>(), {
   locale: 'ru',
   maxLines: 500,
   compact: false,
+  dirty: false,
 });
 
 const emit = defineEmits<{
@@ -332,6 +359,7 @@ const {
   wrapLines,
   autoScroll,
   copied,
+  showNoReply,
   quickCommands,
   quickInput,
   hexBytes,
@@ -347,6 +375,7 @@ const {
   formatBytes,
   addQuick,
   removeQuick,
+  applyHintAction,
 } = useSerialConsole({
   transport: () => props.transport,
   locale: () => props.locale,
@@ -355,6 +384,7 @@ const {
   storageKey: () => props.storageKey,
   initialQuickCommands: () => props.initialQuickCommands ?? [],
   initialLineEnding: () => props.initialLineEnding,
+  noReplyHint: () => props.noReplyHint,
 });
 
 const connected = computed(() => props.status === 'connected');

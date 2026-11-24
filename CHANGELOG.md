@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.3.1 — 2026-11-25
+
+### Added
+
+- `SerialConsole` settings panel: host settings via `#settings`, built-in `Apply` / `Reset` buttons driven by `dirty` / `onApply` / `onReset` props, and a `#settings-actions` slot to replace them.
+- `SerialConsole` extension slots: `#settings-extra`, `#toolbar-extra`, `#footer`.
+- `SerialConsole` prop `initialLineEnding` and capability `connection` to hide the connect button when the host owns the port.
+- `SerialConsole` follows the host locale through the `locale` prop (board pages switch language together with the rest of the UI).
+
 ## 5.3.0 — 2026-11-25
 
 ### Added

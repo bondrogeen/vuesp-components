@@ -2,6 +2,7 @@ import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 
 import type {
   ISerialConsoleLabels,
+  ISerialConsoleNoReplyHint,
   ISerialConsoleLine,
   ISerialConsoleTransport,
   ISerialConsoleView,
@@ -45,6 +46,7 @@ export interface IUseSerialConsoleOptions {
   storageKey?: () => string | undefined;
   initialQuickCommands?: () => string[];
   initialLineEnding?: () => TSerialConsoleLineEnding | undefined;
+  noReplyHint?: () => ISerialConsoleNoReplyHint | undefined;
 }
 
 export function useSerialConsole(options: IUseSerialConsoleOptions) {
@@ -68,6 +70,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   const wrapLines = ref(true);
   const autoScroll = ref(true);
   const copied = ref(false);
+  const showNoReply = ref(false);
 
   const quickCommands = ref<string[]>([]);
   const quickInput = ref('');
@@ -77,6 +80,8 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   let pausedBuffer: number[] = [];
   let rxFlushTimer: ReturnType<typeof setTimeout> | null = null;
   let rateTimer: ReturnType<typeof setInterval> | null = null;
+  let hintTimer: ReturnType<typeof setTimeout> | null = null;
+  let lastQuick = '';
   let copiedTimer: ReturnType<typeof setTimeout> | null = null;
   let rateRx = 0;
   let rateTx = 0;
@@ -174,8 +179,24 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     else scheduleRxFlush();
   };
 
+  const clearHint = (): void => {
+    if (hintTimer) clearTimeout(hintTimer);
+    hintTimer = null;
+    showNoReply.value = false;
+  };
+
+  const armHint = (before: number): void => {
+    const hint = options.noReplyHint?.();
+    if (!hint) return;
+    clearHint();
+    hintTimer = setTimeout(() => {
+      if (rxBytes.value === before) showNoReply.value = true;
+    }, hint.delay ?? 1500);
+  };
+
   const handleData = (value: Uint8Array): void => {
     if (!value?.length) return;
+    if (showNoReply.value) clearHint();
     rxBytes.value += value.length;
 
     if (view.paused) {
@@ -267,10 +288,21 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   const sendQuick = async (command: string): Promise<void> => {
     const payload = payloadFor(command, false);
     if (!payload.length) return;
+    const before = rxBytes.value;
     const ok = await sendPayload(new Uint8Array(payload.slice(0, 4096)));
     if (!ok) return;
     history.value = [command, ...history.value.filter((item) => item !== command)].slice(0, 50);
     historyIndex.value = -1;
+    lastQuick = command;
+    armHint(before);
+  };
+
+  const applyHintAction = async (): Promise<void> => {
+    const hint = options.noReplyHint?.();
+    if (!hint?.onAction) return;
+    clearHint();
+    await hint.onAction();
+    if ((hint.resend ?? true) && lastQuick) await sendQuick(lastQuick);
   };
 
   const onInputKeydown = (event: KeyboardEvent): void => {
@@ -357,6 +389,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   };
 
   const clearLog = (): void => {
+    clearHint();
     clearRxTimer();
     rxBuffer = [];
     pausedBuffer = [];
@@ -423,6 +456,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   onBeforeUnmount(() => {
     unsubscribe?.();
     unsubscribe = null;
+    clearHint();
     clearRxTimer();
     if (rateTimer) clearInterval(rateTimer);
     if (copiedTimer) clearTimeout(copiedTimer);
@@ -447,6 +481,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     wrapLines,
     autoScroll,
     copied,
+    showNoReply,
     quickCommands,
     quickInput,
     hexBytes,
@@ -462,5 +497,6 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     formatBytes,
     addQuick,
     removeQuick,
+    applyHintAction,
   };
 }

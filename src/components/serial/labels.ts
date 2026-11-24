@@ -66,6 +66,9 @@ const ru: ISerialConsoleLabels = {
   megaShort: 'МБ',
   perSecond: '/с',
   shortcuts: 'Enter — отправить · ↑/↓ — история · Ctrl+L — очистить · Ctrl+Shift+C — копировать',
+  apply: 'Применить',
+  reset: 'Сбросить',
+  unsaved: 'Есть несохранённые изменения',
 };
 
 const en: ISerialConsoleLabels = {
@@ -134,6 +137,9 @@ const en: ISerialConsoleLabels = {
   megaShort: 'MB',
   perSecond: '/s',
   shortcuts: 'Enter — send · ↑/↓ — history · Ctrl+L — clear · Ctrl+Shift+C — copy',
+  apply: 'Apply',
+  reset: 'Reset',
+  unsaved: 'Unsaved changes',
 };
 
 const DICTIONARIES: Record<TSerialConsoleLocale, ISerialConsoleLabels> = { ru, en };

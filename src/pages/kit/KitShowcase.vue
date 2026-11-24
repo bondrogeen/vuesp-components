@@ -21,7 +21,19 @@ import type { TSerialConsoleStatus, ISerialConsoleTransport } from '@/components
 /* Serial */
 const serialStatus = ref<TSerialConsoleStatus>('disconnected');
 const serialBaud = ref<string | number>('115200');
+const serialDirty = ref(false);
 const serialBaudItems: IListItem<number>[] = [9600, 19200, 38400, 57600, 115200].map((value) => ({ name: String(value), value }));
+const onSerialBaud = (item: IListItem<number>) => {
+  serialBaud.value = item.value;
+  serialDirty.value = true;
+};
+const onSerialApply = () => {
+  serialDirty.value = false;
+};
+const onSerialReset = () => {
+  serialBaud.value = '115200';
+  serialDirty.value = false;
+};
 const serialListeners = new Set<(bytes: Uint8Array) => void>();
 const serialTransport: ISerialConsoleTransport = {
   start: () => {
@@ -626,21 +638,28 @@ const breadcrumbs = [{ name: 'Home', path: '#kit' }, { name: 'Devices', path: '#
         :transport="serialTransport"
         :initial-quick-commands="['PING', 'INFO']"
         storage-key="kit-serial"
+        :dirty="serialDirty"
+        :on-apply="onSerialApply"
+        :on-reset="onSerialReset"
       >
-        <template #header-actions>
-          <VSelect
-            class="w-32"
-            hide-message
-            :model-value="String(serialBaud)"
-            :items="serialBaudItems"
-            label="Скорость"
-            @change="serialBaud = $event.value"
-          />
-        </template>
         <template #settings>
+          <div class="grid gap-3 sm:grid-cols-3">
+            <VSelect
+              hide-message
+              :model-value="String(serialBaud)"
+              :items="serialBaudItems"
+              label="Скорость"
+              @change="onSerialBaud"
+            />
+          </div>
+        </template>
+        <template #settings-extra>
           <p class="text-[11px] text-gray-dark-25 dark:text-gray-main">
-            Слот <code>#settings</code>: сюда хост кладёт свои настройки порта (baud, parity, stop, flow).
+            Слоты <code>#settings</code> и <code>#settings-extra</code>: сюда хост кладёт свои поля и блоки, а Apply / Defaults рисует сам компонент.
           </p>
+        </template>
+        <template #footer>
+          <p class="text-[11px] text-gray-dark-25 dark:text-gray-main">Слот <code>#footer</code> — дополнительная строка под композером.</p>
         </template>
       </SerialConsole>
     </KitSection>

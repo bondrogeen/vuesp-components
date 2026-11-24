@@ -1,5 +1,5 @@
 {
-  "version": "5.3.0",
+  "version": "5.3.1",
   "name": "vuesp-components",
   "type": "module",
   "main": "./dist/index.es.js",
@@ -73,12 +73,13 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build && cp src/assets/theme.css dist/theme.css",
+    "build": "npm run clean && vue-tsc -b && vite build && cp src/assets/theme.css dist/theme.css",
     "preview": "vite preview",
     "eslint": "eslint --fix",
     "lint": "eslint src",
     "prepublishOnly": "npm run build",
-    "typecheck": "vue-tsc -b"
+    "typecheck": "vue-tsc -b",
+    "clean": "rm -rf dist .vite"
   },
   "keywords": [
     "vue",
