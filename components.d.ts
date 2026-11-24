@@ -50,6 +50,7 @@ declare module 'vue' {
     ScriptDialog: typeof import('./src/components/script/dialog/ScriptDialog.vue')['default']
     ScriptEditor: typeof import('./src/components/script/editor/ScriptEditor.vue')['default']
     ScriptViewDocs: typeof import('./src/components/script/viewDocs/ScriptViewDocs.vue')['default']
+    SerialConsole: typeof import('./src/components/serial/SerialConsole.vue')['default']
     VAccordion: typeof import('./src/components/ui/accordion/VAccordion.vue')['default']
     VAccordionItem: typeof import('./src/components/ui/accordion/VAccordionItem.vue')['default']
     VAutocomplete: typeof import('./src/components/ui/autocomplete/VAutocomplete.vue')['default']

@@ -15,6 +15,33 @@ import { CardNotification } from '@/components/card';
 import { ScriptEditor } from '@/components/script';
 import { CardButton, CardDate, CardDimmer, CardInfo, CardInput, CardList } from '@/components/dashboard';
 import { BlockBreadcrumb, BlockInfo, BlockScan, BlockService, BlockStatus, BlockUpdate } from '@/components/block';
+import SerialConsole from '@/components/serial/SerialConsole.vue';
+import type { TSerialConsoleStatus, ISerialConsoleTransport } from '@/components/serial/types';
+
+/* Serial */
+const serialStatus = ref<TSerialConsoleStatus>('disconnected');
+const serialBaud = ref<string | number>('115200');
+const serialBaudItems: IListItem<number>[] = [9600, 19200, 38400, 57600, 115200].map((value) => ({ name: String(value), value }));
+const serialListeners = new Set<(bytes: Uint8Array) => void>();
+const serialTransport: ISerialConsoleTransport = {
+  start: () => {
+    serialStatus.value = 'connected';
+  },
+  stop: () => {
+    serialStatus.value = 'disconnected';
+  },
+  send: async (bytes) => {
+    if (serialStatus.value !== 'connected') return false;
+    setTimeout(() => {
+      for (const listener of serialListeners) listener(bytes);
+    }, 60);
+    return true;
+  },
+  subscribe: (listener) => {
+    serialListeners.add(listener);
+    return () => serialListeners.delete(listener);
+  },
+};
 
 /* Buttons */
 const buttonColors: TButtonColor[] = ['cyan', 'blue', 'indigo', 'violet', 'purple', 'amber', 'green', 'red', 'slate', 'gray', 'white'];
@@ -590,6 +617,32 @@ const breadcrumbs = [{ name: 'Home', path: '#kit' }, { name: 'Devices', path: '#
 
     <KitSection title="BlockScan" description="Список Wi-Fi сетей.">
       <BlockScan :items="scanItems" />
+    </KitSection>
+
+    <KitSection title="SerialConsole" description="Терминал: лог RX/TX, отправка текста и HEX, поиск, кадры по паузе.">
+      <SerialConsole
+        :status="serialStatus"
+        port-label="1A86:7523"
+        :transport="serialTransport"
+        :initial-quick-commands="['PING', 'INFO']"
+        storage-key="kit-serial"
+      >
+        <template #header-actions>
+          <VSelect
+            class="w-32"
+            hide-message
+            :model-value="String(serialBaud)"
+            :items="serialBaudItems"
+            label="Скорость"
+            @change="serialBaud = $event.value"
+          />
+        </template>
+        <template #settings>
+          <p class="text-[11px] text-gray-dark-25 dark:text-gray-main">
+            Слот <code>#settings</code>: сюда хост кладёт свои настройки порта (baud, parity, stop, flow).
+          </p>
+        </template>
+      </SerialConsole>
     </KitSection>
   </div>
 </template>

@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.3.0 — 2026-11-25
+
+### Added
+
+- `SerialConsole`: ready-made serial terminal block — connection header, RX/TX log with time and counters, text/HEX view, search with highlighting, follow output, clear/copy/download, text and HEX sending, command history, quick commands editor.
+- `SerialConsole` display options: text encoding (UTF-8 / CP1251), frame splitting by newline or by idle gap (10–100 ms), pause capture.
+- `SerialConsole` is transport-agnostic: pass `start` / `stop` / `send` / `subscribe` callbacks, so the same block works with Web Serial or a device WebSocket.
+- `SerialConsole` ships its own `ru`/`en` dictionary (`locale` + `labels` props) and does not require host i18n keys.
+- `SerialConsole` slots: `#header-actions` (e.g. baud select) and `#settings` (host port settings).
+- `useSerialConsole`: composable with the log state machine, framing, encodings, pause buffering, counters and rates; settings persist to `localStorage` when `storageKey` is provided.
+
 ## 5.2.2 — 2026-11-24
 
 ### Added
