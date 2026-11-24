@@ -211,7 +211,9 @@ const breadcrumbs = [{ name: 'Home', path: '#kit' }, { name: 'Devices', path: '#
       <div class="space-y-4">
         <KitRow v-for="color in buttonColors" :key="color" :label="color">
           <div class="flex flex-wrap gap-2">
-            <VButton v-for="variant in buttonVariants" :key="variant" :color="color" :variant="variant">{{ variant }}</VButton>
+            <VButton v-for="variant in buttonVariants" :key="variant" :color="color" :variant="variant">
+              {{ variant }}
+            </VButton>
           </div>
         </KitRow>
       </div>

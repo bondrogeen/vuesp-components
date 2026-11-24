@@ -204,6 +204,7 @@ app.use(i18nPlugin, {
 - `CardInfo` - Info card
 - `CardInput` - Input card
 - `CardList` - List card
+- `CardPalette` - Color palette card
 - `ItemEdit` - Edit item component
 - `ItemOptions` - Options component
 

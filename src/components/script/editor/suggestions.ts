@@ -1,11 +1,23 @@
 import type { ISuggestion } from './plugins/types';
 
 export const DEFAULT_SUGGESTIONS: ISuggestion[] = [
-  { label: 'if', type: 'word', insert: 'if:${$v0<10};\n\nelse;\n\nend;', detail: 'if:${$v0<10};else;end;' },
-  { label: 'while', type: 'word', insert: '$v0=0;\nwhile:${$v0<10};\nlog($v0);\n$v0=$v0+1;\nwait(1s);\nend;', detail: 'while:${$v0<2}; end;' },
+  { label: 'if', type: 'word', insert: 'if:${$u0<10};\n\nelse;\n\nend;', detail: 'if:${$u0<10};else;end;' },
+  { label: 'while', type: 'word', insert: '$u0=0;\nwhile:${$u0<10};\nlog($u0);\n$u0=$u0+1;\nwait(1s);\nend;', detail: 'while:${$u0<2}; end;' },
 
-  { label: 'udp', type: 'func', insert: "udp(${},'call(1)')", detail: 'udp(id:number, text:string)' },
-  { label: 'fade', type: 'func', insert: 'fade(${0}, ${1}, ${2})', detail: 'fade(gpio:number, value:number, time:number) => boolean' },
+  {
+    label: 'udp',
+    type: 'func',
+    insert: "udp(${0}, '${1}')",
+    detail: 'udp(id:number, text:string) => ok:number',
+    description: 'Send a text message to a device discovered by Vuesp Discovery. Discovery must be enabled.',
+  },
+  {
+    label: 'fade',
+    type: 'func',
+    insert: 'fade(${0}, ${1}, ${2})',
+    detail: 'fade(gpio:number, value:number, time:number) => boolean',
+    description: 'Smoothly change a PWM or DAC port value over the given time in milliseconds.',
+  },
   { label: 'http', type: 'func', insert: "http('${0}', '${1}')", detail: 'http(method:string, url:string, count?:number, num?:number, data?:number[]) => status:number' },
   { label: 'on', type: 'func', insert: "on('${event}');\n\nend;", detail: 'event(name: string)' },
   { label: 'wait', type: 'func', insert: 'wait(${1s});', detail: 'wait(10ms | 1s | 1m | 1h)' },

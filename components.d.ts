@@ -42,6 +42,7 @@ declare module 'vue' {
     CardInput: typeof import('./src/components/dashboard/cards/CardInput.vue')['default']
     CardList: typeof import('./src/components/dashboard/cards/CardList.vue')['default']
     CardNotification: typeof import('./src/components/card/notification/CardNotification.vue')['default']
+    CardPalette: typeof import('./src/components/dashboard/cards/CardPalette.vue')['default']
     EnergyFlowBlock: typeof import('./src/components/block/presets/energy-flow/EnergyFlowBlock.vue')['default']
     EnergyFlowCard: typeof import('./src/components/block/presets/energy-flow/EnergyFlowCard.vue')['default']
     ItemEdit: typeof import('./src/components/dashboard/edit/ItemEdit.vue')['default']

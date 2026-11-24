@@ -175,7 +175,7 @@ const getClass = computed(() => {
     :class="getClass"
     @click="onClick"
   >
-    <span :class="loading ? 'opacity-0' : ''">
+    <span :class="loading ? 'contents text-transparent [&>*]:opacity-0' : 'contents'">
       <slot></slot>
     </span>
 

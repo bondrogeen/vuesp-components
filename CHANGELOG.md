@@ -1,5 +1,28 @@
 # Changelog
 
+## 5.2.2 — 2026-11-24
+
+### Added
+
+- `CardPalette`: dashboard card for choosing a preset or custom color. The disabled state is an empty string, matching the device contract.
+- `udp()` and `fade()` suggestions now include a `description` tooltip, so device projects inherit the explanation from the shared package.
+
+### Changed
+
+- `VButton`: the slot wrapper is now `display: contents`, so `flex`, `block`, `gap` and alignment classes on the button apply directly to slotted content. The loading state hides text with `text-transparent` and elements with `opacity-0` while keeping the original size and loader color.
+- `CardDimmer`: removed a redundant nested wrapper around the dimmer control.
+
+### Fixed
+
+- The `udp()` suggestion inserted a literal `call(1)` argument and an empty first argument; it now inserts both arguments as placeholders.
+- The `if` and `while` suggestion templates used the removed `$v0` variable; they now use `$u0`.
+
+## 5.2.1 — 2026-11-22
+
+### Fixed
+
+- `VPopup`: increased the top padding of the mobile handle and moved the close buttons up so they no longer overlap the handle.
+
 ## 5.2.0 — 2026-11-22
 
 ### Added

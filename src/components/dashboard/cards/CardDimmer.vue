@@ -39,27 +39,15 @@ const setState = ({ value }: IDashboardItem) => {
 
     <template #header="item">
       <div class="flex justify-end">
-        <div class="flex justify-end">
-          <VButton v-bind="getBind(item)" type="icon" @click.stop="setState(item)">
-            <div :class="'text-blue-600 dark:text-blue-400'">
-              <svg width="30" height="30" viewBox="-7.5 -7.5 75 75" version="1.1" style="transform: rotate(-90deg)">
-                <circle class="stroke-gray-light-10 dark:stroke-gray-dark-30" r="30" cx="30" cy="30" fill="transparent" stroke-width="10"></circle>
+        <VButton v-bind="getBind(item)" type="icon" @click.stop="setState(item)">
+          <div :class="'text-blue-600 dark:text-blue-400'">
+            <svg width="30" height="30" viewBox="-7.5 -7.5 75 75" version="1.1" style="transform: rotate(-90deg)">
+              <circle class="stroke-gray-light-10 dark:stroke-gray-dark-30" r="30" cx="30" cy="30" fill="transparent" stroke-width="10"></circle>
 
-                <circle
-                  r="30"
-                  cx="30"
-                  cy="30"
-                  stroke="currentColor"
-                  stroke-width="8"
-                  stroke-linecap="butt"
-                  :stroke-dashoffset="getRangePercent(item)"
-                  fill="transparent"
-                  stroke-dasharray="187"
-                ></circle>
-              </svg>
-            </div>
-          </VButton>
-        </div>
+              <circle r="30" cx="30" cy="30" stroke="currentColor" stroke-width="8" stroke-linecap="butt" :stroke-dashoffset="getRangePercent(item)" fill="transparent" stroke-dasharray="187"></circle>
+            </svg>
+          </div>
+        </VButton>
       </div>
     </template>
 
