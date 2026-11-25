@@ -44,6 +44,10 @@ export interface ISerialConsoleCapabilities {
   escape?: boolean;
   file?: boolean;
   repeat?: boolean;
+  filter?: boolean;
+  regex?: boolean;
+  bookmarks?: boolean;
+  scenario?: boolean;
   pause?: boolean;
   framing?: boolean;
   encoding?: boolean;
@@ -107,6 +111,15 @@ export interface ISerialConsoleLabels {
   repeat: string;
   repeatStop: string;
   repeatInterval: string;
+  all: string;
+  regex: string;
+  bookmarks: string;
+  bookmark: string;
+  scenario: string;
+  scenarioRun: string;
+  scenarioStop: string;
+  scenarioHint: string;
+  scenarioPlaceholder: string;
   hexLabel: string;
   hexPlaceholder: string;
   hexHint: string;

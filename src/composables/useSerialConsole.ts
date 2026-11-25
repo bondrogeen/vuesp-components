@@ -65,6 +65,13 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   const escape = ref(false);
   const repeat = ref(false);
   const repeatMs = ref(1000);
+  const direction = ref<'all' | 'rx' | 'tx'>('all');
+  const regex = ref(false);
+  const onlyBookmarks = ref(false);
+  const bookmarkIds = ref<number[]>([]);
+  const scenarioOpen = ref(false);
+  const scenarioText = ref('');
+  const scenarioRunning = ref(false);
   const lineEnding = ref<TSerialConsoleLineEnding>(options.initialLineEnding?.() ?? 'crlf');
   const history = ref<string[]>([]);
   const historyIndex = ref(-1);
@@ -90,6 +97,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   let hintTimer: ReturnType<typeof setTimeout> | null = null;
   let sessionTimer: ReturnType<typeof setTimeout> | null = null;
   let repeatTimer: ReturnType<typeof setInterval> | null = null;
+  let scenarioStop = false;
   let lastQuick = '';
   let copiedTimer: ReturnType<typeof setTimeout> | null = null;
   let rateRx = 0;
@@ -126,6 +134,9 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   const savedView = readStorage<Partial<ISerialConsoleView>>('view');
   if (savedView) Object.assign(view, savedView, { paused: false });
   view.paused = false;
+
+  const savedScenario = readStorage<string>('scenario');
+  if (typeof savedScenario === 'string') scenarioText.value = savedScenario;
 
   const savedQuick = readStorage<string[]>('quick');
   const defaultQuick = options.initialQuickCommands?.() ?? [];
@@ -500,11 +511,75 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     }
   };
 
+  const matches = (line: ISerialConsoleLine, query: string): boolean => {
+    if (!query) return true;
+    if (regex.value) {
+      try {
+        const expression = new RegExp(query, 'i');
+        return expression.test(line.text) || expression.test(line.hex);
+      } catch {
+        return false;
+      }
+    }
+    return line.text.toLowerCase().includes(query) || line.hex.toLowerCase().includes(query);
+  };
+
   const visibleLines = computed(() => {
     const query = filter.value.trim().toLowerCase();
-    if (!query) return lines.value;
-    return lines.value.filter((line) => line.text.toLowerCase().includes(query) || line.hex.toLowerCase().includes(query));
+    const bookmarked = new Set(bookmarkIds.value);
+    return lines.value.filter((line) => {
+      if (direction.value !== 'all' && line.dir !== direction.value) return false;
+      if (onlyBookmarks.value && !bookmarked.has(line.id)) return false;
+      return matches(line, query);
+    });
   });
+
+  const isBookmarked = (line: ISerialConsoleLine): boolean => bookmarkIds.value.includes(line.id);
+
+  const toggleBookmark = (line: ISerialConsoleLine): void => {
+    bookmarkIds.value = isBookmarked(line) ? bookmarkIds.value.filter((id) => id !== line.id) : [...bookmarkIds.value, line.id];
+  };
+
+  const parseScenario = (text: string): Array<{ delay: number; command: string }> =>
+    text
+      .split('\n')
+      .map((row) => row.trim())
+      .filter(Boolean)
+      .map((row) => {
+        const match = /^(\d+)\s*:\s*(.*)$/.exec(row);
+        if (match) return { delay: Number(match[1]), command: match[2] };
+        return { delay: 0, command: row };
+      })
+      .filter((step) => step.command.length > 0);
+
+  const stopScenario = (): void => {
+    scenarioStop = true;
+    scenarioRunning.value = false;
+  };
+
+  const startScenario = async (): Promise<void> => {
+    if (scenarioRunning.value) return;
+    const steps = parseScenario(scenarioText.value);
+    if (!steps.length) return;
+
+    scenarioStop = false;
+    scenarioRunning.value = true;
+    try {
+      for (const step of steps) {
+        if (scenarioStop) break;
+        if (step.delay > 0) await new Promise((resolve) => setTimeout(resolve, step.delay));
+        if (scenarioStop) break;
+        const payload = payloadFor(step.command, false);
+        if (!payload.length) continue;
+        await sendPayload(new Uint8Array(payload.slice(0, 4096)));
+      }
+    } finally {
+      scenarioRunning.value = false;
+      scenarioStop = false;
+    }
+  };
+
+  watch(scenarioText, (value) => writeStorage('scenario', value));
 
   const bits = (line: ISerialConsoleLine): string =>
     (line.data ?? []).map((byte) => byte.toString(2).padStart(8, '0')).join(' ');
@@ -523,7 +598,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
 
   const lineSegments = (value: string): ISerialConsoleSegment[] => {
     const query = filter.value.trim().toLowerCase();
-    if (!query) return [{ text: value, match: false }];
+    if (!query || regex.value) return [{ text: value, match: false }];
     const haystack = value.toLowerCase();
     const parts: ISerialConsoleSegment[] = [];
     let index = 0;
@@ -603,6 +678,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
 
   const clearLog = (): void => {
     stopRepeat();
+    stopScenario();
     clearHint();
     clearRxTimer();
     const key = sessionKey();
@@ -676,6 +752,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     unsubscribe?.();
     unsubscribe = null;
     stopRepeat();
+    stopScenario();
     clearHint();
     clearRxTimer();
     if (rateTimer) clearInterval(rateTimer);
@@ -697,6 +774,17 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     escape,
     repeat,
     repeatMs,
+    direction,
+    regex,
+    onlyBookmarks,
+    bookmarkIds,
+    isBookmarked,
+    toggleBookmark,
+    scenarioOpen,
+    scenarioText,
+    scenarioRunning,
+    startScenario,
+    stopScenario,
     sendFile,
     toggleRepeat,
     stopRepeat,

@@ -183,6 +183,19 @@
         </VButton>
         <slot name="toolbar-extra" />
       </div>
+
+      <div v-if="caps.filter || caps.regex || caps.bookmarks" class="flex w-full flex-wrap items-center gap-2 pt-2">
+        <div v-if="caps.filter" class="flex items-center gap-1 rounded-md border border-gray-light-10/70 p-0.5 dark:border-white/10">
+          <VButton size="xs" :variant="direction === 'all' ? 'soft' : 'ghost'" :color="direction === 'all' ? 'blue' : 'gray'" @click="direction = 'all'">{{ labels.all }}</VButton>
+          <VButton size="xs" :variant="direction === 'rx' ? 'soft' : 'ghost'" :color="direction === 'rx' ? 'green' : 'gray'" @click="direction = 'rx'">{{ labels.rx }}</VButton>
+          <VButton size="xs" :variant="direction === 'tx' ? 'soft' : 'ghost'" :color="direction === 'tx' ? 'blue' : 'gray'" @click="direction = 'tx'">{{ labels.tx }}</VButton>
+        </div>
+        <VButton v-if="caps.regex" size="xs" :variant="regex ? 'soft' : 'ghost'" :color="regex ? 'blue' : 'gray'" @click="regex = !regex">{{ labels.regex }}</VButton>
+        <VButton v-if="caps.bookmarks" size="xs" :variant="onlyBookmarks ? 'soft' : 'ghost'" :color="onlyBookmarks ? 'amber' : 'gray'" @click="onlyBookmarks = !onlyBookmarks">
+          <VIcon name="star" :size="12" />
+          {{ labels.bookmarks }}
+        </VButton>
+      </div>
     </div>
 
     <div v-if="showSearch" class="border-b border-gray-light-10/70 px-3 py-2 dark:border-white/10">
@@ -217,6 +230,17 @@
           ]"
           @click="caps.inspector && selectLine(line)"
         >
+          <button
+            v-if="caps.bookmarks"
+            type="button"
+            class="mr-1 inline-flex align-middle text-gray-main opacity-40 transition hover:opacity-100"
+            :class="isBookmarked(line) ? 'text-amber-main opacity-100' : ''"
+            :title="labels.bookmark"
+            :aria-label="labels.bookmark"
+            @click.stop="toggleBookmark(line)"
+          >
+            <VIcon name="star" :size="12" />
+          </button>
           <span v-if="showTime" class="mr-2 text-gray-dark-25 dark:text-gray-main">{{ line.at }}</span>
           <span :class="line.dir === 'rx' ? 'text-emerald-600 dark:text-emerald-400' : 'text-sky-600 dark:text-sky-400'">{{ line.dir.toUpperCase() }}</span>
           <span class="ml-2 text-gray-dark-40 dark:text-gray-light-10" :class="wrapLines ? 'whitespace-pre-wrap break-all' : 'whitespace-pre'">
@@ -352,12 +376,32 @@
           <VIcon name="upload" :size="14" />
           {{ labels.file }}
         </VButton>
+        <VButton v-if="caps.scenario" size="xs" :variant="scenarioOpen ? 'soft' : 'ghost'" color="gray" @click="scenarioOpen = !scenarioOpen">
+          <VIcon name="script" :size="14" />
+          {{ labels.scenario }}
+        </VButton>
         <input ref="fileInput" type="file" class="hidden" @change="onFileChange" />
       </div>
 
       <p v-if="hexSend" class="mt-1 text-[11px]" :class="hexError ? 'text-red-main' : 'text-gray-dark-25 dark:text-gray-main'">
         {{ hexError || `${hexBytes.length} ${labels.bytes} · ${labels.hexHint}` }}
       </p>
+
+      <div v-if="caps.scenario && scenarioOpen" class="mt-3">
+        <VTextField
+          component="textarea"
+          hide-message
+          :model-value="scenarioText"
+          :label="labels.scenario"
+          :placeholder="labels.scenarioPlaceholder"
+          @update:model-value="scenarioText = String($event)"
+        />
+        <div class="mt-2 flex flex-wrap items-center gap-2">
+          <VButton size="xs" color="blue" :disabled="scenarioRunning || !connected" @click="startScenario">{{ labels.scenarioRun }}</VButton>
+          <VButton size="xs" variant="outline" color="gray" :disabled="!scenarioRunning" @click="stopScenario">{{ labels.scenarioStop }}</VButton>
+          <span class="text-[11px] text-gray-dark-25 dark:text-gray-main">{{ labels.scenarioHint }}</span>
+        </div>
+      </div>
 
       <p v-if="!compact" class="mt-2 text-[11px] text-gray-dark-25 dark:text-gray-main">{{ labels.shortcuts }}</p>
       <p v-if="error" class="mt-1 text-xs text-red-main">{{ labels.error }}: {{ error }}</p>
@@ -442,6 +486,16 @@ const {
   escape,
   repeat,
   repeatMs,
+  direction,
+  regex,
+  onlyBookmarks,
+  isBookmarked,
+  toggleBookmark,
+  scenarioOpen,
+  scenarioText,
+  scenarioRunning,
+  startScenario,
+  stopScenario,
   sendFile,
   toggleRepeat,
   stopRepeat,
@@ -540,7 +594,10 @@ const onFileChange = async (event: Event): Promise<void> => {
 watch(
   () => props.status,
   (value) => {
-    if (value !== 'connected') stopRepeat();
+    if (value !== 'connected') {
+      stopRepeat();
+      stopScenario();
+    }
   },
 );
 

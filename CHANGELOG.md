@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.4.0 — 2026-11-25
+
+### Added
+
+- `SerialConsole` log filters: direction `All / RX / TX`, case-insensitive regex search and bookmarks with a "bookmarks only" filter — `capabilities.filter`, `capabilities.regex`, `capabilities.bookmarks`.
+- `SerialConsole` scenarios: a `delay_ms:command` list (one step per line) that runs with delays, can be stopped, is persisted in `localStorage` and stops on disconnect — `capabilities.scenario`.
+
 ## 5.3.4 — 2026-11-25
 
 ### Added
