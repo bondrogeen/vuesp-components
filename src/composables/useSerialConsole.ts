@@ -48,6 +48,7 @@ export interface IUseSerialConsoleOptions {
   initialQuickCommands?: () => string[];
   initialLineEnding?: () => TSerialConsoleLineEnding | undefined;
   noReplyHint?: () => ISerialConsoleNoReplyHint | undefined;
+  session?: () => boolean;
 }
 
 export function useSerialConsole(options: IUseSerialConsoleOptions) {
@@ -73,6 +74,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   const autoScroll = ref(true);
   const copied = ref(false);
   const showNoReply = ref(false);
+  const sessionRestored = ref(false);
 
   const quickCommands = ref<string[]>([]);
   const quickInput = ref('');
@@ -83,6 +85,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   let rxFlushTimer: ReturnType<typeof setTimeout> | null = null;
   let rateTimer: ReturnType<typeof setInterval> | null = null;
   let hintTimer: ReturnType<typeof setTimeout> | null = null;
+  let sessionTimer: ReturnType<typeof setTimeout> | null = null;
   let lastQuick = '';
   let copiedTimer: ReturnType<typeof setTimeout> | null = null;
   let rateRx = 0;
@@ -126,6 +129,85 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
 
   watch(view, () => writeStorage('view', { ...view, paused: false }), { deep: true });
 
+  const SESSION_DB = 'vuesp-serial';
+  const SESSION_STORE = 'sessions';
+
+  const sessionKey = (): string | null => {
+    const key = options.storageKey?.();
+    return options.session?.() && key ? `${key}:session` : null;
+  };
+
+  const openSessionDb = (): Promise<IDBDatabase> =>
+    new Promise((resolve, reject) => {
+      const request = indexedDB.open(SESSION_DB, 1);
+      request.onupgradeneeded = () => {
+        if (!request.result.objectStoreNames.contains(SESSION_STORE)) request.result.createObjectStore(SESSION_STORE);
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+
+  const sessionGet = async (key: string): Promise<{ lines: ISerialConsoleLine[]; rxBytes: number; txBytes: number } | null> => {
+    if (typeof indexedDB === 'undefined') return null;
+    const db = await openSessionDb();
+    return new Promise((resolve, reject) => {
+      const request = db.transaction(SESSION_STORE, 'readonly').objectStore(SESSION_STORE).get(key);
+      request.onsuccess = () => resolve(request.result ?? null);
+      request.onerror = () => reject(request.error);
+    });
+  };
+
+  const sessionSet = async (key: string, value: unknown): Promise<void> => {
+    if (typeof indexedDB === 'undefined') return;
+    const db = await openSessionDb();
+    await new Promise<void>((resolve, reject) => {
+      const request = db.transaction(SESSION_STORE, 'readwrite').objectStore(SESSION_STORE).put(value, key);
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+    });
+  };
+
+  const sessionDelete = async (key: string): Promise<void> => {
+    if (typeof indexedDB === 'undefined') return;
+    const db = await openSessionDb();
+    await new Promise<void>((resolve, reject) => {
+      const request = db.transaction(SESSION_STORE, 'readwrite').objectStore(SESSION_STORE).delete(key);
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+    });
+  };
+
+  const saveSession = (): void => {
+    const key = sessionKey();
+    if (!key) return;
+    if (sessionTimer) clearTimeout(sessionTimer);
+    sessionTimer = setTimeout(() => {
+      // Reactive proxies are not structured-cloneable, pass plain objects.
+      const payload = {
+        lines: lines.value.map((line) => ({ ...line, data: line.data ? [...line.data] : undefined })),
+        rxBytes: rxBytes.value,
+        txBytes: txBytes.value,
+      };
+      void sessionSet(key, payload).catch(() => undefined);
+    }, 800);
+  };
+
+  const restoreSession = async (): Promise<void> => {
+    const key = sessionKey();
+    if (!key || lines.value.length) return;
+    try {
+      const saved = await sessionGet(key);
+      if (!saved?.lines?.length) return;
+      lines.value = saved.lines;
+      lineId = saved.lines.reduce((max, line) => Math.max(max, line.id), 0);
+      rxBytes.value = saved.rxBytes ?? 0;
+      txBytes.value = saved.txBytes ?? 0;
+      sessionRestored.value = true;
+    } catch {
+      // Ignore storage errors, the console still works without the session.
+    }
+  };
+
   const pushLine = (dir: TSerialConsoleDirection, bytes: Uint8Array): void => {
     const decoded = decodeText(bytes, view.encoding);
     lines.value.push({
@@ -140,6 +222,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     });
     const max = options.maxLines();
     if (lines.value.length > max) lines.value.splice(0, lines.value.length - max);
+    saveSession();
   };
 
   const clearRxTimer = (): void => {
@@ -375,7 +458,40 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     return parts.length ? parts : [{ text: value, match: false }];
   };
 
+  const downloadBlob = (extension: string, blob: Blob): boolean => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+    link.href = url;
+    link.download = `serial-${stamp}.${extension}`;
+    link.click();
+    URL.revokeObjectURL(url);
+    return true;
+  };
+
   const logText = (): string => lines.value.map((line) => `${line.at} ${line.dir.toUpperCase()} ${line.text || line.hex}`).join('\n');
+
+  const exportCsv = (): boolean => {
+    if (!lines.value.length) return false;
+    const cell = (value: string | number): string => `"${String(value).replace(/"/g, '""')}"`;
+    const rows = lines.value.map((line) => [line.at, line.dir, line.bytes, cell(line.text), cell(line.hex)].join(','));
+    return downloadBlob('csv', new Blob([['time,direction,bytes,text,hex', ...rows].join('\n')], { type: 'text/csv;charset=utf-8' }));
+  };
+
+  const exportJson = (): boolean => {
+    if (!lines.value.length) return false;
+    const rows = lines.value.map((line) => ({ at: line.at, dir: line.dir, bytes: line.bytes, text: line.text, hex: line.hex }));
+    return downloadBlob('json', new Blob([JSON.stringify(rows, null, 2)], { type: 'application/json;charset=utf-8' }));
+  };
+
+  const exportRxBin = (): boolean => {
+    const bytes: number[] = [];
+    for (const line of lines.value) {
+      if (line.dir === 'rx' && line.data?.length) bytes.push(...line.data);
+    }
+    if (!bytes.length) return false;
+    return downloadBlob('bin', new Blob([new Uint8Array(bytes)], { type: 'application/octet-stream' }));
+  };
 
   const copyLog = async (): Promise<boolean> => {
     if (!lines.value.length) return false;
@@ -408,6 +524,9 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   const clearLog = (): void => {
     clearHint();
     clearRxTimer();
+    const key = sessionKey();
+    if (key) void sessionDelete(key).catch(() => undefined);
+    sessionRestored.value = false;
     rxBuffer = [];
     pausedBuffer = [];
     lines.value = [];
@@ -466,6 +585,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
 
   onMounted(() => {
     bindTransport();
+    if (sessionKey()) void restoreSession();
     rateAt = performance.now();
     rateTimer = setInterval(sampleRates, 1000);
     window.addEventListener('keydown', onGlobalKeydown);
@@ -478,6 +598,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     clearRxTimer();
     if (rateTimer) clearInterval(rateTimer);
     if (copiedTimer) clearTimeout(copiedTimer);
+    if (sessionTimer) clearTimeout(sessionTimer);
     window.removeEventListener('keydown', onGlobalKeydown);
   });
 
@@ -514,6 +635,10 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     lineSegments,
     copyLog,
     downloadLog,
+    exportCsv,
+    exportJson,
+    exportRxBin,
+    sessionRestored,
     clearLog,
     formatBytes,
     addQuick,

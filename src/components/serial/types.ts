@@ -39,6 +39,8 @@ export interface ISerialConsoleCapabilities {
   connection?: boolean;
   binary?: boolean;
   inspector?: boolean;
+  export?: boolean;
+  session?: boolean;
   pause?: boolean;
   framing?: boolean;
   encoding?: boolean;
@@ -91,6 +93,12 @@ export interface ISerialConsoleLabels {
   binMode: string;
   inspector: string;
   offset: string;
+  export: string;
+  exportLog: string;
+  exportCsv: string;
+  exportJson: string;
+  exportRxBin: string;
+  sessionRestored: string;
   hexLabel: string;
   hexPlaceholder: string;
   hexHint: string;

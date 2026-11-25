@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.3.3 — 2026-11-25
+
+### Added
+
+- `SerialConsole` export menu: log (`.log`), `CSV`, `JSON` and raw RX bytes (`.bin`) — `capabilities.export`.
+- `SerialConsole` sessions: the log and counters are saved to IndexedDB and restored after a page reload — `capabilities.session`. Clearing the log removes the saved session.
+
 ## 5.3.2 — 2026-11-25
 
 ### Added

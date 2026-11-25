@@ -158,8 +158,18 @@
         >
           <VIcon :name="copied ? 'check' : 'copy'" :size="16" :class="copied ? 'text-green-main' : ''" />
         </VButton>
+        <VDropdown v-if="caps.export" right="0">
+          <template #activator="{ on }">
+            <VButton type="icon" size="sm" variant="ghost" color="gray" :disabled="!lines.length" :title="labels.export" :aria-label="labels.export" @click="on.click">
+              <VIcon name="download" :size="16" />
+            </VButton>
+          </template>
+          <template #default="{ on }">
+            <VList :items="exportItems" @click="onExport($event, on)" />
+          </template>
+        </VDropdown>
         <VButton
-          v-if="caps.download"
+          v-else-if="caps.download"
           type="icon"
           size="sm"
           variant="ghost"
@@ -272,6 +282,7 @@
       <span class="font-mono"><span class="text-emerald-600 dark:text-emerald-400">{{ labels.rx }}</span> {{ formatBytes(rxBytes) }} <span class="text-gray-main">{{ formatBytes(rxRate) + labels.perSecond }}</span></span>
       <span class="font-mono"><span class="text-sky-600 dark:text-sky-400">{{ labels.tx }}</span> {{ formatBytes(txBytes) }} <span class="text-gray-main">{{ formatBytes(txRate) + labels.perSecond }}</span></span>
       <span v-if="view.paused" class="font-medium text-amber-main">{{ labels.paused }}</span>
+      <span v-if="sessionRestored" class="text-gray-main">{{ labels.sessionRestored }}</span>
     </div>
 
     <div class="rounded-b-xl border-t border-gray-light-10/70 bg-gray-dark-40/[0.02] p-3 dark:border-white/10 dark:bg-black/15">
@@ -356,7 +367,9 @@ import type {
 import VButton from '@/components/ui/button/VButton.vue';
 import VCard from '@/components/ui/card/VCard.vue';
 import VCheckbox from '@/components/ui/checkbox/VCheckbox.vue';
+import VDropdown from '@/components/ui/dropdown/VDropdown.vue';
 import VIcon from '@/components/ui/icon/VIcon.vue';
+import VList from '@/components/ui/list/VList.vue';
 import VSelect from '@/components/ui/select/VSelect.vue';
 import VTextField from '@/components/ui/text-field/VTextField.vue';
 
@@ -430,6 +443,10 @@ const {
   lineSegments,
   copyLog,
   downloadLog,
+  exportCsv,
+  exportJson,
+  exportRxBin,
+  sessionRestored,
   clearLog,
   formatBytes,
   addQuick,
@@ -444,6 +461,7 @@ const {
   initialQuickCommands: () => props.initialQuickCommands ?? [],
   initialLineEnding: () => props.initialLineEnding,
   noReplyHint: () => props.noReplyHint,
+  session: () => props.capabilities?.session ?? false,
 });
 
 const connected = computed(() => props.status === 'connected');
@@ -541,6 +559,21 @@ const inspectorRows = computed(() => {
     };
   });
 });
+
+const exportItems = computed(() => [
+  { name: labels.value.exportLog, value: 'log' },
+  { name: labels.value.exportCsv, value: 'csv' },
+  { name: labels.value.exportJson, value: 'json' },
+  { name: labels.value.exportRxBin, value: 'bin' },
+]);
+
+const onExport = (item: { value: string }, on?: { set: (value: boolean) => void }): void => {
+  if (item.value === 'log') downloadLog();
+  else if (item.value === 'csv') exportCsv();
+  else if (item.value === 'json') exportJson();
+  else if (item.value === 'bin') exportRxBin();
+  on?.set(false);
+};
 
 const onConnect = async (): Promise<void> => {
   try {
