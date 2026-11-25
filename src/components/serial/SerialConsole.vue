@@ -104,7 +104,11 @@
 
     <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-light-10/70 bg-gray-dark-40/[0.03] px-3 py-2 dark:border-white/10 dark:bg-black/20">
       <div class="flex flex-wrap items-center gap-2">
-        <VCheckbox :model-value="hexMode" @update:model-value="hexMode = Boolean($event)">{{ labels.hexView }}</VCheckbox>
+        <div class="flex items-center gap-1 rounded-md border border-gray-light-10/70 p-0.5 dark:border-white/10">
+          <VButton size="xs" :variant="mode === 'text' ? 'soft' : 'ghost'" :color="mode === 'text' ? 'blue' : 'gray'" @click="mode = 'text'">{{ labels.textMode }}</VButton>
+          <VButton size="xs" :variant="mode === 'hex' ? 'soft' : 'ghost'" :color="mode === 'hex' ? 'blue' : 'gray'" @click="mode = 'hex'">{{ labels.hexMode }}</VButton>
+          <VButton v-if="caps.binary" size="xs" :variant="mode === 'bin' ? 'soft' : 'ghost'" :color="mode === 'bin' ? 'blue' : 'gray'" @click="mode = 'bin'">{{ labels.binMode }}</VButton>
+        </div>
         <VCheckbox :model-value="showTime" @update:model-value="showTime = Boolean($event)">{{ labels.showTime }}</VCheckbox>
         <VCheckbox :model-value="wrapLines" @update:model-value="wrapLines = Boolean($event)">{{ labels.wrap }}</VCheckbox>
         <VCheckbox :model-value="autoScroll" @update:model-value="autoScroll = Boolean($event)">{{ labels.autoscroll }}</VCheckbox>
@@ -193,7 +197,16 @@
           </span>
           <p>{{ filter ? labels.noMatches : connected ? labels.waiting : labels.empty }}</p>
         </div>
-        <div v-for="line of visibleLines" :key="line.id" class="break-all">
+        <div
+          v-for="line of visibleLines"
+          :key="line.id"
+          class="break-all"
+          :class="[
+            caps.inspector ? 'cursor-pointer rounded px-1 -mx-1 transition hover:bg-gray-dark-40/5 dark:hover:bg-white/5' : '',
+            selectedLine?.id === line.id ? 'bg-blue-main/10 dark:bg-blue-main/15' : '',
+          ]"
+          @click="caps.inspector && selectLine(line)"
+        >
           <span v-if="showTime" class="mr-2 text-gray-dark-25 dark:text-gray-main">{{ line.at }}</span>
           <span :class="line.dir === 'rx' ? 'text-emerald-600 dark:text-emerald-400' : 'text-sky-600 dark:text-sky-400'">{{ line.dir.toUpperCase() }}</span>
           <span class="ml-2 text-gray-dark-40 dark:text-gray-light-10" :class="wrapLines ? 'whitespace-pre-wrap break-all' : 'whitespace-pre'">
@@ -209,6 +222,49 @@
           <VIcon name="chevron-down" :size="14" />
           {{ labels.follow }}
         </VButton>
+      </div>
+    </div>
+
+    <div v-if="caps.inspector && selectedLine" class="border-t border-gray-light-10/70 px-3 py-2 dark:border-white/10">
+      <div class="flex items-center justify-between gap-2">
+        <span class="text-[11px] font-medium text-gray-dark-40 dark:text-gray-light-10">
+          {{ labels.inspector }} · {{ selectedLine.bytes }} {{ labels.bytes }}
+        </span>
+        <VButton type="icon" size="sm" variant="ghost" color="gray" :title="labels.clear" :aria-label="labels.clear" @click="selectedId = null">
+          <VIcon name="close" :size="14" />
+        </VButton>
+      </div>
+      <div class="mt-1 overflow-x-auto">
+        <table class="w-full min-w-[40rem] border-collapse font-mono text-[11px] text-gray-dark-25 dark:text-gray-main">
+          <thead>
+            <tr class="text-left text-gray-main">
+              <th class="px-1 py-1 font-normal">{{ labels.offset }}</th>
+              <th class="px-1 py-1 font-normal">HEX</th>
+              <th class="px-1 py-1 font-normal">u8</th>
+              <th class="px-1 py-1 font-normal">i8</th>
+              <th class="px-1 py-1 font-normal">u16 LE</th>
+              <th class="px-1 py-1 font-normal">u16 BE</th>
+              <th class="px-1 py-1 font-normal">u32 LE</th>
+              <th class="px-1 py-1 font-normal">u32 BE</th>
+              <th class="px-1 py-1 font-normal">f32 LE</th>
+              <th class="px-1 py-1 font-normal">f32 BE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="row of inspectorRows" :key="row.offset" class="border-t border-gray-light-10/40 dark:border-white/5">
+              <td class="px-1 py-0.5 text-gray-main">{{ row.offset }}</td>
+              <td class="px-1 py-0.5 text-gray-dark-40 dark:text-gray-light-10">{{ row.hex }}</td>
+              <td class="px-1 py-0.5">{{ row.u8 }}</td>
+              <td class="px-1 py-0.5">{{ row.i8 }}</td>
+              <td class="px-1 py-0.5">{{ row.u16le }}</td>
+              <td class="px-1 py-0.5">{{ row.u16be }}</td>
+              <td class="px-1 py-0.5">{{ row.u32le }}</td>
+              <td class="px-1 py-0.5">{{ row.u32be }}</td>
+              <td class="px-1 py-0.5">{{ row.f32le }}</td>
+              <td class="px-1 py-0.5">{{ row.f32be }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -354,7 +410,10 @@ const {
   hexSend,
   lineEnding,
   filter,
-  hexMode,
+  mode,
+  selectedId,
+  selectedLine,
+  selectLine,
   showTime,
   wrapLines,
   autoScroll,
@@ -453,6 +512,35 @@ const followOutput = (): void => {
   autoScroll.value = true;
   scrollToBottom();
 };
+
+const inspectorRows = computed(() => {
+  const data = selectedLine.value?.data ?? [];
+  const bytesAt = (index: number, size: number): number[] | null => (index + size <= data.length ? data.slice(index, index + size) : null);
+  const view = (bytes: number[] | null): DataView | null => (bytes ? new DataView(new Uint8Array(bytes).buffer) : null);
+  const float = (value: number | undefined): number | string => (value === undefined ? '—' : Number(value.toFixed(4)));
+
+  return Array.from({ length: Math.min(data.length, 16) }, (_, index) => {
+    const u16le = view(bytesAt(index, 2))?.getUint16(0, true);
+    const u16be = view(bytesAt(index, 2))?.getUint16(0, false);
+    const u32le = view(bytesAt(index, 4))?.getUint32(0, true);
+    const u32be = view(bytesAt(index, 4))?.getUint32(0, false);
+    const f32le = view(bytesAt(index, 4))?.getFloat32(0, true);
+    const f32be = view(bytesAt(index, 4))?.getFloat32(0, false);
+
+    return {
+      offset: index,
+      hex: data[index].toString(16).padStart(2, '0'),
+      u8: data[index],
+      i8: (data[index] << 24) >> 24,
+      u16le: u16le ?? '—',
+      u16be: u16be ?? '—',
+      u32le: u32le ?? '—',
+      u32be: u32be ?? '—',
+      f32le: float(f32le),
+      f32be: float(f32be),
+    };
+  });
+});
 
 const onConnect = async (): Promise<void> => {
   try {

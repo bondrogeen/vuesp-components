@@ -3,6 +3,7 @@ export type TSerialConsoleDirection = 'rx' | 'tx';
 export type TSerialConsoleEncoding = 'utf8' | 'cp1251';
 export type TSerialConsoleFraming = 'line' | 'gap';
 export type TSerialConsoleLineEnding = 'none' | 'cr' | 'lf' | 'crlf';
+export type TSerialConsoleMode = 'text' | 'hex' | 'bin';
 export type TSerialConsoleLocale = 'ru' | 'en';
 
 export interface ISelectItem<T> {
@@ -17,6 +18,7 @@ export interface ISerialConsoleLine {
   text: string;
   hex: string;
   bytes: number;
+  data?: number[];
 }
 
 export interface ISerialConsoleView {
@@ -35,6 +37,8 @@ export interface ISerialConsoleTransport {
 
 export interface ISerialConsoleCapabilities {
   connection?: boolean;
+  binary?: boolean;
+  inspector?: boolean;
   pause?: boolean;
   framing?: boolean;
   encoding?: boolean;
@@ -84,6 +88,9 @@ export interface ISerialConsoleLabels {
   quickEmpty: string;
   textMode: string;
   hexMode: string;
+  binMode: string;
+  inspector: string;
+  offset: string;
   hexLabel: string;
   hexPlaceholder: string;
   hexHint: string;

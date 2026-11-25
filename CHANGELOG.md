@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.3.2 — 2026-11-25
+
+### Added
+
+- `SerialConsole` binary view: a `TEXT | HEX | BIN` switch, bits are shown as groups of 8 (`capabilities.binary`).
+- `SerialConsole` byte inspector: click a log line to decode its bytes as `u8`, `i8`, `u16/u32` and `f32` in little and big endian (`capabilities.inspector`).
+- Log lines keep a bounded copy of the raw bytes (up to 1024 per frame) for the binary view and the inspector.
+
 ## 5.3.1 — 2026-11-25
 
 ### Added

@@ -73,6 +73,60 @@ const handleClick = () => {
 </script>
 ```
 
+#### Serial console
+
+`SerialConsole` is a ready-made terminal block: connection header, RX/TX log with
+time and counters, text/HEX view, search with highlighting, pause, framing by
+line or idle gap, UTF-8/CP1251, text and HEX sending, history and quick commands.
+It is transport-agnostic: pass `start`, `stop`, `send` and `subscribe` callbacks.
+
+```vue
+<template>
+  <SerialConsole
+    :status="status"
+    :port-label="portLabel"
+    :transport="transport"
+    locale="ru"
+    storage-key="my-app:serial"
+    :dirty="dirty"
+    :on-apply="applySettings"
+    :on-reset="resetSettings"
+  >
+    <template #header-actions>
+      <VSelect :model-value="baud" :items="baudItems" hide-message label="Baud rate" @change="onBaud" />
+    </template>
+    <template #settings>
+      <!-- host-specific port settings (parity, stop bits, ...) -->
+    </template>
+    <template #settings-extra>
+      <!-- optional extra blocks -->
+    </template>
+  </SerialConsole>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { SerialConsole, VSelect } from 'vuesp-components/components'
+import type { ISerialConsoleTransport, TSerialConsoleStatus } from 'vuesp-components/components'
+
+const status = ref<TSerialConsoleStatus>('disconnected')
+const portLabel = ref('')
+const dirty = ref(false)
+
+const transport: ISerialConsoleTransport = {
+  start: async () => { /* open the port */ },
+  stop: async () => { /* close the port */ },
+  send: async (bytes) => { /* write bytes, return true on success */ return true },
+  subscribe: (onData) => { /* call onData(bytes) for every chunk; return unsubscribe */ return () => {} },
+}
+</script>
+```
+
+The component ships its own `ru`/`en` dictionary (`locale`, or override with
+`labels`), so it does not need keys in the host i18n. Available slots:
+`#header-actions`, `#settings`, `#settings-actions`, `#settings-extra`,
+`#toolbar-extra`, `#footer`.
+
 #### Buttons
 
 `VButton` has two independent axes: `variant` (look) and `color` (palette).
@@ -188,6 +242,9 @@ app.use(i18nPlugin, {
 - `VDragDrop` - Drag and drop
 - `VExpansion` - Expansion panel
 - `VList` - List component
+
+### Serial Components
+- `SerialConsole` - Serial terminal block (log, send, search, framing, counters)
 
 ### App Components
 - `AppHeader` - Header with theme toggle

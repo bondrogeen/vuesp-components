@@ -10,6 +10,7 @@ import type {
   TSerialConsoleEncoding,
   TSerialConsoleLineEnding,
   TSerialConsoleLocale,
+  TSerialConsoleMode,
 } from '@/components/serial/types';
 
 const LINE_IDLE_MS = 150;
@@ -65,7 +66,8 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   const historyIndex = ref(-1);
 
   const filter = ref('');
-  const hexMode = ref(false);
+  const mode = ref<TSerialConsoleMode>('text');
+  const selectedId = ref<number | null>(null);
   const showTime = ref(true);
   const wrapLines = ref(true);
   const autoScroll = ref(true);
@@ -133,6 +135,8 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
       text: view.framing === 'gap' ? decoded.replace(/[\r\n]+/g, ' ') : decoded,
       hex: toHex(bytes),
       bytes: bytes.length,
+      // Keep a bounded copy for the binary view and byte inspector.
+      data: Array.from(bytes.slice(0, 1024)),
     });
     const max = options.maxLines();
     if (lines.value.length > max) lines.value.splice(0, lines.value.length - max);
@@ -339,7 +343,20 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     return lines.value.filter((line) => line.text.toLowerCase().includes(query) || line.hex.toLowerCase().includes(query));
   });
 
-  const lineContent = (line: ISerialConsoleLine): string => (hexMode.value ? line.hex : line.text || line.hex);
+  const bits = (line: ISerialConsoleLine): string =>
+    (line.data ?? []).map((byte) => byte.toString(2).padStart(8, '0')).join(' ');
+
+  const lineContent = (line: ISerialConsoleLine): string => {
+    if (mode.value === 'hex') return line.hex;
+    if (mode.value === 'bin') return bits(line);
+    return line.text || line.hex;
+  };
+
+  const selectedLine = computed(() => lines.value.find((line) => line.id === selectedId.value) ?? null);
+
+  const selectLine = (line: ISerialConsoleLine): void => {
+    selectedId.value = selectedId.value === line.id ? null : line.id;
+  };
 
   const lineSegments = (value: string): ISerialConsoleSegment[] => {
     const query = filter.value.trim().toLowerCase();
@@ -394,6 +411,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     rxBuffer = [];
     pausedBuffer = [];
     lines.value = [];
+    selectedId.value = null;
     rxBytes.value = 0;
     txBytes.value = 0;
     rxRate.value = 0;
@@ -476,7 +494,10 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     lineEnding,
     history,
     filter,
-    hexMode,
+    mode,
+    selectedId,
+    selectedLine,
+    selectLine,
     showTime,
     wrapLines,
     autoScroll,
