@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.3.4 — 2026-11-25
+
+### Added
+
+- `SerialConsole` escape sequences in text mode: `\xAA`, `\r`, `\n`, `\t`, `\0`, `\\` — `capabilities.escape`.
+- `SerialConsole` file sending: pick a local file and write it in 256-byte chunks — `capabilities.file`.
+- `SerialConsole` repeat: resend the last payload with a configurable interval (250–5000 ms) — `capabilities.repeat`. Stops on disconnect and on clear.
+
 ## 5.3.3 — 2026-11-25
 
 ### Added

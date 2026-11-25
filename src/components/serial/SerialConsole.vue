@@ -338,6 +338,23 @@
         </VButton>
       </div>
 
+      <div v-if="caps.escape || caps.repeat || caps.file" class="mt-2 flex flex-wrap items-center gap-3">
+        <VCheckbox v-if="caps.escape && !hexSend" :model-value="escape" @update:model-value="escape = Boolean($event)">{{ labels.escape }}</VCheckbox>
+        <template v-if="caps.repeat">
+          <VButton size="xs" variant="soft" :color="repeat ? 'red' : 'blue'" @click="toggleRepeat">
+            {{ repeat ? labels.repeatStop : labels.repeat }}
+          </VButton>
+          <div class="w-36 shrink-0">
+            <VSelect hide-message :model-value="selectName(repeatItems, repeatMs)" :items="repeatItems" :label="labels.repeatInterval" @change="onRepeatMs" />
+          </div>
+        </template>
+        <VButton v-if="caps.file" size="xs" variant="ghost" color="gray" @click="fileInput?.click()">
+          <VIcon name="upload" :size="14" />
+          {{ labels.file }}
+        </VButton>
+        <input ref="fileInput" type="file" class="hidden" @change="onFileChange" />
+      </div>
+
       <p v-if="hexSend" class="mt-1 text-[11px]" :class="hexError ? 'text-red-main' : 'text-gray-dark-25 dark:text-gray-main'">
         {{ hexError || `${hexBytes.length} ${labels.bytes} · ${labels.hexHint}` }}
       </p>
@@ -396,6 +413,7 @@ const emit = defineEmits<{
 const settingsOpen = ref(false);
 const showSearch = ref(false);
 const logEl = ref<HTMLElement | null>(null);
+const fileInput = ref<HTMLInputElement | null>(null);
 
 const labels = computed<ISerialConsoleLabels>(() => ({ ...serialConsoleLabels(props.locale), ...props.labels }));
 
@@ -421,6 +439,12 @@ const {
   txRate,
   input,
   hexSend,
+  escape,
+  repeat,
+  repeatMs,
+  sendFile,
+  toggleRepeat,
+  stopRepeat,
   lineEnding,
   filter,
   mode,
@@ -499,6 +523,26 @@ const lineEndingItems: ISelectItem<TSerialConsoleLineEnding>[] = [
 ];
 
 const selectName = <T,>(items: ISelectItem<T>[], value: T): string => items.find((item) => item.value === value)?.name ?? String(value);
+
+const repeatItems = computed(() => [250, 500, 1000, 2000, 5000].map((value) => ({ name: `${value} ${labels.value.ms}`, value })));
+
+const onRepeatMs = (item: ISelectItem<number>): void => {
+  repeatMs.value = item.value;
+};
+
+const onFileChange = async (event: Event): Promise<void> => {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  target.value = '';
+  if (file) await sendFile(file);
+};
+
+watch(
+  () => props.status,
+  (value) => {
+    if (value !== 'connected') stopRepeat();
+  },
+);
 
 const onEncoding = (item: ISelectItem<TSerialConsoleEncoding>): void => {
   view.encoding = item.value;

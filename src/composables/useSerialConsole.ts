@@ -62,6 +62,9 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
 
   const input = ref('');
   const hexSend = ref(false);
+  const escape = ref(false);
+  const repeat = ref(false);
+  const repeatMs = ref(1000);
   const lineEnding = ref<TSerialConsoleLineEnding>(options.initialLineEnding?.() ?? 'crlf');
   const history = ref<string[]>([]);
   const historyIndex = ref(-1);
@@ -86,6 +89,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   let rateTimer: ReturnType<typeof setInterval> | null = null;
   let hintTimer: ReturnType<typeof setTimeout> | null = null;
   let sessionTimer: ReturnType<typeof setTimeout> | null = null;
+  let repeatTimer: ReturnType<typeof setInterval> | null = null;
   let lastQuick = '';
   let copiedTimer: ReturnType<typeof setTimeout> | null = null;
   let rateRx = 0;
@@ -340,6 +344,46 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     return '';
   });
 
+  const encodeEscapes = (text: string): number[] => {
+    const encoder = new TextEncoder();
+    const out: number[] = [];
+    let buffer = '';
+    const flush = (): void => {
+      if (!buffer) return;
+      out.push(...encoder.encode(buffer));
+      buffer = '';
+    };
+
+    for (let index = 0; index < text.length; index++) {
+      const char = text[index];
+      if (char !== '\\') {
+        buffer += char;
+        continue;
+      }
+
+      const next = text[index + 1];
+      const hexPair = text.slice(index + 2, index + 4);
+      if ((next === 'x' || next === 'X') && /^[0-9a-fA-F]{2}$/.test(hexPair)) {
+        flush();
+        out.push(parseInt(hexPair, 16));
+        index += 3;
+        continue;
+      }
+      const escapes: Record<string, number> = { r: 13, n: 10, t: 9, '0': 0, '\\': 92 };
+      if (next !== undefined && next in escapes) {
+        flush();
+        out.push(escapes[next]);
+        index += 1;
+        continue;
+      }
+
+      buffer += char;
+    }
+
+    flush();
+    return out;
+  };
+
   const payloadFor = (command: string, hex: boolean): number[] => {
     if (hex) {
       const clean = command.replace(/0x/gi, '').replace(/[^0-9a-fA-F]/g, '');
@@ -349,7 +393,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
       return bytes;
     }
 
-    const bytes = Array.from(new TextEncoder().encode(command));
+    const bytes = escape.value ? encodeEscapes(command) : Array.from(new TextEncoder().encode(command));
     if (lineEnding.value === 'cr' || lineEnding.value === 'crlf') bytes.push(13);
     if (lineEnding.value === 'lf' || lineEnding.value === 'crlf') bytes.push(10);
     return bytes;
@@ -382,6 +426,42 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     historyIndex.value = -1;
     lastQuick = command;
     armHint(before);
+  };
+
+  const sendFile = async (file: File): Promise<boolean> => {
+    const buffer = new Uint8Array(await file.arrayBuffer());
+    if (!buffer.length) return false;
+    const chunkSize = 256;
+    for (let offset = 0; offset < buffer.length; offset += chunkSize) {
+      const ok = await sendPayload(buffer.slice(offset, offset + chunkSize));
+      if (!ok) return false;
+      await new Promise((resolve) => setTimeout(resolve, 8));
+    }
+    return true;
+  };
+
+  const stopRepeat = (): void => {
+    if (repeatTimer) clearInterval(repeatTimer);
+    repeatTimer = null;
+    repeat.value = false;
+  };
+
+  const toggleRepeat = async (): Promise<void> => {
+    if (repeat.value) {
+      stopRepeat();
+      return;
+    }
+
+    const payload = payloadFor(input.value, hexSend.value);
+    if (!payload.length) return;
+
+    const bytes = new Uint8Array(payload.slice(0, 4096));
+    if (!(await sendPayload(bytes))) return;
+
+    repeat.value = true;
+    repeatTimer = setInterval(() => {
+      void sendPayload(bytes);
+    }, Math.max(50, repeatMs.value));
   };
 
   const applyHintAction = async (): Promise<void> => {
@@ -522,6 +602,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   };
 
   const clearLog = (): void => {
+    stopRepeat();
     clearHint();
     clearRxTimer();
     const key = sessionKey();
@@ -594,6 +675,7 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
   onBeforeUnmount(() => {
     unsubscribe?.();
     unsubscribe = null;
+    stopRepeat();
     clearHint();
     clearRxTimer();
     if (rateTimer) clearInterval(rateTimer);
@@ -612,6 +694,12 @@ export function useSerialConsole(options: IUseSerialConsoleOptions) {
     txRate,
     input,
     hexSend,
+    escape,
+    repeat,
+    repeatMs,
+    sendFile,
+    toggleRepeat,
+    stopRepeat,
     lineEnding,
     history,
     filter,

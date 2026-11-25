@@ -41,6 +41,9 @@ export interface ISerialConsoleCapabilities {
   inspector?: boolean;
   export?: boolean;
   session?: boolean;
+  escape?: boolean;
+  file?: boolean;
+  repeat?: boolean;
   pause?: boolean;
   framing?: boolean;
   encoding?: boolean;
@@ -99,6 +102,11 @@ export interface ISerialConsoleLabels {
   exportJson: string;
   exportRxBin: string;
   sessionRestored: string;
+  escape: string;
+  file: string;
+  repeat: string;
+  repeatStop: string;
+  repeatInterval: string;
   hexLabel: string;
   hexPlaceholder: string;
   hexHint: string;
