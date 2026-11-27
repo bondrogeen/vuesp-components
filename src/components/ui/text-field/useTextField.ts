@@ -11,8 +11,12 @@ export const useTextField = (props: IFieldStateProps, mode: 'field' | 'wrapper' 
     mode === 'wrapper' ? Boolean(props.active) : isFocus.value || hasValue.value || Boolean(props.active) || Boolean(autofilled?.value)
   );
 
+  const isSmall = computed(() => props.size === 'sm');
+
   const labelClass = computed(() => {
-    const position = props.icon && mode === 'field' ? 'left-11' : 'left-3.5';
+    const iconPosition = isSmall.value ? 'left-10' : 'left-11';
+    const textPosition = isSmall.value ? 'left-3' : 'left-3.5';
+    const position = props.icon && mode === 'field' ? iconPosition : textPosition;
 
     if (!isFloating.value) {
       return `${position} top-1/2 bg-transparent px-0 text-gray-main`;
@@ -30,12 +34,16 @@ export const useTextField = (props: IFieldStateProps, mode: 'field' | 'wrapper' 
   const contentClass = computed(() => {
     if (mode === 'wrapper') return 'flex flex-auto flex-wrap gap-2 px-2 py-1';
 
-    return props.component === 'textarea'
-      ? 'h-full w-full flex-auto px-4 py-2 outline-none bg-transparent'
-      : 'w-full h-full flex-auto overflow-ellipsis overflow-hidden px-4 outline-none bg-transparent placeholder:text-gray-main';
+    if (props.component === 'textarea') return 'h-full w-full flex-auto px-4 py-2 outline-none bg-transparent';
+
+    const padding = isSmall.value ? 'px-3' : 'px-4';
+    return `w-full h-full flex-auto overflow-ellipsis overflow-hidden ${padding} outline-none bg-transparent placeholder:text-gray-main`;
   });
 
-  const slotClass = computed(() => (mode === 'wrapper' || props.component === 'textarea' ? 'min-h-10' : 'h-10'));
+  const slotClass = computed(() => {
+    if (mode === 'wrapper' || props.component === 'textarea') return 'min-h-10';
+    return isSmall.value ? 'h-8' : 'h-10';
+  });
 
   return { isFocus, isFloating, labelClass, borderClass, contentClass, slotClass };
 };

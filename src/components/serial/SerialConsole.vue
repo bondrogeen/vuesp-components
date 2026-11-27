@@ -11,10 +11,10 @@
       </span>
       <div class="ml-auto flex flex-wrap items-center gap-2">
         <slot name="header-actions" />
-        <VButton v-if="caps.connection !== false" :color="connected ? 'red' : 'blue'" :variant="connected ? 'outline' : 'solid'" @click="onConnect">
+        <VButton v-if="caps.connection !== false" size="sm" :color="connected ? 'red' : 'blue'" :variant="connected ? 'outline' : 'solid'" @click="onConnect">
           {{ connected ? labels.disconnect : labels.connect }}
         </VButton>
-        <VButton type="icon" variant="ghost" color="gray" :title="labels.settings" :aria-label="labels.settings" @click="settingsOpen = !settingsOpen">
+        <VButton size="sm" type="icon" variant="ghost" color="gray" :title="labels.settings" :aria-label="labels.settings" @click="settingsOpen = !settingsOpen">
           <VIcon name="settings" :size="17" />
         </VButton>
       </div>
@@ -26,15 +26,15 @@
       <div v-if="$slots['settings-actions'] || onApply || onReset" class="mt-3">
         <slot name="settings-actions">
           <div class="flex flex-wrap items-center gap-3">
-            <VButton v-if="onApply" color="blue" @click="onApply">{{ labels.apply }}</VButton>
-            <VButton v-if="onReset" variant="outline" color="gray" @click="onReset">{{ labels.reset }}</VButton>
+            <VButton v-if="onApply" size="sm" color="blue" @click="onApply">{{ labels.apply }}</VButton>
+            <VButton v-if="onReset" size="sm" variant="outline" color="gray" @click="onReset">{{ labels.reset }}</VButton>
             <span v-if="dirty" class="text-xs text-amber-600 dark:text-amber-400">{{ labels.unsaved }}</span>
           </div>
         </slot>
       </div>
 
       <div v-if="caps.encoding || caps.framing" class="mt-3 grid gap-3 sm:grid-cols-3">
-        <VSelect
+        <VSelect size="sm"
           v-if="caps.encoding"
           :model-value="selectName(encodingItems, view.encoding)"
           hide-message
@@ -42,7 +42,7 @@
           :label="labels.encoding"
           @change="onEncoding"
         />
-        <VSelect
+        <VSelect size="sm"
           v-if="caps.framing"
           :model-value="selectName(framingItems, view.framing)"
           hide-message
@@ -50,7 +50,7 @@
           :label="labels.framing"
           @change="onFraming"
         />
-        <VSelect
+        <VSelect size="sm"
           v-if="caps.framing && view.framing === 'gap'"
           :model-value="selectName(gapItems, view.gapMs)"
           hide-message
@@ -83,7 +83,7 @@
           <span v-if="!quickCommands.length" class="text-[11px] text-gray-dark-25 dark:text-gray-main">{{ labels.quickEmpty }}</span>
         </div>
         <div class="mt-2 flex items-end gap-2">
-          <VTextField
+          <VTextField size="sm"
             class="max-w-xs"
             hide-message
             :model-value="quickInput"
@@ -104,10 +104,10 @@
 
     <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-light-10/70 bg-gray-dark-40/[0.03] px-3 py-2 dark:border-white/10 dark:bg-black/20">
       <div class="flex flex-wrap items-center gap-2">
-        <div class="flex items-center gap-1 rounded-md border border-gray-light-10/70 p-0.5 dark:border-white/10">
-          <VButton size="xs" :variant="mode === 'text' ? 'soft' : 'ghost'" :color="mode === 'text' ? 'blue' : 'gray'" @click="mode = 'text'">{{ labels.textMode }}</VButton>
-          <VButton size="xs" :variant="mode === 'hex' ? 'soft' : 'ghost'" :color="mode === 'hex' ? 'blue' : 'gray'" @click="mode = 'hex'">{{ labels.hexMode }}</VButton>
-          <VButton v-if="caps.binary" size="xs" :variant="mode === 'bin' ? 'soft' : 'ghost'" :color="mode === 'bin' ? 'blue' : 'gray'" @click="mode = 'bin'">{{ labels.binMode }}</VButton>
+        <div class="flex h-8 items-center gap-1 rounded-md ring-1 ring-inset ring-gray-light-10/70 dark:ring-white/10">
+          <VButton size="sm" :variant="mode === 'text' ? 'soft' : 'ghost'" :color="mode === 'text' ? 'blue' : 'gray'" @click="mode = 'text'">{{ labels.textMode }}</VButton>
+          <VButton size="sm" :variant="mode === 'hex' ? 'soft' : 'ghost'" :color="mode === 'hex' ? 'blue' : 'gray'" @click="mode = 'hex'">{{ labels.hexMode }}</VButton>
+          <VButton v-if="caps.binary" size="sm" :variant="mode === 'bin' ? 'soft' : 'ghost'" :color="mode === 'bin' ? 'blue' : 'gray'" @click="mode = 'bin'">{{ labels.binMode }}</VButton>
         </div>
         <VCheckbox :model-value="showTime" @update:model-value="showTime = Boolean($event)">{{ labels.showTime }}</VCheckbox>
         <VCheckbox :model-value="wrapLines" @update:model-value="wrapLines = Boolean($event)">{{ labels.wrap }}</VCheckbox>
@@ -185,13 +185,13 @@
       </div>
 
       <div v-if="caps.filter || caps.regex || caps.bookmarks" class="flex w-full flex-wrap items-center gap-2 pt-2">
-        <div v-if="caps.filter" class="flex items-center gap-1 rounded-md border border-gray-light-10/70 p-0.5 dark:border-white/10">
-          <VButton size="xs" :variant="direction === 'all' ? 'soft' : 'ghost'" :color="direction === 'all' ? 'blue' : 'gray'" @click="direction = 'all'">{{ labels.all }}</VButton>
-          <VButton size="xs" :variant="direction === 'rx' ? 'soft' : 'ghost'" :color="direction === 'rx' ? 'green' : 'gray'" @click="direction = 'rx'">{{ labels.rx }}</VButton>
-          <VButton size="xs" :variant="direction === 'tx' ? 'soft' : 'ghost'" :color="direction === 'tx' ? 'blue' : 'gray'" @click="direction = 'tx'">{{ labels.tx }}</VButton>
+        <div v-if="caps.filter" class="flex h-8 items-center gap-1 rounded-md ring-1 ring-inset ring-gray-light-10/70 dark:ring-white/10">
+          <VButton size="sm" :variant="direction === 'all' ? 'soft' : 'ghost'" :color="direction === 'all' ? 'blue' : 'gray'" @click="direction = 'all'">{{ labels.all }}</VButton>
+          <VButton size="sm" :variant="direction === 'rx' ? 'soft' : 'ghost'" :color="direction === 'rx' ? 'green' : 'gray'" @click="direction = 'rx'">{{ labels.rx }}</VButton>
+          <VButton size="sm" :variant="direction === 'tx' ? 'soft' : 'ghost'" :color="direction === 'tx' ? 'blue' : 'gray'" @click="direction = 'tx'">{{ labels.tx }}</VButton>
         </div>
-        <VButton v-if="caps.regex" size="xs" :variant="regex ? 'soft' : 'ghost'" :color="regex ? 'blue' : 'gray'" @click="regex = !regex">{{ labels.regex }}</VButton>
-        <VButton v-if="caps.bookmarks" size="xs" :variant="onlyBookmarks ? 'soft' : 'ghost'" :color="onlyBookmarks ? 'amber' : 'gray'" @click="onlyBookmarks = !onlyBookmarks">
+        <VButton v-if="caps.regex" size="sm" :variant="regex ? 'soft' : 'ghost'" :color="regex ? 'blue' : 'gray'" @click="regex = !regex">{{ labels.regex }}</VButton>
+        <VButton v-if="caps.bookmarks" size="sm" :variant="onlyBookmarks ? 'soft' : 'ghost'" :color="onlyBookmarks ? 'amber' : 'gray'" @click="onlyBookmarks = !onlyBookmarks">
           <VIcon name="star" :size="12" />
           {{ labels.bookmarks }}
         </VButton>
@@ -199,7 +199,7 @@
     </div>
 
     <div v-if="showSearch" class="border-b border-gray-light-10/70 px-3 py-2 dark:border-white/10">
-      <VTextField
+      <VTextField size="sm"
         :model-value="filter"
         hide-message
         :label="labels.search"
@@ -311,7 +311,7 @@
 
     <div class="rounded-b-xl border-t border-gray-light-10/70 bg-gray-dark-40/[0.02] p-3 dark:border-white/10 dark:bg-black/15">
       <div class="mb-4 flex items-end gap-2">
-        <VTextField
+        <VTextField size="sm"
           class="flex-1"
           hide-message
           :model-value="input"
@@ -322,7 +322,7 @@
           @enter="sendText"
           @keydown="onInputKeydown"
         />
-        <VButton class="h-10 shrink-0" color="blue" :disabled="!canSend" @click="sendText">{{ labels.send }}</VButton>
+        <VButton size="sm" class="shrink-0" color="blue" :disabled="!canSend" @click="sendText">{{ labels.send }}</VButton>
       </div>
 
       <div v-if="caps.quickCommands" class="mt-1 flex flex-wrap items-center gap-2">
@@ -330,7 +330,7 @@
         <VButton
           v-for="command of quickCommands"
           :key="command"
-          size="xs"
+          size="sm"
           variant="outline"
           color="blue"
           :disabled="!connected || hexSend"
@@ -339,7 +339,7 @@
           {{ command }}
         </VButton>
         <div class="ml-auto flex flex-wrap items-center gap-2">
-          <VSelect
+          <VSelect size="sm"
             class="w-28"
             hide-message
             :model-value="selectName(lineEndingItems, lineEnding)"
@@ -348,16 +348,16 @@
             :disabled="hexSend"
             @change="onLineEnding"
           />
-          <div class="flex items-center gap-1 rounded-md border border-gray-light-10/70 p-0.5 dark:border-white/10">
-            <VButton size="xs" :variant="!hexSend ? 'soft' : 'ghost'" :color="!hexSend ? 'blue' : 'gray'" @click="hexSend = false">{{ labels.textMode }}</VButton>
-            <VButton size="xs" :variant="hexSend ? 'soft' : 'ghost'" :color="hexSend ? 'blue' : 'gray'" @click="hexSend = true">{{ labels.hexMode }}</VButton>
+          <div class="flex h-8 items-center gap-1 rounded-md ring-1 ring-inset ring-gray-light-10/70 dark:ring-white/10">
+            <VButton size="sm" :variant="!hexSend ? 'soft' : 'ghost'" :color="!hexSend ? 'blue' : 'gray'" @click="hexSend = false">{{ labels.textMode }}</VButton>
+            <VButton size="sm" :variant="hexSend ? 'soft' : 'ghost'" :color="hexSend ? 'blue' : 'gray'" @click="hexSend = true">{{ labels.hexMode }}</VButton>
           </div>
         </div>
       </div>
 
       <div v-if="showNoReply && noReplyHint" class="mt-2 flex flex-wrap items-center gap-2 text-[11px]">
         <span class="text-amber-main">{{ noReplyHint.text }}</span>
-        <VButton v-if="noReplyHint.actionLabel && noReplyHint.onAction" size="xs" variant="soft" color="gray" @click="applyHintAction">
+        <VButton v-if="noReplyHint.actionLabel && noReplyHint.onAction" size="sm" variant="soft" color="gray" @click="applyHintAction">
           {{ noReplyHint.actionLabel }}
         </VButton>
       </div>
@@ -365,18 +365,18 @@
       <div v-if="caps.escape || caps.repeat || caps.file" class="mt-2 flex flex-wrap items-center gap-3">
         <VCheckbox v-if="caps.escape && !hexSend" :model-value="escape" @update:model-value="escape = Boolean($event)">{{ labels.escape }}</VCheckbox>
         <template v-if="caps.repeat">
-          <VButton size="xs" variant="soft" :color="repeat ? 'red' : 'blue'" @click="toggleRepeat">
+          <VButton size="sm" variant="soft" :color="repeat ? 'red' : 'blue'" @click="toggleRepeat">
             {{ repeat ? labels.repeatStop : labels.repeat }}
           </VButton>
           <div class="w-36 shrink-0">
-            <VSelect hide-message :model-value="selectName(repeatItems, repeatMs)" :items="repeatItems" :label="labels.repeatInterval" @change="onRepeatMs" />
+            <VSelect size="sm" hide-message :model-value="selectName(repeatItems, repeatMs)" :items="repeatItems" :label="labels.repeatInterval" @change="onRepeatMs" />
           </div>
         </template>
-        <VButton v-if="caps.file" size="xs" variant="ghost" color="gray" @click="fileInput?.click()">
+        <VButton v-if="caps.file" size="sm" variant="ghost" color="gray" @click="fileInput?.click()">
           <VIcon name="upload" :size="14" />
           {{ labels.file }}
         </VButton>
-        <VButton v-if="caps.scenario" size="xs" :variant="scenarioOpen ? 'soft' : 'ghost'" color="gray" @click="scenarioOpen = !scenarioOpen">
+        <VButton v-if="caps.scenario" size="sm" :variant="scenarioOpen ? 'soft' : 'ghost'" color="gray" @click="scenarioOpen = !scenarioOpen">
           <VIcon name="script" :size="14" />
           {{ labels.scenario }}
         </VButton>
@@ -388,7 +388,7 @@
       </p>
 
       <div v-if="caps.scenario && scenarioOpen" class="mt-3">
-        <VTextField
+        <VTextField size="sm"
           component="textarea"
           hide-message
           :model-value="scenarioText"
@@ -397,8 +397,8 @@
           @update:model-value="scenarioText = String($event)"
         />
         <div class="mt-2 flex flex-wrap items-center gap-2">
-          <VButton size="xs" color="blue" :disabled="scenarioRunning || !connected" @click="startScenario">{{ labels.scenarioRun }}</VButton>
-          <VButton size="xs" variant="outline" color="gray" :disabled="!scenarioRunning" @click="stopScenario">{{ labels.scenarioStop }}</VButton>
+          <VButton size="sm" color="blue" :disabled="scenarioRunning || !connected" @click="startScenario">{{ labels.scenarioRun }}</VButton>
+          <VButton size="sm" variant="outline" color="gray" :disabled="!scenarioRunning" @click="stopScenario">{{ labels.scenarioStop }}</VButton>
           <span class="text-[11px] text-gray-dark-25 dark:text-gray-main">{{ labels.scenarioHint }}</span>
         </div>
       </div>

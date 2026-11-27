@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="glass-inset rounded-md p-1">
-      <div class="flex gap-1">
-        <div v-for="(tab, i) in items" :key="i" class="relative flex-auto">
-          <button type="button" class="w-full" @click="setActiveTab(i)">
-            <div :class="[getClass(i), size === 'sm' ? 'px-2 py-1 text-xs' : 'px-3 py-2 text-sm']" class="rounded-md font-medium transition">
+    <div class="glass-inset rounded-md p-1" :class="size === 'sm' ? 'h-8' : ''">
+      <div class="flex gap-1" :class="size === 'sm' ? 'h-full' : ''">
+        <div v-for="(tab, i) in items" :key="i" class="relative flex-auto" :class="size === 'sm' ? 'h-full' : ''">
+          <button type="button" class="w-full" :class="size === 'sm' ? 'h-full' : ''" @click="setActiveTab(i)">
+            <div :class="[getClass(i), size === 'sm' ? 'flex h-full items-center justify-center px-2 text-xs' : 'px-3 py-2 text-sm']" class="rounded-md font-medium transition">
               <slot name="header" :tab="tab" :i="i">
-                <div :class="size === 'sm' ? 'px-2 py-0.5' : 'px-3 py-1'">
+                <div :class="size === 'sm' ? 'px-2' : 'px-3 py-1'">
                   {{ tab.title }}
                 </div>
               </slot>

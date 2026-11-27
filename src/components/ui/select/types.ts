@@ -1,6 +1,7 @@
 import { IVDropdownProps } from '../dropdown/types';
 
 export interface IVSelectProps<T> extends IVDropdownProps {
+  size?: 'sm' | 'md';
   modelValue?: string | number;
   label?: string;
   disabled?: boolean;

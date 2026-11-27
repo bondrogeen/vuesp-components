@@ -1,4 +1,5 @@
 export interface IFieldStateProps {
+  size?: 'sm' | 'md';
   modelValue?: number | string | null;
   label?: string;
   placeholder?: string;
@@ -17,6 +18,7 @@ export interface IFieldStateProps {
 }
 
 export interface IVTextFieldProps {
+  size?: 'sm' | 'md';
   id?: string;
   name?: string;
   modelValue?: number | string | null;

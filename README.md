@@ -288,7 +288,7 @@ If a project needs only the design tokens and glass utilities, use the separate 
 - glass utilities: `.glass-inset`, `.glass-header`, `.glass-popover`;
 - light/dark body background with the grid pattern.
 
-Important: import `theme.css` **inside the Tailwind entry** (the file that imports `tailwindcss`), not as a separate Nuxt/`<link>` CSS entry. Otherwise Tailwind will not generate utilities from `@theme`.
+Important: import `theme.css` **inside the Tailwind entry** (the file that imports `tailwindcss`), not as a separate CSS entry (`css` array or `<link>`). Otherwise Tailwind will not generate utilities from `@theme`.
 
 ## Публикация
 

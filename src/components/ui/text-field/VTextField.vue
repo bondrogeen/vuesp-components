@@ -105,8 +105,8 @@ const onIcon = (e: Event) => {
 				v-if="showIcon"
 				type="button"
 				:disabled="Boolean(props.disabled)"
-				class="flex h-full flex-[0_0_50px] items-center justify-center rounded-r-md border-l border-gray-light-10/70 text-gray-main transition hover:text-cyan-main disabled:pointer-events-none disabled:opacity-40 dark:border-white/10"
-				:class="{ 'cursor-pointer': !props.disabled }"
+				class="flex h-full items-center justify-center rounded-r-md border-l border-gray-light-10/70 text-gray-main transition hover:text-cyan-main disabled:pointer-events-none disabled:opacity-40 dark:border-white/10"
+				:class="[props.size === 'sm' ? 'flex-[0_0_40px]' : 'flex-[0_0_50px]', { 'cursor-pointer': !props.disabled }]"
 				@click="onIcon"
 			>
 				<slot name="icon"></slot>
