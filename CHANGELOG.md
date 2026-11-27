@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.0.0 — 2026-11-27
+
+### Removed
+
+- Legacy text ScriptRunner UI: `ScriptEditor`, `ScriptViewDocs`, `ScriptDialog`, the yace plugins, highlighters and editor helpers.
+- `fullHighlighter` export.
+
+### Kept
+
+- Suggestion contract (`ISuggestion`, `DEFAULT_SUGGESTIONS`) for the new bytecode studio in `vuesp`.
+
 ## 5.4.0 — 2026-11-25
 
 ### Added

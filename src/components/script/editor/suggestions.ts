@@ -1,4 +1,4 @@
-import type { ISuggestion } from './plugins/types';
+import type { ISuggestion } from '../types';
 
 export const DEFAULT_SUGGESTIONS: ISuggestion[] = [
   { label: 'if', type: 'word', insert: 'if:${$u0<10};\n\nelse;\n\nend;', detail: 'if:${$u0<10};else;end;' },

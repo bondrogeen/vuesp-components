@@ -12,7 +12,6 @@ import VAccordionItem from '@/components/ui/accordion/VAccordionItem.vue';
 import { VAutocomplete, VButton, VCard, VCheckbox, VDialog, VDragDrop, VDropdown, VExpansion, VFile, VFunc, VIcon, VIconLogo, VIconLogoMini, VList, VListObject, VLoader, VPopup, VSelect, VTable, VTabs, VTextField, VTooltip, VWifiIcon, VisionSearch, VisionThemeToggle } from '@/components/ui';
 import { ICON_NAMES } from '@/components/ui/icon/icons';
 import { CardNotification } from '@/components/card';
-import { ScriptEditor } from '@/components/script';
 import { CardButton, CardDate, CardDimmer, CardInfo, CardInput, CardList } from '@/components/dashboard';
 import { BlockBreadcrumb, BlockInfo, BlockScan, BlockService, BlockStatus, BlockUpdate } from '@/components/block';
 import SerialConsole from '@/components/serial/SerialConsole.vue';
@@ -143,10 +142,6 @@ const onFile = (files: FileList) => {
 const funcValue = ref('return a + b;');
 
 /* Script editor */
-const scriptValue = ref(`// Script editor
-const temperature = 21.5;
-log(temperature);`);
-
 /* Drag & drop */
 const dragItems = ref([
   { id: 'a', name: 'Temperature' },
@@ -461,12 +456,6 @@ const breadcrumbs = [{ name: 'Home', path: '#kit' }, { name: 'Devices', path: '#
 
     <KitSection title="VFunc" description="Редактор JS-функции.">
       <VFunc label="Function" :args="['a', 'b']" :value="funcValue" :params="['a', 'b']" @change="funcValue = $event" />
-    </KitSection>
-
-    <KitSection title="ScriptEditor" description="Редактор скриптов с подсветкой и автодополнением.">
-      <div class="glass-inset h-50 overflow-auto scrollbar rounded-md">
-        <ScriptEditor v-model="scriptValue" />
-      </div>
     </KitSection>
 
     <KitSection title="VDragDrop" description="Сортировка перетаскиванием.">
