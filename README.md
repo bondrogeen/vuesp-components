@@ -243,8 +243,21 @@ app.use(i18nPlugin, {
 - `VExpansion` - Expansion panel
 - `VList` - List component
 
+### Script Studio
+- Text uses the host i18n keys `scriptStudio.*`; `ScriptStudioLogs` takes the log list as a prop and emits `clear`.
+- `ScriptStudioToolbar`, `ScriptStudioTabs`, `ScriptStudioMetrics`, `ScriptStudioActionBar` - script studio shell
+- `ScriptStudioLogs` - script log panel with search, pause and export
+- `ScriptDeleteDialog`, `ScriptDetailsDialog`, `ScriptDiscardDialog`, `ScriptRenameDialog` - studio dialogs
+
 ### Serial Components
 - `SerialConsole` - Serial terminal block (log, send, search, framing, counters)
+
+### Modbus Components
+- Text uses the host i18n keys `modbus.*`.
+- `ModbusConnectionCard`, `ModbusProfileToolbar` - connection and profile controls
+- `ModbusDeviceList`, `ModbusPointList`, `ModbusVarList`, `ModbusSlaveValueList` - profile lists
+- `ModbusDeviceDialog`, `ModbusPointDialog`, `ModbusVarDialog`, `ModbusSlaveDialog`, `ModbusDeleteDialog` - profile editors
+- `ModbusMapTable`, `ModbusMapDetails` - register map and point details
 
 ### App Components
 - `AppHeader` - Header with theme toggle

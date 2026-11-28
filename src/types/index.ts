@@ -3,3 +3,4 @@ export * from '@/composables/types';
 export * from '@/dashboard/types';
 export * from '@/plugins/types';
 export * from '@/types/general';
+export * from '@/components/script/types';

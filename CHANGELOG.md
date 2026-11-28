@@ -1,6 +1,15 @@
 # Changelog
 
-## 6.0.0 — 2026-11-27
+## 6.0.0 — 2026-11-28
+
+### Added
+
+- Script studio components from `vuesp`: `ScriptStudioToolbar`, `ScriptStudioTabs`, `ScriptStudioMetrics`, `ScriptStudioActionBar`, `ScriptStudioLogs`, `ScriptDeleteDialog`, `ScriptDetailsDialog`, `ScriptDiscardDialog`, `ScriptRenameDialog`.
+- Script helpers: status metadata and dots, script name validation, log formatting, clipboard and file downloads.
+- `useScriptStudioLogs` for the script log panel. It accepts an external log list, so the host app keeps its WebSocket source.
+- `useI18n` composable for package components that need `$t` in script code.
+- `ModbusMapDetails` with `IMapDetails` and `IMapItem` types, shared by device projects.
+- `ModbusConnectionCard`, `ModbusProfileToolbar`, `ModbusDeviceList`, `ModbusPointList`, `ModbusVarList`, `ModbusSlaveValueList`, `ModbusMapTable` and the Modbus editor dialogs.
 
 ### Removed
 
